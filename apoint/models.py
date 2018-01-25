@@ -10,6 +10,7 @@ class Area(models.Model):
 class Hospital(models.Model):
     name = models.CharField(u'医院名称',null=True,blank=True,max_length=255)
 
+#后台操作身份
 class ZJUser(models.Model):
     USER_TYPE=(
         (1,'客服'),
@@ -26,6 +27,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+#患者订单
 CHIOCE=((1,'未认领'),
         (2,'已认领未确认'),
         (3,'确认去就诊'),
@@ -53,15 +55,15 @@ class Order(models.Model):
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     sales=models.ForeignKey(ZJUser,verbose_name="所属销售",null=True)
-
+#患者订单图
 class IllnessImage(models.Model):
     image = models.ImageField(u'病情图片')
-    patient = models.ForeignKey(ZJUser,verbose_name="上传人")
+    patient = models.ForeignKey(Order,verbose_name="上传人")
 # Create your models here.
 
 
 
-
+#
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,verbose_name="所属预约")
     creater = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name="操作人")
