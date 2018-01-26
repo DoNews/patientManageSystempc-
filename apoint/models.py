@@ -55,6 +55,7 @@ class Order(models.Model):
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     sales=models.ForeignKey(ZJUser,verbose_name="所属销售",null=True)
+    custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True)
 #患者订单图
 class IllnessImage(models.Model):
     image = models.ImageField(u'病情图片')
@@ -66,7 +67,7 @@ class IllnessImage(models.Model):
 #
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,verbose_name="所属预约")
-    creater = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name="操作人")
+    creater = models.ForeignKey(ZJUser,verbose_name="操作人")
     createtime=models.DateTimeField("操作时间",auto_now_add=True)
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)

@@ -7,12 +7,16 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import permission_required, user_passes_test
 # Create your views here.
+from models import *
 def checkUser():
     pass
 
 @login_required(login_url="/login/")
 def index(request):
-    print request.user.is_active
+    # print "拿到的是什么",request.user.is_active
+    manag=ZJUser.objects.filter(user=request.user).first() #找到登陆者
+    identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
+
     return  render(request,"index.html")
 
 def userlogin(request):
@@ -34,5 +38,4 @@ def userlogin(request):
 
 
     return render(request,"login.html")
-
 
