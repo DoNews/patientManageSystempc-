@@ -4,6 +4,7 @@ from models import *
 from common import *
 import functools, random
 import requests
+import json
 
 #发验证码
 def ScrfCode(request):
@@ -105,12 +106,42 @@ def TheMemo(request):
     OrderDetail.objects.create(order=order,creater=seles,status=int(types),remark=describe)
     return JsonResutResponse({'ret':0,'msg':'success'})
 
+#患者点击预约
+def CilckMake(request):
+    openid=request.GET.get('openid')
+    order=Order.objects.filter(openid=openid)
+    if order:
+        return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中'})
+    else:
+        return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者order提交
 def OrderSubmit(request):
     item={}
     for key in request.POST:
-        if key=='openid':
-            order=Order.objects.filter(openid=request.POST[key])
-            item['openid']=request.POST[key]
+        if key=='name':
+            name=request.POST[key]
+            item['name']=request.POST[key]
+        elif key=='phone':
+            phone=request.POST[key]
+            item[key]=request.POST[key]
+        elif key =='photo':
+            photo=request.POST[key]
+        else:
+            if request.POST[key]:
+                item[key] = request.POST[key]
+    order=Order.objects.filter(name=name,phone=phone)
+    if order:
+        return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
+    else:
+        order=Order.objects.create(**item)
+    photos = json.loads(photo)  # 会议议程将字符串转成字典
+    return JsonResutResponse({'ret':0,'msg':'success'})
 
+
+
+# 上传图片
+def uploader(request):
+    img = request.FILES.get('img')
+    img_url = Compression(img)
+    return HttpResponse(simplejson.dumps({"result": 0, "imgurl": img_url}))

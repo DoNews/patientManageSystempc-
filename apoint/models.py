@@ -17,11 +17,11 @@ class ZJUser(models.Model):
     user = models.OneToOneField(User)
     name = models.CharField('姓名', max_length=20)
     usertype=models.IntegerField("用户类型",choices=USER_TYPE,default=1)
+    phone=models.CharField('手机号',max_length=50)
 
 #销售认证
 class SalesUser(ZJUser):
     openid = models.CharField("openid", max_length=100, unique=True)
-    phone=models.CharField('手机号',max_length=50)
     email=models.CharField('邮箱',max_length=50)
     is_cert=models.BooleanField('是否认证',default=False)
 
