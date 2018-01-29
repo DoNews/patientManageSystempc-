@@ -17,10 +17,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from apoint.views import *
+from apoint.adminviews import *
 import xadmin
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
     url(r'^login',userlogin),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
+    url(r'^staff$',staff)
 ]

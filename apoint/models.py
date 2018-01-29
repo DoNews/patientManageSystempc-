@@ -61,7 +61,6 @@ class IllnessImage(models.Model):
 
 
 
-
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,verbose_name="所属预约")
     creater = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name="操作人")
