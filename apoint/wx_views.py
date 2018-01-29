@@ -55,7 +55,62 @@ def MyPatients(request):
     else:
         pass
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+
 #查看患者详情
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
-    order=Order.objects.get(id=id)
+    order=Order.objects.get(id=id) #找到订单
+    cust=order.custome #找到所属客服
+    follows=OrderDetail.objects.filter(creater=cust,order=order)
+    imgs=IllnessImage.objects.filter(patient=order) #找到患者上传的图片
+    lister=[] #照片
+    record=[]
+    if imgs:
+        for img in imgs:
+            lister.append(img.image.url)
+    else:
+        pass
+    if follows:
+        for follow in follows:
+            date={
+                'name':follow.creater.name,#客服姓名
+                'remark':follow.remark,#描述
+                'time':follow.createtime.strftime('%Y-%m-%d %H:%M')
+            }
+            record.append(date)
+    else:
+        pass
+    data={
+        'name':order.name,#名称
+        'birthday':order.birthday.strftime('%Y-%m-%d'),#出生日期
+        'sex':order.sex,#性别
+        'phone':order.phone,#手机
+        'area':order.area,#区域
+        'wantTime':order.wantTime.strftime('%Y-%m-%d'),#预约时间
+        'wanthospital':order.wanthospital,#医院
+        'description':order.description,#胎记描述
+        'photo':lister, #照片
+        'customer':record,#客服描述
+    }
+    return JsonResutResponse({'ret':0,'msg':'success','data':data})
+
+#员工提交备忘录
+def TheMemo(request):
+    id =request.POST['id'] #orderid
+    openid=request.POST['openid'] #员工的openid
+    seles=SalesUser.objects.filter(openid=openid).first() #找到员工
+    describe=request.POST['describe'] #描述
+    types=request.POST['types']
+    order=Order.objects.filter(id=id).first()
+    OrderDetail.objects.create(order=order,creater=seles,status=int(types),remark=describe)
+    return JsonResutResponse({'ret':0,'msg':'success'})
+
+
+#患者order提交
+def OrderSubmit(request):
+    item={}
+    for key in request.POST:
+        if key=='openid':
+            order=Order.objects.filter(openid=request.POST[key])
+            item['openid']=request.POST[key]
+

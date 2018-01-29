@@ -15,12 +15,12 @@ class ZJUser(models.Model):
         (3,'管理员')
     )
     user = models.OneToOneField(User)
+    name = models.CharField('姓名', max_length=20)
     usertype=models.IntegerField("用户类型",choices=USER_TYPE,default=1)
 
 #销售认证
 class SalesUser(ZJUser):
     openid = models.CharField("openid", max_length=100, unique=True)
-    name=models.CharField('姓名',max_length=20)
     phone=models.CharField('手机号',max_length=50)
     email=models.CharField('邮箱',max_length=50)
     is_cert=models.BooleanField('是否认证',default=False)
@@ -79,7 +79,7 @@ class Order(models.Model):
 
 #患者订单图
 class IllnessImage(models.Model):
-    image = models.ImageField(u'病情图片')
+    image = models.CharField(u'病情图片链接',max_length=200)
     patient = models.ForeignKey(Order,verbose_name="上传人")
 # Create your models here.
 
