@@ -4,8 +4,13 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
 from django.db.models.signals import post_save
+
+class Regional(models.Model):
+    name=models.CharField(u'大区名',max_length=100,blank=True)
+
 class Area(models.Model):
-    name= models.CharField(u'区域名称',null=True,blank=True,max_length=255)
+    region=models.ForeignKey(Regional,verbose_name='对应大区')
+    name= models.CharField(u'省',null=True,blank=True,max_length=255)
 
 #后台操作身份
 class ZJUser(models.Model):
@@ -34,8 +39,7 @@ post_save.connect(create_user_profile, sender=User)
 #医院，
 class Hospital(models.Model):
     name = models.CharField(u'医院名称',null=True,blank=True,max_length=255)
-    area=models.CharField(u'所属区域',max_length=30,null=True,blank=True)
-    province=models.CharField('所属省',max_length=30,null=True,blank=True)
+    province=models.ForeignKey(Area,verbose_name='对应省',blank=True,null=True)
     address=models.CharField('具体地址',max_length=100,null=True,blank=True)
     manager=models.CharField('大区经理',max_length=20,null=True,blank=True)
     sales=models.ForeignKey(SalesUser,verbose_name='对应的销售',null=True,blank=True)

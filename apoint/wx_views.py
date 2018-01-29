@@ -68,7 +68,7 @@ def PatientsDetail(request):
     record=[]
     if imgs:
         for img in imgs:
-            lister.append(img.image.url)
+            lister.append(img.image)
     else:
         pass
     if follows:
@@ -136,6 +136,8 @@ def OrderSubmit(request):
     else:
         order=Order.objects.create(**item)
     photos = json.loads(photo)  # 会议议程将字符串转成字典
+    for photo in photos:
+        IllnessImage.objects.create(image=photo,patient=order)
     return JsonResutResponse({'ret':0,'msg':'success'})
 
 
@@ -145,3 +147,14 @@ def uploader(request):
     img = request.FILES.get('img')
     img_url = Compression(img)
     return HttpResponse(simplejson.dumps({"result": 0, "imgurl": img_url}))
+
+#所有省
+def Province(request):
+    provs=Area.objects.all()
+    lister=[]
+    if provs:
+        for prov in provs:
+            lister.append(prov.name)
+    else:
+        pass
+    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})

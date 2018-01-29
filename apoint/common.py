@@ -34,3 +34,5 @@ def Compression(img):
     # im.save(file_url,quality=50)
     im.save(file_url)
     return '/'+file_url
+
+#
