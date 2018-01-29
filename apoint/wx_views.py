@@ -46,7 +46,7 @@ def MyPatients(request):
     if hospts:
         for hos in hospts:
             hosp.append(hos.id)
-    orders=Order.objects.filter(wanthospital__in=hosp).order_by('-createtime') #找到所有的订单
+    orders=Order.objects.filter(wanthospital__in=hosp).exclude(status=1).order_by('-createtime') #找到所有的订单
     lister = []
     if orders:
         for order in orders:
