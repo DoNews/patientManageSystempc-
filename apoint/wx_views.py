@@ -41,7 +41,12 @@ def StaffCation(request):
 def MyPatients(request):
     openid=request.GET.get('openid')
     user=SalesUser.objects.filter(openid=openid).first() #扎到员工
-    orders=Order.objects.filter(sales=user).order_by('-createtime') #找到所有的订单
+    hospts=Hospital.objects.filter(sales=user)
+    hosp=[]
+    if hospts:
+        for hos in hospts:
+            hosp.append(hos.id)
+    orders=Order.objects.filter(wanthospital__in=hosp).order_by('-createtime') #找到所有的订单
     lister = []
     if orders:
         for order in orders:
@@ -125,6 +130,12 @@ def OrderSubmit(request):
         elif key=='phone':
             phone=request.POST[key]
             item[key]=request.POST[key]
+        elif key=='area':
+            area=Area.objects.filter(id=id).first()
+            item['area']=area
+        elif key=='hospital':
+            hospital=Hospital.objects.filter(id=id).first()
+            item['wanthospital']=hospital
         elif key =='photo':
             photo=request.POST[key]
         else:
@@ -154,7 +165,26 @@ def Province(request):
     lister=[]
     if provs:
         for prov in provs:
-            lister.append(prov.name)
+            data={
+                'id':prov.id,
+                'area':prov.name,
+            }
+            lister.append(data)
+    else:
+        pass
+    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+
+#医院
+def Hospitaltable(request):
+    hospits=Hospital.objects.all()
+    lister=[]
+    if hospits:
+        for hosp in hospits:
+            data={
+                'id':hosp.id,
+                'hospits':hosp.name,
+            }
+            lister.append(data)
     else:
         pass
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister})

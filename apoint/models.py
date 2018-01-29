@@ -71,14 +71,13 @@ class Order(models.Model):
     birthday = models.DateTimeField(u'出生日期',null=True,blank=True)
     sex = models.CharField(u'性别',null=True,blank=True,max_length=10)
     phone = models.CharField(u'手机',null=True,blank=True,max_length=50)
-    area = models.ForeignKey(Area,verbose_name="区域",null=True,blank=True)
+    area = models.ForeignKey(Area,verbose_name="省",null=True,blank=True)
     wantTime = models.DateTimeField(u'就诊时间',null=True)
     wanthospital=models.ForeignKey(Hospital,verbose_name="医院名称")
     description =models.CharField(u'病情描述',null=True,blank=True,max_length=1000)
     createtime=models.DateTimeField(u'提交时间',auto_now_add=True)
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
-    sales=models.ForeignKey(SalesUser,verbose_name="所属销售",null=True)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True)
 
 #患者订单图
