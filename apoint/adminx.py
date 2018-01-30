@@ -8,3 +8,4 @@ xadmin.site.register(Order) #患者订单
 xadmin.site.register(Area)#省
 xadmin.site.register(Regional) #大区
 xadmin.site.register(Hospital)#医院
+xadmin.site.register(OrderDetail)#客服描述

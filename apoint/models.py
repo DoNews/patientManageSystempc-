@@ -119,6 +119,10 @@ class OrderDetail(models.Model):
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)
     nextcalldate = models.DateField("下次电话时间",null=True)
-
+    def __unicode__(self):
+        return self.order.name
+    class Meta:
+        verbose_name='确认与备忘'
+        verbose_name_plural='确认与备忘'
 
 

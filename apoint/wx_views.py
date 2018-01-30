@@ -87,9 +87,9 @@ def PatientsDetail(request):
         'birthday':order.birthday.strftime('%Y-%m-%d'),#出生日期
         'sex':order.sex,#性别
         'phone':order.phone,#手机
-        'area':order.area,#区域
+        'area':order.area.name,#区域
         'wantTime':order.wantTime.strftime('%Y-%m-%d'),#预约时间
-        'wanthospital':order.wanthospital,#医院
+        'wanthospital':order.wanthospital.name,#医院
         'description':order.description,#胎记描述
         'photo':lister, #照片
         'customer':record,#客服描述
