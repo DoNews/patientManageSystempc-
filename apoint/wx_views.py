@@ -83,6 +83,7 @@ def PatientsDetail(request):
     else:
         pass
     data={
+        'id':order.id,
         'name':order.name,#名称
         'birthday':order.birthday.strftime('%Y-%m-%d'),#出生日期
         'sex':order.sex,#性别
