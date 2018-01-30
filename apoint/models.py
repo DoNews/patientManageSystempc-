@@ -7,10 +7,19 @@ from django.db.models.signals import post_save
 
 class Regional(models.Model):
     name=models.CharField(u'大区名',max_length=100,blank=True)
-
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name='大区'
+        verbose_name_plural='大区'
 class Area(models.Model):
     region=models.ForeignKey(Regional,verbose_name='对应大区')
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name='省'
+        verbose_name_plural='省'
 
 #后台操作身份
 class ZJUser(models.Model):
@@ -19,16 +28,23 @@ class ZJUser(models.Model):
         (2,'销售'),
         (3,'管理员')
     )
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User,null=True,blank=True)
     name = models.CharField('姓名', max_length=20)
     usertype=models.IntegerField("用户类型",choices=USER_TYPE,default=1)
     phone=models.CharField('手机号',max_length=50)
+    def __unicode__(self):
+        return self.name
 
 #销售认证
 class SalesUser(ZJUser):
-    openid = models.CharField("openid", max_length=100, unique=True)
+    openid = models.CharField("openid", max_length=100, blank=True,null=True)
     email=models.CharField('邮箱',max_length=50)
     is_cert=models.BooleanField('是否认证',default=False)
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name='员工'
+        verbose_name_plural='员工'
 
 
 def create_user_profile(sender, instance, created, **kwargs):
@@ -49,7 +65,9 @@ class Hospital(models.Model):
     inday=models.CharField('当天提醒短信',max_length=100,null=True,blank=True)
     def __unicode__(self):
         return self.name
-
+    class Meta:
+        verbose_name='医院'
+        verbose_name_plural='医院'
 #患者订单
 CHIOCE=((1,'未认领'),
         (2,'已认领未确认'),
@@ -79,6 +97,11 @@ class Order(models.Model):
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True)
+    def __unicode__(self):
+        return self.name
+    class Meta:
+        verbose_name='患者订单'
+        verbose_name_plural='患者订单'
 
 #患者订单图
 class IllnessImage(models.Model):

@@ -42,11 +42,7 @@ def MyPatients(request):
     openid=request.GET.get('openid')
     user=SalesUser.objects.filter(openid=openid).first() #扎到员工
     hospts=Hospital.objects.filter(sales=user)
-    hosp=[]
-    if hospts:
-        for hos in hospts:
-            hosp.append(hos.id)
-    orders=Order.objects.filter(wanthospital__in=hosp).exclude(status=1).order_by('-createtime') #找到所有的订单
+    orders=Order.objects.filter(wanthospital__in=hospts).exclude(status=1).order_by('-createtime') #找到所有的订单
     lister = []
     if orders:
         for order in orders:
@@ -54,7 +50,7 @@ def MyPatients(request):
                 'id':order.id,
                 'name':order.name,#患者姓名
                 'sex':order.sex,#性别
-                'hospital':order.wanthospital,#预约医院
+                'hospital':order.wanthospital.name,#预约医院
                 'wantTime':order.wantTime.strftime('%Y-%m-%d')
             }
             lister.append(data)
