@@ -6,13 +6,6 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUse
 from django.db.models.signals import post_save
 
 from enum import Enum
-class Regional(models.Model):
-    name=models.CharField(u'大区名',max_length=100,blank=True)
-    def __unicode__(self):
-        return self.name
-    class Meta:
-        verbose_name='大区'
-        verbose_name_plural='大区'
 
 class Area(models.Model):
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
@@ -86,7 +79,7 @@ CHIOCE=((1,'未认领'),
         (14,'确认未到诊'))
 
 class OrderStatus(Enum):
-    未认领 = 1
+    A = 1
     已认领未确认 = 2
     确认去就诊 = 3
     确认不就诊 = 4
@@ -99,7 +92,8 @@ class OrderStatus(Enum):
     延后治疗 = 11
     暂停跟进 = 12
     转院 = 13
-    确认未到诊 = 13
+    确认未到诊 = 14
+
 class Order(models.Model):
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
     name = models.CharField(u'患者姓名',null=True,blank=True,max_length=255)
