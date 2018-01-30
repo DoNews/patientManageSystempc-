@@ -56,3 +56,8 @@
     已有预约时：
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
 
+****
+    作用: 图片上传
+    请求方式：POST
+    url：http://127.0.0.1:8000/api/apoint/upload/
+    return HttpResponse(simplejson.dumps({"result": 0, "imgurl": img_url}))
