@@ -14,7 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
 from apoint.views import *
 from apoint.adminviews import *
@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
     url(r'^login',userlogin),
+    url(r'^api/pc/',include('apoint.urls')),#PC端接口
+    url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
     url(r'^staff$',staff)
 ]

@@ -1,0 +1,37 @@
+body
+{
+    background: #eceff4;
+}
+.index
+{
+    display: flex;
+}
+.left
+{
+
+    flex: 0 0 200px ;
+}
+.main
+{
+      flex: 1;
+}
+.head
+{
+    display: flex;
+}
+.serch-box
+{
+    flex: 1 ;
+}
+.userinfo
+{
+    flex: 0 0 100px ;
+text-align: right;
+}
+.serch
+{
+    width: 465px;
+    margin-left: 100px;
+    display: flex;
+    background: #eaeef1;
+}
