@@ -14,10 +14,12 @@ def checkUser():
 @login_required(login_url="/login/")
 def index(request):
     # print "拿到的是什么",request.user.is_active
+
     manag = request.user
     #identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
 
     return  render(request,"index.html",{"user":manag})
+
 
 def userlogin(request):
     if request.method == 'POST':

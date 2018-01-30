@@ -135,6 +135,6 @@ STATICFILES_DIRS = [
     'Media',
      BASE_DIR + '/Media/',
     'static',
-    BASE_DIR + '/static/'
+     BASE_DIR + '/static/'
 ]
 
