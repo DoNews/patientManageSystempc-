@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
 from django.db.models.signals import post_save
+
 from enum import Enum
 class Regional(models.Model):
     name=models.CharField(u'大区名',max_length=100,blank=True)
@@ -12,8 +13,8 @@ class Regional(models.Model):
     class Meta:
         verbose_name='大区'
         verbose_name_plural='大区'
+
 class Area(models.Model):
-    region=models.ForeignKey(Regional,verbose_name='对应大区')
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
     def __unicode__(self):
         return self.name
@@ -107,6 +108,7 @@ class Order(models.Model):
     phone = models.CharField(u'手机',null=True,blank=True,max_length=50)
     area = models.ForeignKey(Area,verbose_name="省",null=True,blank=True)
     wantTime = models.DateTimeField(u'就诊时间',null=True)
+    number=models.IntegerField(u'治疗次数',default=0)
     wanthospital=models.ForeignKey(Hospital,verbose_name="医院名称")
     description =models.CharField(u'病情描述',null=True,blank=True,max_length=1000)
     createtime=models.DateTimeField(u'提交时间',auto_now_add=True)
@@ -132,6 +134,7 @@ class OrderDetail(models.Model):
     createtime=models.DateTimeField("操作时间",auto_now_add=True)
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)
+    is_operation=models.BooleanField(u'是否操作',default=False)
     nextcalldate = models.DateField("下次电话时间",null=True)
     def __unicode__(self):
         return self.order.name
