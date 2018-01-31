@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>首页页面</title>
 		<link rel="icon" href="img/icon.png" />
-		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
 	</head>
 
 	<body>
@@ -29,7 +29,7 @@
 
 			</div>
 			<div class="yy_indexConRight">
-				 {% include 'head.html' %}
+                {{ includ }}
 				<div class="contentBox">
 					<div class="contentBox_left">
 						<div class="sjy_table">
@@ -39,7 +39,7 @@
 							<div class="sjy_con">
 								<div class="sjy_left">
 									<div class="chart1" id="chart1">
-
+												
 									</div>
 									<div class="chart1_title">
 										本月数据纵览
@@ -221,82 +221,10 @@
 			</div>
 		</div>
 
-		<script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
-		<script src="/static/main/js/layer.js"></script>
-		<script src="/static/main/js/echarts.simple.min.js" type="text/javascript" charset="utf-8"></script>
-         <script>
-        	//echart图标
-	var myChart1 = echarts.init(document.getElementById('chart1'));
-	// 指定图表的配置项和数据
-        var option1 = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis:[
-            {
-                data: ["本月累计跟进人次","本月分配患者数","本月认领患者"]
-                ,
-            axisLabel:{
-              rotate:0, //刻度旋转45度角
-              textStyle:{
-                 color:"red",
-                 fontSize:16
-            }
-            }}
-            ] ,
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                barWidth:20,
-                   {
-                        show: true
-
-                    }
-                }
-            },
-                data: [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
-            }]
-        };
-        myChart1.setOption(option1)
-
-
-        var myChart2 = echarts.init(document.getElementById('chart2'));
-	// 指定图表的配置项和数据
-        var option2 = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis:[
-            {
-                data: ["安排治疗","预约延后治疗","转院","暂停"]
-                ,
-            axisLabel:{
-              rotate:45, //刻度旋转45度角
-              textStyle:{
-                 color:"red",
-                 fontSize:16
-            }
-            }}
-            ] ,
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
-            }]
-        };
-        myChart2.setOption(option2)
-        </script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/layer.js"></script>
+		<script src="js/echarts.simple.min.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 
 </html>

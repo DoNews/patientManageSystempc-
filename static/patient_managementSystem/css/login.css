@@ -1,0 +1,88 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: #eceff4;
+}
+
+p,
+input {
+	margin: 0;
+	padding: 0;
+}
+
+.yy_loginWrap {
+	width: 25%;
+	height: auto;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin: 8% auto 0;
+	background-color: #fff;
+}
+
+.yy_loginLogo {
+	text-align: center;
+}
+
+.yy_loginLogo img {
+	margin: 15px auto;
+	height: 70px;
+	width: 70px;
+	box-shadow: 1px 1px 10px #ccc;
+	border-radius: 5px;
+}
+
+.yy_loginForm {
+	text-align: center;
+}
+
+.yy_loginForm p {
+	width: 70%;
+	margin: 5px auto;
+}
+
+.yy_loginForm .p_text {
+	text-align: left;
+	margin-left: 17%;
+}
+
+.yy_loginForm p input {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	outline: none;
+	border: 1px solid #e9edef;
+	background-color: #e9edef;
+	height: 23px;
+	width: 93%;
+	text-align: center;
+}
+
+.login_button {
+	height: 27px;
+	width: 93%;
+	margin: 25px auto 10px;
+	border: none;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	background-color: #5bbfd3;
+	color: #FFFFFF;
+	font-weight: 500;
+}
+
+.yy_loginRem {
+	height: 30px;
+	text-align: left;
+	line-height: 30px;
+	padding-left: 18%;
+	margin-bottom: 25px;
+}
+
+.yy_loginRem input {
+	vertical-align: middle;
+	margin-right: 15px;
+}

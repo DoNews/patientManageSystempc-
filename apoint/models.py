@@ -77,9 +77,6 @@ CHIOCE=((1,'未认领'),
         (12,'暂停跟进'),
         (13,'转院'),
         (14,'确认未到诊'))
-
-
-
 class Order(models.Model):
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
     name = models.CharField(u'患者姓名',null=True,blank=True,max_length=255)
@@ -109,8 +106,8 @@ class IllnessImage(models.Model):
 
 
 class OrderDetail(models.Model):
-    order = models.ForeignKey(Order,verbose_name="所属预约")
-    creater = models.ForeignKey(ZJUser,verbose_name="操作人",related_name="Order")
+    order = models.ForeignKey(Order,verbose_name="所属预约",related_name="Order")
+    creater = models.ForeignKey(ZJUser,verbose_name="操作人")
     createtime=models.DateTimeField("操作时间",auto_now_add=True)
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)
