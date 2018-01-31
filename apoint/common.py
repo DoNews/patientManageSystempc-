@@ -5,6 +5,7 @@ import simplejson
 from PIL import Image as image
 import time
 import os
+from django.core.paginator import Paginator
 
 def JsonResutResponse(result):
   return HttpResponse(simplejson.dumps(result))
@@ -35,4 +36,16 @@ def Compression(img):
     im.save(file_url)
     return '/'+file_url
 
-#
+#分页
+def Paging(data,page):
+  paginator = Paginator(data, 10)
+  if paginator.num_pages > int(page):
+      result = False
+      contacts = paginator.page(page)
+  elif paginator.num_pages == int(page):
+      result = True
+      contacts = paginator.page(page)
+  else:
+    result=True
+    contacts=None
+  return result,contacts

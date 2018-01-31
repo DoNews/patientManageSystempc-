@@ -93,9 +93,8 @@ def PatientsDetail(request):
         'wanthospital':order.wanthospital.name,#医院
         'description':order.description,#胎记描述
         'photo':lister, #照片
-        'customer':record,#客服描述
     }
-    return JsonResutResponse({'ret':0,'msg':'success','data':data})
+    return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
 
 #员工提交备忘录
 def TheMemo(request):
@@ -164,12 +163,13 @@ def Province(request):
         for prov in provs:
             data={
                 'id':prov.id,
-                'area':prov.name,
+                'name':prov.name,
+                'value':prov.name,
             }
             lister.append(data)
     else:
         pass
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
 
 #医院
 def Hospitaltable(request):
@@ -179,9 +179,10 @@ def Hospitaltable(request):
         for hosp in hospits:
             data={
                 'id':hosp.id,
-                'hospits':hosp.name,
+                'name':hosp.name,
+                'value':hosp.name,
             }
             lister.append(data)
     else:
         pass
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
