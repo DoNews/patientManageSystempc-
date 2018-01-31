@@ -17,17 +17,21 @@ def index(request):
     # print "拿到的是什么",request.user.is_active
     #all_datas = YourModel.objects.filter(time__year=now_time.year) #查询某年的
     #all_datas = YourModel.objects.filter(time__month=now_time.month)#查询当前月份的
-    thismonth=OrderDetail.objects.filter(creater=request.user).filter(createtime__month=datetime.datetime.now().month)#本月跟进工单
-    thismonthfp = OrderDetail.objects.filter(creater__is_superuser=True).filter(status=OrderStatus.已安排治疗.value).filter(createtime__month=datetime.datetime.now().month) #本月分配
-    thismonthrl =OrderDetail.objects.filter(createtime__month=datetime.datetime.now().month).filter(status=OrderStatus.已认领未确认)
+    now =datetime.datetime.now()
+    thismonth=OrderDetail.objects.filter(creater=request.user).filter(createtime__month=now.month)#本月跟进工单
 
-    v1 = Order.objects.filter(status=OrderStatus.已安排治疗).filter(custome=request.user).count() #已安排治疗
-    v2 = Order.objects.filter(status=OrderStatus.延后治疗).filter(custome=request.user).count()
-    v3 = Order.objects.filter(status=OrderStatus.转院).filter(custome=request.user).count()
+    thismonthfp = OrderDetail.objects.filter(creater__is_superuser=True).filter(status=6).filter(createtime__month=now.month) #本月分配
+    thismonthrl =OrderDetail.objects.filter(createtime__month=now.month).filter(status=2)
+
+    v1 = Order.objects.filter(status=6).filter(custome=request.user).count() #已安排治疗
+    v2 = Order.objects.filter(status=11).filter(custome=request.user).count()
+    v3 = Order.objects.filter(status=13).filter(custome=request.user).count()
 
 
-    todaywork = Order.objects.filter(nextcalldate__lte=)
+    todaywork = Order.objects.filter(nextcalldate__lte=now) #今日任务
 
+    notify  =Order.objects.filter()
+    Order.objects.filter(Order__creater =True,Order__is_operation=False)
 
     manag = request.user
 

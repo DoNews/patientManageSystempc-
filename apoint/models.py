@@ -5,14 +5,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
 from django.db.models.signals import post_save
 
-from enum import Enum
-class Regional(models.Model):
-    name=models.CharField(u'大区名',max_length=100,blank=True)
-    def __unicode__(self):
-        return self.name
-    class Meta:
-        verbose_name='大区'
-        verbose_name_plural='大区'
+
 
 class Area(models.Model):
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
@@ -85,21 +78,8 @@ CHIOCE=((1,'未认领'),
         (13,'转院'),
         (14,'确认未到诊'))
 
-class OrderStatus(Enum):
-    Not = 1
-    已认领未确认 = 2
-    确认去就诊 = 3
-    确认不就诊 = 4
-    延期预约 = 5
-    已安排治疗 = 6
-    完成首次随访 = 7
-    完成15日随访 = 8
-    完成30日随访 = 9
-    完成45日随访 = 10
-    延后治疗 = 11
-    暂停跟进 = 12
-    转院 = 13
-    确认未到诊 = 13
+
+
 class Order(models.Model):
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
     name = models.CharField(u'患者姓名',null=True,blank=True,max_length=255)
@@ -130,7 +110,7 @@ class IllnessImage(models.Model):
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,verbose_name="所属预约")
-    creater = models.ForeignKey(ZJUser,verbose_name="操作人")
+    creater = models.ForeignKey(ZJUser,verbose_name="操作人",related_name="Order")
     createtime=models.DateTimeField("操作时间",auto_now_add=True)
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)

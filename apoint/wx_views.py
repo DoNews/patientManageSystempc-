@@ -128,22 +128,22 @@ def OrderSubmit(request):
             phone=request.POST[key]
             item[key]=request.POST[key]
         elif key=='area':
-            area=Area.objects.filter(id=id).first()
+            area=Area.objects.filter(id=request.POST[key]).first()
             item['area']=area
         elif key=='hospital':
-            hospital=Hospital.objects.filter(id=id).first()
+            hospital=Hospital.objects.filter(id=request.POST[key]).first()
             item['wanthospital']=hospital
         elif key =='photo':
             photo=request.POST[key]
         else:
             if request.POST[key]:
                 item[key] = request.POST[key]
+    photos = json.loads(photo)  # 图片
     order=Order.objects.filter(name=name,phone=phone)
     if order:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
         order=Order.objects.create(**item)
-    photos = json.loads(photo)  # 会议议程将字符串转成字典
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     return JsonResutResponse({'ret':0,'msg':'success'})
