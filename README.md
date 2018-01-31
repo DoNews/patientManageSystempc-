@@ -61,3 +61,23 @@
     请求方式：POST
     url：http://127.0.0.1:8000/api/apoint/upload/
     return HttpResponse(simplejson.dumps({"result": 0, "imgurl": img_url}))
+
+****
+    作用: 查看所有省
+    请求方式：get
+    url：http://127.0.0.1:8000/api/apoint/province/
+    "lister": [{
+		"id": 1,
+		"area": "上海"
+	}],
+    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+
+****
+    作用:查看所有医院
+    请求方式:get
+    url：http://127.0.0.1:8000/api/apoint/hospital/
+    "lister": [{
+		"id": 1,
+		"hospits": "上海医院"
+	}],
+    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})

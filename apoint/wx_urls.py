@@ -10,6 +10,6 @@ urlpatterns = [
     url(r'^cilckmake/',CilckMake),#患者点击去预约
     url(r'^ordersubmit/',OrderSubmit),#患者提交预约
     url(r'^upload/',uploader),#图片上传
-    url(r'^province/',Province),#s所有区域
+    url(r'^province/',Province),#所有省
     url(r'^hospital/',Hospitaltable),#所有医院
 ]

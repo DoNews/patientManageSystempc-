@@ -5,7 +5,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
 from django.db.models.signals import post_save
 
-from enum import Enum
+
 
 class Area(models.Model):
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
@@ -78,21 +78,7 @@ CHIOCE=((1,'未认领'),
         (13,'转院'),
         (14,'确认未到诊'))
 
-# class OrderStatus(Enum):
-#     A = 1
-#     已认领未确认 = 2
-#     确认去就诊 = 3
-#     确认不就诊 = 4
-#     延期预约 = 5
-#     已安排治疗 = 6
-#     完成首次随访 = 7
-#     完成15日随访 = 8
-#     完成30日随访 = 9
-#     完成45日随访 = 10
-#     延后治疗 = 11
-#     暂停跟进 = 12
-#     转院 = 13
-#     确认未到诊 = 14
+
 
 class Order(models.Model):
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
