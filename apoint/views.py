@@ -20,8 +20,17 @@ def index(request):
     thismonth=OrderDetail.objects.filter(creater=request.user).filter(createtime__month=datetime.datetime.now().month)#本月跟进工单
     thismonthfp = OrderDetail.objects.filter(creater__is_superuser=True).filter(status=OrderStatus.已安排治疗.value).filter(createtime__month=datetime.datetime.now().month) #本月分配
     thismonthrl =OrderDetail.objects.filter(createtime__month=datetime.datetime.now().month).filter(status=OrderStatus.已认领未确认)
-    #todaywork = Order.objects.filter(nextcalldate)
+
+    v1 = Order.objects.filter(status=OrderStatus.已安排治疗).filter(custome=request.user).count() #已安排治疗
+    v2 = Order.objects.filter(status=OrderStatus.延后治疗).filter(custome=request.user).count()
+    v3 = Order.objects.filter(status=OrderStatus.转院).filter(custome=request.user).count()
+
+
+    todaywork = Order.objects.filter(nextcalldate__lte=)
+
+
     manag = request.user
+
 
     #identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
 
