@@ -93,9 +93,8 @@ def PatientsDetail(request):
         'wanthospital':order.wanthospital.name,#医院
         'description':order.description,#胎记描述
         'photo':lister, #照片
-        'customer':record,#客服描述
     }
-    return JsonResutResponse({'ret':0,'msg':'success','data':data})
+    return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
 
 #员工提交备忘录
 def TheMemo(request):

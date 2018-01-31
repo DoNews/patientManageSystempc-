@@ -19,8 +19,10 @@ def ServiceApoint(request):
         result, contacts = Paging(orders, page)
         lister=[]
         if orders:
-            for order in orders:
+            for order in contacts:
                 data={
-                    'id':order.id,#
+                    'id':order.id,
+                    'name':order.name #患者姓名
+
                 }
 
