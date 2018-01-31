@@ -62,8 +62,7 @@ def MyPatients(request):
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
     order=Order.objects.get(id=id) #找到订单
-    cust=order.custome #找到所属客服
-    follows=OrderDetail.objects.filter(creater=cust,order=order)
+    follows=OrderDetail.objects.filter(order=order)
     imgs=IllnessImage.objects.filter(patient=order) #找到患者上传的图片
     lister=[] #照片
     record=[]

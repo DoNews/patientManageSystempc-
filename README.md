@@ -81,3 +81,13 @@
 		"hospits": "上海医院"
 	}],
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+
+****
+    作用:销售提交
+    请求方式:POST
+    url:http://127.0.0.1:8000/api/apoint/thememo/
+    字段1：id，[{"key":"id","value":"1","description":"orderid"}]
+    字段2：openid，[{"key":"openid","value":"o_MHBjuPu3dDh2-1z5rPfmXNfsAQ","description":"销售openid"}]
+    字段3：describe，[{"key":"describe","value":"这个患者 可以治","description":"描述"}]
+    字段4：types，[{"key":"types","value":"6","description":"状态"}]#已安排治疗6，预约延后治疗11，转院13，患者未到诊14，暂停跟进12
+    return JsonResutResponse({'ret':0,'msg':'success'})
