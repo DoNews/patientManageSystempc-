@@ -85,7 +85,7 @@ def Remind(request):
     orders =Order.objects.filter(custome=user).order_by('-createtime')
     lister=RemindSystem(orders) #这是逾期的
     notes=ViewCheat(orders,user) #这里是备忘
-    admins=AdminDis(orders.user) #这里是管理员分配的
+    admins=AdminDis(orders,user) #这里是管理员分配的
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister[:4],'notes':notes[:3],'admin':admins[:3]})
 
 #查看所有逾期
