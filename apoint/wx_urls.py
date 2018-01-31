@@ -8,8 +8,11 @@ urlpatterns = [
     url(r'^patientsdetail/',PatientsDetail),#查看患者详情
     url(r'^thememo/',TheMemo),#员工提交备忘录
     url(r'^cilckmake/',CilckMake),#患者点击去预约
-    url(r'^ordersubmit/',OrderSubmit),#患者提交预约
+    url(r'^ordersubmit/',OrderSubmit),#患者提交预约 可和pc端的共用
     url(r'^upload/',uploader),#图片上传
-    url(r'^province/',Province),#所有省
-    url(r'^hospital/',Hospitaltable),#所有医院
+    url(r'^province/',Province),#所有省 可共用
+    url(r'^hospital/',Hospitaltable),#所有医院 可共用
+
+    #客服
+
 ]

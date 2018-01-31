@@ -62,38 +62,7 @@ def MyPatients(request):
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
     order=Order.objects.get(id=id) #找到订单
-    cust=order.custome #找到所属客服
-    follows=OrderDetail.objects.filter(creater=cust,order=order)
-    imgs=IllnessImage.objects.filter(patient=order) #找到患者上传的图片
-    lister=[] #照片
-    record=[]
-    if imgs:
-        for img in imgs:
-            lister.append(img.image)
-    else:
-        pass
-    if follows:
-        for follow in follows:
-            date={
-                'name':follow.creater.name,#客服姓名
-                'remark':follow.remark,#描述
-                'time':follow.createtime.strftime('%Y-%m-%d %H:%M')
-            }
-            record.append(date)
-    else:
-        pass
-    data={
-        'id':order.id,
-        'name':order.name,#名称
-        'birthday':order.birthday.strftime('%Y-%m-%d'),#出生日期
-        'sex':order.sex,#性别
-        'phone':order.phone,#手机
-        'area':order.area.name,#区域
-        'wantTime':order.wantTime.strftime('%Y-%m-%d'),#预约时间
-        'wanthospital':order.wanthospital.name,#医院
-        'description':order.description,#胎记描述
-        'photo':lister, #照片
-    }
+    data,record=Detail(order)
     return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
 
 #员工提交备忘录
@@ -109,7 +78,7 @@ def TheMemo(request):
 
 #患者点击预约
 def CilckMake(request):
-    openid=request.GET.get('openid')
+    openid=request.GET.get('openid',None)
     order=Order.objects.filter(openid=openid)
     if order:
         return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中'})
@@ -118,30 +87,34 @@ def CilckMake(request):
 
 #患者order提交
 def OrderSubmit(request):
-    item={}
-    for key in request.POST:
-        if key=='name':
-            name=request.POST[key]
-            item['name']=request.POST[key]
-        elif key=='phone':
-            phone=request.POST[key]
-            item[key]=request.POST[key]
-        elif key=='area':
-            area=Area.objects.filter(id=request.POST[key]).first()
-            item['area']=area
-        elif key=='hospital':
-            hospital=Hospital.objects.filter(id=request.POST[key]).first()
-            item['wanthospital']=hospital
-        elif key =='photo':
-            photo=request.POST[key]
-        else:
-            if request.POST[key]:
-                item[key] = request.POST[key]
+    userinfo=request.POST['userinfo']
+    photo=request.POST['photo']
+    user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
+    item={}
+    for k in user:
+        if k=='name':
+            name=user[k]
+            item[k]=user[k]
+        elif k=='wanthospital':
+            hosp=Hospital.objects.filter(id=user[k]).first()
+            item[k]=hosp
+        elif k=='phone':
+            phone=user[k]
+            item[k]=user[k]
+        elif k=='area':
+            area=Area.objects.filter(id=user[k]).first()
+            item[k]=area
+        else:
+            item[k]=user[k]
     order=Order.objects.filter(name=name,phone=phone)
     if order:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
+        orders=Order.objects.all()
+        n=len(orders)+1
+        s = "NO.%04d" % n
+        item['serial']=s
         order=Order.objects.create(**item)
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
