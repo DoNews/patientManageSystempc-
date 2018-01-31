@@ -142,6 +142,10 @@ def OrderSubmit(request):
     if order:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
+        orders=Order.objects.all()
+        n=len(orders)+1
+        s = "NO.%04d" % n
+        item['serial']=s
         order=Order.objects.create(**item)
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)

@@ -81,6 +81,7 @@ CHIOCE=((1,'未认领'),
 
 
 class Order(models.Model):
+    serial=models.CharField('编号',max_length=20,blank=True,null=True)
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
     name = models.CharField(u'患者姓名',null=True,blank=True,max_length=255)
     birthday = models.DateTimeField(u'出生日期',null=True,blank=True)
