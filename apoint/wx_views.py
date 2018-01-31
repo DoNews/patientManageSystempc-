@@ -164,12 +164,13 @@ def Province(request):
         for prov in provs:
             data={
                 'id':prov.id,
-                'area':prov.name,
+                'name':prov.name,
+                'value':prov.name,
             }
             lister.append(data)
     else:
         pass
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
 
 #医院
 def Hospitaltable(request):
@@ -179,9 +180,10 @@ def Hospitaltable(request):
         for hosp in hospits:
             data={
                 'id':hosp.id,
-                'hospits':hosp.name,
+                'name':hosp.name,
+                'value':hosp.name,
             }
             lister.append(data)
     else:
         pass
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
