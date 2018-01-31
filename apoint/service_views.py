@@ -22,7 +22,24 @@ def ServiceApoint(request):
             for order in contacts:
                 data={
                     'id':order.id,
-                    'name':order.name #患者姓名
-
+                    'name':order.name, #患者姓名
+                    'wanthospital':order.wanthospital.name,#医院名称
+                    'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
+                    'status':order.get_status_display(),#患者状态
+                    'area':order.area.name,#所属省
+                    'sales':order.wanthospital.sales.name,#负责销售
                 }
+                lister.append(data)
+        else:
+            pass
+        return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    else:
+        return JsonResutResponse({'ret':1,'msg':'没有这个员工'})
+
+#点击查看患者详情
+def PatiDetails(request):
+    id=request.GET.get('id')#患者订单的id
+    order=Order.objects.filter(id=id).first()
+
+    pass
 

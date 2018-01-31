@@ -109,7 +109,7 @@ def TheMemo(request):
 
 #患者点击预约
 def CilckMake(request):
-    openid=request.GET.get('openid')
+    openid=request.GET.get('openid',None)
     order=Order.objects.filter(openid=openid)
     if order:
         return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中'})
@@ -118,26 +118,26 @@ def CilckMake(request):
 
 #患者order提交
 def OrderSubmit(request):
-    item={}
-    for key in request.POST:
-        if key=='name':
-            name=request.POST[key]
-            item['name']=request.POST[key]
-        elif key=='phone':
-            phone=request.POST[key]
-            item[key]=request.POST[key]
-        elif key=='area':
-            area=Area.objects.filter(id=request.POST[key]).first()
-            item['area']=area
-        elif key=='hospital':
-            hospital=Hospital.objects.filter(id=request.POST[key]).first()
-            item['wanthospital']=hospital
-        elif key =='photo':
-            photo=request.POST[key]
-        else:
-            if request.POST[key]:
-                item[key] = request.POST[key]
+    userinfo=request.POST['userinfo']
+    photo=request.POST['photo']
+    user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
+    item={}
+    for k in user:
+        if k=='name':
+            name=user[k]
+            item[k]=user[k]
+        elif k=='wanthospital':
+            hosp=Hospital.objects.filter(id=user[k]).first()
+            item[k]=hosp
+        elif k=='phone':
+            phone=user[k]
+            item[k]=user[k]
+        elif k=='area':
+            area=Area.objects.filter(id=user[k]).first()
+            item[k]=area
+        else:
+            item[k]=user[k]
     order=Order.objects.filter(name=name,phone=phone)
     if order:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
