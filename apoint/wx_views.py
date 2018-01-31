@@ -62,37 +62,7 @@ def MyPatients(request):
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
     order=Order.objects.get(id=id) #找到订单
-    follows=OrderDetail.objects.filter(order=order)
-    imgs=IllnessImage.objects.filter(patient=order) #找到患者上传的图片
-    lister=[] #照片
-    record=[]
-    if imgs:
-        for img in imgs:
-            lister.append(img.image)
-    else:
-        pass
-    if follows:
-        for follow in follows:
-            date={
-                'name':follow.creater.name,#客服姓名
-                'remark':follow.remark,#描述
-                'time':follow.createtime.strftime('%Y-%m-%d %H:%M')
-            }
-            record.append(date)
-    else:
-        pass
-    data={
-        'id':order.id,
-        'name':order.name,#名称
-        'birthday':order.birthday.strftime('%Y-%m-%d'),#出生日期
-        'sex':order.sex,#性别
-        'phone':order.phone,#手机
-        'area':order.area.name,#区域
-        'wantTime':order.wantTime.strftime('%Y-%m-%d'),#预约时间
-        'wanthospital':order.wanthospital.name,#医院
-        'description':order.description,#胎记描述
-        'photo':lister, #照片
-    }
+    data,record=Detail(order)
     return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
 
 #员工提交备忘录

@@ -95,6 +95,7 @@ class Order(models.Model):
     createtime=models.DateTimeField(u'提交时间',auto_now_add=True)
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
+    is_party=models.BooleanField(u'是否是第三方',default=False)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True)
     def __unicode__(self):
         return self.name
