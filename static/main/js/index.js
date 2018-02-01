@@ -16,7 +16,7 @@ window.onload = function() {
 			offset: '40px', 
 			scrollbar: false,//禁止浏览器滚动
 			anim: 2,
-			content: ['./hzrlpop.html', 'yes'], //iframe的url，no代表不显示滚动条
+			content: ['./renling?id=', 'yes'], //iframe的url，no代表不显示滚动条
 			end: function() { //此处用于演示
 //				layer.open({
 //					type: 2,

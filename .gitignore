@@ -1,2 +1,4 @@
 .idea
-*.py[cod].pyc
+*.py[cod]
+*.pyc
+static/patient_managementSystem

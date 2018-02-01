@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^api/pc/',include('apoint.urls')),#PC端接口
     url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
-    url(r'^staff$',staff)
+    url(r'^staff$',staff),
+    url(r'^renling$',renling),
 ]

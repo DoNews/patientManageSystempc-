@@ -33,7 +33,7 @@ def index(request):
 
     todaywork = Order.objects.filter(nextcalldate__lte=now) #今日任务
 
-
+    renling = Order.objects.filter(status=1)
     notify1 = Order.objects.exclude(Order__creater=user).filter(Order__is_operation=False) #管理员分配和销售备注
     notify2 = Order.objects.filter(nextcalldate__lte=yestoday.date())
 
@@ -41,7 +41,10 @@ def index(request):
 
     #identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
 
-    return  render(request,"index.html",{"user":user,"thismonth":thismonth,"thismonthfp":thismonthfp,"thismonthrl":thismonthrl,"v1":v1,"v2":v2,"v3":v3,"v4":v4,"todaywork":todaywork,"notify":notify1|notify2})
+    return  render(request,"index.html",{"user":user,"thismonth":thismonth,"thismonthfp":thismonthfp,"thismonthrl":thismonthrl,"v1":v1,"v2":v2,"v3":v3,"v4":v4,"todaywork":todaywork,"notify":notify1|notify2,"renling":renling})
+
+def renling(request):
+    return render(request,"hzrlpop.html")
 
 def orderlist(request):
     cusid= request.GET.get("cid")
