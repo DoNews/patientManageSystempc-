@@ -182,8 +182,9 @@ def ThirdParty(request):
             area=are
         else:
             area=Area.objects.create(name=city)
-        use=Order.objects.filter(name=name,phone=phone).first()
+        use=Order.objects.filter(phone=phone).first()
         if use:
+            use.name=name
             use.wantTime=wantTime
             use.area=area
             use.wanthospital=hos
