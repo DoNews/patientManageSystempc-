@@ -27,6 +27,7 @@ class ZJUser(models.Model):
     name = models.CharField('姓名', max_length=20)
     usertype=models.IntegerField("用户类型",choices=USER_TYPE,default=1)
     phone=models.CharField('手机号',max_length=50)
+    createtime=models.DateTimeField('添加时间',auto_now_add=True)
     def __unicode__(self):
         return self.name
 
@@ -34,7 +35,10 @@ class ZJUser(models.Model):
 class SalesUser(ZJUser):
     openid = models.CharField("openid", max_length=100, blank=True,null=True)
     email=models.CharField('邮箱',max_length=50)
+    director=models.CharField('主管',max_length=20,blank=True,null=True)
+    city=models.CharField('省市',max_length=20,blank=True,null=True)
     is_cert=models.BooleanField('是否认证',default=False)
+
     def __unicode__(self):
         return self.name
     class Meta:
@@ -58,6 +62,7 @@ class Hospital(models.Model):
     confirm=models.CharField('确认就诊短信',max_length=100,null=True,blank=True)
     three=models.CharField('前三天短信',max_length=100,null=True,blank=True)
     inday=models.CharField('当天提醒短信',max_length=100,null=True,blank=True)
+    createtime=models.DateTimeField('创建时间',auto_now_add=True)
     def __unicode__(self):
         return self.name
     class Meta:
@@ -110,7 +115,7 @@ class IllnessImage(models.Model):
 
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order,verbose_name="所属预约",related_name="Order")
-    creater = models.ForeignKey(ZJUser,verbose_name="操作人")
+    creater = models.ForeignKey(ZJUser,verbose_name="操作人",)
     createtime=models.DateTimeField("操作时间",auto_now_add=True)
     status = models.IntegerField("状态",choices=CHIOCE,default=0)
     remark =models.CharField("描述",max_length=1000,null=True)

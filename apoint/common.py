@@ -115,49 +115,33 @@ def RemindSystem(orders):
     return lister
 
 #客服查看系统提醒(提交的备忘)
-def ViewCheat(orders,user):
-    notes = []
+def ViewCheat(orders):
+    notes=[]
     if orders:
         for order in orders:
-            details= OrderDetail.objects.filter(order=order,is_operation=False).exclude(creater=user).order_by('-createtime')#客服的订单里 detail表里不是客服的，且未操作的
-            if details:
-                for detail in details:
-                    if detail.creater.usertype==2:
-                        data={
-                            'id':detail.order.id, #订单id
-                            'name':detail.order.name,#姓名
-                            'wanthospital': detail.order.wanthospital.name,  # 医院名称
-                            'wantTime': detail.order.wantTime.strftime('%Y-%m-%d  %H:%M'),  # 预约时间
-                            'sales': detail.order.wanthospital.sales.name,  # 负责销售
-                        }
-                        notes.append(data)
-                    else:
-                        pass
-            else:
-                pass
+            data={
+                'id': order.id,  # 订单id
+                'name': order.name,  # 姓名
+                'wanthospital': order.wanthospital.name,  # 医院名称
+                'wantTime': order.wantTime.strftime('%Y-%m-%d  %H:%M'),
+                'sales': order.wanthospital.sales.name,  # 负责销售
+            }
+            notes.append(data)
     else:
         pass
     return notes
 #查看管理员分配的
-def AdminDis(orders,user):
+def AdminDis(orders):
     admins = []
     if orders:
         for order in orders:
-            details = OrderDetail.objects.filter(order=order, is_operation=False).exclude(creater=user).order_by('-createtime')  # 客服的订单里 detail表里不是客服的，且未操作的
-            if details:
-                for detail in details:
-                    if detail.creater.usertype == 3:
-                        data = {
-                            'id': detail.order.id,  # 订单id
-                            'name': detail.order.name,  # 姓名
-                            'wanthospital': detail.order.wanthospital.name,  # 医院名称
-                            'wantTime': detail.order.wantTime.strftime('%Y-%m-%d  %H:%M'),  # 预约时间
-                        }
-                        admins.append(data)
-                    else:
-                        pass
-            else:
-                pass
+            data = {
+                'id': order.id,  # 订单id
+                'name': order.name,  # 姓名
+                'wanthospital': order.wanthospital.name,  # 医院名称
+                'wantTime': order.wantTime.strftime('%Y-%m-%d  %H:%M'),  # 预约时间
+            }
+            admins.append(data)
     else:
         pass
     return admins
