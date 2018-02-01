@@ -1,4 +1,26 @@
 ****
+    作用:发送验证码
+    请求方式:POST
+    url:http://127.0.0.1:8000/api/apoint/scrfcode/
+    字段:phone #手机号
+    return JsonResutResponse({'ret': 0,'msg':'success' })
+
+****
+    作用:员工认证
+    请求方式:POST
+    url:
+    字段:
+        openid
+        name
+        email
+        phone
+        vercode # 验证码
+     return JsonResutResponse({"ret": -1, "msg": u"你已经认证过"})
+     return JsonResutResponse({"ret": 0,'msg':'success'})
+     return JsonResutResponse({'ret':1,'msg':u'手机号或姓名不匹配'})
+
+
+****
     作用:查询我的患者
     请求方式:GET
     Url:http://127.0.0.1:8000/api/apoint/mypatien/?openid=o_MHBjuPu3dDh2-1z5rPfmXNfsAQ

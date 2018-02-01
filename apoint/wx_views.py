@@ -11,10 +11,9 @@ def ScrfCode(request):
   tele = request.POST['phone']
   n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 4) for x in range(4)])
   http = "http://222.73.117.158:80/msg/HttpBatchSendSM"
-  r=requests.post(http, {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % tele, "msg": "您的验证码是%s" % n,
-                       "needstatus": "false"})
+  r=requests.post(http, {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % tele, "msg": "您的验证码是%s" % n,"needstatus": "false"})
   request.session["code"] = n
-  return JsonResutResponse({'ret': 0, })
+  return JsonResutResponse({'ret': 0,'msg':'success'})
 
 #员工认证
 def StaffCation(request):
@@ -30,6 +29,7 @@ def StaffCation(request):
     else:
         user = SalesUser.objects.filter(name=realname, phone=telephone,).first()
         if user and code == int(vercode):
+            user.openid=openid
             user.is_cert=True
             user.email=email
             user.save()
