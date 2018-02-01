@@ -29,6 +29,7 @@ def StaffCation(request):
     else:
         user = SalesUser.objects.filter(name=realname, phone=telephone,).first()
         if user and code == int(vercode):
+            user.openid=openid
             user.is_cert=True
             user.email=email
             user.save()
