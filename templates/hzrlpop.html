@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>患者认领页面</title>
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css"  media="all">
+		<!--<link rel="stylesheet" type="text/css" href="js/theme/default/layer.css"/>-->
+	</head>
+
+	<body>
+		<div id="rlhz">
+			<p class="rlhz_pop">患者信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem">
+					<p>姓名</p>
+					<p><input type="text" name="" id="" value="" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>性别</p>
+					<p>
+						<select name="">
+							<option value="">请选择性别</option>
+							<option value="">男</option>
+							<option value="">女</option>
+						</select>
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>手机号</p>
+					<p><input type="text" name="" id="" value="" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>预约医院</p>
+					<p>
+						<select name="">
+							<option value="">请选择医院</option>
+							<option value="">解放军医院</option>
+							<option value="">第一人民医院</option>
+						</select>
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>期望预约时间</p>
+					<p>
+						<input type="text" id="yyDate" class="layui-input dateinput" placeholder="YYYY-MM-dd">
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>出生日期</p>
+					<p><input type="text" id="birthDay" class="layui-input dateinput" placeholder="YYYY-MM-dd"></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>所属区域</p>
+					<p>
+						<select name="">
+							<option value="">请选择地区</option>
+							<option value="">上海</option>
+							<option value="">南京</option>
+							<option value="">北京</option>
+							<option value="">乌鲁木齐</option>
+						</select>
+					</p>
+				</div>
+
+			</div>
+			<p class="des_info">胎记治疗及胎记描述</p>
+			<style type="text/css">
+
+			</style>
+			<textarea name="" rows="8" cols="30" class="info_text"></textarea>
+			<p class="des_info">胎记治疗及胎记图片</p>
+			<div class="img_box">
+				<ul class="img_boxUl">
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+				</ul>
+			</div>
+			<div class="allInfo_wrap">
+				<div class="require_allInfo">
+					确认认领
+				</div>
+			</div>
+		</div>
+		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+		<script src="/static/main/js/layer.js"></script>
+		<script src="/static/main/js/laydate.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			//执行一个laydate实例
+			laydate.render({
+				elem: '#yyDate' //指定元素
+			});
+			laydate.render({
+				elem: '#birthDay' //指定元素
+			});
+		</script>
+	</body>
+
+</html>

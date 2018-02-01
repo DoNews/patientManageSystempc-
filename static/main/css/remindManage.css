@@ -1,0 +1,187 @@
+				/*html {
+					height: 100%;
+				}*/
+				
+				body {
+					margin: 0;
+					padding: 0;
+					background: #f4f7f9;
+					font-family: "微软雅黑";
+					/*					height: 100%;*/
+				}
+				
+				p,
+				input,
+				ul {
+					margin: 0;
+					padding: 0;
+				}
+				
+				.yy_indexCon {
+					display: flex;
+				}
+				
+				.yy_indexConLeft {
+					width: 200px;
+					flex: 0 0 200px;
+					background-color: #fff;
+					margin: 0 10px;
+				}
+				
+				.yy_indexConRight {
+					height: 100%;
+					flex: 1;
+				}
+				
+				.yy_loginLogo {
+					text-align: center;
+				}
+				
+				.yy_loginLogo img {
+					margin: 30px auto 15px;
+					height: 80px;
+					width: 80px;
+					box-shadow: 1px 1px 10px #ccc;
+					border-radius: 5px;
+					background-color: #fff;
+				}
+				
+				.yy_indexTitle {
+					margin: 10px auto;
+					text-align: center;
+					font-family: "微软雅黑";
+					font-size: 14px;
+					color: #3b424d;
+				}
+				
+				.kf_power {
+					list-style: none;
+				}
+				
+				.kf_power li {
+					list-style: none;
+					display: block;
+					height: 40px;
+					line-height: 40px;
+					text-align: left;
+					padding-left: 25%;
+					box-sizing: border-box;
+					color: #6b7380;
+					font-size: 14px;
+					font-family: "微软雅黑";
+				}
+				
+				.kf_power .li_active {
+					background-color: #e0e7f2;
+					color: #333840;
+					font-weight: 600;
+					border-left: 5px solid blue
+				}
+				/*//右侧头部开始*/
+				
+				.yy_indexConRightHeader {
+					width: 99%;
+					background-color: #fff;
+					margin: 5px 10px 5px 0%;
+					display: inline-block;
+					height: 70px;
+					display: flex;
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					-ms-border-radius: 5px;
+					-o-border-radius: 5px;
+					border-radius: 5px;
+				}
+				
+				.searchBox input {
+					border-bottom-left-radius: 5px;
+					border-top-left-radius: 5px;
+					outline: none;
+					height: 25px;
+					width: 380px;
+					border: 1px solid #ccc;
+					padding-left: 35px;
+					background: #eaeef0;
+					color: #98a2b2;
+				}
+				
+				.searchBox input::-webkit-input-placeholder {
+					/* WebKit browsers */
+					color: #98a2b2;
+				}
+				
+				.searchBox input:-moz-placeholder {
+					/* Mozilla Firefox 4 to 18 */
+					color: #98a2b2;
+				}
+				
+				.searchBox input::-moz-placeholder {
+					/* Mozilla Firefox 19+ */
+					color: #98a2b2;
+				}
+				
+				.searchBox input:-ms-input-placeholder {
+					/* Internet Explorer 10+ */
+					color: #98a2b2;
+				}
+				
+				.search_Btn {
+					background: #5bbfd3;
+					color: #fff;
+					border-bottom-right-radius: 5px;
+					outline: none;
+					cursor: pointer;
+					border: none;
+					width: 80px;
+					font-size: 13px;
+					font-family: "微软雅黑";
+					border-top-right-radius: 5px;
+				}
+				
+				.icon {
+					position: absolute;
+					background: url(../img/search.png) no-repeat center center;
+					background-size: 100%;
+					height: 20px;
+					width: 20px;
+					left: 8px;
+					top: 3px;
+				}
+				
+				.searchBox {
+					position: relative;
+					flex: 1;
+					display: flex;
+					height: 27px;
+					margin: 20px 0 20px 60px;
+					border-radius: 5px;
+				}
+				
+				.loginAndName {
+					/*float: right;*/
+					margin-left: 30%;
+					flex: 0 0 200px;
+					line-height: 20px;
+					margin-top: 25px;
+				}
+				
+				.loginAndName .userName {
+					color: #949598!important;
+				}
+				
+				.loginAndName .userName,
+				.loginAndName .login {
+					width: 80px;
+					height: 20px;
+					display: inline-block;
+					border-left: 1px solid #ccc;
+					text-align: center;
+					cursor: pointer;
+					font-size: 14px;
+					color: #5bbfd3;
+				}
+				/*右侧头部结束*/
+				/*内容区域开始*/
+				
+				
+				/*患者认领弹框*/

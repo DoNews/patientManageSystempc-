@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页页面</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+	</head>
+	<body>
+		<div class="yy_indexCon">
+			<div class="yy_indexConLeft">
+				<div class="yy_indexConLeftCon">
+					<div>
+						<div class="yy_loginLogo">
+							<img src="/static/main/img/logo.png" alt="" />
+						</div>
+						<p class="yy_indexTitle">张江患者预约管理系统</p>
+					</div>
+					<ul class="kf_power">
+						<li class="li_active">控制台</li>
+						<li>患者管理</li>
+						<li>数据管理</li>
+						<li>提醒管理</li>
+						<li>账户管理</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="yy_indexConRight">
+				 {% include 'head.html' %}
+				<div class="contentBox">
+					<div class="contentBox_left">
+						<div class="sjy_table">
+							<div class="sjy_header">
+								数据仪表盘
+							</div>
+							<div class="sjy_con">
+								<div class="sjy_left">
+									<div class="chart1" id="chart1">
+
+									</div>
+									<div class="chart1_title">
+										本月数据纵览
+									</div>
+									<div class="chart1_btn">
+										去电话确认
+									</div>
+								</div>
+								<div class="sjy_right">
+									<div class="chart2" id="chart2">
+
+									</div>
+									<div class="chart2_title">
+										我负责的已到诊患者状态纵览
+									</div>
+									<div class="chart2_btn">
+										查看详细数据
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contentBox_right">
+						<p class="hzrl_title">预约患者认领</p>
+						<ul class="hzrl_list">
+                            {% for item in renling %}
+
+							<li>
+								<div class="hzrl_list_img"></div>
+								<div class="hzrl_list_con">
+									<p>{{ item.name }}</p>
+									<p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
+								</div>
+								<span class="hzrl_list_btn" id="{{  item.id}}">认领</span>
+							</li>
+
+                            {% endfor %}
+
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+
+				</div>
+				<div class="contentBox">
+					<div class="contentBox_left">
+						<p class="jrrw_title">今日任务</p>
+						<ul class="jrrw_list">
+                            {% for item in todaywork %}
+                                <li>
+                                    <div class="jrrw_list_img"></div>
+                                    <div class="jrrw_list_con">
+                                        <p>{{ item.name }}</p>
+                                        <p>{{ item }}</p>
+                                    </div>
+                                    <span class="jrrw_list_btn">电话确认</span>
+                                </li>
+                            {% endfor %}
+
+
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+					<div class="contentBox_right">
+						<p class="xttx_title">系统提醒</p>
+						<ul class="xttx_list">
+							<li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>张三丰</p>
+									<p>张<span class="deldate">五天</span>三丰</p>
+									<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+								</div>
+								<span class="xttx_list_btn">暂停跟进</span>
+							</li>
+							<li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>张三丰</p>
+									<p>张<span class="deldate">五天</span>三丰</p>
+									<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+								</div>
+								<span class="xttx_list_btn">暂停跟进</span>
+							</li>
+							<li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>张三丰</p>
+									<p>张<span class="deldate">五天</span>三丰</p>
+									<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+								</div>
+								<span class="xttx_list_btn">暂停跟进</span>
+							</li>
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+		<script src="/static/main/js/layer.js"></script>
+		<script src="/static/main/js/echarts.simple.min.js" type="text/javascript" charset="utf-8"></script>
+         <script>
+        	//echart图标
+	    var myChart1 = echarts.init(document.getElementById('chart1'));
+	// 指定图表的配置项和数据
+        var option1 = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis:[
+            {
+                data: ["本月累计跟进人次","本月分配患者数","本月认领患者"]
+                ,
+            axisLabel:{
+              rotate:0, //刻度旋转45度角
+              textStyle:{
+                 color:"red",
+                 fontSize:16
+            }
+            }}
+            ] ,
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+
+
+                data: [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
+            }]
+        };
+        myChart1.setOption(option1)
+
+
+        var myChart2 = echarts.init(document.getElementById('chart2'));
+	// 指定图表的配置项和数据
+        var option2 = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis:[
+            {
+                data: ["安排治疗","预约延后治疗","转院","暂停"]
+                ,
+            axisLabel:{
+              rotate:45, //刻度旋转45度角
+              textStyle:{
+                 color:"red",
+                 fontSize:16
+            }
+            }}
+            ] ,
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
+            }]
+        };
+        myChart2.setOption(option2)
+        </script>
+	</body>
+
+</html>
