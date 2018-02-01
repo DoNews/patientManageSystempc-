@@ -11,12 +11,15 @@ input {
 }
 
 .yy_loginWrap {
-	width: 25%;
-	height: auto;
-	border: 1px solid #ccc;
+	width: 400px;
+	height: 400px;
 	border-radius: 5px;
-	margin: 8% auto 0;
 	background-color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -200px;
+	margin-top: -200px;
 }
 
 .yy_loginLogo {
@@ -24,9 +27,9 @@ input {
 }
 
 .yy_loginLogo img {
-	margin: 15px auto;
-	height: 70px;
-	width: 70px;
+	margin: 25px auto 15px;
+	height: 80px;
+	width: 80px;
 	box-shadow: 1px 1px 10px #ccc;
 	border-radius: 5px;
 }
@@ -42,7 +45,9 @@ input {
 
 .yy_loginForm .p_text {
 	text-align: left;
-	margin-left: 17%;
+	color: #818a99;
+	font-size: 15px;
+	margin: 10px 0 10px 17%;
 }
 
 .yy_loginForm p input {
@@ -54,16 +59,18 @@ input {
 	outline: none;
 	border: 1px solid #e9edef;
 	background-color: #e9edef;
-	height: 23px;
+	height: 30px;
 	width: 93%;
 	text-align: center;
 }
 
 .login_button {
-	height: 27px;
+	height: 30px;
 	width: 93%;
-	margin: 25px auto 10px;
+	margin: 30px auto 10px;
 	border: none;
+	font-size: 14px;
+	outline: none;
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	-ms-border-radius: 6px;
@@ -71,18 +78,24 @@ input {
 	border-radius: 6px;
 	background-color: #5bbfd3;
 	color: #FFFFFF;
-	font-weight: 500;
+	cursor: pointer;
 }
 
 .yy_loginRem {
-	height: 30px;
+	height: 33px;
 	text-align: left;
 	line-height: 30px;
 	padding-left: 18%;
 	margin-bottom: 25px;
+	color: #818a99;
+	font-size: 15px;
 }
 
 .yy_loginRem input {
 	vertical-align: middle;
 	margin-right: 15px;
+	height: 16px;
+	width: 16px;
+	margin-top: -3px;
+	color: #5bbfd3;
 }

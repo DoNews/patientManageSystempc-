@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+   <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="img/icon.png" />
+    <link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
+
+    <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+ <div class="yy_indexCon">
+
+            {% block left %}
+
+            {% endblock %}
+			<div class="yy_indexConRight">
+				 {% include 'head.html' %}
+				<div class="contentBox">
+					<div class="contentBox_left">
+						<div class="sjy_table">
+							<div class="sjy_header">
+								数据仪表盘
+							</div>
+							<div class="sjy_con">
+								<div class="sjy_left">
+									<div class="chart1" id="chart1">
+
+									</div>
+									<div class="chart1_title">
+										本月数据纵览
+									</div>
+
+								</div>
+								<div class="sjy_right">
+									<div class="chart2" id="chart2">
+
+									</div>
+									<div class="chart2_title">
+										我负责的已到诊患者状态纵览
+									</div>
+									<div class="chart2_btn">
+										查看详细数据
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contentBox_right">
+						<p class="hzrl_title">预约患者认领</p>
+						<ul class="hzrl_list">
+                            {% for item in renling %}
+
+							<li>
+								<div class="hzrl_list_img"></div>
+								<div class="hzrl_list_con">
+									<p>{{ item.name }}</p>
+									<p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
+								</div>
+								<span class="hzrl_list_btn" id="{{  item.id}}">认领</span>
+							</li>查看详细数据
+                            {% endfor %}
+
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+
+				</div>
+				<div class="contentBox">
+					<div class="contentBox_left">
+						<p class="jrrw_title">今日任务</p>
+						<ul class="jrrw_list">
+                            {% for item in todaywork %}
+                                <li>
+                                    <div class="jrrw_list_img"></div>
+                                    <div class="jrrw_list_con">
+                                        <p>{{ item.name }}</p>
+                                        <p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
+                                    </div>
+                                    <span class="jrrw_list_btn">电话确认</span>
+                                </li>
+                            {% endfor %}
+
+
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+					<div class="contentBox_right">
+						<p class="xttx_title">系统提醒</p>
+						<ul class="xttx_list">
+                            {% for item in notify %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.wanthospital }}</p>
+								</div>
+								<span class="xttx_list_btn">电话跟进</span>
+							</li>
+                            {% endfor %}
+
+
+
+						</ul>
+						<div class="require_all">
+							查看全部
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+</body>
+</html>

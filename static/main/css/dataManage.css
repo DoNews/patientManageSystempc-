@@ -1,0 +1,124 @@
+/*患者管理内容区域开始*/
+
+.dataConBoxLeft,
+.dataConBoxRight {
+	background: #fff;
+}
+
+.dataConBox {
+	background: #FFF;
+	box-sizing: border-box;
+	margin: 10px 10px 10px 0;
+}
+
+.dataConTitle {
+	height: 40px;
+	line-height: 50px;
+	padding-left: 15px;
+	font-size: 16px;
+	font-family: "SourceHanSansCN Regular";
+	margin: 10px 0px;
+	box-sizing: border-box;
+}
+
+
+/*表格*/
+
+.dataTbaleBtn {
+	height: 25px;
+	width: 68px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color: #fff;
+	display: inline-block;
+	border-radius: -moz-calc(5px);
+	border-radius: -webkit-calc(5px);
+	border-radius: 5px;
+	background: #5bbfd3;
+}
+
+.dataTable,
+.dataLeftTable,
+.dataRightTable {
+	width: 97%;
+	margin: 10px auto;
+	box-sizing: border-box;
+}
+
+.dataTable tr,
+.dataLeftTable tr,
+.dataRightTable tr {
+	height: 60px;
+	border-top: 1px solid #ccc;
+	font-size: 13px;
+	font-family: "SourceHanSansCN Regular";
+}
+
+.dataTable th,
+.dataLeftTable th,
+.dataRightTable th {
+	color: #333840;
+	font-family: "SourceHanSansCN Regular";
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	font-size: 16px;
+	font-family: "SourceHanSansCN Regular";
+}
+
+.dataTable_img {
+	background: url(../img/icon1.png) no-repeat center center;
+	background-size: contain;
+	height: 20px;
+	width: 20px;
+	float: left;
+	margin: 6px 0 0 0;
+}
+
+.dataTable_con {
+	float: left;
+	width: 80%;
+	margin-left: 5%;
+	font-size: 13px;
+	font-family: "SourceHanSansCN Regular";
+	line-height: 1.4!important;
+}
+
+.dataTable_con p:nth-child(2) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "SourceHanSansCN Regular";
+	white-space: nowrap;
+}
+
+
+/*加载所有*/
+
+.dataManBotom {
+	display: flex;
+}
+
+.dataConBoxLeft {
+	flex: 0 0 49%;
+}
+
+.dataConBoxRight {
+	flex: 0 0 49%;
+	margin-left: 1%;
+}
+
+.data_allLeftBtn,
+.data_allRightBtn {
+	height: 25px;
+	width: 80px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color: #fff;
+	margin: 15px auto 25px;
+	border-radius: -moz-calc(5px);
+	border-radius: -webkit-calc(5px);
+	border-radius: 5px;
+	background: #5bbfd3;
+}

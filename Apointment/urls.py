@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from apoint.views import *
+from apoint.Views.userView import *
 from apoint.adminviews import *
 import xadmin
 urlpatterns = [
@@ -28,4 +29,10 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
     url(r'^staff$',staff),
     url(r'^renling$',renling),
+    url(r'^createUser$',createUser),
+    url(r'^renlingAction$',renlingAction),
+    url(r'pations$',pations),
+    url(r'^pationsview',pationsview),#客服患者数据
+    url(r'^remind',remind),
+    url(r'^account',account)
 ]

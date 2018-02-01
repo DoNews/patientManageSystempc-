@@ -1,9 +1,4 @@
 window.onload = function() {
-	//切换状态
-	$('.kf_power li').click(function() {
-		$(this).addClass("li_active").siblings().removeClass()
-	})
-
 	//	患者认领弹框	
 	$('.hzrl_list_btn').click(function() {
 

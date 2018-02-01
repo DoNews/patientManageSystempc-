@@ -1,0 +1,90 @@
+.accountConBox {
+	background: #FFF;
+	box-sizing: border-box;
+	margin: 10px 10px 10px 0;
+	min-height: 450px;
+}
+
+.accountConTitle {
+	height: 40px;
+	line-height: 50px;
+	padding-left: 15px;
+	font-size: 16px;
+	font-family: "SourceHanSansCN Regular";
+	margin: 10px auto;
+	width: 95%;
+	box-sizing: border-box;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+
+/*修改密码*/
+
+.yy_loginForm {
+	text-align: center;
+}
+
+.yy_loginForm p {
+	width:310px;
+	margin:5px 20px 5px 50px;
+	color: #6b7380;
+	font-size:14px;
+}
+
+.yy_loginForm .p_text {
+	text-align: left;
+	color: #6b7380;
+	font-size:14px;
+}
+
+.yy_loginForm p input {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	outline: none;
+	border: 1px solid #e9edef;
+	background-color: #e9edef;
+	height: 23px;
+	width:100%;
+	text-align: center;
+}
+
+.changePass {
+	display: flex;
+}
+.changeLeft {
+	flex: 0 0 40%;
+}
+.changeRight p{
+	width:100%;
+	margin-left: 45px;
+}
+.changeRight {
+	flex: 0 0 70%;
+	text-align: left;
+	font-size: 16px!important;
+	color: #333840;
+	font-family: "SourceHanSansCN Regular";
+	border-left: 1px dashed #CCCCCC;
+}
+.changePassTitle{
+	color:#5bbfd3!important ;
+	margin-top: 20px!important;
+	font-family: "SourceHanSansCN Regular";
+	font-size: 17px!important;
+}
+.changePassBtn{
+	    height: 25px;
+    width: 80px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 14px;
+    color: #fff;
+    margin: 15px auto 25px;
+    border-radius: -moz-calc(5px);
+    border-radius: -webkit-calc(5px);
+    border-radius: 5px;
+    background: #5bbfd3;
+}

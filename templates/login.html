@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-login
-<form action="/login" method="post">
-<input name="username">
-<input name="password">
-<input type="submit" value="提交">
-    </form>
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录页面</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/login.css" />
+	</head>
+	<body>	
+			<div class="yy_loginWrap">
+				<div class="yy_loginContent">
+						<div class="yy_loginLogo">
+								<img src="/static/main/img/logo.png" alt="" width="40" height="40" />
+						</div>
+						<form action="/login" method="post" class="yy_loginForm">
+						  <p class="p_text">用户名 </p>
+						  <p><input type="text" name="username" /></p>
+						  <p  class="p_text">密码</p>
+						  <p><input type="password" name="password" /></p>
+						  <!--<input type="submit" value="Submit" />-->
+						  <p>
+						  <input class="login_button" value="登录" type="submit">
+						  </p>
+						 <div class="yy_loginRem"><input type="checkbox" />记住我</div>
+						</form>
+				</div>
+			</div>
+	</body>
 </html>

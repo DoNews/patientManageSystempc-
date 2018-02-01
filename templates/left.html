@@ -1,0 +1,23 @@
+<div class="yy_indexConLeft">
+    <div class="yy_indexConLeftCon">
+        <div>
+            <div class="yy_loginLogo">
+                <img src="/static/main/img/logo.png" alt="" />
+            </div>
+            <p class="yy_indexTitle">张江患者预约管理系统</p>
+        </div>
+
+        <ul class="kf_power">
+            {% for foo in menu %}
+
+            <a href="{{ foo.1 }}">
+                <li {% if pageindex == forloop.counter0 %} class="li_active"
+                {% endif %}>{{ foo.0 }}</li>
+            </a>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+</div>
+<script src="/static/main/js/menu.js"></script>

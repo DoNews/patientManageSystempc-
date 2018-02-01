@@ -3,9 +3,10 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
+
+
 from django.db.models.signals import post_save
-
-
+from django.dispatch import receiver
 
 class Area(models.Model):
     name= models.CharField(u'省',null=True,blank=True,max_length=255)
@@ -93,7 +94,7 @@ class Order(models.Model):
     nextcalldate =models.DateField("下次电话时间",null=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     is_party=models.BooleanField(u'是否是第三方',default=False)
-    custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True)
+    custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True,blank=True)
     def __unicode__(self):
         return self.name
     class Meta:
@@ -121,4 +122,11 @@ class OrderDetail(models.Model):
         verbose_name='确认与备忘'
         verbose_name_plural='确认与备忘'
 
+def create_user_profile(sender, instance, created, **kwargs):
+    """Create the UserProfile when a new User is saved"""
+    if created:
+        profile = ZJUser()
+        profile.user = instance
+        profile.save()
 
+#post_save.connect(create_user_profile, sender=User)

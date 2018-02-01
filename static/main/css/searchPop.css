@@ -1,0 +1,148 @@
+/*患者管理内容区域开始*/
+
+.searchpopConBox {
+	background: #FFF;
+	box-sizing: border-box;
+}
+
+.searchpopConTitle {
+    line-height: 45px;
+    text-align: center;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    position: relative;
+    color: #333840;
+    font-family: "SourceHanSansCN Regular";
+    height: 45px;
+}
+
+
+/*表格*/
+
+.searchpopTbaleBtn {
+	height: 25px;
+	width: 68px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color: #fff;
+	display: inline-block;
+	border-radius: -moz-calc(5px);
+	border-radius: -webkit-calc(5px);
+	border-radius: 5px;
+	background: #5bbfd3;
+}
+
+.searchpopTable {
+	width: 97%;
+	margin: 10px auto;
+	box-sizing: border-box;
+}
+
+.searchpopTable tr {
+	height: 60px;
+	border-top: 1px solid #ccc;
+	font-size: 13px;
+	color: #333840;
+	font-family: "SourceHanSansCN Regular";
+}
+
+.searchpopTable th {
+	color: #333840;
+	font-family: "SourceHanSansCN Regular";
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	font-size: 16px;
+	font-family: "SourceHanSansCN Regular";
+}
+
+.searchpopTable th:nth-child(1) {
+	width: 240px;
+}
+
+.searchpopTable_img {
+	background: url(../img/icon1.png) no-repeat center center;
+	background-size: cover;
+	height: 18px;
+	width: 18px;
+	float: left;
+	margin: 13px 0 0 0;
+}
+
+.searchpopTable_con {
+	float: left;
+	width: 80%;
+	margin-left: 5%;
+	margin-top: 3px;
+	font-size: 13px;
+	font-family: "SourceHanSansCN Regular";
+	line-height: 1.4!important;
+}
+
+.searchpopTable_con p:nth-child(2) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-family: "SourceHanSansCN Regular";
+	white-space: nowrap;
+}
+
+
+/*页码*/
+
+.pageNumbox {
+	position: relative;
+}
+
+#pageNum {
+	height: 87px;
+	line-height: 87px;
+	text-align: center;
+}
+
+#pageNum select {
+	margin-top: 26px;
+}
+
+
+/**/
+
+.addPatientBox {
+	border-top: 1px solid #C2C2C2;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+.addPatient {
+	clear: both;
+	width: 80px;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 4px;
+	font-size: 14px;
+	background: #5bbfd3;
+	color: #fff;
+	text-align: center;
+	margin: 20px 20px 20px 84%;
+}
+/*弹框样式初始化*/
+.layui-layer{
+	border-radius: -moz-calc(8px!important);
+	border-radius: -webkit-calc(8px!important);
+	border-radius: 8px!important;
+}
+.layui-layer-setwin .layui-layer-close2 {
+	right: 11px!important;
+	top: -10px!important;
+}
+
+layui-layer layui-layer-iframe
+.layui-layer .layui-layer-iframe {
+	border-radius: -webkit-calc(10px)!important;
+	border-radius: -moz-calc(10px)!important;
+	border-radius: 10px!important;
+}

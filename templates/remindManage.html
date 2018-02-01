@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客服提醒管理</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
+        <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+            {% include 'left.html' %}
+			<div class="yy_indexConRight">
+				 {% include 'head.html' %}
+				<div class="remindConBox">
+					<div class="remindConTitle"><span>预约患者数据</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
+						<tbody>
+							<tr>
+								<th>预约工单</th>
+								<th>目前状态</th>
+								<th>计划时间</th>
+								<th>逾期天数</th>
+								<th>负责销售</th>
+								<th>客服操作</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="remindTable_img"></div>
+									<div class="remindTable_con">
+										<p>{{ order.name }}</p>
+										<p>{{ order.wantTime|date:"Y-m-d" }} {{ order.wanthospital }}</p>
+									</div>
+								</td>
+								<td>{{ foo.get_status_display}}</td>
+								<td>{{ order.wantTime |date:"Y-m-d" }}</td>
+								<td>{{  }}</td>
+								<td>是</td>
+								<td><span class="remindTableBtn">去管理</span></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<!--下半部分两列布局-->
+				<style>
+
+				</style>
+				<div class="remindManBotom">
+					<div class="remindConBoxLeft">
+						<div class="remindConTitle"><span>销售备注提醒</span></div>
+						<table cellpadding="0" cellspacing="0" border="0" class="remindLeftTable" style="">
+							<tbody>
+								<tr>
+									<th>预约患者</th>
+									<th>提交销售</th>
+									<th>管理员操作</th>
+								</tr>
+								<tr>
+									<td>
+										<div class="remindTable_img"></div>
+										<div class="remindTable_con">
+											<p>张三丰</p>
+											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+										</div>
+									</td>
+									<td>张三丰</td>
+
+									<td><span class="remindTableBtn">去管理</span></td>
+								</tr>
+								<tr>
+									<td>
+										<div class="remindTable_img"></div>
+										<div class="remindTable_con">
+											<p>张三丰</p>
+											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+										</div>
+									</td>
+									<td>张三丰</td>
+									<td><span class="remindTableBtn">去管理</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="remind_allLeftBtn">查看全部</div>
+					</div>
+					<div class="remindConBoxRight">
+						<div class="remindConTitle"><span>第三方系统患者匹配管理(<span style="font-size: 12px;">本系统与第三方系统</span>)</span>
+						</div>
+						<table cellpadding="0" cellspacing="0" border="0" class="remindRightTable">
+							<tbody>
+								<tr>
+									<th>预约事件</th>
+									<th>提醒患者说</th>
+									<th>客服操作</th>
+								</tr>
+								<tr>
+									<td>
+										<div class="remindTable_img"></div>
+										<div class="remindTable_con">
+											<p>张三丰</p>
+											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+										</div>
+									</td>
+									<td>张三丰</td>
+									<td><span class="remindTableBtn2">暂停跟进</span></td>
+								</tr>
+								<tr>
+									<td>
+										<div class="remindTable_img"></div>
+										<div class="remindTable_con">
+											<p>张三丰</p>
+											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+										</div>
+									</td>
+									<td>张三丰</td>
+									<td><span class="remindTableBtn2">暂停跟进</span></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="remind_allRightBtn">查看全部</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+
+</html>
