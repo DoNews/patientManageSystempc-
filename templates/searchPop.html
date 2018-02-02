@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>搜索弹框页</title>
+		<link rel="stylesheet" type="text/css" href="/static/main/css/searchPop.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
+	</head>
+
+	<body>
+		<div class="searchpopConBox">
+
+			<div class="searchpopConTitle">搜索结果页 </div>
+			<table cellpadding="0" cellspacing="0" border="0" class="searchpopTable">
+				<tbody>
+					<tr>
+						<th>预约患者</th>
+						<th>当前状态</th>
+						<th>提交时间</th>
+						<th>所属区域</th>
+						<th>负责销售</th>
+
+					</tr>
+                    {% for foo in order %}
+                    <tr>
+						<td>
+							<div class="searchpopTable_img"></div>
+							<div class="searchpopTable_con">
+								<p>{{ foo.name }}</p>
+								<p>预约{{ foo.wanthospital }} {{ foo.wantTime|date:'YY-mm-dd' }}</p>
+							</div>
+						</td>
+						<td>{{ foo.get_status_display}}</td>
+						<td>{{ foo.createtime|date:'YY-mm-dd' }}</td>
+						<td>{{ foo.area }}</td>
+						<td>{{ foo.wanthospital.sales }}</td>
+
+					</tr>
+                        {% empty %}
+                        <tr><td colspan="5">无搜索结果</td></tr>
+                    {% endfor %}
+                    
+
+				</tbody>
+			</table>
+			<div class="addPatientBox">
+				<div class="addPatient">新建患者</div>
+			</div>
+
+		</div>
+		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+		<script src="/static/main/js/layui/layui.js"></script>
+
+		<script>
+			layui.use(['form', 'laydate'], function() {
+				var form = layui.form,
+					layer = layui.layer,
+					laydate = layui.laydate;
+				//日期
+				laydate.render({
+					elem: '#yyDate'
+				});
+				laydate.render({
+					elem: '#birthDay'
+				});
+
+				$('.addPatient').click(function() {
+					parent.layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['800px', '600px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['/static/main/addpeople.html', 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() {}
+					});
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

@@ -252,13 +252,15 @@
 }
 
 .rlhz_pop {
-	font-size: 15px;
-	height: 25px;
-	line-height: 25px;
-	padding-left: 14px;
-	margin: 0 8px 0 0;
-	color: #5bbfd3;
-	border-left: 5px solid #5bbfd3;
+	    font-size: 15px;
+    height: 25px;
+    line-height: 25px;
+    padding-left: 10px;
+    margin: 0 8px 0 0;
+    color: #5bbfd3;
+    margin: 0 0 10px 10px;
+    box-sizing: content-box;
+    border-left: 5px solid #5bbfd3;
 }
 
 .layui-layer-title {
@@ -313,9 +315,11 @@
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	margin: 0 5%;
+	    margin: 0 0 20px 20px;
 }
-
+.layui-btn{
+	    margin-top:20px!important;
+}
 .img_boxLi {
 	align-items: center;
 	width: 85px;

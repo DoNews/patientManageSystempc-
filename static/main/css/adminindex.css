@@ -1,35 +1,3 @@
-
-
-/*内容区域开始*/
-
-.contentBox {
-	display: flex;
-	display: -webkit-flex;
-}
-
-.contentBox_right {
-	height: 420px;
-	background: #FFFFFF;
-	margin: 0 10px 10px 0;
-	flex: 0 0 400px;
-}
-
-.contentBox_left {
-	flex: 1;
-	height: 420px;
-	background: #FFFFFF;
-	margin: 0 10px 10px 0;
-}
-
-
-/*患者管理内容区域开始*/
-
-.patientConBox {
-	background: #FFF;
-	box-sizing: border-box;
-	margin: 10px 10px 10px 0;
-}
-
 .patientConTitle {
 	height: 40px;
 	line-height: 50px;
@@ -39,6 +7,12 @@
 	box-sizing: border-box;
 	position: relative;
 }
+		.contentBox {
+	box-sizing: border-box;
+    margin: 10px 10px 10px 0;
+    background-color: white;
+}
+
 
 
 /*表格*/
@@ -108,7 +82,7 @@
     height: 18px;
     width: 18px;
     float: left;
-    margin: 13px 0 0 0;
+       margin: 3px 0 0 0;
 }
 
 .pmTable_con {
@@ -140,10 +114,3 @@
 	line-height: 87px;
 	text-align: center;
 }
-
-#pageNum select {
-	margin-top: 26px;
-}
-
-
-/*患者管理内容区域开始*/

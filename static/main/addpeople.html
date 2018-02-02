@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>新建患者页面</title>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" href="js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="css/addPatient.css" />
+	</head>
+
+	<body>
+		<div id="rlhz">
+			<div class="newPatientTitle"><span class="newPatientBtn">患者ID：178687361</span>患者新建表</div>
+			<p class="rlhz_pop">患者信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem">
+					<p>患者姓名</p>
+					<p><input type="text" name="name" id="name" value="" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>性别</p>
+					<p>
+						<div class="layui-form">
+							<div class="layui-form-item">
+								<select name="sex" id="sex">
+									<option value="">请选择性别</option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</div>
+						</div>
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>出生日期</p>
+					<p><input type="text" id="birthDay" class="layui-input dateinput" placeholder="YYYY-MM-dd"></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>手机</p>
+					<p><input type="text" name="phone" id="" value="" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>期望预约时间</p>
+					<p>
+						<input type="text" id="yyDate" class="layui-input dateinput" placeholder="YYYY-MM-dd">
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>预约医院</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<select name="" id="area">
+								<option value="">请选择医院</option>
+								<option value="上海第七人民医院">上海第七人民医院</option>
+								<option value="上海复旦医学院">上海复旦医学院</option>
+								<option value="北京军区医院">北京军区医院</option>
+								<option value="北京军区医院">北京军区医院</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="hz_infoItem">
+					<p>所属区域</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<select name="" id="area">
+								<option value="">请选择地区</option>
+								<option value="上海">上海</option>
+								<option value="南京">南京</option>
+								<option value="北京">北京</option>
+								<option value="乌鲁木齐">乌鲁木齐</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="des_info">胎记治疗及胎记描述</p>
+			<textarea name="" rows="8" cols="30" class="info_text"></textarea>
+			<p class="des_info">胎记治疗及胎记图片</p>
+			<div class="img_box">
+				<ul class="img_boxUl">
+					<ul class="img_boxUl">
+					<li class="img_boxLi"><img src="img/logo.png" /></li>
+					<li class="img_boxLi"><img src="img/logo.png" /></li>
+					<button type="button" class="layui-btn" id="addupload">
+					  <i class="layui-icon">&#xe67c;</i>上传图片
+					</button>
+				</ul>
+					
+		
+			</div>
+			
+
+		
+
+			
+			<div class="allInfo_wrap">
+				<div class="require_allInfo " id="sureAdd">
+					确认新建
+				</div>
+				
+			</div>
+		</div>
+		<script src="js/jquery-3.3.1.min.js "></script>
+		<script src="js/layui/layui.js "></script>
+
+		<script>
+			layui.use(['form', 'laydate', 'upload'], function() {
+				var form = layui.form,
+					upload = layui.upload,
+					laydate = layui.laydate;
+				laydate.render({
+					elem: '#yyDate'
+				});
+				laydate.render({
+					elem: '#birthDay'
+				});
+				laydate.render({
+					elem: "#yyDateNext "
+				});
+				$('#sureAdd').click(function(){
+					parent.layer.closeAll();
+					parent.layer.msg('创建成功');
+				})
+				var uploadInst = upload.render({
+					elem: '#addupload' //绑定元素
+						,
+					url: '/upload/' //上传接口
+						,
+					done: function(res) {
+						//上传完毕回调
+					},
+					error: function() {
+						//请求异常回调
+					}
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

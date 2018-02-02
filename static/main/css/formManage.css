@@ -13,12 +13,15 @@
 
 .formConTitle {
 	height: 40px;
-	line-height: 50px;
-	padding-left: 15px;
-	font-size: 16px;
-	font-family: "SourceHanSansCN Regular";
-	margin: 10px 0px;
-	box-sizing: border-box;
+    width: 99%;
+    line-height: 40px;
+    padding-left: 15px;
+    font-size: 16px;
+    display: flex;
+    background: #FFFFFF;
+    font-family: "SourceHanSansCN Regular";
+    box-sizing: border-box;
+    border-radius:5px;
 }
 
 
@@ -117,11 +120,13 @@
 
 .formConBoxLeft {
 	flex: 0 0 49%;
+	height: 400px;
 }
 
 .formConBoxRight {
 	flex: 0 0 49%;
 	margin-left: 1%;
+	height: 400px;
 }
 
 .form_allLeftBtn,

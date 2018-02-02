@@ -56,26 +56,31 @@ def PatiDetails(request):
 #搜索
 def Search(request):
     keyword=request.GET.get('keyword')
-    page = request.GET.get('page')
-    orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
-    result, contacts = Paging(orders, page)
-    lister=[]
-    if orders:
-        for order in contacts:
-            data={
-                'id':order.id,
-                'name':order.name,
-                'wanthospital':order.wanthospital.name,#医院名称
-                'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
-                'status': order.get_status_display(),  # 患者状态
-                'area': order.area.name,  # 所属省
-                'sales': order.wanthospital.sales.name,  # 负责销售
-                'createtime':order.createtime.strftime('%Y-%m-%d  %H:%M'),#提交时间
-            }
-            lister.append(data)
-    else:
-        pass
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+    orders=[]
+    if keyword:
+        # page = request.GET.get('page')
+        orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
+
+    # lister=[]
+    # if orders:
+    #     for order in contacts:
+    #         data={
+    #             'id':order.id,
+    #             'name':order.name,
+    #             'wanthospital':order.wanthospital.name,#医院名称
+    #             'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
+    #             'status': order.get_status_display(),  # 患者状态
+    #             'area': order.area.name,  # 所属省
+    #             'sales': order.wanthospital.sales.name,  # 负责销售
+    #             'createtime':order.createtime.strftime('%Y-%m-%d  %H:%M'),#提交时间
+    #         }
+    #         lister.append(data)
+    # else:
+    #     pass
+    return render(request,"searchPop.html",{"order":orders})
+    # return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+
+
 
 #客服系统提醒
 @login_required(login_url="/login/")
@@ -220,7 +225,7 @@ def StaffEditor(request):
 def AddStaff(request):
     name=request.POST['name']
     phone=request.POST['phone'] #电话
-    director=request.POST['director'] #主管
+
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
     user=SalesUser.objects.filter(name=name,phone=phone)

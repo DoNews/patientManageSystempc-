@@ -119,3 +119,5 @@ def remind(request):
 def account(request):
 
     return render(request,"accountManage.html")
+
+

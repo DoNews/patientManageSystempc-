@@ -34,5 +34,6 @@ urlpatterns = [
     url(r'pations$',pations),
     url(r'^pationsview',pationsview),#客服患者数据
     url(r'^remind',remind),
-    url(r'^account',account)
+    url(r'^account',account),
+
 ]

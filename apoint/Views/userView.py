@@ -37,3 +37,4 @@ def createUser(request):
     user.save()
     ZJUser(user=user,name=name,usertype=1).save()
     return HttpResponse("OK")
+
