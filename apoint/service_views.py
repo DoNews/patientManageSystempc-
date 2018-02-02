@@ -9,6 +9,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.db.models import Count
 
 #客服的患者预约工单
 def ServiceApoint(request):
@@ -325,6 +326,7 @@ def RedisBution(request):
     user=ZJUser.objects.filter(id=service_id).first() #找到选择的客服
     Order.objects.get(id=id).update(custome=user)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
 #医院的去管理的详情页
 def HospitMent(request):
     id =request.GET.get('id')
@@ -357,3 +359,47 @@ def AddHosp(request):
         Hospital.objects.create(**item)
     return JsonResutResponse({'ret':0,'msg':'添加或修改成功'})
 
+#数据统计
+def adminStatic(request):
+    users=ZJUser.objects.filter(usertype=1) #找到所有客服
+    service=[]
+    if users:
+        for user in users: #客服的饼状图
+            data={
+                'number':Order.objects.filter(custome=user).count(),
+                'name':user.name,
+            }
+            service.append(data)
+    else:
+        pass
+    appoins=Order.objects.all().count() #所有患者
+    confirm=Order.objects.filter(custome__isnull=False).exclude(status=1 | 2).count() #客服已确认
+    treanumber=Order.objects.filter(Order__status=6).count() #查出来所有已治疗的
+    transfer=Order.objects.filter(Order__status=13).count() #所有转院的
+    numbers=Order.objects.values("number").annotate(sumb=Count("id")) #查询治疗次数
+    ZLTJ=[]
+    if numbers:
+        for number in numbers:
+            data={
+                'ber':number['number'],
+                'sumb':number['sumb'],#数量
+            }
+            ZLTJ.append(data)
+    else:
+        pass
+    #分区域数据
+    areas=Area.objects.all()
+    citys=[]
+    if areas:
+        for area in areas:
+            data={
+                'name':area.name,
+                'treanumber':Order.objects.filter(Order__status=6,area=area).count(), #已安排治疗的
+                'delay':Order.objects.filter(status=11,area=area).count(), #延后
+                'transfer':Order.objects.filter(Order__status=13,area=area).count() ,#转院
+                'suspended':Order.objects.filter(status=12,area=area).count(), #暂停
+            }
+            citys.append(data)
+    else:
+        pass
+    return render(request,'xxx.html',{'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys})
