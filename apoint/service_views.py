@@ -309,6 +309,22 @@ def Allhospit(request):
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
 
+#查看第三方全部
+def AllNoservit(request):
+    page=request.GET.get('page')
+    noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime')  # 第三方进来的 没有客服的
+    result, contacts = Paging(noservit, page)
+    lister = []
+    for noser in contacts:
+        data={
+            'id':noser.id,
+            'name':noser.name,
+            'phone':noser.phone,#手机号
+            'custome': noser.custome.name,  # 负责客服
+            'sales': noser.wanthospital.sales.name,  # 负责销售
+        }
+        lister.append(data)
+    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
 #医院的去管理的详情页
 def HospitMent(request):
     pass
