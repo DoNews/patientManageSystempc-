@@ -305,8 +305,18 @@ def AllNoservit(request):
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
 
-#第三方患者去管理
-
+#患者合并
+def OrderMerge(request):
+    oldOrder=request.POST['oldorder_id']
+    neworder=request.POST['neworder_id']
+    type_id=request.POST['type_id'] #((1,拆分),(2,归并))
+    if int(type_id)==1:
+        user=ZJUser.objects.get(id=oldOrder)
+        Order.objects.get(id=neworder).update(custome=user)
+    else:
+        news=Order.objects.get(id=neworder)
+        Order.objects.get(id=oldOrder).update(sex=news.sex,phone=news.phone,birthday=news.birthday,wanthospital=news.wanthospital,status=6)
+    return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者去管理重新分配客服
 def RedisBution(request):
