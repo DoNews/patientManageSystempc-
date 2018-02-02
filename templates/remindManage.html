@@ -27,21 +27,26 @@
 								<th>负责销售</th>
 								<th>客服操作</th>
 							</tr>
-							<tr>
+                            {% for order in lister %}
+                                <tr>
 								<td>
 									<div class="remindTable_img"></div>
 									<div class="remindTable_con">
 										<p>{{ order.name }}</p>
-										<p>{{ order.wantTime|date:"Y-m-d" }} {{ order.wanthospital }}</p>
+										<p>{{ order.wantTime }} {{ order.wanthospital }}</p>
 									</div>
 								</td>
-								<td>{{ foo.get_status_display}}</td>
-								<td>{{ order.wantTime |date:"Y-m-d" }}</td>
-								<td>{{  }}</td>
-								<td>是</td>
+								<td>{{ order.status}}</td>
+								<td>{{ order.nextcalldate  }}</td>
+								<td>{{ order.day }}</td>
+								<td>{{ order.sales }}</td>
 								<td><span class="remindTableBtn">去管理</span></td>
 							</tr>
-
+{% empty %}
+                              <tr>
+                              <td colspan="6">  暂无数据</td>
+                              </tr>
+                            {% endfor %}
 						</tbody>
 					</table>
 				</div>
@@ -59,35 +64,29 @@
 									<th>提交销售</th>
 									<th>管理员操作</th>
 								</tr>
-								<tr>
+                                {% for order in notes %}
+                                 <tr>
 									<td>
 										<div class="remindTable_img"></div>
 										<div class="remindTable_con">
-											<p>张三丰</p>
-											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+											<p>{{ order.name }}</p>
+											 <p>{{ order.wantTime }} {{ order.wanthospital }}</p>
 										</div>
 									</td>
-									<td>张三丰</td>
+									<td>{{ order.sales }}</td>
 
 									<td><span class="remindTableBtn">去管理</span></td>
 								</tr>
-								<tr>
-									<td>
-										<div class="remindTable_img"></div>
-										<div class="remindTable_con">
-											<p>张三丰</p>
-											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
-										</div>
-									</td>
-									<td>张三丰</td>
-									<td><span class="remindTableBtn">去管理</span></td>
-								</tr>
+                                {% endfor %}
+                                
+
+
 							</tbody>
 						</table>
 						<div class="remind_allLeftBtn">查看全部</div>
 					</div>
 					<div class="remindConBoxRight">
-						<div class="remindConTitle"><span>第三方系统患者匹配管理(<span style="font-size: 12px;">本系统与第三方系统</span>)</span>
+						<div class="remindConTitle"><span>分配工单提醒(<span style="font-size: 12px;"></span>)</span>
 						</div>
 						<table cellpadding="0" cellspacing="0" border="0" class="remindRightTable">
 							<tbody>
@@ -96,28 +95,22 @@
 									<th>提醒患者说</th>
 									<th>客服操作</th>
 								</tr>
-								<tr>
+                                {% for order in admin %}
+                                	<tr>
 									<td>
 										<div class="remindTable_img"></div>
 										<div class="remindTable_con">
-											<p>张三丰</p>
-											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
+											<p>{{ order.name }}</p>
+										 <p>{{ order.wantTime }} {{ order.wanthospital }}</p>
 										</div>
 									</td>
-									<td>张三丰</td>
-									<td><span class="remindTableBtn2">暂停跟进</span></td>
+									<td>{{ order.sales }}</td>
+									<td><span class="remindTableBtn2">去跟进</span></td>
 								</tr>
-								<tr>
-									<td>
-										<div class="remindTable_img"></div>
-										<div class="remindTable_con">
-											<p>张三丰</p>
-											<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
-										</div>
-									</td>
-									<td>张三丰</td>
-									<td><span class="remindTableBtn2">暂停跟进</span></td>
-								</tr>
+
+                                {% endfor %}
+                                
+
 							</tbody>
 						</table>
 						<div class="remind_allRightBtn">查看全部</div>

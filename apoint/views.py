@@ -94,7 +94,27 @@ def pations(request):
 
 @login_required(login_url="/login/")
 def remind(request):
-    return render(request,"remindManage.html",{"pageindex":2,"menu":MENUS_CALLER})
+    user = ZJUser.objects.get(user=request.user)
+    orders = Order.objects.filter(custome=user).order_by('-createtime')  # 查看逾期
+    remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
+        Order__is_operation=False).order_by('-createtime')  # 所有备忘
+    admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
+        Order__is_operation=False).order_by('-createtime')  # 查看分配
+    if orders:
+        lister = RemindSystem(orders[:4])  # 这是逾期的
+    else:
+        lister = []
+    if remin:
+        notes = ViewCheat(remin[:3])  # 这里是备忘
+    else:
+        notes = []
+    if admin:
+        admins = AdminDis(admin[:3])  # 这里是管理员分配的
+    else:
+        admins = []
+    return render(request, "remindManage.html",
+                  {'ret': 0, 'msg': 'success', 'lister': lister, 'notes': notes, 'admin': admins,"pageindex":2,"menu":MENUS_CALLER})
+    return render(request,"remindManage.html",{"pageindex":2,"menu":MENUS_CALLER,"orders":orders,"remin":remin,"admin":admin})
 
 def account(request):
 

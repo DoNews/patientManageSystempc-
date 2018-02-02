@@ -97,7 +97,8 @@ def Remind(request):
         admins=AdminDis(admin[:3]) #这里是管理员分配的
     else:
         admins=[]
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'notes':notes,'admin':admins})
+    return render(request,"remindManage.html",{'ret':0,'msg':'success','lister':lister,'notes':notes,'admin':admins})
+    return JsonResutResponse()
 
 #查看所有逾期
 @login_required(login_url="/login/")
