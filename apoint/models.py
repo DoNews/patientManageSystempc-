@@ -35,7 +35,6 @@ class ZJUser(models.Model):
 class SalesUser(ZJUser):
     openid = models.CharField("openid", max_length=100, blank=True,null=True)
     email=models.CharField('邮箱',max_length=50)
-    director=models.CharField('主管',max_length=20,blank=True,null=True)
     city=models.CharField('省市',max_length=20,blank=True,null=True)
     is_cert=models.BooleanField('是否认证',default=False)
 

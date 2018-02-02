@@ -40,18 +40,25 @@ def ServiceApoint(request):
         return JsonResutResponse({'ret':1,'msg':'没有这个员工'})
 
 #点击查看患者详情
+@login_required(login_url="/login/")
 def PatiDetails(request):
+    user = ZJUser.objects.get(user=request.user)
     id=request.GET.get('id')#患者订单的id
     order=Order.objects.filter(id=id).first() #患者订单
-    data, record = Detail(order) #data 是患者字段 包括照片，record 是所有跟进记录
+    imgs = IllnessImage.objects.filter(patient=order)  # 患者上传的图片
     follows = OrderDetail.objects.filter(order=order)  # 对订单的所有操作
-    for follow in follows: #改变orderdetail 里的操作状态
-        if follow.is_operation==True:
-            pass
-        else:
-            follow.is_operation=True
-            follow.save()
-    return JsonResutResponse({'ret':0,'msg':'success','data':data,'record':record})
+    nes=Order.objects.filter(id=id,custome=user)
+    if nes:
+        follows = OrderDetail.objects.filter(order=order)  # 对订单的所有操作
+        for follow in follows: #改变orderdetail 里的操作状态
+            if follow.is_operation==True:
+                pass
+            else:
+                follow.is_operation=True
+                follow.save()
+    else:
+        pass
+    return JsonResutResponse({'ret':0,'msg':'success','order':order,'follows':follows,'imgs':imgs})
 
 #搜索
 def Search(request):
@@ -160,23 +167,24 @@ def AccountSet(request):
         return JsonResutResponse({'ret':1,'msg':u'密码错误/新密码和确认密码不匹配'})
 
 #管理员的员工管理
-@login_required(login_url="/login/")
+
 def StafManag(request):
+    page=request.GET.get('page')
     user = ZJUser.objects.get(user=request.user)
-    if user.user.is_superuser==True:
-        users=SalesUser.objects.all().order_by('-createtime') #找的是员工
-        if users:
-            staffs=users[:9]
-        else:
-            staffs=[]
-        ser=ZJUser.objects.filter(usertype=1) #找的是客服
-        if ser :
-            services=ser[:2]
-        else:
-            services=[]
-        return render(request,'xxxx.html',{'staffs':staffs,'service':services})
-    else:
-        return HttpResponse(u"你不是管理员，无权查看")
+    users=SalesUser.objects.all().order_by('-createtime') #找的是员工
+    result, contacts = Paging(users, page)
+    lister = []
+    for staff in contacts: #销售的要分页
+        data = {
+            'id': staff.id,
+            'name': staff.name,
+            'phone': staff.phone,
+            'is_cert': staff.is_cert,  # 绑定状态
+            'city': staff.city,
+        }
+        lister.append(data)
+    ser=ZJUser.objects.filter(usertype=1) #找的是客服
+    return render(request,'xxxx.html',{'staffs':lister,'service':ser})
 #点击查看所有员工
 def StaffAll(request):
     page=request.POST['page']
@@ -190,24 +198,10 @@ def StaffAll(request):
             'phone':staff.phone,
             'is_cert':staff.is_cert,#绑定状态
             'city':staff.city,
-            'director':staff.director,#主管
         }
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
-#点击查看所有销售
-def ServiceAll(request):
-    page = request.GET.get('page')
-    services = ZJUser.objects.filter(usertype=1)  # 找的是客服
-    result, contacts = Paging(services, page)
-    lister=[]
-    for serv in contacts:
-        data={
-            'id':serv.id,
-            'name':serv.name,
-            'username':serv.user.username,#账号
-        }
-        lister.append(data)
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+
 #查看员工详情
 def StaffEditor(request):
     id=request.GET.get('id') #员工的id
@@ -219,14 +213,13 @@ def StaffEditor(request):
 def AddStaff(request):
     name=request.POST['name']
     phone=request.POST['phone'] #电话
-    director=request.POST['director'] #主管
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
-    user=SalesUser.objects.filter(name=name,phone=phone)
+    user=SalesUser.objects.filter(name=name,phone=phone).first()
     if user:
-        staff=user.update(name=name,phone=phone,director=director,usertype=2,city=city)
+        staff=user.update(name=name,phone=phone,usertype=2,city=city)
     else:
-        staff=SalesUser.objects.create(name=name,phone=phone,director=director,usertype=2,city=city)
+        staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id
     for hos in hospser:
         Hospital.objects.filter(id=hos).update(sales=staff)
@@ -253,25 +246,6 @@ def StaffDelete(request):
     return render(request,'xxxx.html',{'msg':u'删除成功'})
 
 
-
-#管理员数据管理
-def AdminData(request):
-    order=Order.objects.all().order_by('-createtime') #患者
-    hosp=Hospital.objects.all().order_by('-createtime') #医院
-    noservit=Order.objects.filter(is_party=True,custome=None).order_by('-createtime')#第三方进来的 没有客服的
-    if order:
-        orders=order[:6]
-    else:
-        orders=[]
-    if hosp:
-        hosption=hosp[:3]
-    else:
-        hosption=[]
-    if noservit:
-        foreign=noservit[:3]
-    else:
-        foreign=[]
-    return render(request, 'xxx.html',{'orders':orders,'hosption':hosption,'foreign':foreign})
 
 #查看所有患者
 def OrderAll(request):
@@ -315,15 +289,61 @@ def AllNoservit(request):
     result, contacts = Paging(noservit, page)
     lister = []
     for noser in contacts:
+        orders=Order.objects.filter(name=noser.name,custome__isnull=False).order_by('-createtime')
+        if orders:
+            order=orders[0]
+        else:
+            order=''
         data={
             'id':noser.id,
             'name':noser.name,
             'phone':noser.phone,#手机号
             'custome': noser.custome.name,  # 负责客服
             'sales': noser.wanthospital.sales.name,  # 负责销售
+            'order':order,#和他姓名一样的
         }
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+
+#第三方患者去管理
+
+
+#患者去管理重新分配客服
+def RedisBution(request):
+    id=request.POST['id'] #患者id
+    service_id=request.POST['service_id']#客服的id
+    user=ZJUser.objects.filter(id=service_id).first() #找到选择的客服
+    Order.objects.get(id=id).update(custome=user)
+    return JsonResutResponse({'ret':0,'msg':'success'})
 #医院的去管理的详情页
 def HospitMent(request):
-    pass
+    id =request.GET.get('id')
+    hosp=Hospital.objects.get(id=id)
+    return render(request,'xxx.htm',{'hosp':hosp})
+
+#医院的添加与修改
+def AddHosp(request):
+    hosp=request.POST['hosp']
+    hosps = json.loads(hosp)
+    item={}
+    for hos in hosps:
+        if hos=='area_id':
+            area=Area.objects.get(id=id)
+            item['province']=area
+        elif hos=='sales_id':
+            sales=SalesUser.objects.get(id=id)
+            item['sales']=sales
+        elif hos=='name':
+            hosper = Hospital.objects.filter(name=hosps[hos]).first()
+            if hosper:
+                pass
+            else:
+                item[hos]=hosps[hos]
+        else:
+            item[hos]=hosps[hos]
+    if hosper:
+        hosper.update(**item)
+    else:
+        Hospital.objects.create(**item)
+    return JsonResutResponse({'ret':0,'msg':'添加或修改成功'})
+
