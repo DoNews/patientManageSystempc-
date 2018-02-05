@@ -177,12 +177,12 @@ def ThirdParty(request):
         wantTime=user['wantTime'] #治疗时间
         city=user['city']#城市
         hospital=user['hospital'] #医院
-        hosps=Hospital.objects.filter(name=hospital) #判断是否有这个医院
+        hosps=Hospital.objects.filter(name=hospital).first() #判断是否有这个医院
         if hosps:
             hos =hosps
         else:
             hos=Hospital.objects.create(name=hospital)
-        are=Area.objects.filter(name=city)
+        are=Area.objects.filter(name=city).first()
         if are:
             area=are
         else:
