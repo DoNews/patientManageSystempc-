@@ -6,6 +6,7 @@ from PIL import Image as image
 import time
 import os
 from django.core.paginator import Paginator
+from task import *
 import datetime
 def JsonResutResponse(result):
   return HttpResponse(simplejson.dumps(result))
@@ -145,3 +146,44 @@ def AdminDis(orders):
     else:
         pass
     return admins
+
+#这是定时用的
+def CreateMiss(id,name,msgtype,started_time,equipment): #equipment 1是手机短信定时，2是微信模板定时
+  task_args = {'SentWhoId': id, 'MsgType': msgtype}
+  out_time=started_time+settings.OUTDATE_ONEDAY #删除时间
+  if equipment==1:
+      if msgtype==1: #预约前三天
+        name = "%s%s%s" % (name,id,u'手机短信前三天')
+        end_time = started_time - settings.OUTDATE_PERIOD
+      else:  #预约当天8点
+        name = "%s%s%s" % (name, id, u'手机短信当天八点')
+        end_time=started_time+ settings.OUTDATE_HOURS #当天加上8小时
+  else:
+      if msgtype==1: #预约前三天
+        name = "%s%s%s" % (name, id,u'微信模板前三天')
+        end_time = started_time - settings.OUTDATE_PERIOD
+      else:  #预约当天8点
+        name = "%s%s%s" % (name, id, u'微信模板当天八点')
+        end_time=started_time+ settings.OUTDATE_HOURS #当天加上8小时
+  crontab_time = {
+    'month_of_year': end_time.month,  # 月份
+    'day_of_month': end_time.day,  # 日期
+    'hour': end_time.hour,  # 小时 c
+    'minute': end_time.minute,  # 分钟
+  }
+  if equipment==1:
+      create_task(name, 'apoint.tasks.CeleTexting', task_args, crontab_time, out_time)
+  else:
+      create_task(name,'apoint.tasks.TimingModel',task_args,crontab_time,out_time)
+
+#这是为了定时用的
+def CreateCelery(order,equipment): #传过来的是订单 equipment 1是手机短信 2 是微信模板
+    new = timezone.now()
+    if order.wantTime - settings.OUTDATE_PERIOD > new:
+        a = 2
+    elif order.wantTime - settings.OUTDATE_HOURS > new:
+        a = 1
+    else:
+        a = 0
+    for b in range(a):  # 0是一小时，1是一天，2是3天
+        CreateMiss(order.id, order.name, b, order.wantTime,equipment)

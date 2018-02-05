@@ -168,7 +168,6 @@ def AccountSet(request):
         return JsonResutResponse({'ret':1,'msg':u'密码错误/新密码和确认密码不匹配'})
 
 #管理员的员工管理
-
 def StafManag(request):
     page=request.GET.get('page')
     user = ZJUser.objects.get(user=request.user)
@@ -359,7 +358,7 @@ def AddHosp(request):
         Hospital.objects.create(**item)
     return JsonResutResponse({'ret':0,'msg':'添加或修改成功'})
 
-#数据统计
+#管理员的数据统计
 def adminStatic(request):
     users=ZJUser.objects.filter(usertype=1) #找到所有客服
     service=[]

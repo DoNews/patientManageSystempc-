@@ -2,6 +2,7 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from models import *
 from common import *
+from django.utils import timezone
 import functools, random
 import requests
 import json
@@ -107,8 +108,8 @@ def OrderSubmit(request):
             item[k]=area
         else:
             item[k]=user[k]
-    order=Order.objects.filter(name=name,phone=phone)
-    if order:
+    orderser=Order.objects.filter(name=name,phone=phone)
+    if orderser:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
         orders=Order.objects.all()
@@ -118,6 +119,10 @@ def OrderSubmit(request):
         order=Order.objects.create(**item)
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
+    try:
+        ModelMsg(order.id, 1, 1)
+    except:
+        return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})
 
 
@@ -197,3 +202,4 @@ def ThirdParty(request):
             s = "NO.%04d" % n
             Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
