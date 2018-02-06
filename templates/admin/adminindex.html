@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>管理员首页页面</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			 {% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+				 {% include 'control/head.html' %}
+				<div class="contentBox">
+					<div class="patientConTitle"><span>销售账号管理</span><span class="pmTbaleBtnLeft" id="addStaff">新增</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+						<tbody>
+							<tr>
+								<th>员工姓名</th>
+								<th>手机号码</th>
+								<th>绑定状态</th>
+								<th>负责区域</th>
+
+								<th>操作</th>
+							</tr>
+              {% for item in staffs %}
+              	<tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>{{ item.name }}</p>
+
+									</div>
+								</td>
+								<td>{{ item.phone }}</td>
+								<td>{{ item.is_cert }}</td>
+								<td>{{ item.city }}
+								</td>
+
+								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+              {% endfor %}
+						</tbody>
+					</table>
+
+
+				</div>
+				<div class="contentBox">
+					<div class="patientConTitle"><span>客服账号管理</span><span class="pmTbaleBtnLeft" id="addCustom">新增</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+						<tbody>
+							<tr>
+								<th>客服姓名</th>
+								<th>手机号码</th>
+								<th>账号</th>
+								<th>操作</th>
+							</tr>
+              {% for item in service %}
+	            <tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>{{ item.name }}</p>
+
+									</div>
+								</td>
+								<td>{{ item.phone }}</td>
+
+
+								<td>{{ item.user.username }}</td>
+								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+              {% endfor %}
+
+
+
+						</tbody>
+					</table>
+					<div class="remind_allLeftBtn">查看全部</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		</div>
+
+		<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+
+		 <script type="text/javascript">
+			//分页
+			layui.use(['laypage', 'layer'], function() {
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				//自定义样式
+				//完整功能
+				laypage.render({
+					elem: 'staffPage',
+					count: 100,
+					layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+					jump: function(obj) {
+					}
+				});
+				$('.pmTbaleBtn1').click(function() {
+          var sid =$(this).attr("data-id");
+					layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['/api/apoint/staffeditor/?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+
+						}
+					});
+
+				});
+				//删除
+				$('.pmTbaleBtn').click(function() {
+					$(this).parents('tr').remove();
+				});
+				//添加员工
+				$('#addStaff').click(function() {
+
+					layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['./addStaff.html', 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+
+						}
+
+					});
+				});
+				//	患者认领弹框
+				$('#addCustom').click(function() {
+					layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['./addCustom.html', 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+						}
+					});
+				})
+			});
+		</script>
+
+	</body>
+
+</html>

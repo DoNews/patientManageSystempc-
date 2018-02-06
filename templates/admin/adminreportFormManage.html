@@ -4,16 +4,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="img/icon.png" />
+		<link rel="icon" href="/static/main/img/icon.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
 	</head>
 
 	<body>
 		<div class="yy_indexCon">
-			 {% include 'control/adminleft.html' %}
+			  {% include 'control/adminleft.html' %}
 			<div class="yy_indexConRight">
-				{% include 'control/head.html' %}
+                {% include 'control/head.html' %}
 				<style type="text/css">
 					.formConBoxLeft {
 						flex: 0 0 32%;
@@ -50,7 +50,7 @@
 
 					</div>
 					<div class="formConBoxRight">
-						<div class="formConTitle"><span>本月确认患者就诊数</span></div>
+						<div class="formConTitle"><span>患者治疗次数</span></div>
 						<div id="nowMouth3" style="height: 70%;">
 
 						</div>
@@ -69,7 +69,7 @@
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/echarts.common.min.js"></script>
-	<!--<script src="/static/main/js/formManage.js"></script>-->
+	<!--<script src="js/formManage.js"></script>-->
 	<script type="text/javascript">
 		var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		option1 = {
@@ -82,29 +82,22 @@
 				orient: 'vertical',
 				left: 'left',
 
-				data: ['黄晓明', '刘德华', '郭德纲', '岳云鹏', '超级玛丽']
+				data: [{% for foo in  name%}
+                    '{{ foo }}',
+				{% endfor %}]
+
 			},
+        {% for user in service %}
 			series: [{
 				name: '访问来源',
 				type: 'pie',
 				radius: '55%',
 				center: ['50%', '60%'],
 				data: [{
-					value: 335,
-					name: '黄晓明'
-				}, {
-					value: 310,
-					name: '刘德华'
-				}, {
-					value: 234,
-					name: '郭德纲'
-				}, {
-					value: 135,
-					name: '岳云鹏'
-				}, {
-					value: 1548,
-					name: '超级玛丽'
+					value: {{ user.number }},
+					name: '{{ user.name }}',
 				}],
+                {% endfor %}
 				itemStyle: {
 					emphasis: {
 						shadowBlur: 10,
@@ -133,7 +126,7 @@
 			},
 			xAxis: [{
 				type: 'category',
-				data: ['已治疗人数', '转院', '患者预约总数', '客服确认总数', '未就诊'],
+				data: ['已治疗人数', '转院', '患者预约总数', '客服确认总数'],
 				axisTick: {
 					alignWithLabel: true
 				},
@@ -148,16 +141,17 @@
 			yAxis: [{
 				type: 'value'
 			}],
+
 			series: [{
 				name: '直接访问',
 				type: 'bar',
 				barWidth: '60%',
-				data: [10, 52, 200, 334, 390],
+				data: [{{ treanumber }}, {{ transfer }}, {{ appoins }}, {{ confirm }}],
 				itemStyle: {
 					//通常情况下：
 					normal: {
 						color: function(params) {
-							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)','#ff73a4'];
+							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
 							return colorList[params.dataIndex];
 						}
 					}
@@ -189,7 +183,10 @@
 			],
 			yAxis: [{
 				type: 'category',
-				data: ['一次', '两次', '三次', '四次', '五次','六次及以上'],
+
+				data: [{% for shuju in  ZLCSTJ%}
+                    '{{ shuju.ber }}次',
+				{% endfor %}],
 				axisTick: {
 					alignWithLabel: true
 				},
@@ -201,10 +198,12 @@
 				}
 			}}],
 			series: [{
-				name: '直接访问',
+				name: '治疗次数为',
 				type: 'bar',
 				barWidth: '60%',
-				data: [200, 52, 200, 284, 130,280],
+				data: [{% for shuju in  ZLCSTJ%}
+                    '{{ shuju.sumb }}',
+				{% endfor %}],
 				itemStyle: {
 					//通常情况下：
 					normal: {
@@ -241,7 +240,9 @@
 			},
 			xAxis: {
 				type: 'category',
-				data: ['华东区', '渭南区', '东市区', '长安西区', '苏北区', '等景区', '西北区']
+				data: [{% for city in  citys%}
+                    '{{ city.name }}',
+				{% endfor %}]
 			},
 			yAxis: {
 				type: 'value'
@@ -256,10 +257,12 @@
 							position: 'insideRight'
 						}
 					},
-					data: [666, 302, 301, 334, 390, 330, 320]
+					data: [{% for city in  citys%}
+                    '{{ city.treanumber }}',
+				{% endfor %}]
 				},
 				{
-					name: '已治疗',
+					name: '延后治疗',
 					type: 'bar',
 					stack: '总量',
 					label: {
@@ -268,7 +271,9 @@
 							position: 'insideRight'
 						}
 					},
-					data: [120, 132, 101, 134, 90, 230, 210]
+					data:[{% for city in  citys%}
+                    '{{ city.delay }}',
+				{% endfor %}]
 				},
 				{
 					name: '转院',
@@ -280,7 +285,9 @@
 							position: 'insideRight'
 						}
 					},
-					data: [220, 182, 191, 234, 290, 330, 310]
+					data: [{% for city in  citys%}
+                    '{{ city.transfer }}',
+				{% endfor %}]
 				},
 				{
 					name: '暂停',
@@ -292,7 +299,9 @@
 							position: 'insideRight'
 						}
 					},
-					data: [150, 212, 201, 154, 190, 330, 410]
+					data: [{% for city in  citys%}
+                    '{{ city.suspended }}',
+				{% endfor %}]
 				}
 			]
 

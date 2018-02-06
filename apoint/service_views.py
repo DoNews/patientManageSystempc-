@@ -217,7 +217,8 @@ def StaffEditor(request):
     id=request.GET.get('id') #员工的id
     user=SalesUser.objects.get(id=id)
     hosps=Hospital.objects.filter(sales=user)#对应的医院
-    return render(request,'xxxx.html',{'user':user,'hosps':hosps})
+    area =Area.objects.all()
+    return render(request,'admin/addStaff.html',{'user':user,'hosps':hosps,'area':area})
 
 #添加员工和修改员工
 def AddStaff(request):
@@ -417,4 +418,4 @@ def adminStatic(request):
     else:
         pass
     print name
-    return render(request,'adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys})
+    return render(request,'admin/adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys,"pageindex":4})
