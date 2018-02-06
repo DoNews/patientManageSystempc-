@@ -5,59 +5,15 @@
 		<meta charset="UTF-8">
 		<title>第三方系统匹配管理</title>
 		<link rel="icon" href="img/icon.png" />
-		<link rel="stylesheet" href="css/common.css" />
-		<link rel="stylesheet" href="css/remindManage.css" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
 	</head>
 
 	<body>
 		<div class="yy_indexCon">
-			<div class="yy_indexConLeft">
-				<div class="yy_indexConLeftCon">
-					<div>
-						<div class="yy_loginLogo">
-							<img src="img/logo.png" alt="" />
-						</div>
-						<p class="yy_indexTitle">张江患者预约管理系统</p>
-					</div>
-					<ul class="kf_power">
-						<a href="adminindex.html">
-							<li>员工管理</li>
-						</a>
-						<a href="admindataManage.html">
-							<li>提醒管理</li>
-						</a>
-						<a href="adminHospitalManage.html">
-							<li>医院管理</li>
-						</a>
-						<a href="adminAnontherSystem.html">
-							<li  class="li_active">第三方系统匹配管理</li>
-						</a>
-						<a href="adminreportFormManage.html">
-							<li>报表管理</li>
-						</a>
-						<a href="adminAccountManage.html">
-							<li>账户管理</li>
-						</a>
-					</ul>
-				</div>
-
-			</div>
+			{% include 'control/adminleft.html' %}
 			<div class="yy_indexConRight">
-				<div class="yy_indexConRightHeader">
-					<div class="searchBox">
-						<i class="icon"></i>
-						<input type="text" id="serch" placeholder="搜索患者" />
-						<button class="search_Btn">搜索</button>
-					</div>
-					<div class="loginAndName">
-						<span class="userName">
-											你好MR
-									</span>
-						<span class="login">
-											登录
-									</span>
-					</div>
-				</div>
+				 {% include 'control/head.html' %}
 				<div class="remindConBox" style="height: 550px;">
 					<div class="remindConTitle"><span>第三方系统匹配管理</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
@@ -120,8 +76,8 @@
 			</div>
 		</div>
 	</body>
-	<script src="js/jquery-3.3.1.min.js"></script>
-	<script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		layui.use(['form', 'laydate', 'upload', 'layer'], function() {
 			var form = layui.form,

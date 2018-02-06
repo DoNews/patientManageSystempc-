@@ -47,5 +47,7 @@ urlpatterns = [
     url(r'adminindex',adminindex),
     url(r'^pationsview',pationsview),
     url(r'^hospital',hospital),
-    url(r'^thirdpart',thirdpart)
+    url(r'^thirdpart',thirdpart),
+    url(r'^adminchart', adminchart),
+url(r'^accountview',accountview),
 ]

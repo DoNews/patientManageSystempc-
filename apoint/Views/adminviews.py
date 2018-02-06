@@ -8,14 +8,7 @@ def staff(request):
     return render(request,{"user":users})
 
 
-MENUS_CALLER=(
-    ("员工管理","/adminindex"),
-    ("患者管理","/pationsview"),
-    ("提醒管理","/remind"),
-    ("报表管理","/chart"),
-    ("账户管理","/account")
 
-)
 def adminindex(request):
     return render(request,"adminindex.html",{"pageindex":0})
 
@@ -27,7 +20,7 @@ def hospital(request):
 
 def thirdpart(request):
     return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
-def chart(request):
-    return render(request, "admin/adminAnontherSystem.html",{"pageindex":4})
-def account(request):
-    return render(request, "admin/adminAnontherSystem.html",{"pageindex":5})
+def adminchart(request):
+    return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
+def accountview(request):
+    return render(request, "admin/adminAccountManage.html",{"pageindex":5})

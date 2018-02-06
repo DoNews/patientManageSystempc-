@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客服提醒管理</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/accountManage.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			{% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+                {% include 'control/head.html' %}
+				<div class="accountConBox">
+					<div class="accountConTitle"><span>更改密码</span></div>
+					<div class="changePass yy_loginForm">
+						<div class="changeLeft">
+							<p class="p_text">旧密码<span style="color: red;">*</span> </p>
+							<p><input type="password" /></p>
+							<p class="p_text">新密码<span style="color: red;">*</span> </p>
+							<p><input type="password" /></p>
+							<p class="p_text">重复新密码<span style="color: red;">*</span> </p>
+							<p><input type="password" /></p>
+							<div class="changePassBtn">
+								保存提交
+							</div>
+						</div>
+						<div class="changeRight">
+							<p class="changePassTitle">复旦张江患者管理系统密码管理规定</p>
+							<p>1.密码需要八位以上</p>
+							<p>2.密码需要包含大写字母，小写字母以及数字，三类字符缺一不可</p>
+							<p>3.需要定期修改密码</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-3.3.1.min.js"></script>
+</html>
