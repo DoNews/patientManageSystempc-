@@ -42,6 +42,5 @@ urlpatterns = [
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
 
 
-    #测试
 
 ]
