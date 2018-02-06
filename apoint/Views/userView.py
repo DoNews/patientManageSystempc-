@@ -25,7 +25,6 @@ def userlogin(request):
         return render(request, 'login.html', {})
     return render(request, "login.html")
 
-
 def createUser(request):
     username =request.POST.get("username")
     name = request.POST.get("name")
