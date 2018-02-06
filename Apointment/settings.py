@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
-    'djcelery',
+    # 'djcelery',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -152,8 +152,8 @@ OUTDATE_PERIOD=datetime.timedelta(days=3)  #提前3天
 OUTDATE_ONEDAY=datetime.timedelta(days=1) #这是一天
 OUTDATE_HOURS=datetime.timedelta(hours=8) #这是8小时
 
-import djcelery
-djcelery.setup_loader()
+# import djcelery
+# djcelery.setup_loader()
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
 BROKER_USER = "guest"

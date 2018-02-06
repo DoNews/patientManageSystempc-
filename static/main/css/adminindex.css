@@ -7,45 +7,51 @@
 	box-sizing: border-box;
 	position: relative;
 }
-		.contentBox {
+/*分页*/
+#staffPage{
+	height: 87px;
+    line-height: 87px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+}
+#staffPage select{
+	    margin-top: 26px;
+}
+.contentBox {
 	box-sizing: border-box;
-    margin: 10px 10px 10px 0;
-    background-color: white;
+	margin: 10px 10px 10px 0;
+	background-color: white;
+}
+.pmTbaleBtn1 {
+	color: #5bbfd3!important;
 }
 
-
-
-/*表格*/
-
-.newgd {
-	height: 25px;
-	width: 50px;
-	text-align: center;
-	line-height: 25px;
-	font-size: 14px;
-	color: #fff;
-	display: inline-block;
-	border-radius: -moz-calc(5px);
-	border-radius: -webkit-calc(5px);
-	border-radius: 5px;
-	background: #5bbfd3;
+.pmTbaleBtnLeft {
 	position: absolute;
-	right: 20px;
-	top: 12px;
+	right: 10px;
+	top: 13px;
+	color: #fff!important;
+	background: #5bbfd3!important;
 }
 
-.pmTbaleBtn {
+.pmTbaleBtn,
+.pmTbaleBtn1,
+.pmTbaleBtnLeft {
 	height: 25px;
-	width: 68px;
+	width: 45px;
 	text-align: center;
 	line-height: 25px;
 	font-size: 14px;
-	color: #fff;
+	color: #f7b85b;
 	display: inline-block;
 	border-radius: -moz-calc(5px);
 	border-radius: -webkit-calc(5px);
 	border-radius: 5px;
-	background: #5bbfd3;
+	background: #fff;
+	cursor: pointer;
+	margin-left: 6px;
+	border: 1px solid #eee;
 }
 
 .pmTable {
@@ -55,7 +61,7 @@
 }
 
 .pmTable tr {
-	height: 60px;
+	height:50px;
 	border-top: 1px solid #ccc;
 	font-size: 13px;
 	color: #333840;
@@ -78,11 +84,11 @@
 
 .pmTable_img {
 	background: url(../img/icon1.png) no-repeat center center;
-	  background-size: cover;
-    height: 18px;
-    width: 18px;
-    float: left;
-       margin: 3px 0 0 0;
+	background-size: cover;
+	height: 18px;
+	width: 18px;
+	float: left;
+	margin: 3px 0 0 0;
 }
 
 .pmTable_con {
@@ -102,15 +108,44 @@
 	white-space: nowrap;
 }
 
-
-/*页码*/
-
-.pageNumbox {
-	position: relative;
+.remind_allLeftBtn {
+	height: 25px;
+	width: 80px;
+	text-align: center;
+	line-height: 25px;
+	font-size: 14px;
+	color: #fff;
+	margin: 25px auto 25px;
+	border-radius: -moz-calc(5px);
+	border-radius: -webkit-calc(5px);
+	border-radius: 5px;
+	background: #5bbfd3;
+	cursor: pointer;
 }
 
-#pageNum {
-	height: 87px;
-	line-height: 87px;
-	text-align: center;
+.contentBox {
+	padding-bottom: 1px;
+	margin-bottom: 10px!important;
+}
+
+/*重置弹框样式*/
+.layui-edge {
+	right: 40px!important;
+}
+.layui-layer-iframe iframe {
+    display: block;
+    border-radius: 6px!important;
+    width: 100%;
+}
+.layui-form-select dl {
+	min-width: 93%!important;
+}
+
+.layui-form-select .layui-input {
+	width: 91.5%!important;
+    margin: 0 0 0 2%;
+}
+.layui-form-item {
+    margin-bottom: 7px!important;
+    clear: both;
 }

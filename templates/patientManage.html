@@ -4,15 +4,17 @@
 		<meta charset="UTF-8">
 		<title>患者管理</title>
 		<link rel="icon" href="img/icon.png" />
+ 	<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/patientManage.css" />
-        <link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
-        <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+		<link rel="stylesheet" href="/static/main/css/layui.css" />
+    	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	</head>
 	<body style="min-width: 1300px;">
 		<div class="yy_indexCon">
 			 {% include 'left.html' %}
 			<div class="yy_indexConRight">
-                    {% include 'head.html' %}
+        {% include 'head.html' %}
 				<div class="patientConBox">
 
 					<div class="patientConTitle"><span>患者预约工单提醒</span> <span class="newgd">新建</span></div>
@@ -45,11 +47,6 @@
 						</tbody>
 
 					</table>
-					<div class="pageNumbox">
-						<span class="indexPage">首页</span>
-						<span class="leftArrow"></span><span>1</span>/<span>10</span><span class="rightArrow"></span>
-						<span class="lastPage">尾页</span>
-					</div>
 
 					<div id="pageNum"></div>
 				</div>
@@ -58,8 +55,8 @@
 		</div>
 
 
-		<script src="/static/main/js/layui/layui.js"></script>
-	<script src="/static/main/js/patientManage.js"></script>
 
+		<script src="/static/main/js/layui/layui.js"></script>
+		<script src="/static/main/js/patientManage.js"></script>
 	</body>
 </html>

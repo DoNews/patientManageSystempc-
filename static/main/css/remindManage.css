@@ -9,6 +9,7 @@
 	background: #FFF;
 	box-sizing: border-box;
 	margin: 10px 10px 10px 0;
+	    padding-bottom: 1px
 }
 
 .remindConTitle {
@@ -36,11 +37,13 @@
 	border-radius: -webkit-calc(5px);
 	border-radius: 5px;
 	background: #5bbfd3;
+	cursor: pointer;
 }
 .remindTableBtn2{
     display: inline-block;
     border: 1px solid #ccc;
     height: 26px;
+    cursor: pointer;
     line-height: 26px;
     width: 80px;
     font-size: 1rem;
@@ -63,7 +66,7 @@
 .remindTable tr,
 .remindLeftTable tr,
 .remindRightTable tr {
-	height: 60px;
+	height: 50px;
 	border-top: 1px solid #ccc;
 	font-size: 13px;
 	font-family: "SourceHanSansCN Regular";
@@ -74,8 +77,8 @@
 .remindRightTable th {
 	color: #333840;
 	font-family: "SourceHanSansCN Regular";
-	height: 60px;
-	line-height: 60px;
+	height: 50px;
+	line-height:50px;
 	text-align: left;
 	font-size: 16px;
 	font-family: "SourceHanSansCN Regular";
@@ -94,6 +97,7 @@
     border-radius: -webkit-calc(5px);
     border-radius: 5px;
     background: #5bbfd3;
+    cursor: pointer;
 }
 .remindTable_img {
 	background: url(../img/icon1.png) no-repeat center center;
@@ -150,4 +154,5 @@
 	border-radius: -webkit-calc(5px);
 	border-radius: 5px;
 	background: #5bbfd3;
+	cursor: pointer;
 }
