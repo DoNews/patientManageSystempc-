@@ -21,6 +21,7 @@ from apoint.Views.userView import *
 from apoint.adminviews import *
 import xadmin
 urlpatterns = [
+    url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
     url(r'^login',userlogin),

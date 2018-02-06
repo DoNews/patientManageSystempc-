@@ -35,6 +35,13 @@ urlpatterns = [
     url(r'^orderall/',OrderAll),#查看所有患者
     url(r'^allhospit/',Allhospit),#查看所有医院
     url(r'^allnoservit/',AllNoservit),#查看第三方全部
+    url(r'^ordermerge/',OrderMerge),#患者归并和拆分
     url(r'^redisbution/',RedisBution),#患者去管理重新分配客服
+    url(r'^hospitment/',HospitMent),#查看医院详情
+    url(r'^addhosp/',AddHosp),#医院的添加和修改
+    url(r'^adminstatic/',adminStatic),#管理员的数据统计
+
+
+    #测试
 
 ]

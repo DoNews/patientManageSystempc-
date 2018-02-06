@@ -9,6 +9,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.db.models import Count
 
 #客服的患者预约工单
 def ServiceApoint(request):
@@ -173,7 +174,6 @@ def AccountSet(request):
         return JsonResutResponse({'ret':1,'msg':u'密码错误/新密码和确认密码不匹配'})
 
 #管理员的员工管理
-
 def StafManag(request):
     page=request.GET.get('page')
     user = ZJUser.objects.get(user=request.user)
@@ -312,8 +312,18 @@ def AllNoservit(request):
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
 
-#第三方患者去管理
-
+#患者合并
+def OrderMerge(request):
+    oldOrder=request.POST['oldorder_id']
+    neworder=request.POST['neworder_id']
+    type_id=request.POST['type_id'] #((1,拆分),(2,归并))
+    if int(type_id)==1:
+        user=ZJUser.objects.get(id=oldOrder)
+        Order.objects.get(id=neworder).update(custome=user)
+    else:
+        news=Order.objects.get(id=neworder)
+        Order.objects.get(id=oldOrder).update(sex=news.sex,phone=news.phone,birthday=news.birthday,wanthospital=news.wanthospital,status=6)
+    return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者去管理重新分配客服
 def RedisBution(request):
@@ -322,6 +332,7 @@ def RedisBution(request):
     user=ZJUser.objects.filter(id=service_id).first() #找到选择的客服
     Order.objects.get(id=id).update(custome=user)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
 #医院的去管理的详情页
 def HospitMent(request):
     id =request.GET.get('id')
@@ -354,3 +365,47 @@ def AddHosp(request):
         Hospital.objects.create(**item)
     return JsonResutResponse({'ret':0,'msg':'添加或修改成功'})
 
+#管理员的数据统计
+def adminStatic(request):
+    users=ZJUser.objects.filter(usertype=1) #找到所有客服
+    service=[]
+    if users:
+        for user in users: #客服的饼状图
+            data={
+                'number':Order.objects.filter(custome=user).count(),
+                'name':user.name,
+            }
+            service.append(data)
+    else:
+        pass
+    appoins=Order.objects.all().count() #所有患者
+    confirm=Order.objects.filter(custome__isnull=False).exclude(status=1 | 2).count() #客服已确认
+    treanumber=Order.objects.filter(Order__status=6).count() #查出来所有已治疗的
+    transfer=Order.objects.filter(Order__status=13).count() #所有转院的
+    numbers=Order.objects.values("number").annotate(sumb=Count("id")) #查询治疗次数
+    ZLTJ=[]
+    if numbers:
+        for number in numbers:
+            data={
+                'ber':number['number'],
+                'sumb':number['sumb'],#数量
+            }
+            ZLTJ.append(data)
+    else:
+        pass
+    #分区域数据
+    areas=Area.objects.all()
+    citys=[]
+    if areas:
+        for area in areas:
+            data={
+                'name':area.name,
+                'treanumber':Order.objects.filter(Order__status=6,area=area).count(), #已安排治疗的
+                'delay':Order.objects.filter(status=11,area=area).count(), #延后
+                'transfer':Order.objects.filter(Order__status=13,area=area).count() ,#转院
+                'suspended':Order.objects.filter(status=12,area=area).count(), #暂停
+            }
+            citys.append(data)
+    else:
+        pass
+    return render(request,'xxx.html',{'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys})

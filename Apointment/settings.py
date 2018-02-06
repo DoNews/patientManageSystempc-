@@ -1,3 +1,4 @@
+#coding:utf-8
 """
 Django settings for Apointment project.
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
+    'djcelery',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -137,4 +139,63 @@ STATICFILES_DIRS = [
     'static',
      BASE_DIR + '/static/'
 ]
+
+
+
+APPEND_SLASH=False
+SiteHost="http://mbd.yuemia.com"
+WEIXIN='mbd'
+BAOMING_MODE='qAECcQ2FDnuN7IBF5nowR525UhzVBIrB6BLuBN7Y2Tw'# 放上模板id
+
+import datetime
+OUTDATE_PERIOD=datetime.timedelta(days=3)  #提前3天
+OUTDATE_ONEDAY=datetime.timedelta(days=1) #这是一天
+OUTDATE_HOURS=datetime.timedelta(hours=8) #这是8小时
+
+import djcelery
+djcelery.setup_loader()
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = "guest"
+BROKER_PASSWORD = "guest"
+BROKER_VHOST = "/"
+CELERY_IMPORTS = ('quality.tasks', )
+#使用和Django一样时区
+CELERY_TIMEZONE=TIME_ZONE
+CELERY_ENABLE_UTC = True
+CELERY_ACCEPT_CONTENT=['json']
+CELERY_TASK_SERIALIZER='json'
+CELERY_RESULT_SERIALIZER='json'
+#周期性任务定义
+CELERYBEAT_SCHEDULER='djcelery.schedulers.DatabaseScheduler'
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR + '/mnln.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'tasks': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
