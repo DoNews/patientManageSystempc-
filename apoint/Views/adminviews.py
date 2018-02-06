@@ -17,13 +17,17 @@ MENUS_CALLER=(
 
 )
 def adminindex(request):
-    return render(request,"adminindex.html",)
+    return render(request,"adminindex.html",{"pageindex":0})
 
 def pations(request):
-    return render(request,"admin/admindataManage.html")
+    return render(request,"admin/admindataManage.html",{"pageindex":1})
 
 def hospital(request):
-    return render(request,"admin/adminHospitalManage.html")
+    return render(request,"admin/adminHospitalManage.html",{"pageindex":2})
 
 def thirdpart(request):
-    return render(request, "admin/adminAnontherSystem.html")
+    return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
+def chart(request):
+    return render(request, "admin/adminAnontherSystem.html",{"pageindex":4})
+def account(request):
+    return render(request, "admin/adminAnontherSystem.html",{"pageindex":5})

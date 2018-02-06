@@ -129,7 +129,7 @@ def pationsview(request):
     user = request.user
     cus = ZJUser.objects.filter(user=user)
     orders = Order.objects.filter(custome=cus).order_by("-wantTime")
-    return render(request, "patientManage.html", {"order":orders, "pageindex":1, "menu":MENUS_CALLER})
+    return render(request, "patientManage.html", {"order":orders, "pageindex":1})
 
 @login_required(login_url="/login/")
 def pations(request):

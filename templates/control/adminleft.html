@@ -7,19 +7,30 @@
             <p class="yy_indexTitle">张江患者预约管理系统</p>
         </div>
     <ul class="navMenu">
-		<li class=""> <a href="/adminindex" class="afinve active"><span class="title">员工管理</span></a> </li>
+		<li class=""> <a href="/adminindex" class="afinve {% if pageindex == 0 %}
+		active
+		{% endif %}"><span class="title">员工管理</span></a> </li>
 
 
 
-      <li > <a href="javascript:;" class="afinve"> <span class="nav-text">数据管理</span>  </a>
+      <li > <a href="javascript:;" class="afinve {% if pageindex == 1 or pageindex == 2 or  pageindex == 3 %}
+		active
+		{% endif %}"> <span class="nav-text">数据管理</span>  </a>
         <ul class="sub-menu">
-		     <li><a href="/pations"><span>患者管理</span></a></li>
-          <li><a href="/hospital" ><span>医院管理</span></a></li>
-          <li><a href="/thirdpart"><span>第三方数据管理</span></a></li>
+		     <li {% if pageindex == 1 %}class="active"
+		{% endif %}><a href="/pationsview"><span>患者管理</span></a></li>
+          <li {% if pageindex == 2 %}class="active"
+		{% endif %}><a href="/hospital" ><span>医院管理</span></a></li>
+          <li {% if pageindex == 3 %}class="active"
+		{% endif %}><a href="/thirdpart"><span>第三方数据管理</span></a></li>
         </ul>
       </li>
-	    <li class=""> <a href="javascript:;" class="afinve"><span class="title">报表管理</span></a> </li>
-      <li class=""> <a href="javascript:;" class="afinve"><span class="title">账户设置</span></a> </li>
+	    <li class=""> <a href="javascript:;" class="afinve {% if pageindex == 4 %}
+		active
+		{% endif %}"><span class="title">报表管理</span></a> </li>
+      <li class=""> <a href="javascript:;" class="afinve {% if pageindex == 5 %}
+		active
+		{% endif %}"><span class="title">账户设置</span></a> </li>
     </ul>
   </div>
 </div>
