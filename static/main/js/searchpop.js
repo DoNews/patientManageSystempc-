@@ -10,7 +10,7 @@ $(function() {
 					offset: '40px',
 					scrollbar: false, //禁止浏览器滚动
 					anim: 2,
-					content: ['/api/apoint/search/?keyword='+$("#serch").val(), 'yes'], //iframe的url，no代表不显示滚动条
+					content: ['/api/apoint/search/?keyword='+$("#serch").val(), 'yes'], //iframe的url，no代表不显示滚动条 #26
 					end: function() {}
 				});
 			})
