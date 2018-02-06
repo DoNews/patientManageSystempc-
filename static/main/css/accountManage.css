@@ -87,4 +87,5 @@
     border-radius: -webkit-calc(5px);
     border-radius: 5px;
     background: #5bbfd3;
+    cursor: pointer;
 }
