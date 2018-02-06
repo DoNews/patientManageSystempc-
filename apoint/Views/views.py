@@ -141,7 +141,9 @@ def pations(request):
 @login_required(login_url="/login/")
 def remind(request):
     user = ZJUser.objects.get(user=request.user)
-    orders = Order.objects.filter(custome=user).order_by('-createtime')  # 查看逾期
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).order_by('-createtime')
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
         Order__is_operation=False).order_by('-createtime')  # 所有备忘
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
@@ -178,7 +180,7 @@ def orderdetail(request):
     order = Order.objects.filter(id=id).first()  # 患者订单
     imgs = IllnessImage.objects.filter(patient=order).values("image")  # 患者上传的图片
 
-    follows = OrderDetail.objects.filter(order=order)  # 对订单的所有操作
+    follows = OrderDetail.objects.filter(order=order).order_by('-createtime')  # 对订单的所有操作
     if order.custome==user:
         follows.filter(is_operation=False).update(is_operation=True)
     hosp = Hospital.objects.all()

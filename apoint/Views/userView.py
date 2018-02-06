@@ -13,6 +13,8 @@ def userlogin(request):
         if user:
             if user.is_active:
                 login(request, user)
+                if user.is_superuser:
+                    return HttpResponseRedirect("/adminindex")
                 return HttpResponseRedirect("/index")
             else:
                 return HttpResponse("Your Rango account is disabled.")

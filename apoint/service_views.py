@@ -116,8 +116,12 @@ def Remind(request):
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
+
     user = ZJUser.objects.get(user=request.user)
-    orders = Order.objects.filter(custome=user).order_by('-createtime')
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).order_by('-createtime')
+    print orders.query
     lister = RemindSystem(orders)
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
 
