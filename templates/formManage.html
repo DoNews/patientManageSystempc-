@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客服提醒管理</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/formManage.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			{% include 'left.html' %}
+			<div class="yy_indexConRight">
+				 {% include 'head.html' %}
+
+				<div class="formManBotom">
+					<div class="formConBoxLeft">
+						<div class="formConTitle"><span>本月患者数</span></div>
+						<div id="nowMouth1" style="height: 70%;">
+
+						</div>
+
+					</div>
+					<div class="formConBoxRight">
+						<div class="formConTitle"><span>本月确认患者就诊数</span></div>
+						<div id="nowMouth4" style="height: 70%;">
+
+						</div>
+
+					</div>
+
+				</div>
+				<!--下半部分两列布局-->
+				<div class="formManBotom">
+					<div class="formConBoxLeft">
+						<div class="formConTitle"><span>全年患者数</span></div>
+						<div id="nowMouth2" style="height: 70%;">
+
+						</div>
+
+					</div>
+					<div class="formConBoxRight">
+						<div class="formConTitle"><span>全年确认患者就诊数</span></div>
+						<div id="nowMouth3" style="height: 70%;">
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/echarts.simple.min.js"></script>
+	<script src="/static/main/js/formManage.js"></script>
+
+</html>

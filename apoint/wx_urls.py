@@ -24,4 +24,17 @@ urlpatterns = [
     url(r'^adminsall/',Adminsall),#查看所有管理员分配
     url(r'^statistics/',Statistics),##客服的数据统计
     url(r'^thirdparty/',ThirdParty),#第三方导入数据的接口
+
+    #管理员
+    url(r'^stafman/',StafManag),##管理员的销售和客服管理
+    url(r'^staffall/',StaffAll),#查看所有销售
+    url(r'^staffeditor/',StaffEditor),#查看销售详情
+    url(r'^addstaff/',AddStaff),#添加销售和修改销售
+    url(r'^queryhosp/',QueryHosp),##查询医院(一省对应一个医院列表)
+    url(r'^staffdelete/',StaffDelete),#删除销售或者客服
+    url(r'^orderall/',OrderAll),#查看所有患者
+    url(r'^allhospit/',Allhospit),#查看所有医院
+    url(r'^allnoservit/',AllNoservit),#查看第三方全部
+    url(r'^redisbution/',RedisBution),#患者去管理重新分配客服
+
 ]

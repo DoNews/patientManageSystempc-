@@ -80,12 +80,9 @@
 			<p class="des_info">胎记治疗及胎记图片</p>
 			<div class="img_box">
 				<ul class="img_boxUl">
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
-					<li class="img_boxLi"><img src="/static/main/img/logo.png" /></li>
+                    {% for foo in imgs %}
+                        <li class="img_boxLi"><img src="{{ foo.image }}" /></li>
+                    {% endfor %}
 				</ul>
 			</div>
 			<div class="allInfo_wrap">
@@ -95,44 +92,28 @@
 			</div>
 		</div>
         <script src="/static/main/js/tools.js"></script>
-
 		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 		<script src="/static/main/js/layui/layui.js"></script>
         <script src="/static/main/js/renling.js"></script>
+        <script src="/static/main/js/dataform.js"></script>
 		<script>
+              var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
            var text = document.getElementById("textarea");
-autoTextarea(text);// 调用
+            autoTextarea(text);// 调用
 			//Demo
-			layui.use(['form', 'laydate'], function() {
-				var form = layui.form,
-					//					layer = layui.layer,
-					laydate = layui.laydate;
-				//日期
-				laydate.render({
-					elem: '#yyDate'
-				});
-				laydate.render({
-					elem: '#birthDay'
-				});
 
-			});
 		</script>
 
 	</body>
     <style>
         #textarea {
-    display: block;
-    margin:0 auto;
-    overflow: hidden;
-
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-    padding:2px;
-}
-textarea {
-    outline: 0 none;
-
-}
+            background: #e9edf0;
+            border: 0px;
+            border-radius: 5px;
+            line-height: 30px;
+        }
+        textarea {
+            outline: 0 none;
+        }
     </style>
 </html>

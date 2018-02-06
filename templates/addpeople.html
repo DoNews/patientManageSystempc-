@@ -4,9 +4,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>新建患者页面</title>
-		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" type="text/css" href="js/layui/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="css/addPatient.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/addPatient.css" />
+        <link rel="stylesheet" type="text/css" href="/static/main/css/uploader.css" />
 	</head>
 
 	<body>
@@ -38,7 +39,7 @@
 				</div>
 				<div class="hz_infoItem">
 					<p>手机</p>
-					<p><input type="text" name="phone" id="" value="" /></p>
+					<p><input type="text" name="phone" id="phone" value="" /></p>
 				</div>
 				<div class="hz_infoItem">
 					<p>期望预约时间</p>
@@ -50,94 +51,52 @@
 					<p>预约医院</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
-							<select name="" id="area">
+							<select name="" id="hosp">
 								<option value="">请选择医院</option>
-								<option value="上海第七人民医院">上海第七人民医院</option>
-								<option value="上海复旦医学院">上海复旦医学院</option>
-								<option value="北京军区医院">北京军区医院</option>
-								<option value="北京军区医院">北京军区医院</option>
+                                {% for foo in hosp %}
+                                <option value="{{ foo.id }}">{{ foo.name }}</option>
+                                {% endfor %}
+
 							</select>
 						</div>
 					</div>
 				</div>
-
 				<div class="hz_infoItem">
 					<p>所属区域</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
 							<select name="" id="area">
 								<option value="">请选择地区</option>
-								<option value="上海">上海</option>
-								<option value="南京">南京</option>
-								<option value="北京">北京</option>
-								<option value="乌鲁木齐">乌鲁木齐</option>
+								 {% for foo in area %}
+                                <option value="{{ foo.id }}">{{  foo.name}}</option>
+                                {% endfor %}
 							</select>
 						</div>
 					</div>
 				</div>
 			</div>
 			<p class="des_info">胎记治疗及胎记描述</p>
-			<textarea name="" rows="8" cols="30" class="info_text"></textarea>
+			<textarea name=""  cols="30" id="textarea"  class="info_text"></textarea>
 			<p class="des_info">胎记治疗及胎记图片</p>
 			<div class="img_box">
 				<ul class="img_boxUl">
-					<ul class="img_boxUl">
-					<li class="img_boxLi"><img src="img/logo.png" /></li>
-					<li class="img_boxLi"><img src="img/logo.png" /></li>
-					<button type="button" class="layui-btn" id="addupload">
-					  <i class="layui-icon">&#xe67c;</i>上传图片
-					</button>
-				</ul>
-					
-		
+                    <li class="img_boxLi" id="addupload"> <img src="/static/main/img/add.png" style="width: 85px"  ></li>
+				 </ul>
 			</div>
-			
-
-		
-
-			
 			<div class="allInfo_wrap">
 				<div class="require_allInfo " id="sureAdd">
 					确认新建
 				</div>
-				
 			</div>
 		</div>
-		<script src="js/jquery-3.3.1.min.js "></script>
-		<script src="js/layui/layui.js "></script>
-
+		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
+		<script src="/static/main/js/layui/layui.js "></script>
+        <script src="/static/main/js/dataform.js"></script>
+        <script src="/static/main/js/tools.js"></script>
 		<script>
-			layui.use(['form', 'laydate', 'upload'], function() {
-				var form = layui.form,
-					upload = layui.upload,
-					laydate = layui.laydate;
-				laydate.render({
-					elem: '#yyDate'
-				});
-				laydate.render({
-					elem: '#birthDay'
-				});
-				laydate.render({
-					elem: "#yyDateNext "
-				});
-				$('#sureAdd').click(function(){
-					parent.layer.closeAll();
-					parent.layer.msg('创建成功');
-				})
-				var uploadInst = upload.render({
-					elem: '#addupload' //绑定元素
-						,
-					url: '/upload/' //上传接口
-						,
-					done: function(res) {
-						//上传完毕回调
-					},
-					error: function() {
-						//请求异常回调
-					}
-				});
-
-			});
+            var imgSrcList = []
+             var text = document.getElementById("textarea");
+            autoTextarea(text);// 调用
 		</script>
 	</body>
 

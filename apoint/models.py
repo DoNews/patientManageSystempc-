@@ -35,7 +35,6 @@ class ZJUser(models.Model):
 class SalesUser(ZJUser):
     openid = models.CharField("openid", max_length=100, blank=True,null=True)
     email=models.CharField('邮箱',max_length=50)
-    director=models.CharField('主管',max_length=20,blank=True,null=True)
     city=models.CharField('省市',max_length=20,blank=True,null=True)
     is_cert=models.BooleanField('是否认证',default=False)
 
@@ -109,7 +108,7 @@ class Order(models.Model):
 #患者订单图
 class IllnessImage(models.Model):
     image = models.CharField(u'病情图片链接',max_length=200)
-    patient = models.ForeignKey(Order,verbose_name="上传人")
+    patient = models.ForeignKey(Order,verbose_name="上传人",related_name="pation")
 # Create your models here.
 
 

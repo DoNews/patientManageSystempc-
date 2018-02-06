@@ -86,9 +86,11 @@ def CilckMake(request):
         return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者order提交
+
 def OrderSubmit(request):
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
+    print userinfo,photo
     user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
     item={}

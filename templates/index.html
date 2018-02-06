@@ -58,7 +58,7 @@
 									<p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
 								</div>
 								<span class="hzrl_list_btn" id="{{  item.id}}">认领</span>
-							</li>查看详细数据
+							</li>
                             {% endfor %}
 
 
@@ -78,14 +78,11 @@
                                     <div class="jrrw_list_img"></div>
                                     <div class="jrrw_list_con">
                                         <p>{{ item.name }}</p>
-                                        <p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
+                                        <p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }} </p>
                                     </div>
-                                    <span class="jrrw_list_btn">电话确认</span>
+                                    <span class="jrrw_list_btn" id="{{ item.id }}">电话确认</span>
                                 </li>
                             {% endfor %}
-
-
-
 						</ul>
 						<div class="require_all">
 							查看全部
@@ -95,15 +92,45 @@
 						<p class="xttx_title">系统提醒</p>
 						<ul class="xttx_list">
                             {% for item in notify %}
+                                {% ifequal  item.type 1 %}
                             <li>
 								<div class="xttx_list_img"></div>
 								<div class="xttx_list_con">
 									<p>{{ item.name }}</p>
 
-									<p>{{ item.wanthospital }}</p>
+									<p>{{ item.time }} {{ item.hosp }} 管理员向你分配了该患者</p>
 								</div>
-								<span class="xttx_list_btn">电话跟进</span>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								查看详细
+								 </span>
 							</li>
+                                {% endifequal %}
+                                         {% ifequal  item.type 2 %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.hosp }} 销售提交了备注</p>
+								</div>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								查看备注
+								 </span>
+							</li>
+                                {% endifequal %}
+                                      {% ifequal  item.type 3 %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.hosp }} 您已逾期<span class="day">{{ item.yuqu }}</span>天未跟进</p>
+								</div>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								电话确认
+								 </span>
+							</li>
+                                {% endifequal %}
                             {% endfor %}
                             
 
@@ -125,84 +152,111 @@
 		<script src="/static/main/js/echarts.simple.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/static/main/js/searchpop.js" type="text/javascript" charset="utf-8"></script>
          <script>
-        	//echart图标
-	    var myChart1 = echarts.init(document.getElementById('chart1'));
+             var list1= ["本月累计跟进人次","本月分配患者数","本月认领患者"]
+             var value1= [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
+             var list2 = ["安排治疗","预约延后治疗","转院","暂停"]
+             var value2 =[{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
+	//echart图标
+	var myChart1 = echarts.init(document.getElementById('chart1'));
 	// 指定图表的配置项和数据
-        var option1 = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis:[
-            {
-                data: ["本月累计跟进人次","本月分配患者数","本月认领患者"]
-                ,
-            axisLabel:{
-              rotate:0, //刻度旋转45度角
-              textStyle:{
-                 color:"red",
-                 fontSize:16
-            }
-            }}
-            ] ,
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}],
-                                itemStyle: {
-                //通常情况下：
-                normal:{
-                    color: function (params){
-                        var colorList = ['rgb(87,126,250)','rgb(110,217,181)','rgb(248,134,94)','rgb(175,216,255)'];
-                        return colorList[params.dataIndex];
-                    }
-                },
-                //鼠标悬停时：
-                emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-            }]
-        };
-        myChart1.setOption(option1)
+	var option1 = {
+		title: {
+			text: '本月数据'
+		},
+		tooltip: {
+			enterable: true,
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			},
+		},
+		xAxis: [{
+			data: list1,
+			axisLabel: {
+				rotate: 45, //刻度旋转45度角
+				textStyle: {
+					color: "red",
+					fontSize: 13
+				}
+			}
+		}],
+//		grid: { // 控制图的大小，调整下面这些值就可以，
+//			x: 40,
+//			x2: 100,
+//			y2: 50, // y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+//		},
+		yAxis: {},
+		series: [{
+				name: '销量',
+				type: 'bar',
+				barWidth: 15, //柱图宽度
+				data: value1,
+				itemStyle: {
+					//通常情况下：
+					normal: {
+						color: function(params) {
+							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+							return colorList[params.dataIndex];
+						}
+					}
+				},
+			}
 
+		]
+	};
+	myChart1.setOption(option1);
 
-        var myChart2 = echarts.init(document.getElementById('chart2'));
+	var myChart2 = echarts.init(document.getElementById('chart2'));
 	// 指定图表的配置项和数据
-        var option2 = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data:['销量']
-            },
-            xAxis:[
-            {
-                data: ["安排治疗","预约延后治疗","转院","暂停"]
-                ,
-            axisLabel:{
-              rotate:45, //刻度旋转45度角
-              textStyle:{
-                 color:"red",
-                 fontSize:16
-            }
-            }}
-            ] ,
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
-            }]
-        };
-        myChart2.setOption(option2)
+	var option2 = {
+		title: {
+			text: '数据组展示'
+		},
+		tooltip: {},
+		legend: {
+			data: ['销量']
+		},
+		xAxis: [{
+			data: list2,
+			axisLabel: {
+				rotate: 90, //刻度旋转45度角
+				textStyle: {
+					color: "red",
+					fontSize: 16
+				}
+			}
+		}],
+//		grid: { // 控制图的大小，调整下面这些值就可以，
+//			x: 40,
+//			x2: 100,
+//			y2: 50, // y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+//		},
+		yAxis: {},
+		series: [{
+				name: '销量',
+				type: 'bar',
+				barWidth: 15, //柱图宽度
+				data: value2,
+				itemStyle: {
+					//通常情况下：
+					normal: {
+						color: function(params) {
+							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+							return colorList[params.dataIndex];
+						}
+					},
+					//鼠标悬停时：
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				},
+			}
+
+		]
+	};
+	myChart2.setOption(option2);
         </script>
 	</body>
 

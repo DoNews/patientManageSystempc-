@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from apoint.views import *
+from apoint.Views.views import *
 from apoint.Views.userView import *
 from apoint.adminviews import *
 import xadmin
@@ -35,5 +35,10 @@ urlpatterns = [
     url(r'^pationsview',pationsview),#客服患者数据
     url(r'^remind',remind),
     url(r'^account',account),
-
+    url(r'^addpation',addpation),
+    url(r'^chart$',chart),
+    url(r'^upload',uploader),
+    url(r'^orderdetail$',orderdetail),
+    url(r'^ordersubmit',OrderSubmit),
+    url(r'^orderupdate',OrderUpdte)
 ]

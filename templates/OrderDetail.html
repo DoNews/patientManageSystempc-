@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>预约详情</title>
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/addPatient.css" />
+        <link rel="stylesheet" type="text/css" href="/static/main/css/uploader.css" />
+	</head>
+
+	<body>
+		<div id="rlhz">
+			<div class="newPatientTitle"><span class="newPatientBtn">患者ID：{{ order.serial }}</span>患者新建表</div>
+			<p class="rlhz_pop">患者信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem">
+					<p>患者姓名</p>
+					<p><input type="text" name="" id="" value="{{ order.name }}" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>性别</p>
+					<p>
+						<div class="layui-form">
+							<div class="layui-form-item">
+								<select name="" id="sex">
+								<option value="">请选择性别</option>
+								<option value="男" {% ifequal order.sex '男' %}selected {% endifequal %}>男</option>
+								<option value="女" {% ifequal order.sex '女' %}selected {% endifequal %}>女</option>
+							</select>
+							</div>
+						</div>
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>出生日期</p>
+					<p><input type="text" id="birthDay" value="{{ order.birthday|date:'Y-m-d' }}" class="layui-input dateinput" placeholder="YYYY-MM-dd"></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>手机</p>
+					<p><input type="text" name="" id="" value="{{ order.phone }}" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>期望预约时间</p>
+					<p>
+						<input type="text" id="yyDate" class="layui-input dateinput" value="{{ order.wantTime| date:'Y-m-d' }}" placeholder="YYYY-MM-dd">
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>预约医院</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+						<select name="" id="hosp">
+								<option value="">请选择医院</option>
+                                {% for foo in hosp %}
+                                    <option value="{{ foo.id }}" {% ifequal foo  order.wanthospital %}selected {% endifequal %}>{{ foo.name }}</option>
+                                {% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="hz_infoItem">
+					<p>所属区域</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<select name="" id="area">
+								<option value="">请选择地区</option>
+                                {% for foo in area %}
+                                <option value="{{ foo.id }}" {% ifequal foo  order.area %}selected {% endifequal %}>{{ foo.name }}</option>
+                                {% endfor %}
+
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="des_info">胎记治疗及胎记描述</p>
+			<textarea name=""  cols="30" id="" class="info_text">{{ order.description }}</textarea>
+			<p class="des_info">胎记治疗及胎记图片</p>
+			<div class="img_box">
+				<ul class="img_boxUl">
+                    {% for img in imgs %}
+
+					<li class="img_boxLi"><img src="/static/main/img/x.png" data="{{ img.image }}"  style=" width: 20px;height:20px" class="x"><img src="{{ img.image }}" /></li>
+                    {% endfor %}
+
+					  <li class="img_boxLi" id="addupload"> <img src="/static/main/img/add.png" style="width: 85px"  ></li>
+				</ul>
+			</div>
+
+			<p class="rlhz_pop">客服跟进填写区</p>
+			<p class="des_info">跟进</p>
+
+			<textarea name=""  cols="30" id="textarea" class="info_text"></textarea>
+			<p class="des_info">下次跟进回访时间</p>
+
+			<input type="text" id="yyDateNext" value="{{ order.nextcalldate | date:'Y-m-d' }}" class="layui-input dateinput"  >
+			<p class="des_info">该患者历史跟进记录</p>
+			<div class="patientHisBox">
+				<ul>
+                    {% for follow in follows %}
+                    <li>
+						<div class="boxLeft">
+							<img src="/static/main/img/icon.png" alt="" />
+							<p>{{ follow.creater }}</p>
+						</div>
+						<div class="boxRight">
+							<p class="patientHisText">{{ follow.remark }}</p>
+							<p class="patientHisDate">{{ follow.createtime }}</p>
+						</div>
+					</li>
+                    {% endfor %}
+                    
+
+				</ul>
+			</div>
+			<div class="allInfo_wrap">
+                {% if order.status == 2  %}
+              <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="3">
+					确认去就诊
+				</div>
+				<div class="addBtn action" type="4">
+					确认不就诊
+				</div>
+
+				<div class="addBtn action" type="5">
+					延期预约
+				</div>
+
+
+              {% endif order.status == 3 %} {#  确认去就诊#}
+             <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="6">
+					已安排治疗
+				</div>
+				<div class="addBtn action" type="11">
+					预约延后治疗
+				</div>
+
+				<div class="addBtn action" type="13">
+					转院
+				</div>
+                    <div class="addBtn action" type="14">
+					患者未到诊
+				</div>
+                {% endif order.status==4 %}{#            定期回访#}
+
+                <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="3">
+					确认去就诊
+				</div>
+				<div class="addBtn action" type="4">
+					确认不就诊
+				</div>
+
+
+                {% endif order.status==5 %}
+
+                <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="3">
+					确认去就诊
+				</div>
+				<div class="addBtn action" type="4">
+					确认不就诊
+				</div>
+
+				<div class="addBtn action" type="5">
+					延期预约
+				</div>
+                {% endif order.status==6 %}
+	            <div class="addBtn2 action" type="7">
+					完成首次回访
+				</div>
+                {% endif order.status==7 %}
+                <div class="addBtn2 action" type="8">
+					完成15日回访
+				</div>
+                {% endif order.status==8 %}
+                <div class="addBtn2 action" type="9">
+					完成30日回访
+				</div>
+                {% endif order.status==9 %}
+                    <div class="addBtn2 action" type="10">
+					完成45日随访
+				</div>
+
+                {%  endif order.status==10 or endif order.status==11 or endif order.status==13 or endif order.status==14  %}
+                <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="3">
+					确认去就诊
+				</div>
+				<div class="addBtn action" type="4">
+					确认不就诊
+				</div>
+
+				<div class="addBtn action" type="5">
+					延期预约
+				</div>
+                {% endif order.status==12 %}
+
+
+                {% endif %} %}
+
+
+			</div>
+		</div>
+		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
+		<script src="/static/main/js/layui/layui.js "></script>
+        <script src="/static/main/js/tools.js"></script>
+        <script src="/static/main/js/dataform.js"></script>
+		<script>
+            var text = document.getElementById("textarea");
+             var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
+
+            autoTextarea(text);// 调用
+
+		</script>
+	</body>
+
+</html>
