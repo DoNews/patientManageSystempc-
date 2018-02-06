@@ -79,7 +79,7 @@
 	border-radius: 4px;
 	background: #5abfd3;
 	color: #fff;
-	margin: 10px 0 20px 0;
+	/*margin: 10px 0 20px 0;*/
 }
 
 .chart2_btn {
@@ -335,7 +335,7 @@
 
 .allInfo_wrap {
 	margin: 0 auto;
-	width: 90%;
+	width: 95%;
 	border-top: 1px solid #C2C2C2;
 	position: relative;
 	height: 80px;
@@ -360,6 +360,7 @@
 	    resize: none;
     width: 96%;
     box-sizing: border-box;
+    height: 160px;
     margin: 0 2%;
 }
 
