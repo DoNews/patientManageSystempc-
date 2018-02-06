@@ -45,5 +45,7 @@ urlpatterns = [
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
     url(r'adminindex',adminindex),
-    url(r'^pations',pations)
+    url(r'^pations',pationsview),
+    url(r'^hospital',hospital),
+    url(r'^thirdpart',thirdpart)
 ]

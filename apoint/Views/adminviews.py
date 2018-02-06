@@ -22,5 +22,8 @@ def adminindex(request):
 def pations(request):
     return render(request,"admin/admindataManage.html")
 
-def hospitol(request):
+def hospital(request):
     return render(request,"admin/adminHospitalManage.html")
+
+def thirdpart(request):
+    return render(request, "admin/adminAnontherSystem.html")
