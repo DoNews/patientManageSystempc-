@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客服提醒管理</title>
+		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/formManage.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			  {% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+                {% include 'control/head.html' %}
+				<style type="text/css">
+					.formConBoxLeft {
+						flex: 0 0 32%;
+						height: 400px;
+					}
+					
+					.formConBoxRight,
+					.formConBoxMiddle {
+						flex: 0 0 33%;
+						margin-left: 0.5%;
+						height: 400px;
+					}
+					
+					.formManBotomBom {
+						height: 500px;
+						width: 99%;
+						margin: 20px 0;
+						background: #FFF;
+					}
+				</style>
+				<div class="formManBotom">
+					<div class="formConBoxLeft">
+						<div class="formConTitle"><span>各客服人员跟进患者情况纵览</span></div>
+						<div id="nowMouth1" style="height:70%;">
+
+						</div>
+
+					</div>
+					<div class="formConBoxMiddle">
+						<div class="formConTitle"><span>全部患者数据跟进状态</span></div>
+						<div id="nowMouth2" style="height: 70%;">
+
+						</div>
+
+					</div>
+					<div class="formConBoxRight">
+						<div class="formConTitle"><span>患者治疗次数</span></div>
+						<div id="nowMouth3" style="height: 70%;">
+
+						</div>
+
+					</div>
+				</div>
+				<div class="formManBotomBom">
+					<div class="formConTitle"><span>分区域数据</span></div>
+					<div id="nowMouth4" style="height: 70%;">
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/echarts.common.min.js"></script>
+	<!--<script src="js/formManage.js"></script>-->
+	<script type="text/javascript">
+		var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
+		option1 = {
+
+			tooltip: {
+				trigger: 'item',
+				formatter: "{a} <br/>{b} : {c} ({d}%)"
+			},
+			legend: {
+				orient: 'vertical',
+				left: 'left',
+
+				data: [{% for foo in  name%}
+                    '{{ foo }}',
+				{% endfor %}]
+
+			},
+        {% for user in service %}
+			series: [{
+				name: '访问来源',
+				type: 'pie',
+				radius: '55%',
+				center: ['50%', '60%'],
+				data: [{
+					value: {{ user.number }},
+					name: '{{ user.name }}',
+				}],
+                {% endfor %}
+				itemStyle: {
+					emphasis: {
+						shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+					}
+				}
+			}]
+		};
+		nowMouth1.setOption(option1);
+		//第二个图表
+		var nowMouth2 = echarts.init(document.getElementById('nowMouth2'));
+		option2 = {
+			color: ['#3398DB'],
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: { // 坐标轴指示器，坐标轴触发有效
+					type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: [{
+				type: 'category',
+				data: ['已治疗人数', '转院', '患者预约总数', '客服确认总数'],
+				axisTick: {
+					alignWithLabel: true
+				},
+				axisLabel: {
+				rotate: 45, //刻度旋转45度角
+				textStyle: {
+					color: "red",
+					fontSize: 13
+				}
+			}
+			}],
+			yAxis: [{
+				type: 'value'
+			}],
+
+			series: [{
+				name: '直接访问',
+				type: 'bar',
+				barWidth: '60%',
+				data: [{{ treanumber }}, {{ transfer }}, {{ appoins }}, {{ confirm }}],
+				itemStyle: {
+					//通常情况下：
+					normal: {
+						color: function(params) {
+							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+							return colorList[params.dataIndex];
+						}
+					}
+				}
+			}]
+		};
+		nowMouth2.setOption(option2);
+
+		var nowMouth3 = echarts.init(document.getElementById('nowMouth3'));
+
+		option3 = {
+			color: ['#3398DB'],
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: { // 坐标轴指示器，坐标轴触发有效
+					type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: [{
+				type: 'value'
+				
+			}
+			],
+			yAxis: [{
+				type: 'category',
+
+				data: [{% for shuju in  ZLCSTJ%}
+                    '{{ shuju.ber }}次',
+				{% endfor %}],
+				axisTick: {
+					alignWithLabel: true
+				},
+				axisLabel: {
+				rotate: 45, //刻度旋转45度角
+				textStyle: {
+					color: "red",
+					fontSize: 13
+				}
+			}}],
+			series: [{
+				name: '治疗次数为',
+				type: 'bar',
+				barWidth: '60%',
+				data: [{% for shuju in  ZLCSTJ%}
+                    '{{ shuju.sumb }}',
+				{% endfor %}],
+				itemStyle: {
+					//通常情况下：
+					normal: {
+						color: function(params) {
+							var colorList = ['#2d4b57', '#42a1a2', '#7ccaa9', 'rgb(175,216,255)','rgb(166,166,166)','#c00000'];
+							return colorList[params.dataIndex];
+						}
+					}
+				}
+			}]
+		};
+
+		nowMouth3.setOption(option3);
+
+		//分区域部分图表
+
+		//第二个图表
+		var nowMouth4 = echarts.init(document.getElementById('nowMouth4'));
+		option4 = {
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: { // 坐标轴指示器，坐标轴触发有效
+					type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+				}
+			},
+			legend: {
+				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '失敬失敬']
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: {
+				type: 'category',
+				data: [{% for city in  citys%}
+                    '{{ city.name }}',
+				{% endfor %}]
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+					name: '安排治疗',
+					type: 'bar',
+					stack: '总量',
+					label: {
+						normal: {
+							show: true,
+							position: 'insideRight'
+						}
+					},
+					data: [{% for city in  citys%}
+                    '{{ city.treanumber }}',
+				{% endfor %}]
+				},
+				{
+					name: '延后治疗',
+					type: 'bar',
+					stack: '总量',
+					label: {
+						normal: {
+							show: true,
+							position: 'insideRight'
+						}
+					},
+					data:[{% for city in  citys%}
+                    '{{ city.delay }}',
+				{% endfor %}]
+				},
+				{
+					name: '转院',
+					type: 'bar',
+					stack: '总量',
+					label: {
+						normal: {
+							show: true,
+							position: 'insideRight'
+						}
+					},
+					data: [{% for city in  citys%}
+                    '{{ city.transfer }}',
+				{% endfor %}]
+				},
+				{
+					name: '暂停',
+					type: 'bar',
+					stack: '总量',
+					label: {
+						normal: {
+							show: true,
+							position: 'insideRight'
+						}
+					},
+					data: [{% for city in  citys%}
+                    '{{ city.suspended }}',
+				{% endfor %}]
+				}
+			]
+
+		};
+		nowMouth4.setOption(option4);
+	</script>
+
+</html>
