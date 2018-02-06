@@ -72,6 +72,7 @@
 	border-radius: -webkit-calc(5px);
 	border-radius: 5px;
 	background: #5bbfd3;
+	cursor: pointer;
 }
 
 .pmTable {
@@ -81,7 +82,7 @@
 }
 
 .pmTable tr {
-	height: 60px;
+	height:50px;
 	border-top: 1px solid #ccc;
 	font-size: 13px;
 	color: #333840;
@@ -91,8 +92,8 @@
 .pmTable th {
 	color: #333840;
 	font-family: "SourceHanSansCN Regular";
-	height: 60px;
-	line-height: 60px;
+	height: 50px;
+	line-height: 50px;
 	text-align: left;
 	font-size: 16px;
 	font-family: "SourceHanSansCN Regular";
