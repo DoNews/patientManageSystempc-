@@ -67,7 +67,6 @@ def Search(request):
     keyword=request.GET.get('keyword')
     orders=[]
     if keyword:
-        # page = request.GET.get('page')
         orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
     return render(request,"searchPop.html",{"order":orders})
 
@@ -99,7 +98,6 @@ def Remind(request):
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
-
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
@@ -355,7 +353,6 @@ def AddHosp(request):
 #管理员的数据统计
 @login_required(login_url="/login/")
 def adminStatic(request):
-    user = ZJUser.objects.get(user=request.user)
     users=ZJUser.objects.filter(usertype=1) #找到所有客服
     name=[]
     service=[]
@@ -371,8 +368,8 @@ def adminStatic(request):
         pass
     appoins=Order.objects.all().count() #所有患者
     confirm=Order.objects.filter(custome__isnull=False).exclude(status=1 | 2).count() #客服已确认
-    treanumber=Order.objects.filter(Order__status=6).count() #查出来所有已治疗的
-    transfer=Order.objects.filter(Order__status=13).count() #所有转院的
+    treanumber=len(set(Order.objects.filter(Order__status=6))) #查出来所有已治疗的
+    transfer=len(set(Order.objects.filter(Order__status=13))) #所有转院的
     numbers=Order.objects.values("number").annotate(sumb=Count("id")) #查询治疗次数
     ZLTJ=[]
     if numbers:
@@ -391,13 +388,12 @@ def adminStatic(request):
         for area in areas:
             data={
                 'name':area.name,
-                'treanumber':Order.objects.filter(Order__status=6,area=area).count(), #已安排治疗的
+                'treanumber':len(set(Order.objects.filter(Order__status=6,area=area))), #已安排治疗的
                 'delay':Order.objects.filter(status=11,area=area).count(), #延后
-                'transfer':Order.objects.filter(Order__status=13,area=area).count() ,#转院
+                'transfer':len(set(Order.objects.filter(Order__status=13,area=area))) ,#转院
                 'suspended':Order.objects.filter(status=12,area=area).count(), #暂停
             }
             citys.append(data)
     else:
         pass
-    print name
     return render(request,'admin/adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys,"pageindex":4})

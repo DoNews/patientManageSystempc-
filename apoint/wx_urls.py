@@ -41,6 +41,4 @@ urlpatterns = [
     url(r'^addhosp/',AddHosp),#医院的添加和修改
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
 
-
-
 ]
