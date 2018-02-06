@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>医院管理</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			{% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+				{% include 'control/head.html' %}
+				<div class="remindConBox" style="height: 550px;">
+					<div class="remindConTitle"><span>医院管理</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
+						<tbody>
+							<tr>
+							
+								<th>省份</th>
+								<th>负责销售</th>
+								<th>医院名称</th>
+								<th>患者预约数量</th>
+								<th>管理员操作</th>
+							</tr>
+							<tr>
+								
+								<td>上海市</td>
+								<td>张无忌</td>
+								<td>上海复旦大学附属医院</td>
+								<td>100</td>
+								<td><span class="remindTableBtn patientMan">去管理</span></td>
+							</tr>
+							<tr>
+								
+								<td>上海市</td>
+								<td>张无忌</td>
+								<td>上海复旦大学附属医院</td>
+								<td>100</td>
+								<td><span class="remindTableBtn patientMan">去管理</span></td>
+							</tr>
+							<tr>
+							
+								<td>上海市</td>
+								<td>张无忌</td>
+								<td>上海复旦大学附属医院</td>
+								<td>100</td>
+								<td><span class="remindTableBtn patientMan">去管理</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="remind_allLeftBtn">查看全部</div>
+				</div>
+
+
+			</div>
+		</div>
+	</body>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		layui.use(['form', 'laydate', 'upload', 'layer'], function() {
+			var form = layui.form,
+				upload = layui.upload,
+				layer = layui.layer,
+				laydate = layui.laydate;
+			//日期
+			laydate.render({
+				elem: '#yyDate'
+			});
+			laydate.render({
+				elem: '#birthDay'
+			});
+			laydate.render({
+				elem: "#yyDateNext "
+			});
+			$('.patientMan').click(function() {
+				layer.open({
+					type: 2,
+					title: false,
+					closeBtn: 1, //不显示关闭按钮
+					shade: [0.4],
+					area: ['800px', '550px'],
+					offset: '40px',
+					scrollbar: false, //禁止浏览器滚动
+					anim: 2,
+					content: ['./adminHospitalManagePop.html', 'yes'], //iframe的url，no代表不显示滚动条
+					end: function() { //此处用于演示
+
+					}
+				})
+			})
+
+
+
+		});
+	</script>
+
+</html>

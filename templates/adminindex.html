@@ -1,10 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
 
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理员首页页面</title>
+		<link rel="icon" href="img/icon.png" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css" />
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+			 {% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+				<div class="yy_indexConRightHeader">
+					<div class="searchBox">
+						<i class="icon"></i>
+						<input type="text" id="serch" placeholder="搜索患者" />
+						<button class="search_Btn" id="searchBtn">搜索</button>
+					</div>
+					<div class="loginAndName">
+						<span class="userName">
+											你好MR
+									</span>
+						<span class="login">
+											登录
+									</span>
+					</div>
+				</div>
+				<div class="contentBox">
+					<div class="patientConTitle"><span>销售账号管理</span><span class="pmTbaleBtnLeft" id="addStaff">新增</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+						<tbody>
+							<tr>
+								<th>员工姓名</th>
+								<th>手机号码</th>
+								<th>绑定状态</th>
+								<th>负责区域</th>
+								<th>上级主管</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>张三丰</p>
+
+									</div>
+								</td>
+								<td>15672808392</td>
+								<td>否</td>
+								<td>上海</td>
+								<td>张无忌</td>
+								<td><span class="pmTbaleBtn1">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+							<tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>张三丰</p>
+
+									</div>
+								</td>
+								<td>15672808392</td>
+								<td>是</td>
+								<td>上海</td>
+								<td>张无忌</td>
+								<td><span class="pmTbaleBtn1">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="remind_allLeftBtn">查看全部</div>
+
+				</div>
+				<div class="contentBox">
+					<div class="patientConTitle"><span>客服账号管理</span><span class="pmTbaleBtnLeft" id="addCustom">新增</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+						<tbody>
+							<tr>
+								<th>客服姓名</th>
+								<th>手机号码</th>
+								<th>绑定状态</th>
+								<th>负责区域</th>
+								<th>上级主管</th>
+								<th>操作</th>
+							</tr>
+							<tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>张三丰</p>
+
+									</div>
+								</td>
+								<td>15672808392</td>
+								<td>是</td>
+								<td>上海</td>
+								<td>张无忌</td>
+								<td><span class="pmTbaleBtn1">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+							<tr>
+								<td>
+									<div class="pmTable_img"></div>
+									<div class="pmTable_con">
+										<p>张三丰</p>
+
+									</div>
+								</td>
+								<td>15672808392</td>
+								<td>是</td>
+								<td>上海</td>
+								<td>张无忌</td>
+								<td><span class="pmTbaleBtn1">编辑</span><span class="pmTbaleBtn">删除</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="remind_allLeftBtn">查看全部</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		</div>
+
+		<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//	患者认领弹框	
+			$('#addStaff').click(function() {
+				layui.use(['form', 'laydate'], function() {
+					var form = layui.form,
+						layer = layui.layer,
+						laydate = layui.laydate;
+					layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['./addStaff.html', 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+
+						}
+					});
+				});
+			});
+			$('#addCustom').click(function() {
+				layui.use(['form', 'laydate'], function() {
+					var form = layui.form,
+						layer = layui.layer,
+						laydate = layui.laydate;
+					layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['./addCustom.html', 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+
+						}
+					});
+				});
+			})
+		</script>
+
+	</body>
+
 </html>

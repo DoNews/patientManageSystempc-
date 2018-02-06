@@ -171,37 +171,41 @@ def Hospitaltable(request):
 def ThirdParty(request):
     data=request.POST['data']
     users=json.loads(data)
-    for user in users:
-        name=user['name'] #姓名
-        sex=user['sex'] #性别
-        birthday=user['birthday']
-        phone=user['phone'] #手机号
-        wantTime=user['wantTime'] #治疗时间
-        city=user['city']#城市
-        hospital=user['hospital'] #医院
-        hosps=Hospital.objects.filter(name=hospital).first() #判断是否有这个医院
-        if hosps:
-            hos =hosps
-        else:
-            hos=Hospital.objects.create(name=hospital)
-        are=Area.objects.filter(name=city).first()
-        if are:
-            area=are
-        else:
-            area=Area.objects.create(name=city)
-        use=Order.objects.filter(phone=phone).first()
-        if use:
-            use.name=name
-            use.wantTime=wantTime
-            use.area=area
-            use.wanthospital=hos
-            use.number+=1
-            use.status=6
-            use.save()
-        else:
-            orders = Order.objects.all()
-            n = len(orders) + 1
-            s = "NO.%04d" % n
-            Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s)
-    return JsonResutResponse({'ret':0,'msg':'success'})
+    try:
+        for user in users:
+            name=user['name'] #姓名
+            sex=user['sex'] #性别
+            birthday=user['birthday']
+            phone=user['phone'] #手机号
+            wantTime=user['wantTime'] #治疗时间
+            city=user['city']#城市
+            hospital=user['hospital'] #医院
+            hosps=Hospital.objects.filter(name=hospital).first() #判断是否有这个医院
+            if hosps:
+                hos =hosps
+            else:
+                hos=Hospital.objects.create(name=hospital)
+            are=Area.objects.filter(name=city).first()
+            if are:
+                area=are
+            else:
+                area=Area.objects.create(name=city)
+            use=Order.objects.filter(phone=phone).first()
+            if use:
+                use.name=name
+                use.wantTime=wantTime
+                use.area=area
+                use.wanthospital=hos
+                use.number+=1
+                use.status=6
+                use.save()
+            else:
+                orders = Order.objects.all()
+                n = len(orders) + 1
+                s = "NO.%04d" % n
+                Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s)
+        return JsonResutResponse({'ret':0,'msg':'success'})
+    except:
+        return JsonResutResponse({'ret':1,'msg':'error'})
+
 

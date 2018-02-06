@@ -116,8 +116,12 @@ def Remind(request):
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
+
     user = ZJUser.objects.get(user=request.user)
-    orders = Order.objects.filter(custome=user).order_by('-createtime')
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).order_by('-createtime')
+    print orders.query
     lister = RemindSystem(orders)
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
 
@@ -366,11 +370,15 @@ def AddHosp(request):
     return JsonResutResponse({'ret':0,'msg':'添加或修改成功'})
 
 #管理员的数据统计
+@login_required(login_url="/login/")
 def adminStatic(request):
+    user = ZJUser.objects.get(user=request.user)
     users=ZJUser.objects.filter(usertype=1) #找到所有客服
+    name=[]
     service=[]
     if users:
         for user in users: #客服的饼状图
+            name.append(user.name)
             data={
                 'number':Order.objects.filter(custome=user).count(),
                 'name':user.name,
@@ -408,4 +416,5 @@ def adminStatic(request):
             citys.append(data)
     else:
         pass
-    return render(request,'xxx.html',{'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys})
+    print name
+    return render(request,'adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys})

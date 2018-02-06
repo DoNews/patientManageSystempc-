@@ -14,12 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+import xadmin
 from django.conf.urls import url,include
 from django.contrib import admin
-from apoint.Views.views import *
+
+from apoint.Views.adminviews import *
 from apoint.Views.userView import *
-from apoint.adminviews import *
-import xadmin
+from apoint.Views.views import *
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
@@ -41,5 +43,11 @@ urlpatterns = [
     url(r'^upload',uploader),
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
-    url(r'^orderupdate',OrderUpdte)
+    url(r'^orderupdate',OrderUpdte),
+    url(r'adminindex',adminindex),
+    url(r'^pationsview',pationsview),
+    url(r'^hospital',hospital),
+    url(r'^thirdpart',thirdpart),
+    url(r'^adminchart', adminchart),
+url(r'^accountview',accountview),
 ]

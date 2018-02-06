@@ -91,12 +91,11 @@ def Detail(order):
 #客服查看系统提醒(逾期)
 def RemindSystem(orders):
     lister = []
-    now = datetime.datetime.now()  # 当前时间
+    now = datetime.datetime.now().date()  # 当前时间
     if orders:
         for order in orders:
-            nextcalldate = order.nextcalldate.strftime('%Y-%m-%d')
-            filsday = datetime.datetime.strptime(nextcalldate, '%Y-%m-%d')  # 数据库的时间
-            time_diff = (now - filsday).days  # 当前时间和下次电话时间的差
+            print 't:',order.nextcalldate,order.id
+            time_diff = (now - order.nextcalldate).days  # 当前时间和下次电话时间的差
             if time_diff > 0:
                 data = {
                     'id': order.id,
@@ -104,7 +103,7 @@ def RemindSystem(orders):
                     'wanthospital': order.wanthospital.name,  # 医院名称
                     'wantTime': order.wantTime.strftime('%Y-%m-%d  %H:%M'),  # 预约时间
                     'status': order.get_status_display(),  # 患者状态
-                    'nextcalldate': nextcalldate,  # 计划时间
+                    'nextcalldate': order.nextcalldate,  # 计划时间
                     'day': time_diff,  # 逾期天数
                     'sales': order.wanthospital.sales.name,  # 负责销售
                 }
