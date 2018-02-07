@@ -1,5 +1,4 @@
 #coding: utf8
-
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 
 from apoint.models import *
@@ -153,12 +152,9 @@ def Statistics(request):
 #客服账户设置
 @login_required(login_url="/login/")
 def AccountSet(request):
-
     us = request.user
-
     oldpass=request.POST['oldpass'] #当前密码
     newpass=request.POST['newpass'] #新密码
-
     if us.check_password(oldpass)==True :
         print 'pwd',newpass
         us.set_password(newpass)
@@ -223,7 +219,6 @@ def AddStaff(request):
     user=SalesUser.objects.filter(name=name,phone=phone).first()
     if user:
         staff=user.update(name=name,phone=phone,usertype=2,city=city)
-
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id

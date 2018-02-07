@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 	<head>
@@ -66,7 +66,8 @@
 			laydate.render({
 				elem: "#yyDateNext "
 			});
-			$(".addCustom").click(function () {
+
+			$("#addCustom").click(function () {
                 layer.open({
 					type: 2,
 					title: false,
@@ -93,7 +94,9 @@
 					offset: '40px',
 					scrollbar: false, //禁止浏览器滚动
 					anim: 2,
-					content: ['/hospview?id='+, 'yes'], //iframe的url，no代表不显示滚动条
+
+					content: ['/hospview?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
+
 					end: function() { //此处用于演示
 
 					}

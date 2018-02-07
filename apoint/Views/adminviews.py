@@ -72,4 +72,6 @@ def editHospital(request):
 
 def hospview(request):
     area = Area.objects.all()
-    return render(request,"admin/adminHospitalManagePop.html",{"area":area})
+    sales = SalesUser.objects.all()
+    print sales
+    return render(request,"admin/adminHospitalManagePop.html",{"area":area,"sales":sales})

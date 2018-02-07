@@ -145,7 +145,8 @@ STATICFILES_DIRS = [
 APPEND_SLASH=False
 SiteHost="http://mbd.yuemia.com"
 WEIXIN='mbd'
-BAOMING_MODE='qAECcQ2FDnuN7IBF5nowR525UhzVBIrB6BLuBN7Y2Tw'# 放上模板id
+PATIENTS_MODE='qAECcQ2FDnuN7IBF5nowR525UhzVBIrB6BLuBN7Y2Tw'# 患者的模板ID
+SALES_MODE=''#销售模板ID
 
 import datetime
 OUTDATE_PERIOD=datetime.timedelta(days=3)  #提前3天

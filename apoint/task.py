@@ -19,7 +19,7 @@
 #         conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"
 #     detail_url = settings.SiteHost + "/static/dist/#/live/%s"%SentWhoId
 #     first = conten
-#     template_id =settings.BAOMING_MODE  #模板id
+#     template_id =settings.PATIENTS_MODE  #模板id
 #     touser = order.openid  # 发送给谁
 #     value1 = order.wanthospital.name  # 医院名称
 #     value2 = order.wantTime.strftime('%Y-%m-%d %H:%M')  # 活动日期
@@ -41,7 +41,7 @@
 #             first="尊敬的%s:您的如下就诊预约已经确认，我们特别提醒您按时到院就诊"%order.name
 #         else:
 #             first="尊敬的%s:您的如下就诊预约申请已经延期，感谢您的支持与配合"%order.name
-#         template_id = settings.SHENHE_MODE #模板ID
+#         template_id = settings.PATIENTS_MODE #模板ID
 #         touser = order.openid #发送给谁
 #         value1 = order.wanthospital.name  # 医院名称
 #         value2 = order.wantTime.strftime('%Y-%m-%d %H:%M')  # 就诊日期
@@ -51,7 +51,7 @@
 #         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
 #         detail_url = settings.SiteHost + "/static/MobileClient/Saler/PatientInfo.html?id=%s"%SentWhoId
 #         first = "尊敬的%s:您所负责的医院有新患者确认了预约"%order.wanthospital.sales.name
-#         template_id = settings.SHENHE_MODE  # 模板ID
+#         template_id = settings.SALES_MODE  # 模板ID
 #         touser = order.wanthospital.sales.openid  # 发送给谁
 #         value1 = order.name,  # 预约患者
 #         value2 = order.wanthospital.name  # 医院名称

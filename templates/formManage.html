@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="img/icon.png" />
+		<link rel="icon" href="/static/main/img/icon.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
 	</head>
@@ -54,24 +53,18 @@
 		</div>
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
-	<script src="/static/main/js/echarts.simple.min.js"></script>
+	<script src="/static/main/js/echarts.common.min.js"></script>
 {#	<script src="/static/main/js/formManage.js"></script>#}
     <script>
         var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		// 指定图表的配置项和数据
 		var optionNow1 = {
-			title: {
-				text: '本月数据纵览',
-				show:true
-			},
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
+
 			xAxis: [{
 				data: ["本月累计跟进人次", "本月分配患者数", "本月认领患者数"],
 				axisLabel: {
-					rotate:90, //刻度旋转45度角
+					rotate:30, //刻度旋转45度角
 					textStyle: {
 						color: "red",
 						fontSize:10
@@ -80,10 +73,9 @@
 			}],
 			yAxis: {},
 			series: [{
-					name: '销量',
+					name: '数量',
 					type: 'bar',
-					barWidth: 15, //柱图宽度
-
+					barWidth: 30, //柱图宽度
 					data: [{{ thismonth }}, {{ thismonthfp }}, {{ thismonthrl}}],
 					itemStyle: {
 						//通常情况下：
@@ -109,17 +101,11 @@
 		var nowMouth2 = echarts.init(document.getElementById('nowMouth2'));
 		// 指定图表的配置项和数据
 		var optionNow2 = {
-			title: {
-				text: '我负责的全部患者数据汇总'
-			},
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
 			xAxis: [{
 				data: ["累计跟进人次", "累计分配患者数", "累计认领患者数"],
 				axisLabel: {
-					rotate: 45, //刻度旋转45度角
+					rotate: 30, //刻度旋转45度角
 					textStyle: {
 						color: "red",
 						fontSize: 16
@@ -128,9 +114,9 @@
 			}],
 			yAxis: {},
 			series: [{
-					name: '销量',
+					name: '数量',
 					type: 'bar',
-					barWidth: 15, //柱图宽度
+					barWidth: 30, //柱图宽度
 					data: [{{ thismonthall }}, {{ thismonthfpall }}, {{ thismonthrlall }}],
 					itemStyle: {
 						//通常情况下：
@@ -152,24 +138,15 @@
 			]
 		};
 		nowMouth2.setOption(optionNow2);
-
 		//
-
-
 		var nowMouth3 = echarts.init(document.getElementById('nowMouth3'));
 		// 指定图表的配置项和数据
 		var optionNow3 = {
-			title: {
-				text: '我负责的已到诊患者状态总览'
-			},
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
 				axisLabel: {
-					rotate: 45, //刻度旋转45度角
+					rotate: 30, //刻度旋转45度角
 					textStyle: {
 						color: "red",
 						fontSize: 16
@@ -178,9 +155,9 @@
 			}],
 			yAxis: {},
 			series: [{
-					name: '销量',
+					name: '数量',
 					type: 'bar',
-					barWidth: 15, //柱图宽度
+					barWidth: 30, //柱图宽度
 					data:[{{ v1all }}, {{ v2all }}, {{ v3all }},{{ v4all }}],
 					itemStyle: {
 						//通常情况下：
@@ -207,17 +184,11 @@
 		var nowMouth4 = echarts.init(document.getElementById('nowMouth4'));
 		// 指定图表的配置项和数据
 		var optionNow4 = {
-			title: {
-				text: '本月已到诊患者状态总览'
-			},
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
 				axisLabel: {
-					rotate: 45, //刻度旋转45度角
+					rotate: 30, //刻度旋转45度角
 					textStyle: {
 						color: "red",
 						fontSize: 16
@@ -226,9 +197,9 @@
 			}],
 			yAxis: {},
 			series: [{
-					name: '销量',
+					name: '数量',
 					type: 'bar',
-					barWidth: 15, //柱图宽度
+					barWidth: 30, //柱图宽度
 					data: [{{ v1 }}, {{ v2 }}, {{ v3 }},{{ v4 }}],
 					itemStyle: {
 						//通常情况下：

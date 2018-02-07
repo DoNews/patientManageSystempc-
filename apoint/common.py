@@ -4,6 +4,7 @@ from django.http import HttpResponse
 import simplejson
 from PIL import Image as image
 import time
+from django.utils import timezone
 import os
 from django.core.paginator import Paginator
 from task import *
