@@ -1,8 +1,9 @@
 #coding: utf8
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from models import *
-from common import *
+from apoint.models import *
+from apoint.common import *
 from django.utils import timezone
+from apoint.task import *
 import functools, random
 import requests
 import json
@@ -87,7 +88,6 @@ def CilckMake(request):
         return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者order提交
-
 def OrderSubmit(request):
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
