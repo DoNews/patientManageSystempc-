@@ -251,6 +251,18 @@ def QueryHosp(request):
    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
 
 
+def updateSalesHosp(request):
+    uid = request.POST.get("uid")
+    hosps = request.POST['hosps']
+    json_hosp =json.loads(hosps)
+    print json_hosp
+    user = SalesUser.objects.get(id=uid)
+    hosps_now = Hospital.objects.filter(sales=user).update(sales=None)
+    hs = Hospital.objects.filter(pk__in=json_hosp)
+    print(hs)
+    hs.update(sales=user)
+    return JsonResutResponse({"result":1})
+    return render(request,'editHospital.html',{'msg':u'修改成功'})
 #删除
 def StaffDelete(request):
     id=request.POST['id']

@@ -1,7 +1,7 @@
 #coding:utf-8
 from django.conf.urls import url
-from wx_views import *
-from service_views import *
+from Views.wx_views import *
+from Views.service_views import *
 urlpatterns = [
     url(r'^scrfcode/',ScrfCode), #发送验证码
     url(r'^staff/',StaffCation),#员工认证
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^hospitment/',HospitMent),#查看医院详情
     url(r'^addhosp/',AddHosp),#医院的添加和修改
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
-
+    url(r'^updateSalesHosp', updateSalesHosp)
 
     #测试
 

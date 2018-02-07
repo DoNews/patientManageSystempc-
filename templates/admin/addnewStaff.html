@@ -4,9 +4,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>创建员工</title>
-		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
-		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="/static/main/css/addStaff.css" />
+		<link rel="stylesheet" type="text/css" href="static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="static/main/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="static/main/css/addStaff.css" />
 	</head>
 
 	<body>
@@ -16,18 +16,18 @@
 			<div class="hz_info">
 				<div class="hz_infoItem">
 					<p>员工姓名</p>
-					<p><input type="text" name="" id="" value="{{ user.name }}" /></p>
+					<p><input type="text" name="" id="" value="" /></p>
 				</div>
 				<div class="hz_infoItem">
 					<p>手机号</p>
 					<p>
-						<input type="text" name="" id="" value="{{ user.phone }}" />
+						<input type="text" name="" id="" value="" />
 					</p>
 				</div>
 				<div class="hz_infoItem">
 					<p>平台绑定状态</p>
 					<p>
-						<input type="text" name="" id="" value="{% if user.is_cert  %}是{% else %}否{% endif %}" />
+						<input type="text" name="" id="" value="" />
 					</p>
 				</div>
 				<div class="hz_infoItem">
@@ -35,13 +35,11 @@
 					<div class="layui-form">
 						<div class="layui-form-item">
 							<select name="" id="area">
-              	<option value="">请选择地区</option>
-                {% for foo in area %}
-                		<option value="{{ foo.id }}">{{ foo.name }}</option>
-                {% endfor %}
-                
-
-
+								<option value="">请选择地区</option>
+								<option value="上海">上海</option>
+								<option value="南京">南京</option>
+								<option value="北京">北京</option>
+								<option value="乌鲁木齐">乌鲁木齐</option>
 							</select>
 						</div>
 					</div>
@@ -50,23 +48,31 @@
 					<p>负责医院数目</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
-							<p class="chooseHospital" id="{{ user.id }}">选择负责医院</p>
-
+							<p class="chooseHospital">选择负责医院</p>
+							<!--<select name="" id="area">
+								<option value="">请选择医院数</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+							</select>-->
 						</div>
 					</div>
 				</div>
+				<p class="rlhz_pop" style="clear: both;">负责医院清单(与负责区域的对应关系)</p>
+				<style type="text/css">
 
-          {% for foo in manHospital %}
-          <p class="rlhz_pop" style="clear: both;">{{foo.name}} </p>
-          {% endfor %}
-
+				</style>
 				<div class="hospitalList">
-          {% for foo in hosps %}
-          <div class="hospitalItem">{{ foo.name }}</div>
-          {% endfor %}
-
-
-
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
+					<div class="hospitalItem">上海市华山医院</div>
 				</div>
 
 			</div>
@@ -80,8 +86,8 @@
 			</span>
 			</div>
 		</div>
-		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
-		<script src="/static/main/js/layui/layui.js "></script>
+		<script src="js/jquery-3.3.1.min.js "></script>
+		<script src="js/layui/layui.js "></script>
 
 		<script>
 			layui.use(['form', 'laydate', 'upload'], function() {
@@ -99,7 +105,6 @@
 					parent.layer.closeAll();
 				})
 				$(".chooseHospital").click(function() {
-				 var uid = $(this).attr("id")
 					parent.layer.open({
 						type: 2,
 						title: false,
@@ -109,7 +114,7 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['/editHospital?id='+uid, 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['./editHospital.html', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
 
 						}
