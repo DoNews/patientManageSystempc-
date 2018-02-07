@@ -1,7 +1,7 @@
 #coding: utf8
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from models import *
-from common import *
+from apoint.models import *
+from apoint.common import *
 from django.utils import timezone
 import functools, random
 import requests

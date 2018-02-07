@@ -1,8 +1,8 @@
 #coding: utf8
 
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from models import *
-from common import *
+from apoint.models import *
+from apoint.common import *
 import functools, random
 import requests
 from datetime import datetime, timedelta
@@ -71,7 +71,7 @@ def Search(request):
     orders=[]
     if keyword:
         orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
-    return render(request,"searchPop.html",{"order":orders})
+    return render(request, "searchPop.html", {"order":orders})
 
 
 
@@ -95,7 +95,7 @@ def Remind(request):
         admins=AdminDis(admin[:3]) #这里是管理员分配的
     else:
         admins=[]
-    return render(request,"remindManage.html",{'ret':0,'msg':'success','lister':lister,'notes':notes,'admin':admins})
+    return render(request, "remindManage.html", {'ret':0, 'msg': 'success', 'lister':lister, 'notes':notes, 'admin':admins})
 
 
 #查看所有逾期
@@ -206,7 +206,7 @@ def StaffEditor(request):
     user=SalesUser.objects.get(id=id)
     hosps=Hospital.objects.filter(sales=user)#对应的医院
     area =Area.objects.all()
-    return render(request,'admin/addStaff.html',{'user':user,'hosps':hosps,'area':area})
+    return render(request, 'admin/addStaff.html', {'user':user, 'hosps':hosps, 'area':area})
 
 def createKefy(request):
     name = request.POST.get("name")
@@ -408,4 +408,4 @@ def adminStatic(request):
             citys.append(data)
     else:
         pass
-    return render(request,'admin/adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys,"pageindex":4})
+    return render(request, 'admin/adminreportFormManage.html', {'name':name, 'service':service, 'appoins':appoins, 'confirm':confirm, 'treanumber':treanumber, 'transfer':transfer, 'ZLCSTJ':ZLTJ, 'citys':citys, "pageindex":4})
