@@ -1,18 +1,13 @@
 var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		// 指定图表的配置项和数据
 		var optionNow1 = {
-			title: {
-				text: '本月数据纵览',
-				show:true
-			},
+			
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
+			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
 				axisLabel: {
-					rotate:90, //刻度旋转45度角
+					rotate:45, //刻度旋转45度角
 					textStyle: {
 						color: "red",
 						fontSize:10
@@ -49,13 +44,7 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		var nowMouth2 = echarts.init(document.getElementById('nowMouth2'));
 		// 指定图表的配置项和数据
 		var optionNow2 = {
-			title: {
-				text: '本月数据纵览'
-			},
-			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
+			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
 				axisLabel: {
@@ -99,13 +88,9 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		var nowMouth3 = echarts.init(document.getElementById('nowMouth3'));
 		// 指定图表的配置项和数据
 		var optionNow3 = {
-			title: {
-				text: '本月数据纵览'
-			},
+			
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
+			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
 				axisLabel: {
@@ -118,7 +103,7 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 			}],
 			yAxis: {},
 			series: [{
-					name: '销量',
+				
 					type: 'bar',
 					barWidth: 15, //柱图宽度
 					data: [5, 20, 36],
@@ -147,13 +132,9 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		var nowMouth4 = echarts.init(document.getElementById('nowMouth4'));
 		// 指定图表的配置项和数据
 		var optionNow4 = {
-			title: {
-				text: '本月数据纵览'
-			},
+			
 			tooltip: {},
-			legend: {
-				data: ['销量']
-			},
+			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
 				axisLabel: {
