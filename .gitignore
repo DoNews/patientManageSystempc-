@@ -5,3 +5,6 @@ static/patient_managementSystem
 apoint/migrations
 obj
 Apointment.pyproj
+
+requirements.txt
+readme.html
