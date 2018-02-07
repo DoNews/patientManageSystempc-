@@ -15,7 +15,7 @@
 			<div class="yy_indexConRight">
 				{% include 'control/head.html' %}
 				<div class="remindConBox" style="height: 550px;">
-					<div class="remindConTitle"><span>医院管理</span></div>
+					<div class="remindConTitle"><span>医院管理</span><span class="pmTbaleBtnLeft" id="addCustom">新增</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
 						<tbody>
 							<tr>
@@ -87,7 +87,7 @@
 					offset: '40px',
 					scrollbar: false, //禁止浏览器滚动
 					anim: 2,
-					content: ['./adminHospitalManagePop.html', 'yes'], //iframe的url，no代表不显示滚动条
+					content: ['/hospview', 'yes'], //iframe的url，no代表不显示滚动条
 					end: function() { //此处用于演示
 
 					}

@@ -7,61 +7,17 @@
 		<link rel="icon" src="/static/main/imgicon.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
+        <link rel="stylesheet" href="/static/main/css/layui.css" />
 	</head>
-
 	<body>
 		<div class="yy_indexCon">
-			<div class="yy_indexConLeft">
-				<div class="yy_indexConLeftCon">
-					<div>
-						<div class="yy_loginLogo">
-							<img src="img/logo.png" alt="" />
-						</div>
-						<p class="yy_indexTitle">张江患者预约管理系统</p>
-					</div>
-					<ul class="kf_power">
-						<a href="adminindex.html">
-							<li>员工管理</li>
-						</a>
-						<a href="admindataManage.html">
-							<li class="li_active">提醒管理</li>
-						</a>
-						<a href="adminHospitalManage.html">
-							<li>医院管理</li>
-						</a>
-						<a href="adminAnontherSystem.html">
-							<li>第三方系统匹配管理</li>
-						</a>
-						<a href="adminreportFormManage.html">
-							<li>报表管理</li>
-						</a>
-						<a href="adminAccountManage.html">
-							<li>账户管理</li>
-						</a>
-					</ul>
-				</div>
-
-			</div>
+			{% include 'control/adminleft.html' %}
 			<div class="yy_indexConRight">
-				<div class="yy_indexConRightHeader">
-					<div class="searchBox">
-						<i class="icon"></i>
-						<input type="text" id="serch" placeholder="搜索患者" />
-						<button class="search_Btn">搜索</button>
-					</div>
-					<div class="loginAndName">
-						<span class="userName">
-											你好MR
-									</span>
-						<span class="login">
-											登录
-									</span>
-					</div>
-				</div>
+				 {% include 'control/head.html' %}
 				<div class="remindConBox" style="height: 550px;">
 					<div class="remindConTitle"><span>预约患者数据</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
-						<tbody>
+
 							<tr>
 								<th>预约工单</th>
 								<th>负责客服</th>
@@ -70,75 +26,46 @@
 								<th>是否第三方系统用户</th>
 								<th>管理员操作</th>
 							</tr>
+                            <tbody id="data">
+                            {% for foo in order %}
+
 							<tr>
-								<td>
-									<div class="remindTable_img"></div>
-									<div class="remindTable_con">
-										<p>张三丰</p>
-										<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
-									</div>
-								</td>
-								<td>张三丰</td>
-								<td>张无忌</td>
-								<td>未确认就诊</td>
-								<td>是</td>
-								<td><span class="remindTableBtn patientMan">去管理</span></td>
+                              <td>
+                                <div class="pmTable_img"></div>
+                                <div class="pmTable_con">
+                                    <p>{{ foo.name }}</p>
+                                    <p>{{ foo.wantTime|date:"Y-m-d" }} {{ foo.wanthospital }}</p>
+                                </div>
+                            </td>
+								<td>{{ foo.custome }}</td>
+								<td>{{ foo.wanthospital.sales }}</td>
+								<td>{{ foo.status }}</td>
+								<td>{{ foo.is_party }}</td>
+								<td><span class="remindTableBtn patientMan" id="{{ foo.id }}">去管理</span></td>
 							</tr>
-							<tr>
-								<td>
-									<div class="remindTable_img"></div>
-									<div class="remindTable_con">
-										<p>赵敏</p>
-										<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
-									</div>
-								</td>
-								<td>赵敏</td>
-								<td>周芷若</td>
-								<td>已确认就诊</td>
-								<td>否</td>
-								<td><span class="remindTableBtn patientMan">去管理</span></td>
-							</tr>
-							<tr>
-								<td>
-									<div class="remindTable_img"></div>
-									<div class="remindTable_con">
-										<p>张三丰</p>
-										<p>刷卡机安徽师大科技和爱的世界爱看电视讲话</p>
-									</div>
-								</td>
-								<td>张三丰</td>
-								<td>张无忌</td>
-								<td>未确认就诊</td>
-								<td>是</td>
-								<td><span class="remindTableBtn patientMan">去管理</span></td>
-							</tr>
+
+    {% endfor %}
+
 
 						</tbody>
 					</table>
-					<div class="remind_allLeftBtn">查看全部</div>
+					 <input type="hidden" value="{{ all }}" id="count">
+					 <div id="pageNum"></div>
 				</div>
 			</div>
 		</div>
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/main/js/adminpatientManage.js"></script>
 	<script type="text/javascript">
-		layui.use(['form', 'laydate', 'upload', 'layer'], function() {
-			var form = layui.form,
-				upload = layui.upload,
-				layer = layui.layer,
+		layui.use([ 'layer'], function() {
+
+				var layer = layui.layer,
 				laydate = layui.laydate;
-			//日期
-			laydate.render({
-				elem: '#yyDate'
-			});
-			laydate.render({
-				elem: '#birthDay'
-			});
-			laydate.render({
-				elem: "#yyDateNext "
-			});
+
 			$('.patientMan').click(function() {
+			      var sid = $(this).attr("id");
 				layer.open({
 					type: 2,
 					title: false,
@@ -148,25 +75,13 @@
 					offset: '40px',
 					scrollbar: false, //禁止浏览器滚动
 					anim: 2,
-					content: ['./管理员管理患者.html', 'yes'], //iframe的url，no代表不显示滚动条
+					content: ['/orderdetail?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 					end: function() { //此处用于演示
 
 					}
 				})
 			})
 
-			var uploadInst = upload.render({
-				elem: '#addupload' //绑定元素
-					,
-				url: '/upload/' //上传接口
-					,
-				done: function(res) {
-					//上传完毕回调
-				},
-				error: function() {
-					//请求异常回调
-				}
-			});
 
 		});
 	</script>

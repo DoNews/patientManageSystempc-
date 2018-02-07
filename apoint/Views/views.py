@@ -2,7 +2,7 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required
-
+from django import template
 from datetime import datetime, timedelta
 from apoint.common import *
 # Create your views here.
@@ -15,7 +15,7 @@ MENUS_CALLER=(
     ("控制台","/index"),
     ("患者管理","/pationsview"),
     ("提醒管理","/remind"),
-    ("报表管理","/chart"),
+    ("报表管理","/api/apoint/statistics/"),
     ("账户管理","/account")
 
 )
@@ -125,9 +125,9 @@ def pationsview(request):
     user = request.user
     cus = ZJUser.objects.filter(user=user)
     orders = Order.objects.filter(custome=cus).order_by("-wantTime")
+    order=orders[:10]
 
-
-    return render(request, "patientManage.html", {"pageindex":1, "menu":MENUS_CALLER,"all":orders.count()})
+    return render(request, "patientManage.html", {"pageindex":1, "menu":MENUS_CALLER,"all":orders.count(),"order":order})
 
 @login_required(login_url="/login/")
 def pations(request):
