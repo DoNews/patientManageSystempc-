@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 	<head>
@@ -94,11 +94,11 @@
 					<div class="layui-form">
 						<div class="layui-form-item">
 							<select name="" id="area">
-								<option value="">请选择城市</option>
-								<option value="张三">张三</option>
-								<option value="李四">李四</option>
-								<option value="王五">王五</option>
-								<option value="赵六">赵六</option>
+								<option value="">请选择销售</option>
+                                {% for s in sales %}
+                                <option value="{{s.id}}">{{s.name}}</option>
+                                {% endfor %}
+							 
 							</select>
 						</div>
 					</div>

@@ -41,7 +41,8 @@ def adminpationsview(request):
     return render(request,"admin/admindataManage.html",{"pageindex":1,"all":orders.count(),"order":order})
 
 def hospital(request):
-    return render(request,"admin/adminHospitalManage.html",{"pageindex":2})
+    hosp = Hospital.objects.all()
+    return render(request,"admin/adminHospitalManage.html",{"pageindex":2,"hosp":hosp})
 
 def thirdpart(request):
     return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
@@ -71,4 +72,6 @@ def editHospital(request):
 
 def hospview(request):
     area = Area.objects.all()
-    return render(request,"admin/adminHospitalManagePop.html",{"area":area})
+    sales = SalesUser.objects.all()
+    print sales
+    return render(request,"admin/adminHospitalManagePop.html",{"area":area,"sales":sales})
