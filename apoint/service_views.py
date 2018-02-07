@@ -130,23 +130,23 @@ def Adminsall(request):
 @login_required(login_url="/login/")
 def Statistics(request):
     user = ZJUser.objects.get(user=request.user)
-    now = datetime.datetime.now()
+    now = datetime.now()
     thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month) #查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count() #本月累计跟进人次
     thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count() #本月认领
-    v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(custome=user).count()#本月已安排治疗
-    v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(custome=user).count() #延后治疗
-    v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(custome=user).count() #转院的
-    v4 = OrderDetail.objects.filter(status=12,createtime__month=now.month).filter(custome=user).count() #暂停的
+    v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(creater=user).count()#本月已安排治疗
+    v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(creater=user).count() #延后治疗
+    v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(creater=user).count() #转院的
+    v4 = OrderDetail.objects.filter(status=12,createtime__month=now.month).filter(creater=user).count() #暂停的
     #查看全部
     thismonthall = OrderDetail.objects.filter(creater=user).count()  # 全部累计跟进人次
     thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user)#查看全部分配的数据
     thismonthrlall = OrderDetail.objects.filter(status=2).count()  # 全部认领
-    v1all = OrderDetail.objects.filter(status=6,custome=user).count()  # 全部已安排治疗
-    v2all = OrderDetail.objects.filter(status=11,custome=user).count()  # 全部延后治疗
-    v3all = OrderDetail.objects.filter(status=13,custome=user).count()  # 全部转院的
-    v4all = OrderDetail.objects.filter(status=12,custome=user).count()  # 全部暂停的
-    return render(request,'.html',{'thismonth':thismonth,'thismonthfp':thismonthfp,'thismonthrl':thismonthrl,'v1':v1,'v2':v2,'v3':v3,'v4':v4,'thismonthall':thismonthall,'thismonthfpall':thismonthfpall,'thismonthrlall':thismonthrlall,'v1all':v1all,'v2all':v2all,'v3all':v3all,'v4all':v4all})
+    v1all = OrderDetail.objects.filter(status=6,creater=user).count()  # 全部已安排治疗
+    v2all = OrderDetail.objects.filter(status=11,creater=user).count()  # 全部延后治疗
+    v3all = OrderDetail.objects.filter(status=13,creater=user).count()  # 全部转院的
+    v4all = OrderDetail.objects.filter(status=12,creater=user).count()  # 全部暂停的
+    return render(request,'formManage.html',{'thismonth':thismonth,'thismonthfp':thismonthfp,'thismonthrl':thismonthrl,'v1':v1,'v2':v2,'v3':v3,'v4':v4,'thismonthall':thismonthall,'thismonthfpall':thismonthfpall,'thismonthrlall':thismonthrlall,'v1all':v1all,'v2all':v2all,'v3all':v3all,'v4all':v4all})
 
 #客服账户设置
 @login_required(login_url="/login/")
