@@ -2,7 +2,10 @@
 
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 
+from apoint.models import *
 from apoint.common import *
+import functools, random
+import requests
 
 from datetime import datetime, timedelta
 import json
@@ -130,7 +133,7 @@ def Adminsall(request):
 def Statistics(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.now()
-    thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month) #查看本月分配的数据
+    thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month).exclude(status=12).count() #查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count() #本月累计跟进人次
     thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count() #本月认领
     v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(creater=user).count()#本月已安排治疗
@@ -139,7 +142,7 @@ def Statistics(request):
     v4 = OrderDetail.objects.filter(status=12,createtime__month=now.month).filter(creater=user).count() #暂停的
     #查看全部
     thismonthall = OrderDetail.objects.filter(creater=user).count()  # 全部累计跟进人次
-    thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user)#查看全部分配的数据
+    thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,).exclude(status=12).count()#查看全部分配的数据
     thismonthrlall = OrderDetail.objects.filter(status=2).count()  # 全部认领
     v1all = OrderDetail.objects.filter(status=6,creater=user).count()  # 全部已安排治疗
     v2all = OrderDetail.objects.filter(status=11,creater=user).count()  # 全部延后治疗

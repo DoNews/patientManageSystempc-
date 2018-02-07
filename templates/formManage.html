@@ -17,14 +17,14 @@
 
 				<div class="formManBotom">
 					<div class="formConBoxLeft">
-						<div class="formConTitle"><span>本月患者数</span></div>
+						<div class="formConTitle"><span>本月数据纵览</span></div>
 						<div id="nowMouth1" style="height: 70%;">
 
 						</div>
 
 					</div>
 					<div class="formConBoxRight">
-						<div class="formConTitle"><span>本月确认患者就诊数</span></div>
+						<div class="formConTitle"><span>本月已到诊患者状态总览</span></div>
 						<div id="nowMouth4" style="height: 70%;">
 
 						</div>
@@ -35,14 +35,14 @@
 				<!--下半部分两列布局-->
 				<div class="formManBotom">
 					<div class="formConBoxLeft">
-						<div class="formConTitle"><span>全年患者数</span></div>
+						<div class="formConTitle"><span>我负责的全部患者数据汇总</span></div>
 						<div id="nowMouth2" style="height: 70%;">
 
 						</div>
 
 					</div>
 					<div class="formConBoxRight">
-						<div class="formConTitle"><span>全年确认患者就诊数</span></div>
+						<div class="formConTitle"><span>我负责的已到诊患者状态总览</span></div>
 						<div id="nowMouth3" style="height: 70%;">
 
 						</div>
@@ -69,7 +69,7 @@
 				data: ['销量']
 			},
 			xAxis: [{
-				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
+				data: ["本月累计跟进人次", "本月分配患者数", "本月认领患者数"],
 				axisLabel: {
 					rotate:90, //刻度旋转45度角
 					textStyle: {
@@ -83,7 +83,8 @@
 					name: '销量',
 					type: 'bar',
 					barWidth: 15, //柱图宽度
-					data: [5, 20, 36],
+
+					data: [{{ thismonth }}, {{ thismonthfp }}, {{ thismonthrl}}],
 					itemStyle: {
 						//通常情况下：
 						normal: {
@@ -109,14 +110,14 @@
 		// 指定图表的配置项和数据
 		var optionNow2 = {
 			title: {
-				text: '本月数据纵览'
+				text: '我负责的全部患者数据汇总'
 			},
 			tooltip: {},
 			legend: {
 				data: ['销量']
 			},
 			xAxis: [{
-				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
+				data: ["累计跟进人次", "累计分配患者数", "累计认领患者数"],
 				axisLabel: {
 					rotate: 45, //刻度旋转45度角
 					textStyle: {
@@ -130,12 +131,12 @@
 					name: '销量',
 					type: 'bar',
 					barWidth: 15, //柱图宽度
-					data: [5, 20, 36],
+					data: [{{ thismonthall }}, {{ thismonthfpall }}, {{ thismonthrlall }}],
 					itemStyle: {
 						//通常情况下：
 						normal: {
 							color: function(params) {
-								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)',];
 								return colorList[params.dataIndex];
 							}
 						},
@@ -159,14 +160,14 @@
 		// 指定图表的配置项和数据
 		var optionNow3 = {
 			title: {
-				text: '本月数据纵览'
+				text: '我负责的已到诊患者状态总览'
 			},
 			tooltip: {},
 			legend: {
 				data: ['销量']
 			},
 			xAxis: [{
-				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
+				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
 				axisLabel: {
 					rotate: 45, //刻度旋转45度角
 					textStyle: {
@@ -180,12 +181,12 @@
 					name: '销量',
 					type: 'bar',
 					barWidth: 15, //柱图宽度
-					data: [5, 20, 36],
+					data:[{{ v1all }}, {{ v2all }}, {{ v3all }},{{ v4all }}],
 					itemStyle: {
 						//通常情况下：
 						normal: {
 							color: function(params) {
-								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(192,0,0)'];
 								return colorList[params.dataIndex];
 							}
 						},
@@ -207,14 +208,14 @@
 		// 指定图表的配置项和数据
 		var optionNow4 = {
 			title: {
-				text: '本月数据纵览'
+				text: '本月已到诊患者状态总览'
 			},
 			tooltip: {},
 			legend: {
 				data: ['销量']
 			},
 			xAxis: [{
-				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
+				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
 				axisLabel: {
 					rotate: 45, //刻度旋转45度角
 					textStyle: {
@@ -228,12 +229,12 @@
 					name: '销量',
 					type: 'bar',
 					barWidth: 15, //柱图宽度
-					data: [5, 20, 36],
+					data: [{{ v1 }}, {{ v2 }}, {{ v3 }},{{ v4 }}],
 					itemStyle: {
 						//通常情况下：
 						normal: {
 							color: function(params) {
-								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+								var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(192,0,0)'];
 								return colorList[params.dataIndex];
 							}
 						},
