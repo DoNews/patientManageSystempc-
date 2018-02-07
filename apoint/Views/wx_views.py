@@ -122,7 +122,9 @@ def OrderSubmit(request):
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     try:
-        ModelMsg(order.id, 1, 1)
+        pass
+
+        #ModelMsg(order.id, 1, 1)
     except:
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})

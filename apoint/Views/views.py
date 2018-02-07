@@ -55,7 +55,7 @@ def index(request):
 
     thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(createtime__month=now.month).count() #本月分配
     thismonthrl =OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count()
-
+    print thismonth,thismonthfp,thismonthrl
     v1 = OrderDetail.objects.filter(status=6).filter(creater=user).count() #已安排治疗
     v2 = OrderDetail.objects.filter(status=11).filter(creater=user).count()
     v3 = OrderDetail.objects.filter(status=13).filter(creater=user).count()

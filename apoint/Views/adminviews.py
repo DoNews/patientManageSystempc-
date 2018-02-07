@@ -38,6 +38,7 @@ def adminindex(request):
 def adminpationsview(request):
     orders = Order.objects.all()
     order = orders[:10]
+    print orders
     return render(request,"admin/admindataManage.html",{"pageindex":1,"all":orders.count(),"order":order})
 
 def hospital(request):
@@ -100,3 +101,42 @@ def thirdpop(request):
 def refenpei(request):
     kefu = ZJUser.objects.filter(usertype=1)
     return render(request,"admin/redistribution.html",{"kefu":kefu})
+
+def addCustomer(request):
+    cid = request.GET.get("id",False)
+    if cid:
+        c = ZJUser.objects.get(pk=cid)
+    return render(request,"admin/addCustom.html",{"c":c if cid else ""})
+
+#添加客服账号
+def addCustomerAction(request):
+    name = request.POST.get("name")
+    username = request.POST.get("username")
+    phone=request.POST.get("phone")
+    password = request.POST.get("pwd")
+
+    id =request.POST.get("id")
+    if id:
+        kf = ZJUser.objects.get(pk = id)
+        kf.name = name
+        kf.user.username = username
+        kf.phone = phone
+        kf.user.set_password(password)
+        kf.usertype = 1
+        kf.user.save()
+        kf.save()
+    else:
+        user = User(username=username)
+        user.set_password(password)
+        user.is_superuser = False
+        user.is_active = True
+        user.first_name = name
+        user.is_staff = True
+        # user.profile.name=name
+        user.save()
+        ZJUser(user=user, name=name, usertype=1, phone=phone).save()
+
+
+
+    return  HttpResponse('{"result":1,"msg":"成功"}')
+

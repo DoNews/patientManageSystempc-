@@ -411,6 +411,8 @@ def adminStatic(request):
     citys=[]
     if areas:
         for area in areas:
+            o = Order.objects.filter(Order__status=6, area=area)
+            print(o.query)
             data={
                 'name':area.name,
                 'treanumber':len(set(Order.objects.filter(Order__status=6,area=area))), #已安排治疗的
@@ -421,4 +423,5 @@ def adminStatic(request):
             citys.append(data)
     else:
         pass
+    print citys
     return render(request, 'admin/adminreportFormManage.html', {'name':name, 'service':service, 'appoins':appoins, 'confirm':confirm, 'treanumber':treanumber, 'transfer':transfer, 'ZLCSTJ':ZLTJ, 'citys':citys, "pageindex":4})

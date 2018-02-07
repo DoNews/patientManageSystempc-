@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^thirdpop', thirdpop),
     url(r'^refenpei', refenpei),
     url(r'^staff$', staff),
+    url(r'^addCustomer$',addCustomer),
+    url(r'^addCustomerAction',addCustomerAction)
 ]

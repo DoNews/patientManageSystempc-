@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>添加客服页面</title>
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/addStaff.css" />
+	</head>
+
+	<body>
+		<div id="rlhz" style="height: 550px;">
+			<div class="newPatientTitle">{% if c %}
+            编辑客服信息
+                {% else %}
+                添加新的客服
+			{% endif %}</div>
+			<p class="rlhz_pop">客服基础信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem">
+					<p>客服姓名</p>
+					<p><input type="text" name="" id="name" value="{{ c.name }}" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>手机号</p>
+					<p>
+						<input type="text" name="" id="phone" value="{{ c.phone }}" />
+					</p>
+				</div>
+				<div class="hz_infoItem">
+					<p>设置登录账号</p>
+					<p><input type="text" id="username" value="{{ c.user.username }}" autocomplete=off></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>设置登录密码</p>
+					<p><input type="password" name="" id="pwd" value="" autocomplete="new-password" autocomplete=off/></p>
+				</div>
+
+				<div class="require_allInfo " id="sureAdd">
+                    {% if c %}
+                        确认修改
+                    {% else %}
+                        确认新建
+                    {% endif %}
+
+				</div>
+				
+			
+		</div>
+		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
+        <script src="/static/main/js/tools.js"></script>
+		<script src="/static/main/js/layui/layui.js "></script>
+
+		<script>
+			layui.use(['form', 'laydate', 'upload'], function() {
+				var form = layui.form,
+					upload = layui.upload,
+					laydate = layui.laydate;
+				laydate.render({
+					elem: '#yyDate'
+				});
+				$('#sureAdd').click(function(){
+				    var sid =getParam("id")
+                    var data = {"name":$("#name").val(),"username":$("#username").val(),"pwd":$("#pwd").val(),"phone":$("#phone").val()};
+				    if(sid)
+                    {
+                        data["id"]=sid
+                    }
+                    $.ajax("/addCustomerAction",{
+                        type:"post",
+                        dataType:"json",
+                        data:data,
+                        success:function () {
+                            	parent.layer.closeAll();
+					        parent.layer.msg('创建成功');
+                        }
+                    })
+
+				});
+
+				
+
+			});
+		</script>
+	</body>
+
+</html>
