@@ -1,10 +1,8 @@
 $(function() {
 
 			$('.search_Btn').click(function() {
-				layui.use(['form', 'laydate', 'upload'], function() {
-				var form = layui.form,
-					upload = layui.upload,
-					laydate = layui.laydate;
+
+
 					layer.open({
 						type: 2,
 						title: false,
@@ -14,9 +12,9 @@ $(function() {
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['./searchpop.html', 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/api/apoint/search/?keyword='+$("#serch").val(), 'yes'],
 						end: function() {}
 					});
-			});
+
 		});
 })

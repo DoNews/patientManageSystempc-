@@ -311,12 +311,14 @@ def AllNoservit(request):
             'id':noser.id,
             'name':noser.name,
             'phone':noser.phone,#手机号
-            'custome': noser.custome.name,  # 负责客服
+            'custome': noser.custome.name if noser.custome else "",  # 负责客服
             'sales': noser.wanthospital.sales.name,  # 负责销售
             'order':order,#和他姓名一样的
         }
         lister.append(data)
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+    t = template.loader.get_template("control/thirditem.html")
+    c = template.Context({'order': lister})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':t.render(c),'result':result})
 
 #患者合并
 def OrderMerge(request):
@@ -336,7 +338,7 @@ def RedisBution(request):
     id=request.POST['id'] #患者id
     service_id=request.POST['service_id']#客服的id
     user=ZJUser.objects.filter(id=service_id).first() #找到选择的客服
-    Order.objects.get(id=id).update(custome=user)
+    Order.objects.filter(id=id).update(custome=user)
     return JsonResutResponse({'ret':0,'msg':'success'})
 
 #医院的去管理的详情页
@@ -348,6 +350,7 @@ def HospitMent(request):
 #医院的添加与修改
 def AddHosp(request):
     hosp=request.POST['hosp']
+    hid = request.POST.get("id",False)
     hosps = json.loads(hosp)
     item={}
     for hos in hosps:
@@ -358,7 +361,7 @@ def AddHosp(request):
             sales=SalesUser.objects.get(id=hosps[hos])
             item['sales']=sales
         elif hos=='name':
-            hosper = Hospital.objects.filter(name=hosps[hos]).first()
+            hosper = Hospital.objects.filter(name=hosps[hos])
             if hosper:
                 pass
             else:
@@ -366,6 +369,7 @@ def AddHosp(request):
         else:
             item[hos]=hosps[hos]
     if hosper:
+        print item
         hosper.update(**item)
     else:
         Hospital.objects.create(**item)

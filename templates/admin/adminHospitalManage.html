@@ -29,11 +29,11 @@
                             {% for foo in hosp %}
 	<tr>
 
-								<td>{{ foo.province }}</td>
-								<td>{{ foo.sales }}</td>
-								<td>{{ foo.name }}</td>
-								<td>100</td>
-								<td><span class="remindTableBtn patientMan">去管理</span></td>
+								<td>{{ foo.hosp.province }}</td>
+								<td>{{ foo.hosp.sales }}</td>
+								<td>{{ foo.hosp.name }}</td>
+								<td>{{ foo.count }}</td>
+								<td><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
 							</tr>
                             {% endfor %}
 
@@ -41,7 +41,8 @@
 
 						</tbody>
 					</table>
-					<div class="remind_allLeftBtn">查看全部</div>
+                        <input type="hidden" value="{{ all }}" id="count">
+					 <div id="pageNum"></div>
 				</div>
 
 
@@ -52,20 +53,12 @@
 	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		layui.use(['form', 'laydate', 'upload', 'layer'], function() {
-			var form = layui.form,
-				upload = layui.upload,
-				layer = layui.layer,
-				laydate = layui.laydate;
+			var
+
+				layer = layui.layer;
+
 			//日期
-			laydate.render({
-				elem: '#yyDate'
-			});
-			laydate.render({
-				elem: '#birthDay'
-			});
-			laydate.render({
-				elem: "#yyDateNext "
-			});
+
 
 			$("#addCustom").click(function () {
                 layer.open({

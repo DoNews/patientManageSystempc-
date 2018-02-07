@@ -1,9 +1,5 @@
 window.onload = function() {
-	//切换状态
-	$('.kf_power li').click(function() {
-		$(this).addClass("li_active").siblings().removeClass()
-	});
-	//分页
+
  
 	layui.use(['laypage', 'layer'], function() {
 		var laypage = layui.laypage,
@@ -13,8 +9,9 @@ window.onload = function() {
 		//完整功能
 		laypage.render({
 			elem: 'pageNum',
-			count: 100,
-			layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+			count: $("#count").val(),
+			layout: ['count', 'prev', 'page', 'next',  'skip'],
+ 			limit:10,
 			jump: function(obj) {
 				console.log(obj)
 			}

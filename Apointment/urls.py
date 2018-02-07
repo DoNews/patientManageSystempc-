@@ -18,7 +18,7 @@ import xadmin
 from django.conf.urls import url,include
 from django.contrib import admin
 
-from apoint.Views.adminviews import *
+
 from apoint.Views.userView import *
 from apoint.Views.views import *
 
@@ -27,10 +27,10 @@ urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
     url(r'^login',userlogin),
-    url(r'^api/pc/',include('apoint.urls')),#PC端接口
+    url(r'^',include('apoint.adminurls')),#PC端接口
     url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
-    url(r'^staff$',staff),
+
     url(r'^renling$',renling),
     url(r'^createUser$',createUser),
     url(r'^renlingAction$',renlingAction),
@@ -44,15 +44,8 @@ urlpatterns = [
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
-    url(r'adminindex',adminindex),
-    url(r'^adminpationsview',adminpationsview),
-    url(r'^hospital',hospital),
-    url(r'^thirdpart',thirdpart),
-    url(r'^adminchart', adminchart),
-    url(r'^adminaccount',adminaccount),
-    url(r'^staffedit', staffedit),
-    url(r'^editHospital', editHospital),
-    url(r'^staffaddnew', staffaddnew),
-    url(r'^hospview',hospview)
+
+
+
 
 ]

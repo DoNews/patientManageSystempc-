@@ -42,10 +42,15 @@ def adminpationsview(request):
 
 def hospital(request):
     hosp = Hospital.objects.all()
-    return render(request,"admin/adminHospitalManage.html",{"pageindex":2,"hosp":hosp})
+    hosps=[]
+    for h in hosp:
+        count = Order.objects.filter(wanthospital=h).count()
+        hosps.append({"hosp":h,"count":count})
+    return render(request,"admin/adminHospitalManage.html",{"pageindex":2,"hosp":hosps})
 
 def thirdpart(request):
-    return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
+    noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime').count()  # 第三方进来的 没有客服的
+    return render(request, "admin/adminAnontherSystem.html",{"pageindex":3,"all":noservit})
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
@@ -71,7 +76,27 @@ def editHospital(request):
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
 
 def hospview(request):
+    hid = request.GET.get("id",False)
     area = Area.objects.all()
     sales = SalesUser.objects.all()
-    print sales
-    return render(request,"admin/adminHospitalManagePop.html",{"area":area,"sales":sales})
+    dit ={"area":area,"sales":sales}
+    if hid:
+        hos=Hospital.objects.get(pk=hid)
+        dit={"area":area,"sales":sales,"hosp":hos}
+
+
+    return render(request,"admin/adminHospitalManagePop.html",dit)
+
+def thirdpop(request):
+    nid = request.GET.get("id")
+    oid=request.GET.get("oid")
+    oorder=None
+    if oid:
+        oorder=Order.objects.get(pk=oid)
+    if nid:
+        norder=Order.objects.get(pk=nid)
+    return render(request,"admin/thirdpop.html",{"o":oorder if oid else "","n":norder})
+
+def refenpei(request):
+    kefu = ZJUser.objects.filter(usertype=1)
+    return render(request,"admin/redistribution.html",{"kefu":kefu})
