@@ -10,10 +10,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models import Count
-
+from django import template
 #客服的患者预约工单
+@login_required(login_url="/login/")
 def ServiceApoint(request):
-    id=request.GET.get('id') #客服的id
+    id=ZJUser.objects.get(user=request.user).id
     page=request.GET.get('page')
     user=ZJUser.objects.filter(id=id)
     if user : #判断是否有这个客服
@@ -36,7 +37,9 @@ def ServiceApoint(request):
                 lister.append(data)
         else:
             pass
-        return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+        t = template.loader.get_template("control/pationitem.html")
+        c = template.Context({'order': contacts})
+        return JsonResutResponse({'ret':0,'msg':'success','lister':t.render(c),"all":orders.count()})
     else:
         return JsonResutResponse({'ret':1,'msg':'没有这个员工'})
 
@@ -165,14 +168,18 @@ def Statistics(request):
     return render(request,'.html',{'thismonth':thismonth,'thismonthfp':thismonthfp,'thismonthrl':thismonthrl,'v1':v1,'v2':v2,'v3':v3,'v4':v4,'thismonthall':thismonthall,'thismonthfpall':thismonthfpall,'thismonthrlall':thismonthrlall,'v1all':v1all,'v2all':v2all,'v3all':v3all,'v4all':v4all})
 
 #客服账户设置
+@login_required(login_url="/login/")
 def AccountSet(request):
-    id=request.POST['id'] #客服的id
+
+    us = request.user
+
     oldpass=request.POST['oldpass'] #当前密码
     newpass=request.POST['newpass'] #新密码
-    conpass=request.POST['conpass'] #确认密码
-    user=ZJUser.objects.get(id=id)
-    if user.user.check_password(oldpass)==True and newpass==conpass:
-        user.user.set_password(newpass)
+
+    if us.check_password(oldpass)==True :
+        print 'pwd',newpass
+        us.set_password(newpass)
+        us.save()
         return JsonResutResponse({'ret':0,'msg':u'设置成功'})
     else:
         return JsonResutResponse({'ret':1,'msg':u'密码错误/新密码和确认密码不匹配'})
@@ -220,6 +227,10 @@ def StaffEditor(request):
     area =Area.objects.all()
     return render(request,'admin/addStaff.html',{'user':user,'hosps':hosps,'area':area})
 
+def createKefy(request):
+    name = request.POST.get("name")
+    phone=request.POST.get("pwd")
+
 #添加员工和修改员工
 def AddStaff(request):
     name=request.POST['name']
@@ -230,6 +241,7 @@ def AddStaff(request):
     user=SalesUser.objects.filter(name=name,phone=phone).first()
     if user:
         staff=user.update(name=name,phone=phone,usertype=2,city=city)
+
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id

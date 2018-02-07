@@ -40,7 +40,7 @@
 								<td>{{ order.nextcalldate  }}</td>
 								<td>{{ order.day }}</td>
 								<td>{{ order.sales }}</td>
-								<td><span class="remindTableBtn">去管理</span></td>
+								<td><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
 							</tr>
 {% empty %}
                               <tr>
@@ -75,7 +75,7 @@
 									</td>
 									<td>{{ order.sales }}</td>
 
-									<td><span class="remindTableBtn">去管理</span></td>
+									<td><span class="remindTableBtn pmTbaleBtn"  id="{{ order.id }}">去管理</span></td>
 								</tr>
                                 {% endfor %}
                                 
@@ -105,7 +105,7 @@
 										</div>
 									</td>
 									<td>{{ order.sales }}</td>
-									<td><span class="remindTableBtn2">去跟进</span></td>
+									<td><span class="remindTableBtn2 pmTbaleBtn"  id="{{ order.id }}">去跟进</span></td>
 								</tr>
 
                                 {% endfor %}
@@ -121,5 +121,7 @@
 		</div>
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/main/js/remindManage.js"></script>
 
 </html>

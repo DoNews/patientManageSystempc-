@@ -33,7 +33,7 @@ def adminindex(request):
 
     return render(request, "admin/adminindex.html", {"pageindex":0,'staffs':lister,'service':ser})
 
-def pations(request):
+def adminpationsview(request):
     return render(request,"admin/admindataManage.html",{"pageindex":1})
 
 def hospital(request):
@@ -44,7 +44,7 @@ def thirdpart(request):
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
-    return render(request, "admin/adminAccountManage.html",{"pageindex":5})
+    return render(request, "accountManage.html",{"pageindex":5})
 
 def staffedit(request):
 

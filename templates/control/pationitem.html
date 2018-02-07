@@ -1,0 +1,17 @@
+{% for foo in order %}
+      <tr>
+        <td>
+            <div class="pmTable_img"></div>
+            <div class="pmTable_con">
+                <p>{{ foo.name }}</p>
+                <p>{{ foo.wantTime|date:"Y-m-d" }} {{ foo.wanthospital }}</p>
+            </div>
+        </td>
+        <td>{{ foo.get_status_display}}</td>
+        <td>{{ foo.createtime |date:"Y-m-d"}}</td>
+        <td>{{ foo.area }}</td>
+        <td>{{ foo.wanthospital.sales }}</td>
+        <td><span class="pmTbaleBtn" id="{{ foo.id }}">电话回访</span></td>
+    </tr>
+    {% endfor %}
+    <script src="/static/main/js/patientManage.js"></script>

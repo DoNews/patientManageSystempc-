@@ -12,7 +12,7 @@
 	</head>
 	<body style="min-width: 1300px;">
 		<div class="yy_indexCon">
-			 {% include 'control/adminleft.html' %}
+			 {% include 'control/left.html' %}
 			<div class="yy_indexConRight">
 
        {% include 'control/head.html' %}
@@ -21,7 +21,7 @@
 
 					<div class="patientConTitle"><span>患者预约工单提醒</span> <span class="newgd">新建</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="pmTable" style="">
-						<tbody>
+
 							<tr>
 								<th>预约工单</th>
 								<th>当前状态</th>
@@ -30,26 +30,12 @@
 								<th>负责销售</th>
 								<th>客服操作</th>
 							</tr>
-                            {% for foo in order %}
-                                <tr>
-								<td>
-									<div class="pmTable_img"></div>
-									<div class="pmTable_con">
-										<p>{{ foo.name }}</p>
-										<p>{{ foo.wantTime|date:"Y-m-d" }} {{ foo.wanthospital }}</p>
-									</div>
-								</td>
-								<td>{{ foo.get_status_display}}</td>
-								<td>{{ foo.createtime |date:"Y-m-d"}}</td>
-								<td>{{ foo.area }}</td>
-								<td>{{ foo.wanthospital.sales }}</td>
-								<td><span class="pmTbaleBtn">电话回访</span></td>
-							</tr>
-                            {% endfor %}
-						</tbody>
+                            <tbody id="data">
+
+						    </tbody>
 
 					</table>
-
+                    <input type="hidden" value="{{ all }}" id="count">
 					<div id="pageNum"></div>
 				</div>
 
