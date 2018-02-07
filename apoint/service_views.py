@@ -1,4 +1,5 @@
 #coding: utf8
+
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from models import *
 from common import *
@@ -69,27 +70,8 @@ def Search(request):
     keyword=request.GET.get('keyword')
     orders=[]
     if keyword:
-        # page = request.GET.get('page')
         orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
-
-    # lister=[]
-    # if orders:
-    #     for order in contacts:
-    #         data={
-    #             'id':order.id,
-    #             'name':order.name,
-    #             'wanthospital':order.wanthospital.name,#医院名称
-    #             'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
-    #             'status': order.get_status_display(),  # 患者状态
-    #             'area': order.area.name,  # 所属省
-    #             'sales': order.wanthospital.sales.name,  # 负责销售
-    #             'createtime':order.createtime.strftime('%Y-%m-%d  %H:%M'),#提交时间
-    #         }
-    #         lister.append(data)
-    # else:
-    #     pass
     return render(request,"searchPop.html",{"order":orders})
-    # return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
 
 
 
@@ -114,12 +96,11 @@ def Remind(request):
     else:
         admins=[]
     return render(request,"remindManage.html",{'ret':0,'msg':'success','lister':lister,'notes':notes,'admin':admins})
-    return JsonResutResponse()
+
 
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
-
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
@@ -235,7 +216,6 @@ def createKefy(request):
 def AddStaff(request):
     name=request.POST['name']
     phone=request.POST['phone'] #电话
-
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
     user=SalesUser.objects.filter(name=name,phone=phone).first()
@@ -363,10 +343,10 @@ def AddHosp(request):
     item={}
     for hos in hosps:
         if hos=='area_id':
-            area=Area.objects.get(id=id)
+            area=Area.objects.get(id=hosps[hos])
             item['province']=area
         elif hos=='sales_id':
-            sales=SalesUser.objects.get(id=id)
+            sales=SalesUser.objects.get(id=hosps[hos])
             item['sales']=sales
         elif hos=='name':
             hosper = Hospital.objects.filter(name=hosps[hos]).first()
@@ -385,7 +365,6 @@ def AddHosp(request):
 #管理员的数据统计
 @login_required(login_url="/login/")
 def adminStatic(request):
-    user = ZJUser.objects.get(user=request.user)
     users=ZJUser.objects.filter(usertype=1) #找到所有客服
     name=[]
     service=[]
@@ -401,8 +380,8 @@ def adminStatic(request):
         pass
     appoins=Order.objects.all().count() #所有患者
     confirm=Order.objects.filter(custome__isnull=False).exclude(status=1 | 2).count() #客服已确认
-    treanumber=Order.objects.filter(Order__status=6).count() #查出来所有已治疗的
-    transfer=Order.objects.filter(Order__status=13).count() #所有转院的
+    treanumber=len(set(Order.objects.filter(Order__status=6))) #查出来所有已治疗的
+    transfer=len(set(Order.objects.filter(Order__status=13))) #所有转院的
     numbers=Order.objects.values("number").annotate(sumb=Count("id")) #查询治疗次数
     ZLTJ=[]
     if numbers:
@@ -421,13 +400,12 @@ def adminStatic(request):
         for area in areas:
             data={
                 'name':area.name,
-                'treanumber':Order.objects.filter(Order__status=6,area=area).count(), #已安排治疗的
+                'treanumber':len(set(Order.objects.filter(Order__status=6,area=area))), #已安排治疗的
                 'delay':Order.objects.filter(status=11,area=area).count(), #延后
-                'transfer':Order.objects.filter(Order__status=13,area=area).count() ,#转院
+                'transfer':len(set(Order.objects.filter(Order__status=13,area=area))) ,#转院
                 'suspended':Order.objects.filter(status=12,area=area).count(), #暂停
             }
             citys.append(data)
     else:
         pass
-    print name
     return render(request,'admin/adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys,"pageindex":4})
