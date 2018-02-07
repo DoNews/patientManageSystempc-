@@ -40,8 +40,9 @@ urlpatterns = [
     url(r'^hospitment/',HospitMent),#查看医院详情
     url(r'^addhosp/',AddHosp),#医院的添加和修改
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
-    url(r'^updateSalesHosp', updateSalesHosp)
+
+    url(r'^updateSalesHosp', updateSalesHosp),  
 
     #测试
-
+    url(r'^AccountSet',AccountSet)#客服账号设置
 ]

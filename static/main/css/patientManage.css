@@ -1,35 +1,10 @@
 
-
-/*内容区域开始*/
-
-.contentBox {
-	display: flex;
-	display: -webkit-flex;
-}
-
-.contentBox_right {
-	height: 420px;
-	background: #FFFFFF;
-	margin: 0 10px 10px 0;
-	flex: 0 0 400px;
-}
-
-.contentBox_left {
-	flex: 1;
-	height: 420px;
-	background: #FFFFFF;
-	margin: 0 10px 10px 0;
-}
-
-
 /*患者管理内容区域开始*/
-
 .patientConBox {
 	background: #FFF;
 	box-sizing: border-box;
 	margin: 10px 10px 10px 0;
 }
-
 .patientConTitle {
 	height: 40px;
 	line-height: 50px;
@@ -39,30 +14,9 @@
 	box-sizing: border-box;
 	position: relative;
 }
-
-
 /*表格*/
-
-.newgd {
-	height: 25px;
-	width: 50px;
-	text-align: center;
-	line-height: 25px;
-	font-size: 14px;
-	color: #fff;
-	display: inline-block;
-	border-radius: -moz-calc(5px);
-	border-radius: -webkit-calc(5px);
-	border-radius: 5px;
-	background: #5bbfd3;
-	position: absolute;
-	right: 20px;
-	top: 12px;
-}
-
-.pmTbaleBtn {
-	height: 25px;
-	width: 68px;
+.newgd,.pmTbaleBtn{
+		height: 25px;
 	text-align: center;
 	line-height: 25px;
 	font-size: 14px;
@@ -74,7 +28,15 @@
 	background: #5bbfd3;
 	cursor: pointer;
 }
-
+.newgd {
+	width: 50px;
+	position: absolute;
+	right: 20px;
+	top: 12px;
+}
+.pmTbaleBtn {
+	width: 68px;
+}
 .pmTable {
 	width: 97%;
 	margin: 10px auto;
@@ -102,7 +64,6 @@
 .pmTable th:nth-child(1) {
 	width: 300px;
 }
-
 .pmTable_img {
 	background: url(../img/icon1.png) no-repeat center center;
 	  background-size: cover;
@@ -121,30 +82,22 @@
 	font-family: "SourceHanSansCN Regular";
 	line-height: 1.4!important;
 }
-
 .pmTable_con p:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	font-family: "SourceHanSansCN Regular";
 	white-space: nowrap;
 }
-
-
 /*页码*/
-
 .pageNumbox {
 	position: relative;
 }
-
 #pageNum {
 	height: 87px;
 	line-height: 87px;
 	text-align: center;
 }
-
 #pageNum select {
 	margin-top: 26px;
 }
-
-
 /*患者管理内容区域开始*/

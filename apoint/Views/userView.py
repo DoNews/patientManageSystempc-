@@ -29,13 +29,15 @@ def createUser(request):
     username =request.POST.get("username")
     name = request.POST.get("name")
     password = request.POST.get("pwd")
+    phone= request.POST.get("phone")
     user = User(username=username)
     user.set_password(password)
     user.is_superuser=False
     user.is_active = True
+    user.first_name=name
     user.is_staff=True
     # user.profile.name=name
     user.save()
-    ZJUser(user=user,name=name,usertype=1).save()
-    return HttpResponse("OK")
+    ZJUser(user=user,name=name,usertype=1,phone=phone).save()
+    return HttpResponse({"result":1,"msg":"OK"})
 

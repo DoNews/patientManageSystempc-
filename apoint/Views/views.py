@@ -1,11 +1,8 @@
 #coding: utf8
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from django.contrib.auth import authenticate
-from django.contrib.auth import authenticate, login
+
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import permission_required, user_passes_test
+
 from datetime import datetime, timedelta
 from apoint.common import *
 # Create your views here.
@@ -24,7 +21,6 @@ MENUS_CALLER=(
 )
 
 def chart(request):
-
     return render(request, "formManage.html", {"pageindex":3 , "menu":MENUS_CALLER})
 
 @login_required(login_url="/login/")
@@ -129,7 +125,9 @@ def pationsview(request):
     user = request.user
     cus = ZJUser.objects.filter(user=user)
     orders = Order.objects.filter(custome=cus).order_by("-wantTime")
-    return render(request, "patientManage.html", {"order":orders, "pageindex":1})
+
+
+    return render(request, "patientManage.html", {"pageindex":1, "menu":MENUS_CALLER,"all":orders.count()})
 
 @login_required(login_url="/login/")
 def pations(request):
@@ -265,7 +263,9 @@ def OrderUpdte(request):
         else:
             item[k]=user[k]
     order = Order.objects.filter(id=user['oid'])
-    order.update(**item)
+    print item
+    u = order.update(**item)
+
     IllnessImage.objects.filter(patient=order.first()).delete()
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order.first())

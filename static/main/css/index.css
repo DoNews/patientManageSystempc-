@@ -3,7 +3,6 @@
 	display: flex;
 	display: -webkit-flex;
 }
-
 .contentBox_right {
 	height: 420px;
 	background: #FFFFFF;
@@ -17,10 +16,7 @@
 	background: #FFFFFF;
 	margin: 0 10px 10px 0;
 }
-
-
 /*数据仪表盘开始*/
-
 .sjy_header {
 	height: 10%;
 	width: 90%;
@@ -84,9 +80,7 @@
 .chart2_btn {
 	width: 120px;
 }
-
 /*数据仪表盘结束*/
-
 .hzrl_title,
 .jrrw_title,
 .xttx_title {
@@ -98,7 +92,6 @@
 	color: #333840;
 	border-bottom: 1px solid #ccc;
 }
-
 .hzrl_list,
 .jrrw_list,
 .xttx_list {
@@ -358,7 +351,6 @@
 	    resize: none;
     width: 96%;
     box-sizing: border-box;
-    height: 160px;
     margin: 0 2%;
 }
 

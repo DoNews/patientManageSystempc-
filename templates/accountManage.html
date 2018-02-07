@@ -3,10 +3,11 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>客服提醒管理</title>
+		<title>账户管理</title>
 		<link rel="icon" href="img/icon.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/accountManage.css" />
+        	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	</head>
 
 	<body>
@@ -19,11 +20,11 @@
 					<div class="changePass yy_loginForm">
 						<div class="changeLeft">
 							<p class="p_text">旧密码<span style="color: red;">*</span> </p>
-							<p><input type="password" /></p>
+							<p><input type="password" id="op" /></p>
 							<p class="p_text">新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" /></p>
+							<p><input type="password" id="np1" /></p>
 							<p class="p_text">重复新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" /></p>
+							<p><input type="password" id="np2" /></p>
 							<div class="changePassBtn">
 								保存提交
 							</div>
@@ -39,6 +40,29 @@
 			</div>
 		</div>
 	</body>
-	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 
+    <script>
+    $(".changePassBtn").click(function () {
+        $.each($("[type=password]"),function () {
+            if($(this).val()=="")
+            {
+                alert("不能为空");
+                return;
+            }
+        })
+        if($("#np1").val()!=$("#np2").val())
+        {
+            alert("两次密码不一致！");
+            return
+        }
+        $.ajax("/api/apoint/AccountSet",{
+            data:{"oldpass":$("#op").val(),"newpass":$("#np1").val()},
+            type:"POST",
+            dataType:"json",
+            success:function (data) {
+                alert("修改成功")
+            }
+        })
+    })
+    </script>
 </html>

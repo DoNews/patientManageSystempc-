@@ -1,4 +1,5 @@
 #coding: utf8
+
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from models import *
 from common import *
@@ -10,10 +11,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models import Count
-
+from django import template
 #客服的患者预约工单
+@login_required(login_url="/login/")
 def ServiceApoint(request):
-    id=request.GET.get('id') #客服的id
+    id=ZJUser.objects.get(user=request.user).id
     page=request.GET.get('page')
     user=ZJUser.objects.filter(id=id)
     if user : #判断是否有这个客服
@@ -36,7 +38,9 @@ def ServiceApoint(request):
                 lister.append(data)
         else:
             pass
-        return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
+        t = template.loader.get_template("control/pationitem.html")
+        c = template.Context({'order': contacts})
+        return JsonResutResponse({'ret':0,'msg':'success','lister':t.render(c),"all":orders.count()})
     else:
         return JsonResutResponse({'ret':1,'msg':'没有这个员工'})
 
@@ -66,27 +70,8 @@ def Search(request):
     keyword=request.GET.get('keyword')
     orders=[]
     if keyword:
-        # page = request.GET.get('page')
         orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
-
-    # lister=[]
-    # if orders:
-    #     for order in contacts:
-    #         data={
-    #             'id':order.id,
-    #             'name':order.name,
-    #             'wanthospital':order.wanthospital.name,#医院名称
-    #             'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
-    #             'status': order.get_status_display(),  # 患者状态
-    #             'area': order.area.name,  # 所属省
-    #             'sales': order.wanthospital.sales.name,  # 负责销售
-    #             'createtime':order.createtime.strftime('%Y-%m-%d  %H:%M'),#提交时间
-    #         }
-    #         lister.append(data)
-    # else:
-    #     pass
     return render(request,"searchPop.html",{"order":orders})
-    # return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
 
 
 
@@ -111,12 +96,11 @@ def Remind(request):
     else:
         admins=[]
     return render(request,"remindManage.html",{'ret':0,'msg':'success','lister':lister,'notes':notes,'admin':admins})
-    return JsonResutResponse()
+
 
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
-
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
@@ -146,33 +130,37 @@ def Adminsall(request):
 @login_required(login_url="/login/")
 def Statistics(request):
     user = ZJUser.objects.get(user=request.user)
-    now = datetime.datetime.now()
+    now = datetime.now()
     thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month) #查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count() #本月累计跟进人次
     thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count() #本月认领
-    v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(custome=user).count()#本月已安排治疗
-    v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(custome=user).count() #延后治疗
-    v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(custome=user).count() #转院的
-    v4 = OrderDetail.objects.filter(status=12,createtime__month=now.month).filter(custome=user).count() #暂停的
+    v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(creater=user).count()#本月已安排治疗
+    v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(creater=user).count() #延后治疗
+    v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(creater=user).count() #转院的
+    v4 = OrderDetail.objects.filter(status=12,createtime__month=now.month).filter(creater=user).count() #暂停的
     #查看全部
     thismonthall = OrderDetail.objects.filter(creater=user).count()  # 全部累计跟进人次
     thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user)#查看全部分配的数据
     thismonthrlall = OrderDetail.objects.filter(status=2).count()  # 全部认领
-    v1all = OrderDetail.objects.filter(status=6,custome=user).count()  # 全部已安排治疗
-    v2all = OrderDetail.objects.filter(status=11,custome=user).count()  # 全部延后治疗
-    v3all = OrderDetail.objects.filter(status=13,custome=user).count()  # 全部转院的
-    v4all = OrderDetail.objects.filter(status=12,custome=user).count()  # 全部暂停的
-    return render(request,'.html',{'thismonth':thismonth,'thismonthfp':thismonthfp,'thismonthrl':thismonthrl,'v1':v1,'v2':v2,'v3':v3,'v4':v4,'thismonthall':thismonthall,'thismonthfpall':thismonthfpall,'thismonthrlall':thismonthrlall,'v1all':v1all,'v2all':v2all,'v3all':v3all,'v4all':v4all})
+    v1all = OrderDetail.objects.filter(status=6,creater=user).count()  # 全部已安排治疗
+    v2all = OrderDetail.objects.filter(status=11,creater=user).count()  # 全部延后治疗
+    v3all = OrderDetail.objects.filter(status=13,creater=user).count()  # 全部转院的
+    v4all = OrderDetail.objects.filter(status=12,creater=user).count()  # 全部暂停的
+    return render(request,'formManage.html',{'thismonth':thismonth,'thismonthfp':thismonthfp,'thismonthrl':thismonthrl,'v1':v1,'v2':v2,'v3':v3,'v4':v4,'thismonthall':thismonthall,'thismonthfpall':thismonthfpall,'thismonthrlall':thismonthrlall,'v1all':v1all,'v2all':v2all,'v3all':v3all,'v4all':v4all})
 
 #客服账户设置
+@login_required(login_url="/login/")
 def AccountSet(request):
-    id=request.POST['id'] #客服的id
+
+    us = request.user
+
     oldpass=request.POST['oldpass'] #当前密码
     newpass=request.POST['newpass'] #新密码
-    conpass=request.POST['conpass'] #确认密码
-    user=ZJUser.objects.get(id=id)
-    if user.user.check_password(oldpass)==True and newpass==conpass:
-        user.user.set_password(newpass)
+
+    if us.check_password(oldpass)==True :
+        print 'pwd',newpass
+        us.set_password(newpass)
+        us.save()
         return JsonResutResponse({'ret':0,'msg':u'设置成功'})
     else:
         return JsonResutResponse({'ret':1,'msg':u'密码错误/新密码和确认密码不匹配'})
@@ -220,16 +208,20 @@ def StaffEditor(request):
     area =Area.objects.all()
     return render(request,'admin/addStaff.html',{'user':user,'hosps':hosps,'area':area})
 
+def createKefy(request):
+    name = request.POST.get("name")
+    phone=request.POST.get("pwd")
+
 #添加员工和修改员工
 def AddStaff(request):
     name=request.POST['name']
     phone=request.POST['phone'] #电话
-
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
     user=SalesUser.objects.filter(name=name,phone=phone).first()
     if user:
         staff=user.update(name=name,phone=phone,usertype=2,city=city)
+
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id
@@ -363,10 +355,10 @@ def AddHosp(request):
     item={}
     for hos in hosps:
         if hos=='area_id':
-            area=Area.objects.get(id=id)
+            area=Area.objects.get(id=hosps[hos])
             item['province']=area
         elif hos=='sales_id':
-            sales=SalesUser.objects.get(id=id)
+            sales=SalesUser.objects.get(id=hosps[hos])
             item['sales']=sales
         elif hos=='name':
             hosper = Hospital.objects.filter(name=hosps[hos]).first()
@@ -385,7 +377,6 @@ def AddHosp(request):
 #管理员的数据统计
 @login_required(login_url="/login/")
 def adminStatic(request):
-    user = ZJUser.objects.get(user=request.user)
     users=ZJUser.objects.filter(usertype=1) #找到所有客服
     name=[]
     service=[]
@@ -401,8 +392,8 @@ def adminStatic(request):
         pass
     appoins=Order.objects.all().count() #所有患者
     confirm=Order.objects.filter(custome__isnull=False).exclude(status=1 | 2).count() #客服已确认
-    treanumber=Order.objects.filter(Order__status=6).count() #查出来所有已治疗的
-    transfer=Order.objects.filter(Order__status=13).count() #所有转院的
+    treanumber=len(set(Order.objects.filter(Order__status=6))) #查出来所有已治疗的
+    transfer=len(set(Order.objects.filter(Order__status=13))) #所有转院的
     numbers=Order.objects.values("number").annotate(sumb=Count("id")) #查询治疗次数
     ZLTJ=[]
     if numbers:
@@ -421,13 +412,12 @@ def adminStatic(request):
         for area in areas:
             data={
                 'name':area.name,
-                'treanumber':Order.objects.filter(Order__status=6,area=area).count(), #已安排治疗的
+                'treanumber':len(set(Order.objects.filter(Order__status=6,area=area))), #已安排治疗的
                 'delay':Order.objects.filter(status=11,area=area).count(), #延后
-                'transfer':Order.objects.filter(Order__status=13,area=area).count() ,#转院
+                'transfer':len(set(Order.objects.filter(Order__status=13,area=area))) ,#转院
                 'suspended':Order.objects.filter(status=12,area=area).count(), #暂停
             }
             citys.append(data)
     else:
         pass
-    print name
     return render(request,'admin/adminreportFormManage.html',{'name':name,'service':service,'appoins':appoins,'confirm':confirm,'treanumber':treanumber,'transfer':transfer,'ZLCSTJ':ZLTJ,'citys':citys,"pageindex":4})
