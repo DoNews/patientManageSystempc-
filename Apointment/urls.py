@@ -23,6 +23,7 @@ from apoint.Views.userView import *
 from apoint.Views.views import *
 
 urlpatterns = [
+    url(r'^order$',order),
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
