@@ -16,18 +16,18 @@
 			<div class="hz_info">
 				<div class="hz_infoItem">
 					<p>员工姓名</p>
-					<p><input type="text" name="" id="" value="{{ user.name }}" /></p>
+					<p><input type="text" name="" id="name" value="{{ user.name }}" /></p>
 				</div>
 				<div class="hz_infoItem">
 					<p>手机号</p>
 					<p>
-						<input type="text" name="" id="" value="{{ user.phone }}" />
+						<input type="text" name="" id="phone" value="{{ user.phone }}" />
 					</p>
 				</div>
 				<div class="hz_infoItem">
 					<p>平台绑定状态</p>
 					<p>
-						<input type="text" name="" id="" value="{% if user.is_cert  %}是{% else %}否{% endif %}" />
+						<input type="text" name="" id="" value="{% if user.is_cert  %} 是 {% else %} 否 {% endif %}" />
 					</p>
 				</div>
 				<div class="hz_infoItem">
@@ -37,7 +37,9 @@
 							<select name="" id="area">
               	<option value="">请选择地区</option>
                 {% for foo in area %}
-                		<option value="{{ foo.id }}">{{ foo.name }}</option>
+                		<option {% if user.city == foo.name %}
+                		selected="selected"
+                		{% endif %} value="{{ foo.name }}">{{ foo.name }}</option>
                 {% endfor %}
                 
 
@@ -80,10 +82,12 @@
 			</span>
 			</div>
 		</div>
+    <script src="/static/main/js/tools.js"></script>
 		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
 		<script src="/static/main/js/layui/layui.js "></script>
 
 		<script>
+      var hosps=[]
 			layui.use(['form', 'laydate', 'upload'], function() {
 				var form = layui.form,
 					upload = layui.upload,
@@ -92,25 +96,49 @@
 					elem: '#yyDate'
 				});
 				$('.sureAdd').click(function() {
-					parent.layer.closeAll();
-					parent.layer.msg('创建成功');
+				   ids =[]
+          for(var i=0;i<hosps.length;i++) {
+            ids.push(hosps[i].id)
+          }
+          var data ={"name":$("#name").val(),"phone":$("#phone").val(), "city":$("#area").val(),
+                "hosps":JSON.stringify(ids)
+              };
+				   if (getParam("id"))
+           {
+             data["id"]=getParam("id")
+           }
+				  $.ajax({
+              url:"/api/apoint/addstaff/",
+              type:'POST',
+              data:data,
+              success:function (arg) {
+                	parent.layer.closeAll();
+					      parent.layer.msg('提交成功');
+              }
+            });
+
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();
 				})
 				$(".chooseHospital").click(function() {
 				 var uid = $(this).attr("id")
-					parent.layer.open({
+					layer.open({
 						type: 2,
 						title: false,
-						closeBtn: 1, //不显示关闭按钮
+						closeBtn: 1,
 						shade: [0.4],
 						area: ['600px', '450px'],
 						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
+						scrollbar: false,
 						anim: 2,
-						content: ['/editHospital?id='+uid, 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
+						content: ['/editHospital?id='+uid, 'yes'],
+						end: function() {
+						   $(".hospitalList").html("");
+              for(var i=0;i<hosps.length;i++)
+              {
+                $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
+              }
 
 						}
 					});

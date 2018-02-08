@@ -317,3 +317,9 @@ def adminfenpei(request):
         Order__is_operation=False).order_by('-createtime')  # 查看分配
 
     return render(request, "overdue.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": admin})
+
+def staffaddnew(request):
+    area = Area.objects.all()
+    return render(request, "admin/addnewStaff.html",{"area":area} )
+
+

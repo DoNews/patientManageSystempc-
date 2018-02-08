@@ -42,6 +42,7 @@ def adminpationsview(request):
     return render(request,"admin/admindataManage.html",{"pageindex":1,"all":orders.count(),"order":order})
 
 def hospital(request):
+
     hosp = Hospital.objects.all()
     hosps=[]
     for h in hosp:
@@ -55,12 +56,12 @@ def thirdpart(request):
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
+
     return render(request, "admin/accountManage.html",{"pageindex":5})
+
 
 def staffedit(request):
     return render(request,"admin/addStaff.html",)
-def staffaddnew(request):
-    return render(request, "admin/addStaff.html", )
 def editHospital(request):
     uid =request.GET.get("id")
     area = Area.objects.all()
@@ -73,6 +74,7 @@ def editHospital(request):
         if g:
             ishave=1
         data.append({"hosp":hos,"name":a.name,"id":a.id,"ishave":ishave})
+
 
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
 

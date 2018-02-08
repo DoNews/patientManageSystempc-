@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^',include('apoint.adminurls')),#PC端接口
     url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
-
+    url(r'^staffaddnew', staffaddnew),
     url(r'^renling$',renling),
     url(r'^createUser$',createUser),
     url(r'^renlingAction$',renlingAction),
@@ -44,9 +44,11 @@ urlpatterns = [
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
+
     url(r'^overdue', overdue),
     url(r'^salercommit',salercommit),
     url(r'^adminfenpei', adminfenpei)
+
 
 
 ]
