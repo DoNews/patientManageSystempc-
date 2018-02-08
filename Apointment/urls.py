@@ -52,7 +52,8 @@ urlpatterns = [
 
     url(r'^staffaddnew', staffaddnew),
     url(r'^todaywork',todaywork),
-    url(r'^reg$',reg)
+    url(r'^reg$',reg),
+    url(r'^mypation$',mypation)
 
 
 ]
