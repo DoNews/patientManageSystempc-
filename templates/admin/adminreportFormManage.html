@@ -87,17 +87,17 @@
 				{% endfor %}]
 
 			},
-        {% for user in service %}
+
 			series: [{
 				name: '访问来源',
 				type: 'pie',
 				radius: '55%',
 				center: ['50%', '60%'],
-				data: [{
+				data: [  {% for user in service %}{
 					value: {{ user.number }},
 					name: '{{ user.name }}',
-				}],
-                {% endfor %}
+				}, {% endfor %}],
+
 				itemStyle: {
 					emphasis: {
 						shadowBlur: 10,
@@ -106,6 +106,7 @@
 					}
 				}
 			}]
+
 		};
 		nowMouth1.setOption(option1);
 		//第二个图表

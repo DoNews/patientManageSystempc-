@@ -47,5 +47,6 @@ urlpatterns = [
     url(r'^updateSalesHosp', updateSalesHosp),  
 
     #测试
-    url(r'^AccountSet',AccountSet)#客服账号设置
+    url(r'^AccountSet',AccountSet),#客服账号设置
+
 ]

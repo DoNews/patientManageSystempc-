@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^refenpei', refenpei),
     url(r'^staff$', staff),
     url(r'^addCustomer$',addCustomer),
-    url(r'^addCustomerAction',addCustomerAction)
+    url(r'^addCustomerAction',addCustomerAction),
+
 ]

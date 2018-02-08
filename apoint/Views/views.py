@@ -296,3 +296,24 @@ def OrderUpdte(request):
 
     OrderDetail.objects.create(**folowitem)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
+def overdue(request):
+    user = ZJUser.objects.get(user=request.user)
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).order_by(
+        '-createtime')
+    return render(request,"overdue.html",{"pageindex":2, "menu":MENUS_CALLER, "order":orders})
+
+def salercommit(request):
+    user = ZJUser.objects.get(user=request.user)
+    remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
+        Order__is_operation=False).order_by('-createtime')  # 所有备忘
+    return render(request, "overdue.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": remin})
+
+def adminfenpei(request):
+    user = ZJUser.objects.get(user=request.user)
+    admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
+        Order__is_operation=False).order_by('-createtime')  # 查看分配
+
+    return render(request, "overdue.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": admin})

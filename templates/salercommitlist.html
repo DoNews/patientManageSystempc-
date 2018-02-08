@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>患者管理</title>
+		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/patientManage.css" />
+		<link rel="stylesheet" href="/static/main/css/layui.css" />
+    	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	</head>
+	<body style="min-width: 1300px;">
+		<div class="yy_indexCon">
+			 {% include 'control/left.html' %}
+			<div class="yy_indexConRight">
+
+       {% include 'control/head.html' %}
+
+				<div class="patientConBox">
+
+					<div class="patientConTitle"><span>患者预约工单提醒</span> <span class="newgd">新建</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="pmTable" style="">
+
+							<tr>
+								<th>预约工单</th>
+								<th>当前状态</th>
+								<th>提交销售</th>
+								<th>提交时间</th>
+
+								<th>客服操作</th>
+							</tr>
+                            <tbody id="data">
+{% for foo in order %}
+      <tr>
+        <td>
+            <div class="pmTable_img"></div>
+            <div class="pmTable_con">
+                <p>{{ foo.name }}</p>
+                <p>{{ foo.wantTime|date:"Y-m-d" }} {{ foo.wanthospital }}</p>
+            </div>
+        </td>
+        <td>{{ foo.get_status_display}}</td>
+        <td>{{ foo.wanthospital.sales }}</td>
+        <td>{{ foo.createtime}}</td>
+
+
+        <td><span class="pmTbaleBtn" id="{{ foo.id }}">电话回访</span></td>
+    </tr>
+    {% endfor %}
+    <script src="/static/main/js/patientManage.js"></script>
+						    </tbody>
+
+					</table>
+                    <input type="hidden" value="{{ all }}" id="count">
+					<div id="pageNum"></div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+		<script src="/static/main/js/layui/layui.js"></script>
+		<script src="/static/main/js/patientManage.js"></script>
+    <script>
+         $(".pmTbaleBtn").click(function () {
+                                 var sid = $(this).attr("id");
+                                 layer.open({
+                                     type: 2,
+                                     title: false,
+                                     closeBtn: 1, //不显示关闭按钮
+                                     shade: [0.4],
+                                     area: ['800px', '550px'],
+                                     offset: '40px',
+                                     scrollbar: false, //禁止浏览器滚动
+                                     anim: 2,
+                                     content: ['/orderdetail?id=' + sid, 'yes'],
+                                     end: function () { //此处用于演示
+
+                                     }
+                                 });
+                             })
+                             $(".newgd").click(function () {
+                                 parent.layer.open({
+                                     type: 2,
+                                     title: false,
+                                     closeBtn: 1, //不显示关闭按钮
+                                     shade: [0.4],
+                                     area: ['800px', '600px'],
+                                     offset: '40px',
+                                     scrollbar: false, //禁止浏览器滚动
+                                     anim: 2,
+                                     content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
+                                     end: function () {
+                                     }
+                                 });
+                             });
+    </script>
+	</body>
+</html>
