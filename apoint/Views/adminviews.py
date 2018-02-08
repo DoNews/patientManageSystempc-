@@ -40,18 +40,14 @@ def adminpationsview(request):
 
 def hospital(request):
     return render(request,"admin/adminHospitalManage.html",{"pageindex":2})
-
 def thirdpart(request):
     return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
     return render(request, "accountManage.html",{"pageindex":5})
-
 def staffedit(request):
     return render(request,"admin/addStaff.html",)
-def staffaddnew(request):
-    return render(request, "admin/addStaff.html", )
 def editHospital(request):
     uid =request.GET.get("id")
     area = Area.objects.all()
@@ -64,5 +60,11 @@ def editHospital(request):
         if g:
             ishave=1
         data.append({"hosp":hos,"name":a.name,"id":a.id,"ishave":ishave})
-
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
+def newStaffHosp(request):
+    area = Area.objects.all()
+    data = []
+    for a in area:
+        hos = Hospital.objects.filter(province=a)
+        data.append({"hosp": hos, "name": a.name, "id": a.id})
+    return render(request, "admin/addHospital.html", {"area": data})

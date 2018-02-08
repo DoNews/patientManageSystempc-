@@ -52,6 +52,7 @@ urlpatterns = [
     url(r'^adminaccount',adminaccount),
     url(r'^staffedit', staffedit),
     url(r'^editHospital', editHospital),
+    url(r'^addHospital', newStaffHosp),
     url(r'^staffaddnew', staffaddnew),
 
 ]

@@ -11,35 +11,29 @@
 
 	<body>
 		<div id="rlhz">
-			<div class="newPatientTitle">添加新的员工</div>
+			<div class="newPatientTitle">创建新的员工</div>
 			<p class="rlhz_pop">销售信息</p>
 			<div class="hz_info">
 				<div class="hz_infoItem">
 					<p>员工姓名</p>
-					<p><input type="text" name="" id="" value="" /></p>
+					<p><input type="text" name="" id="name" value="" /></p>
 				</div>
 				<div class="hz_infoItem">
 					<p>手机号</p>
 					<p>
-						<input type="text" name="" id="" value="" />
+						<input type="text" name="" id="phone" value="" />
 					</p>
 				</div>
-				<div class="hz_infoItem">
-					<p>平台绑定状态</p>
-					<p>
-						<input type="text" name="" id="" value="" />
-					</p>
-				</div>
+
 				<div class="hz_infoItem">
 					<p>所属区域</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
 							<select name="" id="area">
 								<option value="">请选择地区</option>
-								<option value="上海">上海</option>
-								<option value="南京">南京</option>
-								<option value="北京">北京</option>
-								<option value="乌鲁木齐">乌鲁木齐</option>
+                {% for foo in area %}
+                <option value="{{ foo.name }}" data-id="{{ foo.name }}">{{ foo.name }}</option>
+                {% endfor %}
 							</select>
 						</div>
 					</div>
@@ -49,30 +43,14 @@
 					<div class="layui-form">
 						<div class="layui-form-item">
 							<p class="chooseHospital">选择负责医院</p>
-							<!--<select name="" id="area">
-								<option value="">请选择医院数</option>
-								<option value="13">13</option>
-								<option value="14">14</option>
-								<option value="15">15</option>
-								<option value="16">16</option>
-							</select>-->
+
 						</div>
 					</div>
 				</div>
 				<p class="rlhz_pop" style="clear: both;">负责医院清单(与负责区域的对应关系)</p>
-				<style type="text/css">
 
-				</style>
 				<div class="hospitalList">
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
-					<div class="hospitalItem">上海市华山医院</div>
+
 				</div>
 
 			</div>
@@ -86,26 +64,44 @@
 			</span>
 			</div>
 		</div>
-		<script src="js/jquery-3.3.1.min.js "></script>
-		<script src="js/layui/layui.js "></script>
+		<script src="static/main/js/jquery-3.3.1.min.js "></script>
+		<script src="static/main/js/layui/layui.js "></script>
 
 		<script>
+       var hosps =[];
 			layui.use(['form', 'laydate', 'upload'], function() {
-				var form = layui.form,
+			  var form = layui.form,
 					upload = layui.upload,
 					laydate = layui.laydate;
 				laydate.render({
 					elem: '#yyDate'
 				});
 				$('.sureAdd').click(function() {
-					parent.layer.closeAll();
-					parent.layer.msg('创建成功');
+				  layer.open({
+  type: 3,
+  content: '正在提交 ...' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+});
+          ids =[]
+          for(var i=0;i<hosps.length;i++) {
+            ids.push(hosps[i].id)
+          }
+          $.ajax({
+              url:"/api/apoint/addstaff/",
+              type:'POST',
+              data:{"name":$("#name").val(),"phone":$("#phone").val(), "city":$("#area").val(),
+                "hosps":JSON.stringify(ids)
+              },
+              success:function (arg) {
+                 parent.layer.closeAll()
+                parent.layer.msg('添加成功')
+              }
+            });
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();
 				})
 				$(".chooseHospital").click(function() {
-					parent.layer.open({
+				layer.open({
 						type: 2,
 						title: false,
 						closeBtn: 1, //不显示关闭按钮
@@ -114,8 +110,13 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['./editHospital.html', 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/addHospital', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
+              $(".hospitalList").html("");
+              for(var i=0;i<hosps.length;i++)
+              {
+                $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
+              }
 
 						}
 					});

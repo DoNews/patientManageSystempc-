@@ -71,7 +71,7 @@
 
 
 								<td>{{ item.user.username }}</td>
-								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn" id="delate">删除</span></td>
 							</tr>
               {% endfor %}
 
@@ -104,6 +104,7 @@
 					jump: function(obj) {
 					}
 				});
+				//编辑按钮
 				$('.pmTbaleBtn1').click(function() {
           var sid =$(this).attr("data-id");
 					layer.open({
@@ -115,7 +116,7 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['/api/apoint/staffeditor/?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/api/apoint/staffeditor/?id='+sid, 'yes'],
 						end: function() { //此处用于演示
 
 						}
@@ -124,12 +125,32 @@
 				});
 				//删除
 				$('.pmTbaleBtn').click(function() {
-					$(this).parents('tr').remove();
+				  layer.open({
+            type: 3,
+            content: '删除中...'
+          });
+				  var stId=$(this).prev().attr("data-id");
+				  var othis =this
+          if(window.confirm('你确定要删除当前记录吗？')){
+                  $.ajax({
+                      url: '/api/apoint/staffdelete/',
+                      type: "POST",
+                      data:{"id":stId},
+                      success:function () {
+                        parent.layer.closeAll()
+                        $(othis).parent().parent().remove();
+                        layer.msg("删除成功");
+
+                      }
+                  })
+                 return true;
+              }else{
+                 return false;
+             }
 				});
 				//添加员工
 				$('#addStaff').click(function() {
-
-					layer.open({
+				layer.open({
 						type: 2,
 						title: false,
 						closeBtn: 1, //不显示关闭按钮
@@ -138,7 +159,7 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['./addStaff.html', 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
 
 						}

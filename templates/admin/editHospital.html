@@ -81,11 +81,9 @@
           {% for h in foo.hosp %}
 	        <p><input type="checkbox" {% ifequal h.sales.id uid  %}
 	        checked="checked"
-	        {% endifequal %} name="hospitalName" id="" value="{{ h.id }}" />{{ h.name }}
+	        {% endifequal %} name="hospitalName" data-value="{{ h.name }}" id="h_{{ h.id }}" value="{{ h.id }}" />{{ h.name }}
             {% if h.sales %}
               {% ifequal h.sales.id uid %}
-
-
               {% else %}
                 {{ h.sales.name }}
                {% endifequal %}
@@ -141,19 +139,25 @@
           $.each($("[name=hospitalName]"),function () {
             if($(this).prop('checked')==true)
             {
-              selected.push(Number($(this).val()) )
+              selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
             }
           })
-            $.ajax({
-              url:"/api/apoint/updateSalesHosp",
-              type:'POST',
-              data:{"uid":getParam("id"),"hosps":JSON.stringify(selected)},
-              success:function (arg) {
-                 	parent.layer.closeAll();
-                parent.layer.msg('修改成功');
-              }
-
-            });
+          parent.hosps=selected
+            parent.layer.closeAll();
+            parent.layer.msg('添加成功');
+          {#$.ajax({#}
+          {#    url:"/api/apoint/updateSalesHosp",#}
+          {#    type:'POST',#}
+          {#    data:{"uid":getParam("id"),"hosps":JSON.stringify(selected)},#}
+          {#    success:function (arg) {#}
+          {##}
+          {#        parent.hosp_id=selected;#}
+          {#        parent.layer.closeAll();#}
+          {##}
+          {#        parent.layer.msg('修改成功');#}
+          {#    }#}
+          {##}
+{#          {);#}
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();

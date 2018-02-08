@@ -1,8 +1,8 @@
 #coding: utf8
 
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-from models import *
-from common import *
+from apoint.models import *
+from apoint.common import *
 import functools, random
 import requests
 from datetime import datetime, timedelta
@@ -214,19 +214,21 @@ def createKefy(request):
 
 #添加员工和修改员工
 def AddStaff(request):
+    id = request.POST.get("id",False)
+
     name=request.POST['name']
     phone=request.POST['phone'] #电话
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
-    user=SalesUser.objects.filter(name=name,phone=phone).first()
-    if user:
-        staff=user.update(name=name,phone=phone,usertype=2,city=city)
 
+    if id:
+        user = SalesUser.objects.filter(pk=id)
+        user.update(name=name,phone=phone,usertype=2,city=city)
+        staff =user.first()
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id
-    for hos in hospser:
-        Hospital.objects.filter(id=hos).update(sales=staff)
+    Hospital.objects.filter(pk__in=hospser).update(sales=staff)
     return HttpResponse(u'添加成功')
 
 #查询医院(一省对应一个医院列表)
@@ -242,7 +244,7 @@ def QueryHosp(request):
        lister.append(data)
    return JsonResutResponse({'ret':0,'msg':'success','lister':lister})
 
-
+# 更新医院列表
 def updateSalesHosp(request):
     uid = request.POST.get("uid")
     hosps = request.POST['hosps']
@@ -254,15 +256,13 @@ def updateSalesHosp(request):
     print(hs)
     hs.update(sales=user)
     return JsonResutResponse({"result":1})
-    return render(request,'editHospital.html',{'msg':u'修改成功'})
+
 #删除
 def StaffDelete(request):
     id=request.POST['id']
     ZJUser.objects.get(id=id).delete()
-    return render(request,'xxxx.html',{'msg':u'删除成功'})
-
-
-
+    return HttpResponse("删除成功")
+    # return render(request,'xxxx.html',{'msg':u'删除成功'})
 #查看所有患者
 def OrderAll(request):
     page=request.GET.get('page')

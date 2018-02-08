@@ -18,17 +18,17 @@
 				}
 				
 				.hospitalArea {
-					flex: 0 0 30%;
+					flex: 0 0 50%;
 					font-size: 14px;
 					color: #818a99;
 					text-align: center;
 				}
 				
 				.hospitalName {
-					flex: 0 0 70%;
+					flex: 0 0 50%;
 					font-size: 14px;
 					color: #818a99;
-					text-align: center;
+					text-align:left;
 				}
 				
 				.hospitalArea p,
@@ -63,13 +63,8 @@
 				<div class="hospitalArea">
 					<div style="">请选择省份</div>
           {% for foo in area %}
-          	<p><input type="checkbox" class="citycheck" {% if foo.ishave  %}
-          checked="checked"
-          	{% endif %} %}  name="hospitalArea" id="" value="{{ foo.id }}" />{{ foo.name }}</p>
+          	<p><input type="checkbox" class="citycheck"  name="hospitalArea" id="" value="{{ foo.id }}" />{{ foo.name }}</p>
           {% endfor %}
-
-
-
 				</div>
 				<div class="hospitalName">
 					<div>请选择医院</div>
@@ -79,16 +74,11 @@
           style="display: none"
           	{% endif %} %}  >
           {% for h in foo.hosp %}
-	        <p><input type="checkbox" {% ifequal h.sales.id uid  %}
-	        checked="checked"
-	        {% endifequal %} name="hospitalName" id="" value="{{ h.id }}" />{{ h.name }}
+	        <p><input type="checkbox"  name="hospitalName" data-value="{{ h.name }}" id="h_{{ h.id }}" value="{{ h.id }}" />{{ h.name }}
             {% if h.sales %}
-              {% ifequal h.sales.id uid %}
 
-
-              {% else %}
                 {{ h.sales.name }}
-               {% endifequal %}
+
 
 
 	        {% endif %}</p>
@@ -133,27 +123,20 @@
 				var form = layui.form,
 					upload = layui.upload,
 					laydate = layui.laydate;
-				laydate.render({
-					elem: '#yyDate'
-				});
+          laydate.render({
+            elem: '#yyDate'
+          });
 				$('.sureAdd').click(function() {
 				  var selected =[]
           $.each($("[name=hospitalName]"),function () {
             if($(this).prop('checked')==true)
             {
-              selected.push(Number($(this).val()) )
+              selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
             }
           })
-            $.ajax({
-              url:"/api/apoint/updateSalesHosp",
-              type:'POST',
-              data:{"uid":getParam("id"),"hosps":JSON.stringify(selected)},
-              success:function (arg) {
-                 	parent.layer.closeAll();
-                parent.layer.msg('修改成功');
-              }
-
-            });
+            parent.hosps = selected;
+	          parent.layer.closeAll();
+            parent.layer.msg('添加成功');
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();

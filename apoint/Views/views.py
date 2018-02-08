@@ -277,3 +277,7 @@ def OrderUpdte(request):
 
     OrderDetail.objects.create(**folowitem)
     return JsonResutResponse({'ret':0,'msg':'success'})
+def staffaddnew(request):
+    area = Area.objects.all()
+    return render(request, "admin/addnewStaff.html",{"area":area} )
+
