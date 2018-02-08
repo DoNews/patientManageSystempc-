@@ -74,9 +74,15 @@ def editHospital(request):
         if g:
             ishave=1
         data.append({"hosp":hos,"name":a.name,"id":a.id,"ishave":ishave})
-
-
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
+def newStaffHosp(request):
+    area = Area.objects.all()
+    data = []
+    for a in area:
+        hos = Hospital.objects.filter(province=a)
+        data.append({"hosp": hos, "name": a.name, "id": a.id})
+    return render(request, "admin/addHospital.html", {"area": data})
+
 
 def hospview(request):
     hid = request.GET.get("id",False)

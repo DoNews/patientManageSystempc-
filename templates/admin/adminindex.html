@@ -71,11 +71,8 @@
 
 
 								<td>{{ item.user.username }}</td>
-<<<<<<< HEAD
-								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn" id="delate">删除</span></td>
-=======
 								<td><span class="pmTbaleBtn1 customeredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
->>>>>>> 5342c5c9002350f4a307617bd5a14072f225dbcd
+
 							</tr>
               {% endfor %}
 
@@ -169,7 +166,9 @@
                   })
                  return true;
               }else{
-                 return false;
+				          parent.layer.closeAll()
+                  return false;
+
              }
 				});
 				//添加员工
@@ -185,7 +184,6 @@
 						anim: 2,
 
 						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
-
 
 						end: function() { //此处用于演示
 

@@ -49,6 +49,7 @@ urlpatterns = [
     url(r'^salercommit',salercommit),
     url(r'^adminfenpei', adminfenpei)
 
+    url(r'^staffaddnew', staffaddnew),
 
 
 ]

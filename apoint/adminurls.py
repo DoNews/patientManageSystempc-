@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^addCustomer$',addCustomer),
     url(r'^addCustomerAction',addCustomerAction),
 
+    url(r'^addHospital', newStaffHosp)
+
 ]
