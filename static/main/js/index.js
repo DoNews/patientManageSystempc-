@@ -1,8 +1,11 @@
+var isrenling =false;
 $(function() {
 
 	//	患者认领弹框	
 	$('.hzrl_list_btn').click(function() {
+		isrenling =false;
 		var sid =$(this).attr("id");
+
 		layer.open({
 			type: 2,
 			title: false,
@@ -14,7 +17,10 @@ $(function() {
 			anim: 2,
 			content: ['/renling?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 			end: function() { //此处用于演示
-					
+				if(isrenling)
+				{
+					$("#"+sid).parent().remove();
+				}
 			}
 		});
 	})
@@ -54,5 +60,13 @@ $(function() {
 			}
 		});
 	})
-
+	function reloadremind() {
+		$.ajax("/todaywork",{
+			dataType:"json",
+			success:function (data) {
+				
+            }
+			
+		})
+    }
 })

@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^adminfenpei', adminfenpei),
 
     url(r'^staffaddnew', staffaddnew),
+    url(r'^todaywork',todaywork)
 
 
 ]
