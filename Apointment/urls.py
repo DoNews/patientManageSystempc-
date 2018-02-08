@@ -47,7 +47,7 @@ urlpatterns = [
 
     url(r'^overdue', overdue),
     url(r'^salercommit',salercommit),
-    url(r'^adminfenpei', adminfenpei)
+    url(r'^adminfenpei', adminfenpei),
 
     url(r'^staffaddnew', staffaddnew),
 
