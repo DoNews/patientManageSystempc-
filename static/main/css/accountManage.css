@@ -58,11 +58,10 @@
 	flex: 0 0 40%;
 }
 .changeRight p{
-	width:100%;
 	margin-left: 45px;
 }
 .changeRight {
-	flex: 0 0 70%;
+	flex: 0 0 50%;
 	text-align: left;
 	font-size: 16px!important;
 	color: #333840;
