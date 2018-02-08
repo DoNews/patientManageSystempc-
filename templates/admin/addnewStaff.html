@@ -68,19 +68,19 @@
 		<script src="static/main/js/layui/layui.js "></script>
 
 		<script>
-       var hosps =[];
+      var hosps =[];
 			layui.use(['form', 'laydate', 'upload'], function() {
 			  var form = layui.form,
 					upload = layui.upload,
 					laydate = layui.laydate;
-				laydate.render({
-					elem: '#yyDate'
-				});
+          laydate.render({
+            elem: '#yyDate'
+          });
 				$('.sureAdd').click(function() {
 				  layer.open({
-  type: 3,
-  content: '正在提交 ...' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-});
+                  type: 3,
+                  content: '正在提交 ...'
+          });
           ids =[]
           for(var i=0;i<hosps.length;i++) {
             ids.push(hosps[i].id)
@@ -92,7 +92,8 @@
                 "hosps":JSON.stringify(ids)
               },
               success:function (arg) {
-                 parent.layer.closeAll()
+                $('.')
+                parent.layer.closeAll()
                 parent.layer.msg('添加成功')
               }
             });

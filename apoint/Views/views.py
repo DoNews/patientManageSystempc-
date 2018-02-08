@@ -17,7 +17,6 @@ MENUS_CALLER=(
     ("提醒管理","/remind"),
     ("报表管理","/chart"),
     ("账户管理","/account")
-
 )
 @login_required(login_url="/login/")
 def chart(request):
@@ -255,7 +254,6 @@ def OrderSubmit(request):
 def OrderUpdte(request):
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
-
     folow=request.POST['folow']
     cid =request.user
     zuser = ZJUser.objects.filter(user=cid).first()

@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^adminaccount', adminaccount),
     url(r'^staffedit', staffedit),
     url(r'^editHospital', editHospital),
-
     url(r'^hospview', hospview),
     url(r'^thirdpop', thirdpop),
     url(r'^refenpei', refenpei),

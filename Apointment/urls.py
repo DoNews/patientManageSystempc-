@@ -45,5 +45,4 @@ urlpatterns = [
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
     url(r'^staffaddnew', staffaddnew),
-
 ]
