@@ -24,8 +24,8 @@ def userlogin(request):
 
             return HttpResponse('{"result":0}')
     else:
-        return HttpResponse('{"result":0}')
-    return HttpResponse('{"result":0}')
+        return render(request,"login.html")
+    return render(request, "login.html")
 
 def createUser(request):
     username =request.POST.get("username")
