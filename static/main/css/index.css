@@ -1,4 +1,5 @@
 /*内容区域开始*/
+
 .contentBox {
 	display: flex;
 	display: -webkit-flex;
@@ -354,6 +355,8 @@
     margin: 0 2%;
 }
 
+
+/*修改默认样式*/
 .layui-layer{
 	border-radius: 8px!important;
 }

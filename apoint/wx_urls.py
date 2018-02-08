@@ -1,7 +1,9 @@
 #coding:utf-8
 from django.conf.urls import url
+
 from apoint.Views.wx_views import *
 from apoint.Views.service_views import *
+
 urlpatterns = [
     url(r'^scrfcode/',ScrfCode), #发送验证码
     url(r'^staff/',StaffCation),#员工认证

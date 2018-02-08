@@ -1,0 +1,14 @@
+  {% for item in order %}
+     <tr>
+        <td>
+        {{ item.order }}
+        </td>
+        <td>姓名：{{ item.name }}<br/>电话：{{ item.phone }}</td>
+
+        <td>{{ item.sales }}</td>
+        <td>{{ item.custome }}</td>
+        <td><span class="remindTableBtn patientMan" id="{{ item.id }}" data-id="{% if item.order %}
+        {{ item.order.id }}
+        {% endif %}">去管理</span></td>
+    </tr>
+  {% endfor %}

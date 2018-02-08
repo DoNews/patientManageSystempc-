@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>医院管理界面</title>
+		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/static/main/css/addPatient.css" />
+	</head>
+
+	<body>
+		<div id="rlhz">
+			<div class="newPatientTitle">医院管理</div>
+			<style type="text/css">
+				.newPatientBtn2 {
+					display: inline-block;
+					height: 30px;
+					position: absolute;
+					padding: 0 15px;
+					right: 6px;
+					top: 10px;
+					line-height: 30px;
+					background: #e9edf0;
+					border-radius: 5px;
+					font-weight: 200;
+					color: #5bbed3;
+					cursor: pointer;
+				}
+				
+				.replaceKf {
+					width: 80px;
+					height: 30px;
+					line-height: 30px;
+					border-radius: 4px;
+					background: #fff;
+					color: #5bbfd3;
+					text-align: center;
+					float: right;
+					margin: 17px auto;
+					margin-right: 17px;
+					border-bottom: 1px solid #eee;
+					border: none;
+					cursor: pointer;
+				}
+				.hz_info{
+
+				}
+				.allInfo_wrap{
+					overflow: hidden;
+				}
+				#rlhz{
+					height: 550px;
+				}
+				.width100{
+					width: 100%!important;
+				}
+				.width100 input{
+					width: 98%!important;
+				}
+			</style>
+			<p class="rlhz_pop">医院基础信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem">
+					<p>医院名称</p>
+					<p><input type="text" name="" id="name" value="{{ hosp.name }}" /></p>
+				</div>
+				<div class="hz_infoItem">
+					<p>所属省份</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<select name="" id="area">
+								<option value="">请选择城市</option>
+                                {% for foo in area %}
+                                <option value="{{ foo.id }}" {% if hosp.province == foo %}
+    selected="selected"
+                                {% endif %}>{{ foo.name }}</option>
+                                {% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+
+				
+
+				<div class="hz_infoItem">
+					<p>具体地址</p>
+					<p><input type="text" name="" id="address" value="{{ hosp.address }}" /></p>
+				</div>
+				
+				<div class="hz_infoItem">
+					<p>负责销售</p>
+					<div class="layui-form">
+						<div class="layui-form-item">
+							<select name="" id="sale">
+								<option value="">请选择销售</option>
+                                {% for s in sales %}
+                                <option value="{{s.id}}" {% if hosp.sales == s %}
+selected="selected"
+                                {% endif %}>{{s.name}}</option>
+                                {% endfor %}
+							 
+							</select>
+						</div>
+					</div>
+				</div>
+                <div style="clear:both "></div>
+			</div>
+			<p class="rlhz_pop">医院推送配置信息</p>
+			<div class="hz_info">
+				<div class="hz_infoItem width100">
+					<p>就诊指南图文内容链接</p>
+					<p><input type="text" name="" id="link" value="{{ hosp.link }}" /></p>
+				</div>
+				<div class="hz_infoItem width100">
+					<p>确认就诊短信</p>
+					<p><input type="text" name="" id="confirm" value="{{ hosp.confirm }}" /></p>
+				</div>
+				<div class="hz_infoItem width100">
+					<p>三天短信</p>
+					<p><input type="text" name="" id="three" value="{{ hosp.three }}" /></p>
+				</div>
+				<div class="hz_infoItem width100">
+					<p>当天提醒短信</p>
+					<p><input type="text" name="" id="inday" value="{{ hosp.inday }}" /></p>
+				</div>
+				<div class="allInfo_wrap">
+					<div class="addZtgj">
+						取消修改
+					</div>
+
+					<div class="replaceKf" style="width:100px;">
+						确认提交
+					</div>
+				</div>
+			</div>
+			<script src="/static/main/js/jquery-3.3.1.min.js "></script>
+        <script src="/static/main/js/tools.js"></script>
+			<script src="/static/main/js/layui/layui.js "></script>
+
+			<script>
+				layui.use(['form', 'laydate', 'upload', 'layer'], function() {
+					var form = layui.form,
+						upload = layui.upload,
+						layer = layui.layer,
+						laydate = layui.laydate;
+					//日期
+
+					$('.replaceKf').click(function() {
+						var index = parent.layer.getFrameIndex(window.name);
+						var hosp={};
+						hosp.name=$("#name").val()
+                        hosp.area_id=$("#area").val()
+                        hosp.sales_id=$("#sale").val()
+                        hosp.address=$("#address").val()
+                        hosp.link=$("#link").val()
+                        hosp.confirm=$("#confirm").val()
+                        hosp.three=$("#three").val()
+                        hosp.inday=$("#inday").val()
+                        var data ={"hosp":JSON.stringify(hosp)}
+                        if(getParam("id"))
+                        {
+                            data={"hosp":JSON.stringify(hosp),"id":getParam("id")}
+                        }
+						$.ajax("/api/apoint/addhosp/",{
+						    data:data,
+                            type:"POST",
+                            success:function (data) {
+                                 console.log(data)
+                                parent.layer.close(index);
+						        parent.layer.msg('提交成功');
+                            }
+                        })
+
+					});
+					$('.addZtgj').click(function() {
+						var index = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(index);
+					});
+
+
+
+				});
+			</script>
+	</body>
+
+</html>

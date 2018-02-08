@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>管理员首页页面</title>
-		<link rel="icon" href="img/icon.png" />
+		<link rel="icon" href="/static/main/img/icon.png" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css" />
 	</head>
@@ -40,7 +40,7 @@
 								<td>{{ item.city }}
 								</td>
 
-								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+								<td><span class="pmTbaleBtn1 saleredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
 							</tr>
               {% endfor %}
 						</tbody>
@@ -71,7 +71,11 @@
 
 
 								<td>{{ item.user.username }}</td>
+<<<<<<< HEAD
 								<td><span class="pmTbaleBtn1" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn" id="delate">删除</span></td>
+=======
+								<td><span class="pmTbaleBtn1 customeredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+>>>>>>> 5342c5c9002350f4a307617bd5a14072f225dbcd
 							</tr>
               {% endfor %}
 
@@ -79,7 +83,7 @@
 
 						</tbody>
 					</table>
-					<div class="remind_allLeftBtn">查看全部</div>
+
 				</div>
 			</div>
 		</div>
@@ -104,9 +108,12 @@
 					jump: function(obj) {
 					}
 				});
+
 				//编辑按钮
-				$('.pmTbaleBtn1').click(function() {
-          var sid =$(this).attr("data-id");
+
+				$('.saleredit').click(function() {
+                    var sid =$(this).attr("data-id");
+
 					layer.open({
 						type: 2,
 						title: false,
@@ -123,6 +130,23 @@
 					});
 
 				});
+                $(".customeredit").click(function () {
+                    layer.open({
+						type: 2,
+						title: false,
+						closeBtn: 1, //不显示关闭按钮
+						shade: [0.4],
+						area: ['650px', '550px'],
+						offset: '40px',
+						scrollbar: false, //禁止浏览器滚动
+						anim: 2,
+						content: ['/addCustomer?id='+$(this).attr("data-id"), 'yes'], //iframe的url，no代表不显示滚动条
+						end: function() { //此处用于演示
+
+						}
+
+					});
+                });
 				//删除
 				$('.pmTbaleBtn').click(function() {
 				  layer.open({
@@ -159,16 +183,18 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
+
+						{#content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条#}
+						content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
 
 						}
 
 					});
 				});
-				//	患者认领弹框
-				$('#addCustom').click(function() {
-					layer.open({
+
+				$("#addCustom").click(function () {
+                      layer.open({
 						type: 2,
 						title: false,
 						closeBtn: 1, //不显示关闭按钮
@@ -177,11 +203,13 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-						content: ['./addCustom.html', 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
+
 						}
+
 					});
-				})
+                });
 			});
 		</script>
 

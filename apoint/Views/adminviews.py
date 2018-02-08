@@ -36,12 +36,23 @@ def adminindex(request):
     return render(request, "admin/adminindex.html", {"pageindex":0,'staffs':lister,'service':ser})
 
 def adminpationsview(request):
-    return render(request,"admin/admindataManage.html",{"pageindex":1})
+    orders = Order.objects.all()
+    order = orders[:10]
+    print orders
+    return render(request,"admin/admindataManage.html",{"pageindex":1,"all":orders.count(),"order":order})
 
 def hospital(request):
-    return render(request,"admin/adminHospitalManage.html",{"pageindex":2})
+
+    hosp = Hospital.objects.all()
+    hosps=[]
+    for h in hosp:
+        count = Order.objects.filter(wanthospital=h).count()
+        hosps.append({"hosp":h,"count":count})
+    return render(request,"admin/adminHospitalManage.html",{"pageindex":2,"hosp":hosps})
+
 def thirdpart(request):
-    return render(request, "admin/adminAnontherSystem.html",{"pageindex":3})
+    noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime').count()  # 第三方进来的 没有客服的
+    return render(request, "admin/adminAnontherSystem.html",{"pageindex":3,"all":noservit})
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
@@ -60,11 +71,71 @@ def editHospital(request):
         if g:
             ishave=1
         data.append({"hosp":hos,"name":a.name,"id":a.id,"ishave":ishave})
+
+
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
-def newStaffHosp(request):
+
+def hospview(request):
+    hid = request.GET.get("id",False)
     area = Area.objects.all()
-    data = []
-    for a in area:
-        hos = Hospital.objects.filter(province=a)
-        data.append({"hosp": hos, "name": a.name, "id": a.id})
-    return render(request, "admin/addHospital.html", {"area": data})
+    sales = SalesUser.objects.all()
+    dit ={"area":area,"sales":sales}
+    if hid:
+        hos=Hospital.objects.get(pk=hid)
+        dit={"area":area,"sales":sales,"hosp":hos}
+
+
+    return render(request,"admin/adminHospitalManagePop.html",dit)
+
+def thirdpop(request):
+    nid = request.GET.get("id")
+    oid=request.GET.get("oid")
+    oorder=None
+    if oid:
+        oorder=Order.objects.get(pk=oid)
+    if nid:
+        norder=Order.objects.get(pk=nid)
+    return render(request,"admin/thirdpop.html",{"o":oorder if oid else "","n":norder})
+
+def refenpei(request):
+    kefu = ZJUser.objects.filter(usertype=1)
+    return render(request,"admin/redistribution.html",{"kefu":kefu})
+
+def addCustomer(request):
+    cid = request.GET.get("id",False)
+    if cid:
+        c = ZJUser.objects.get(pk=cid)
+    return render(request,"admin/addCustom.html",{"c":c if cid else ""})
+
+#添加客服账号
+def addCustomerAction(request):
+    name = request.POST.get("name")
+    username = request.POST.get("username")
+    phone=request.POST.get("phone")
+    password = request.POST.get("pwd")
+
+    id =request.POST.get("id")
+    if id:
+        kf = ZJUser.objects.get(pk = id)
+        kf.name = name
+        kf.user.username = username
+        kf.phone = phone
+        kf.user.set_password(password)
+        kf.usertype = 1
+        kf.user.save()
+        kf.save()
+    else:
+        user = User(username=username)
+        user.set_password(password)
+        user.is_superuser = False
+        user.is_active = True
+        user.first_name = name
+        user.is_staff = True
+        # user.profile.name=name
+        user.save()
+        ZJUser(user=user, name=name, usertype=1, phone=phone).save()
+
+
+
+    return  HttpResponse('{"result":1,"msg":"成功"}')
+

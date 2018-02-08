@@ -11,7 +11,26 @@
 	margin: 10px 10px 10px 0;
 	    padding-bottom: 1px
 }
+.newgd {
+    width: 50px;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+}
 
+.newgd, .pmTbaleBtn {
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 14px;
+    color: #fff;
+    display: inline-block;
+    border-radius: -moz-calc(5px);
+    border-radius: -webkit-calc(5px);
+    border-radius: 5px;
+    background: #5bbfd3;
+    cursor: pointer;
+}
 .remindConTitle {
 	height: 40px;
 	line-height: 50px;
@@ -21,7 +40,9 @@
 	margin: 10px 0px;
 	box-sizing: border-box;
 }
-
+#sysPage,#hosPage{
+	text-align: center;
+}
 
 /*表格*/
 
