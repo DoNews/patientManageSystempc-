@@ -4,6 +4,9 @@
 	background: #FFF;
 	box-sizing: border-box;
 	margin: 10px 10px 10px 0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 .patientConTitle {
 	height: 40px;

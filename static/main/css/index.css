@@ -4,18 +4,19 @@
 	display: flex;
 	display: -webkit-flex;
 }
-.contentBox_right {
+.contentBox_right ,.contentBox_left{
 	height: 420px;
 	background: #FFFFFF;
 	margin: 0 10px 10px 0;
-	flex: 0 0 400px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
-
+.contentBox_right{
+		flex: 0 0 400px;
+}
 .contentBox_left {
 	flex: 1;
-	height: 420px;
-	background: #FFFFFF;
-	margin: 0 10px 10px 0;
 }
 /*数据仪表盘开始*/
 .sjy_header {
@@ -186,12 +187,12 @@
 	height: 26px;
 	line-height: 26px;
 	width: 80px;
-	font-size: 1rem;
 	line-height: 26px;
 	margin-top: 10px;
 	text-align: center;
 	border-radius: 4px;
-	color: #8bcddb;
+	color: #5bbfd3;
+	font-size: 14px;
 	margin-left: 15px;
 }
 
@@ -246,13 +247,12 @@
 }
 
 .rlhz_pop {
-	    font-size: 15px;
+	font-size: 15px;
     height: 25px;
     line-height: 25px;
     padding-left: 10px;
-    margin: 0 8px 0 0;
     color: #5bbfd3;
-    margin: 0 0 10px 10px;
+    margin: 3px 0 10px 10px;
     box-sizing: content-box;
     border-left: 5px solid #5bbfd3;
 }
@@ -283,7 +283,6 @@
 	padding-left: 13px;
 	clear: both;
 }
-
 .hz_infoItem input,
 .hz_infoItem select {
 	outline: none;
@@ -336,6 +335,7 @@
 	width: 95%;
 	border-top: 1px solid #C2C2C2;
 	position: relative;
+	height: 70px;
 }
 
 .require_allInfo {

@@ -3,13 +3,17 @@
 .remindConBoxLeft,
 .remindConBoxRight {
 	background: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .remindConBox {
 	background: #FFF;
 	box-sizing: border-box;
 	margin: 10px 10px 10px 0;
-	    padding-bottom: 1px
+	padding-bottom: 1px;
+	border-radius:5px;
 }
 .newgd {
     width: 50px;
@@ -89,7 +93,9 @@
 .remindRightTable tr {
 	height: 50px;
 	border-top: 1px solid #ccc;
-	font-size: 13px;
+	font-size: 14px;
+	color: #333840;
+	font-family: "微软雅黑";
 	font-family: "SourceHanSansCN Regular";
 }
 

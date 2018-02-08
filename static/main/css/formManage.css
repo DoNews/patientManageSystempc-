@@ -5,7 +5,12 @@
 .formConBoxMiddle {
 	background: #fff;
 }
-
+.formConBoxLeft,
+.formConBoxRight{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
 .formConBox {
 	background: #FFF;
 	box-sizing: border-box;
