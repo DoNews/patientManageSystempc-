@@ -46,4 +46,5 @@ urlpatterns = [
 
     #测试
     url(r'^AccountSet',AccountSet)#客服账号设置
+
 ]

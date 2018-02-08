@@ -1,9 +1,6 @@
 #coding: utf8
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
-<<<<<<< HEAD
-=======
 
->>>>>>> 5342c5c9002350f4a307617bd5a14072f225dbcd
 from apoint.models import *
 from apoint.common import *
 import functools, random
@@ -221,17 +218,10 @@ def AddStaff(request):
     phone=request.POST['phone'] #电话
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
-<<<<<<< HEAD
-
     if id:
         user = SalesUser.objects.filter(pk=id)
         user.update(name=name,phone=phone,usertype=2,city=city)
         staff =user.first()
-=======
-    user=SalesUser.objects.filter(name=name,phone=phone).first()
-    if user:
-        staff=user.update(name=name,phone=phone,usertype=2,city=city)
->>>>>>> 5342c5c9002350f4a307617bd5a14072f225dbcd
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id

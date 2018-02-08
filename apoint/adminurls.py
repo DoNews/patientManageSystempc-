@@ -11,11 +11,12 @@ urlpatterns = [
     url(r'^adminaccount', adminaccount),
     url(r'^staffedit', staffedit),
     url(r'^editHospital', editHospital),
-    url(r'^staffaddnew', staffaddnew),
+
     url(r'^hospview', hospview),
     url(r'^thirdpop', thirdpop),
     url(r'^refenpei', refenpei),
     url(r'^staff$', staff),
     url(r'^addCustomer$',addCustomer),
-    url(r'^addCustomerAction',addCustomerAction)
+    url(r'^addCustomerAction',addCustomerAction),
+    url(r'^addHospital', newStaffHosp)
 ]
