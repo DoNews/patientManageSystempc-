@@ -9,20 +9,22 @@ def userlogin(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        print user
-        if user:
+        url=""
+        if user and user.is_active:
             if user.is_active:
                 login(request, user)
                 if user.is_superuser:
-                    return HttpResponseRedirect("/adminindex")
-                return HttpResponseRedirect("/index")
+                    url="/adminindex"
+                else:
+                    url = "/index"
+                return HttpResponse('{"result":1,"url":"'+url+'"}')
             else:
-                return HttpResponse("Your Rango account is disabled.")
+                return HttpResponse('{"result":0}')
         else:
-            print ("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse("Invalid login details supplied.")
+
+            return HttpResponse('{"result":0}')
     else:
-        return render(request, 'login.html', {})
+        return render(request,"login.html")
     return render(request, "login.html")
 
 def createUser(request):

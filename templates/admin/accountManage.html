@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>账户管理</title>
+		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/accountManage.css" />
+        	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+            {% include 'control/adminleft.html' %}
+			<div class="yy_indexConRight">
+			    {% include 'control/head.html' %}
+				<div class="accountConBox">
+					<div class="accountConTitle"><span>更改密码</span></div>
+					<div class="changePass yy_loginForm">
+						<div class="changeLeft">
+							<p class="p_text">旧密码<span style="color: red;">*</span> </p>
+							<p><input type="password" id="op" /></p>
+							<p class="p_text">新密码<span style="color: red;">*</span> </p>
+							<p><input type="password" id="np1" /></p>
+							<p class="p_text">重复新密码<span style="color: red;">*</span> </p>
+							<p><input type="password" id="np2" /></p>
+							<div class="changePassBtn">
+								保存提交
+							</div>
+						</div>
+						<div class="changeRight">
+							<p class="changePassTitle">复旦张江患者管理系统密码管理规定</p>
+							<p>1.密码需要八位以上</p>
+							<p>2.密码需要包含大写字母，小写字母以及数字，三类字符缺一不可</p>
+							<p>3.需要定期修改密码</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+    <script>
+    $(".changePassBtn").click(function () {
+        $.each($("[type=password]"),function () {
+            if($(this).val()=="")
+            {
+                alert("不能为空");
+                return;
+            }
+        })
+        if($("#np1").val()!=$("#np2").val())
+        {
+            alert("两次密码不一致！");
+            return
+        }
+        $.ajax("/api/apoint/AccountSet",{
+            data:{"oldpass":$("#op").val(),"newpass":$("#np1").val()},
+            type:"POST",
+            dataType:"json",
+            success:function (data) {
+                alert("修改成功")
+            }
+        })
+    })
+    </script>
+</html>

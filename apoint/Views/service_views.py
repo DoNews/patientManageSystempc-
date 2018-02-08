@@ -218,10 +218,12 @@ def AddStaff(request):
     phone=request.POST['phone'] #电话
     city=request.POST['city'] #城市
     hosps=request.POST['hosps'] #所有医院的id
+
     if id:
         user = SalesUser.objects.filter(pk=id)
         user.update(name=name,phone=phone,usertype=2,city=city)
         staff =user.first()
+
     else:
         staff=SalesUser.objects.create(name=name,phone=phone,usertype=2,city=city)
     hospser = json.loads(hosps) #医院的id

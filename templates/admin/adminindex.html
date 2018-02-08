@@ -7,6 +7,12 @@
 		<link rel="icon" href="/static/main/img/icon.png" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css" />
+        <style>
+            th
+            {
+                text-align: center;
+            }
+        </style>
 	</head>
 
 	<body>
@@ -24,7 +30,7 @@
 								<th>绑定状态</th>
 								<th>负责区域</th>
 
-								<th>操作</th>
+								<th style="text-align: center">操作</th>
 							</tr>
               {% for item in staffs %}
               	<tr>
@@ -40,7 +46,7 @@
 								<td>{{ item.city }}
 								</td>
 
-								<td><span class="pmTbaleBtn1 saleredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+								<td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 saleredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
 							</tr>
               {% endfor %}
 						</tbody>
@@ -56,7 +62,7 @@
 								<th>客服姓名</th>
 								<th>手机号码</th>
 								<th>账号</th>
-								<th>操作</th>
+								<th  style="text-align: center">操作</th>
 							</tr>
               {% for item in service %}
 	            <tr>
@@ -71,7 +77,7 @@
 
 
 								<td>{{ item.user.username }}</td>
-								<td><span class="pmTbaleBtn1 customeredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
+								<td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 customeredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
 
 							</tr>
               {% endfor %}
@@ -183,7 +189,7 @@
 						anim: 2,
 
 						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
-						{#content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条#}
+
 						end: function() { //此处用于演示
 
 						}

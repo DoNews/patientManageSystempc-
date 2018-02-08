@@ -106,6 +106,13 @@ def index(request):
     print arr
     return  render(request, "index.html", {"user":user, "thismonth":thismonth, "thismonthfp":thismonthfp, "thismonthrl":thismonthrl, "v1":v1, "v2":v2, "v3":v3, "v4":v4, "todaywork":todaywork, "notify":arr, "renling":renling, "pageindex":0, "menu":MENUS_CALLER})
 
+def todaywork(request):
+    user = ZJUser.objects.get(user=request.user)
+
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user)[0:5]  # 今日任务
+    return JsonResutResponse({"result":1,"list":todaywork})
 def checkdicinlist(arr,sid):
     for a in arr:
         if a['id']==sid:
@@ -135,17 +142,19 @@ def renlingAction(request):
     OrderDetail(order=order,creater=customer,createtime=datetime.datetime.now(),status=2,remark="认领").save()
     return JsonResutResponse({"result":1,"msg":"认领成功"})
 
-def orderlist(request):
-    cusid= request.GET.get("cid")
-    orders = Order.objects.filter(custome=cusid)
+
 
 def pationsview(request):
+    type=request.GET.get("type",False)
     user = request.user
     cus = ZJUser.objects.filter(user=user)
     orders = Order.objects.filter(custome=cus).order_by("-wantTime")
+    if type:
+        now = datetime.datetime.now()
+        orders.filter(nextcalldate__lte=now)
     order=orders[:10]
 
-    return render(request, "patientManage.html", {"pageindex":1, "menu":MENUS_CALLER,"all":orders.count(),"order":order})
+    return render(request, "patientManage.html", {"pageindex":1, "menu":MENUS_CALLER,"all":orders.count(),"order":order,"type":type if type else ""})
 
 @login_required(login_url="/login/")
 def pations(request):
@@ -294,7 +303,45 @@ def OrderUpdte(request):
 
     OrderDetail.objects.create(**folowitem)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
+def overdue(request):
+    user = ZJUser.objects.get(user=request.user)
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).order_by(
+        '-createtime')
+    return render(request,"overdue.html",{"pageindex":2, "menu":MENUS_CALLER, "order":orders})
+
+def salercommit(request):
+    user = ZJUser.objects.get(user=request.user)
+    remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
+        Order__is_operation=False).order_by('-createtime')  # 所有备忘
+    return render(request, "salercommitlist.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": remin})
+
+def adminfenpei(request):
+    user = ZJUser.objects.get(user=request.user)
+    admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
+        Order__is_operation=False).order_by('-createtime')  # 查看分配
+
+    return render(request, "fenpeilist.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": admin})
+
 def staffaddnew(request):
     area = Area.objects.all()
     return render(request, "admin/addnewStaff.html",{"area":area} )
 
+def order(request):
+    agent = request.META.get('HTTP_USER_AGENT')
+
+
+    if agent.lower().find("micromessenger")>-1:
+
+        return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FPatient%252FAppiontment.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
+    else:
+        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/Appiontment.html")
+
+def reg(req):
+
+    return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FSaler%252FstaffAuth.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
+
+def mypation(req):
+    return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FSaler%252FMyPatient.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")

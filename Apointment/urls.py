@@ -23,6 +23,7 @@ from apoint.Views.userView import *
 from apoint.Views.views import *
 
 urlpatterns = [
+    url(r'^order$',order),
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^index$',index),
@@ -30,7 +31,7 @@ urlpatterns = [
     url(r'^',include('apoint.adminurls')),#PC端接口
     url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
-
+    url(r'^staffaddnew', staffaddnew),
     url(r'^renling$',renling),
     url(r'^createUser$',createUser),
     url(r'^renlingAction$',renlingAction),
@@ -44,5 +45,15 @@ urlpatterns = [
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
+
+    url(r'^overdue', overdue),
+    url(r'^salercommit',salercommit),
+    url(r'^adminfenpei', adminfenpei),
+
     url(r'^staffaddnew', staffaddnew),
+
+    url(r'^todaywork',todaywork),
+    url(r'^reg$',reg),
+    url(r'^mypation$',mypation)
+
 ]

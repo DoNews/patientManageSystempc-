@@ -9,6 +9,12 @@
             <link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
 
         <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+        <STYLE>
+            .hzrl_list .none,.xttx_list .none
+            {
+                text-align: center;
+            }
+        </STYLE>
 	</head>
 	<body>
 		<div class="yy_indexCon">
@@ -39,9 +45,9 @@
 									<div class="chart2_title">
 										我负责的已到诊患者状态纵览
 									</div>
-									<div class="chart2_btn">
+									<a href="/chart"><div class="chart2_btn">
 										查看详细数据
-									</div>
+									</div></a>
 								</div>
 							</div>
 						</div>
@@ -59,13 +65,18 @@
 								</div>
 								<span class="hzrl_list_btn" id="{{  item.id}}">认领</span>
 							</li>
+                                {% empty %}
+                               <div class="none"> 暂无数据</div>
                             {% endfor %}
 
 
 						</ul>
-						<div class="require_all">
+                        {% if renling.count > 10 %}
+                        <div class="require_all">
 							查看全部
 						</div>
+                        {% endif %}
+
 					</div>
 
 				</div>
@@ -73,7 +84,7 @@
 					<div class="contentBox_left">
 						<p class="jrrw_title">今日任务</p>
 						<ul class="jrrw_list">
-                            {% for item in todaywork %}
+                             {% for item in todaywork %}
                                 <li>
                                     <div class="jrrw_list_img"></div>
                                     <div class="jrrw_list_con">
@@ -84,9 +95,9 @@
                                 </li>
                             {% endfor %}
 						</ul>
-						<div class="require_all">
+					<a href="/pationsview?type=1"><div class="require_all">
 							查看全部
-						</div>
+						</div></a>
 					</div>
 					<div class="contentBox_right">
 						<p class="xttx_title">系统提醒</p>
@@ -131,14 +142,18 @@
 								 </span>
 							</li>
                                 {% endifequal %}
+                                {% empty %}
+                                 <div class="none"> 暂无数据</div>
                             {% endfor %}
                             
 
 
 						</ul>
-						<div class="require_all">
-							查看全部
-						</div>
+						 {% if notify.count and notify.count > 10  %}
+                            <a href="/remind"> <div class="require_all">
+                                查看全部 {{ notify.count  }}
+                            </div></a>
+                        {% endif %}
 					</div>
 
 				</div>

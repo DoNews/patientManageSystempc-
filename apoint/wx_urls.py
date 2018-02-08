@@ -44,7 +44,8 @@ urlpatterns = [
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
     url(r'^updateSalesHosp', updateSalesHosp),
 
-    #测试
+
     url(r'^AccountSet',AccountSet)#客服账号设置
+
 
 ]

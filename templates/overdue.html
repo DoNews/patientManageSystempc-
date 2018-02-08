@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>客服提醒管理</title>
+		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="stylesheet" href="/static/main/css/common.css" />
+		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
+        <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	</head>
+
+	<body>
+		<div class="yy_indexCon">
+            {% include 'control/left.html' %}
+			<div class="yy_indexConRight">
+				 {% include 'control/head.html' %}
+				<div class="remindConBox">
+					<div class="remindConTitle"><span>预约患者数据</span></div>
+					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
+						<tbody>
+							<tr>
+								<th>预约工单</th>
+								<th>目前状态</th>
+								<th>计划时间</th>
+								<th>逾期天数</th>
+								<th>负责销售</th>
+								<th>客服操作</th>
+							</tr>
+                            {% for order in lister %}
+                                <tr>
+								<td>
+									<div class="remindTable_img"></div>
+									<div class="remindTable_con">
+										<p>{{ order.name }}</p>
+										<p>{{ order.wantTime }} {{ order.wanthospital }}</p>
+									</div>
+								</td>
+								<td>{{ order.status}}</td>
+								<td>{{ order.nextcalldate  }}</td>
+								<td>{{ order.day }}</td>
+								<td>{{ order.sales }}</td>
+								<td><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
+							</tr>
+{% empty %}
+                              <tr>
+                              <td colspan="6">  暂无数据</td>
+                              </tr>
+                            {% endfor %}
+						</tbody>
+					</table>
+				</div>
+				<!--下半部分两列布局-->
+				<style>
+
+				</style>
+
+
+			</div>
+		</div>
+	</body>
+	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/static/main/js/remindManage.js"></script>
+
+</html>

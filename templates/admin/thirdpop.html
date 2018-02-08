@@ -104,12 +104,19 @@
 			</div>
 
 			<div class="allInfo_wrap">
-				<div class="addZtgj " style="width: 120px;">
+                {% if o %}
+                    <div class="addZtgj " style="width: 120px;">
 					非同一患者拆分
 				</div>
 				<div class="addBtn" style="width: 120px;">
 					同一患者合并
 				</div>
+                {% else %}
+                <div class="addZtgj " style="width: 120px;">
+					分配客服
+				</div>
+                {% endif %}
+
 			</div>
 		</div>
 		<script src="/static/main/js/jquery-3.3.1.min.js "></script>

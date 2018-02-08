@@ -42,13 +42,14 @@
 								<td>{{ order.sales }}</td>
 								<td><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
 							</tr>
-{% empty %}
+                            {% empty %}
                               <tr>
                               <td colspan="6">  暂无数据</td>
                               </tr>
                             {% endfor %}
 						</tbody>
 					</table>
+                <a href="/overdue"><div class="remind_allRightBtn">查看全部</div></a>
 				</div>
 				<!--下半部分两列布局-->
 				<style>
@@ -77,13 +78,15 @@
 
 									<td><span class="remindTableBtn pmTbaleBtn"  id="{{ order.id }}">去管理</span></td>
 								</tr>
+                                     {% empty %}
+                                 <tr><td  colspan="3"> 暂无数据</td></tr>
                                 {% endfor %}
                                 
 
 
 							</tbody>
 						</table>
-						<div class="remind_allLeftBtn">查看全部</div>
+						<a href="/salercommit"><div class="remind_allRightBtn">查看全部</div></a>
 					</div>
 					<div class="remindConBoxRight">
 						<div class="remindConTitle"><span>分配工单提醒(<span style="font-size: 12px;"></span>)</span>
@@ -92,7 +95,7 @@
 							<tbody>
 								<tr>
 									<th>预约事件</th>
-									<th>提醒患者说</th>
+									<th>负责销售</th>
 									<th>客服操作</th>
 								</tr>
                                 {% for order in admin %}
@@ -107,13 +110,14 @@
 									<td>{{ order.sales }}</td>
 									<td><span class="remindTableBtn2 pmTbaleBtn"  id="{{ order.id }}">去跟进</span></td>
 								</tr>
-
+ {% empty %}
+                                 <tr><td  colspan="3"> 暂无数据</td></tr>
                                 {% endfor %}
-                                
+
 
 							</tbody>
 						</table>
-						<div class="remind_allRightBtn">查看全部</div>
+						<a href="/adminfenpei"><div class="remind_allRightBtn">查看全部</div></a>
 					</div>
 				</div>
 

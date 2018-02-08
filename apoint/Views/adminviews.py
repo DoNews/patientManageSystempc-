@@ -56,7 +56,10 @@ def thirdpart(request):
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
 def adminaccount(request):
-    return render(request, "accountManage.html",{"pageindex":5})
+
+    return render(request, "admin/accountManage.html",{"pageindex":5})
+
+
 def staffedit(request):
     return render(request,"admin/addStaff.html",)
 def editHospital(request):

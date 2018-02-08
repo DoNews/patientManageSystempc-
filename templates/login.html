@@ -12,18 +12,39 @@
 						<div class="yy_loginLogo">
 								<img src="/static/main/img/logo.png" alt="" width="40" height="40" />
 						</div>
-						<form action="/login" method="post" class="yy_loginForm">
+						<div class="yy_loginForm">
 						  <p class="p_text">用户名 </p>
-						  <p><input type="text" name="username" /></p>
+						  <p><input type="text" name="username" id="name" /></p>
 						  <p  class="p_text">密码</p>
-						  <p><input type="password" name="password" /></p>
+						  <p><input type="password" name="password" id="pwd" /></p>
 						  <!--<input type="submit" value="Submit" />-->
 						  <p>
-                              <button class="login_button" value="" type="submit">登录</button>
+                              <button class="login_button" value=""  >登录</button>
 						  </p>
 						 <div class="yy_loginRem"><input type="checkbox" />记住我</div>
-						</form>
+						</div>
 				</div>
 			</div>
+            <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+    <script>
+        $(".login_button").click(function () {
+            $.ajax("/login",{
+                type:"POST",
+                data:{"username":$("#name").val(),"password":$("#pwd").val()},
+                dataType:"json",
+                success:function (data) {
+                    if(data.result==1)
+                    {
+                        location.href=data.url;
+                    }
+                    else
+                    {
+                        alert("用户名密码错误");
+                    }
+
+                }
+            })
+        });
+    </script>
 	</body>
 </html>

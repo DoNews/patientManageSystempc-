@@ -1,11 +1,11 @@
+var isrenling =false;
 $(function() {
-	//切换状态
-	$('.kf_power li').click(function() {
-		$(this).addClass("li_active").siblings().removeClass()
-	});
+
 	//	患者认领弹框	
 	$('.hzrl_list_btn').click(function() {
+		isrenling =false;
 		var sid =$(this).attr("id");
+
 		layer.open({
 			type: 2,
 			title: false,
@@ -17,7 +17,10 @@ $(function() {
 			anim: 2,
 			content: ['/renling?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 			end: function() { //此处用于演示
-					
+				if(isrenling)
+				{
+					$("#"+sid).parent().remove();
+				}
 			}
 		});
 	})
@@ -40,7 +43,6 @@ $(function() {
 		});
 
 	})
-
 	$('.xttx_list_btn').click(function() {
 	var sid =$(this).attr("id");
 		layer.open({
@@ -58,5 +60,13 @@ $(function() {
 			}
 		});
 	})
-
+	function reloadremind() {
+		$.ajax("/todaywork",{
+			dataType:"json",
+			success:function (data) {
+				
+            }
+			
+		})
+    }
 })

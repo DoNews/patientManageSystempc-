@@ -18,18 +18,15 @@
 
 				<div class="patientConBox">
 
-					<div class="patientConTitle"><span>{% if type %}今日任务
-{% else %}
-                        患者预约工单提醒
-					{% endif %}</span> <span class="newgd">新建</span></div>
+					<div class="patientConTitle"><span>销售提交备注提醒</span> <span class="newgd">新建</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="pmTable" style="">
 
 							<tr>
 								<th>预约工单</th>
 								<th>当前状态</th>
+								<th>提交销售</th>
 								<th>提交时间</th>
-								<th>所属区域</th>
-								<th>负责销售</th>
+
 								<th>客服操作</th>
 							</tr>
                             <tbody id="data">
@@ -43,9 +40,10 @@
             </div>
         </td>
         <td>{{ foo.get_status_display}}</td>
-        <td>{{ foo.createtime |date:"Y-m-d"}}</td>
-        <td>{{ foo.area }}</td>
         <td>{{ foo.wanthospital.sales }}</td>
+        <td>{{ foo.createtime}}</td>
+
+
         <td><span class="pmTbaleBtn" id="{{ foo.id }}">电话回访</span></td>
     </tr>
     {% endfor %}
