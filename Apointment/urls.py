@@ -51,7 +51,8 @@ urlpatterns = [
     url(r'^adminfenpei', adminfenpei),
 
     url(r'^staffaddnew', staffaddnew),
-    url(r'^todaywork',todaywork)
+    url(r'^todaywork',todaywork),
+    url(r'^reg$',reg)
 
 
 ]
