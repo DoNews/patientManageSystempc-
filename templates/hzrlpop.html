@@ -21,11 +21,8 @@
 					<p>
 						<div class="layui-form">
 						<div class="layui-form-item">
-							<select name="" id="sex">
-								<option value="">请选择性别</option>
-								<option value="男" {% ifequal order.sex '男' %}selected {% endifequal %}>男</option>
-								<option value="女" {% ifequal order.sex '女' %}selected {% endifequal %}>女</option>
-							</select>
+                        <input type="text" name="" id="" value="{{ order.sex }}" />
+
 						</div>
 					</div>
 					</p>
@@ -38,36 +35,27 @@
 					<p>预约医院</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
-							<select name="" id="hosp">
-								<option value="">请选择医院</option>
-                                {% for foo in hosp %}
-                                    <option value="{{ foo.id }}" {% ifequal foo  order.wanthospital %}selected {% endifequal %}>{{ foo.name }}</option>
-                                {% endfor %}
-							</select>
+                            <input type="text" name="" id="" value="{{ order.wanthospital }}" />
+
 						</div>
 					</div>
 				</div>
 				<div class="hz_infoItem">
 					<p>期望预约时间</p>
 					<p>
-						<input type="text" id="yyDate" value="{{ order.wantTime|date:"Y-m-d"}}" class="layui-input dateinput" placeholder="YYYY-MM-dd">
+						<input type="text" id="yyDate" value="{{ order.wantTime|date:"Y-m-d"}}" class="layui-input " placeholder="">
 					</p>
 				</div>
 				<div class="hz_infoItem">
 					<p>出生日期</p>
-					<p><input type="text" id="birthDay" value="{{ order.birthday|date:"Y-m-d"}}" class="layui-input dateinput" placeholder="YYYY-MM-dd"></p>
+					<p><input type="text" id="birthDay" value="{{ order.birthday|date:"Y-m-d"}}" class="layui-input " placeholder=""></p>
 				</div>
 				<div class="hz_infoItem">
 					<p>所属区域</p>
 					<div class="layui-form">
 						<div class="layui-form-item">
-							<select name="" id="area">
-								<option value="">请选择地区</option>
-                                {% for foo in area %}
-                                <option value="{{ foo.id }}" {% ifequal foo  order.area %}selected {% endifequal %}>{{ foo.name }}</option>
-                                {% endfor %}
+                        <input type="text" name="" id="" value="{{ order.area }}" />
 
-							</select>
 						</div>
 					</div>
 				</div>
@@ -95,7 +83,7 @@
 		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 		<script src="/static/main/js/layui/layui.js"></script>
         <script src="/static/main/js/renling.js"></script>
-        <script src="/static/main/js/dataform.js"></script>
+
 		<script>
               var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
            var text = document.getElementById("textarea");

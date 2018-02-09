@@ -34,7 +34,7 @@ def ServiceApoint(request):
                     'createtime': order.createtime.strftime('%Y-%m-%d  %H:%M'),  # 提交时间
                     'status':order.get_status_display(),#患者状态
                     'area':order.area.name,#所属省
-                    'sales':order.wanthospital.sales.name,#负责销售
+                    'sales':order.wanthospital.sales.name if order.wanthospital.sales else '',#负责销售
                 }
                 lister.append(data)
         else:
@@ -80,7 +80,7 @@ def Search(request):
 @login_required(login_url="/login/")
 def Remind(request):
     user = ZJUser.objects.get(user=request.user)
-    orders =Order.objects.filter(custome=user).order_by('-createtime') #查看逾期
+    orders =Order.objects.filter(custome=user).exclude(status=12).order_by('-createtime') #查看逾期
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
         Order__is_operation=False).order_by('-createtime') #所有备忘
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False).order_by('-createtime') #查看分配
@@ -99,16 +99,22 @@ def Remind(request):
     return render(request, "remindManage.html", {'ret':0, 'msg': 'success', 'lister':lister, 'notes':notes, 'admin':admins})
 
 
+
+
 #查看所有逾期
 @login_required(login_url="/login/")
 def Remindall(request):
+    page =request.GET.get("page")
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).order_by('-createtime')
-    print orders.query
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('-createtime')
+
     lister = RemindSystem(orders)
-    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
+    result, contacts = Paging(lister, page)
+    t = template.loader.get_template("control/yuqiitem.html")
+    c = template.Context({'lister': lister})
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'data': t.render(c)})
 
 #查看所有备忘
 @login_required(login_url="/login/")
@@ -248,11 +254,11 @@ def updateSalesHosp(request):
     uid = request.POST.get("uid")
     hosps = request.POST['hosps']
     json_hosp =json.loads(hosps)
-    print json_hosp
+
     user = SalesUser.objects.get(id=uid)
     hosps_now = Hospital.objects.filter(sales=user).update(sales=None)
     hs = Hospital.objects.filter(pk__in=json_hosp)
-    print(hs)
+
     hs.update(sales=user)
     return JsonResutResponse({"result":1})
 

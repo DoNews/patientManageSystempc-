@@ -1,6 +1,7 @@
 /**
  * Created by wp on 2/5/2018.
  */
+
 						var userinfo={}
 						var postData={}
 						$(".x").click(function () {
@@ -53,7 +54,9 @@
 								}
 							});
 
-						});
+
+});
+
 
 						$("#sureAdd").click(function () {
 								submitCreateData();
@@ -93,21 +96,74 @@
 							 postData["folow"] =JSON.stringify(folowdata);
             }
             function submit(surl) {
+=======
+$("#sureAdd").click(function () {
+    submitCreateData();
+});
 
-                $.ajax({
-                    url:surl,
-                    type:"POST",
-                    dataType:"json",
-                    data:postData,
-                    success:function (data) {
-                        console.log(data)
-                        parent.layer.closeAll();
-					    parent.layer.msg('创建成功');
-                    }
-                })
-            }
-            function submitUpdateData(stype) {
+$(".action").click(function () {
+    var type = $(this).attr("type");
+    submitUpdateData(type);
+});
 
+function submitCreateData() {
+    var surl = "/ordersubmit";
+    initUserData();
+    submit(surl)
+}
+
+function initUserData() {
+    userinfo.name = $("#name").val();
+    userinfo.birthday = $("#birthDay").val()
+    userinfo.phone = $("#phone").val()
+    userinfo.sex = $("#sex").val()
+    userinfo.area = $("#area").val()
+    userinfo.wantTime = $("#yyDate").val()
+    userinfo.wanthospital = $("#hosp").val()
+    userinfo.description = $(".info_text").val()
+    userinfo.number=$("#number").val()
+    postData["userinfo"] = JSON.stringify(userinfo);
+    postData["photo"] = JSON.stringify(imgSrcList);
+}
+
+function initFolowData(stype) {
+    var remark = $("#textarea").val();
+    var nextcall = $("#yyDateNext").val();
+    var folowdata = {}
+    folowdata.remark = remark;
+    folowdata.nextcalldate = nextcall;
+    folowdata.status = stype
+    userinfo.nextcalldate = nextcall;
+    userinfo.number=$("#number").val()
+    userinfo.oid = getParam("id");
+    userinfo.status = stype;
+    postData["folow"] = JSON.stringify(folowdata);
+}
+
+function submit(surl) {
+
+    $.ajax({
+        url: surl,
+        type: "POST",
+        dataType: "json",
+        data: postData,
+        success: function (data) {
+            console.log(data)
+            parent.layer.closeAll();
+            parent.layer.msg('创建成功');
+        }
+    })
+}
+
+function submitUpdateData(stype) {
+>>>>>>> fc4c230ef401dda4ed86e0ba4a1cb628ee5b65e4
+
+    initFolowData(stype)
+    initUserData()
+    submit("/orderupdate")
+}
+
+<<<<<<< HEAD
 				initFolowData(stype)
 				initUserData()
 				submit("/orderupdate")

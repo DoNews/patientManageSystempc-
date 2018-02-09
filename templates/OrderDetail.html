@@ -77,7 +77,7 @@
 				</div>
 			</div>
 			<p class="des_info">胎记治疗及胎记描述</p>
-			<textarea name=""  cols="30" id="" class="info_text">{{ order.description }}</textarea>
+			<textarea name=""  style="margin: 0px 0px 0px 25px;width: 730px" cols="30" id="" class="info_text">{{ order.description }}</textarea>
 			<p class="des_info">胎记治疗及胎记图片</p>
 			<div class="img_box">
 				<ul class="img_boxUl">
@@ -92,11 +92,28 @@
 
 			<p class="rlhz_pop">客服跟进填写区</p>
 			<p class="des_info">跟进</p>
+            <div style="padding: 10px 15px 10px 15px">
+                <textarea name=""  cols="30" id="textarea" class="info_text"></textarea>
+            </div>
 
-			<textarea name=""  cols="30" id="textarea" class="info_text"></textarea>
-			<p class="des_info">下次跟进回访时间</p>
+        <div style="padding-top:10px;padding-right:15px">
+              <div class="hz_infoItem">
+					<p>下次跟进回访时间</p>
+					<p>
+						 <input type="text" id="yyDateNext" value="{{ order.nextcalldate | date:'Y-m-d' }}" class="layui-input dateinput"  >
+					</p>
+				</div>
 
-			<input type="text" id="yyDateNext" value="{{ order.nextcalldate | date:'Y-m-d' }}" class="layui-input dateinput"  >
+                    <div class="hz_infoItem">
+					<p>累计治疗次数</p>
+					<p>
+						 <input type="text" id="number" value="{{ order.number}}" class="layui-input"  >
+					</p>
+				</div>
+
+        </div>
+
+
 			<p class="des_info">该患者历史跟进记录</p>
 			<div class="patientHisBox">
 				<ul>
@@ -219,7 +236,19 @@
 					延期预约
 				</div>
                 {% elif order.status == 12 %}
+ <div class="addZtgj action" type="12">
+					暂停跟进
+				</div>
+				<div class="addBtn2 action" type="3">
+					确认去就诊
+				</div>
+				<div class="addBtn action" type="4">
+					确认不就诊
+				</div>
 
+				<div class="addBtn action" type="5">
+					延期预约
+				</div>
 
                 {% endif %}
             {% endif %}

@@ -1,78 +1,117 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>首页页面</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
-		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
-    <link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>首页页面</title>
+    <link rel="icon" href="/static/main/img/icon.png"/>
+    <link rel="stylesheet" type="text/css" href="/static/main/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/main/css/common.css"/>
     <link rel="stylesheet" href="/static/main/css/layui.css">
     <script src="/static/main/js/jquery-3.3.1.min.js"></script>
-        <STYLE>
-            .hzrl_list .none,.xttx_list .none
-            {
-                text-align: center;
-            }
-        </STYLE>
-	</head>
-	<body>
-		<div class="yy_indexCon">
-            {% include 'control/left.html' %}
+    <STYLE>
+        .hzrl_list .none, .xttx_list .none {
+            text-align: center;
+        }
+    </STYLE>
+</head>
+<body>
+<div class="yy_indexCon">
+    {% include 'control/left.html' %}
 
-			<div class="yy_indexConRight">
-				 {% include 'control/head.html' %}
-				<div class="contentBox">
-					<div class="contentBox_left">
-						<div class="sjy_table">
-							<div class="sjy_header">
-								数据仪表盘
-							</div>
-							<div class="sjy_con">
-								<div class="sjy_left">
-									<div class="chart1" id="chart1">
+    <div class="yy_indexConRight">
+        {% include 'control/head.html' %}
+        <div class="contentBox">
+            <div class="contentBox_left">
+                <div class="sjy_table">
+                    <div class="sjy_header">
+                        数据仪表盘
+                    </div>
+                    <div class="sjy_con">
+                        <div class="sjy_left">
+                            <div class="chart1" id="chart1">
 
-									</div>
-									<div class="chart1_title">
-										本月数据纵览
-									</div>
+                            </div>
+                            <div class="chart1_title">
+                                本月数据纵览
+                            </div>
 
-								</div>
-								<div class="sjy_right">
-									<div class="chart2" id="chart2">
+                        </div>
+                        <div class="sjy_right">
+                            <div class="chart2" id="chart2">
 
-									</div>
-									<div class="chart2_title">
-										我负责的已到诊患者状态纵览
-									</div>
-									<a href="/chart"><div class="chart2_btn">
-										查看详细数据
-									</div></a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="contentBox_right">
-						<p class="hzrl_title">预约患者认领</p>
-						<ul class="hzrl_list">
-                            {% for item in renling %}
+                            </div>
+                            <div class="chart2_title">
+                                我负责的已到诊患者状态纵览
+                            </div>
+                            <a href="/chart">
+                                <div class="chart2_btn">
+                                    查看详细数据
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contentBox_right">
+                <p class="hzrl_title">预约患者认领</p>
+                <ul class="hzrl_list">
+                    {% for item in renling %}
 
-							<li>
-								<div class="hzrl_list_img"></div>
-								<div class="hzrl_list_con">
-									<p>{{ item.name }}</p>
-									<p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
-								</div>
-								<span class="hzrl_list_btn" id="{{  item.id}}">认领</span>
-							</li>
-                                {% empty %}
-                               <div class="none"> 暂无数据</div>
-                            {% endfor %}
+                        <li>
+                            <div class="hzrl_list_img"></div>
+                            <div class="hzrl_list_con">
+                                <p>{{ item.name }}</p>
+                                <p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }}</p>
+                            </div>
+                            <span class="hzrl_list_btn" id="{{ item.id }}">认领</span>
+                        </li>
+                    {% empty %}
+                        <div class="none"> 暂无数据</div>
+                    {% endfor %}
 
 
-						</ul>
-                        {% if renling.count > 10 %}
+                </ul>
+                {% if renling.count > 10 %}
+                    <div class="require_all">
+                        查看全部
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+        <div class="contentBox">
+            <div class="contentBox_left">
+                <p class="jrrw_title">今日任务</p>
+                <ul class="jrrw_list">
+                    {% for item in todaywork %}
+                        <li>
+                            <div class="jrrw_list_img"></div>
+                            <div class="jrrw_list_con">
+                                <p>{{ item.name }}</p>
+                                <p>{{ item.wantTime|date:"Y-m-d" }} {{ item.wanthospital }} </p>
+                            </div>
+                            <span class="jrrw_list_btn" id="{{ item.id }}">电话确认</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <a href="/pationsview?type=1">
+                    <div class="require_all">
+                        查看全部
+                    </div>
+                </a>
+            </div>
+            <div class="contentBox_right">
+                <p class="xttx_title">系统提醒</p>
+                <ul class="xttx_list">
+                    {{ notify }}
+
+                </ul>
+                {% if notify != '' %}
+                    <a href="/remind">
                         <div class="require_all">
+
 							查看全部
 						</div>
                         {% endif %}
@@ -145,7 +184,7 @@
                                 {% empty %}
                                  <div class="none"> 暂无数据</div>
                             {% endfor %}
-                            
+
 
 
 						</ul>
@@ -262,5 +301,6 @@
 	myChart2.setOption(option2);
         </script>
 	</body>
+
 
 </html>

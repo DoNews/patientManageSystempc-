@@ -25,38 +25,8 @@ window.onload = function() {
                              $("#count").val(data.all);
                              $("#data").html(data.lister);
 
-                             $(".pmTbaleBtn").click(function () {
-                                 var sid = $(this).attr("id");
-                                 layer.open({
-                                     type: 2,
-                                     title: false,
-                                     closeBtn: 1, //不显示关闭按钮
-                                     shade: [0.4],
-                                     area: ['800px', '550px'],
-                                     offset: '40px',
-                                     scrollbar: false, //禁止浏览器滚动
-                                     anim: 2,
-                                     content: ['/orderdetail?id=' + sid, 'yes'],
-                                     end: function () { //此处用于演示
 
-                                     }
-                                 });
-                             })
-                             $(".newgd").click(function () {
-                                 parent.layer.open({
-                                     type: 2,
-                                     title: false,
-                                     closeBtn: 1, //不显示关闭按钮
-                                     shade: [0.4],
-                                     area: ['800px', '600px'],
-                                     offset: '40px',
-                                     scrollbar: false, //禁止浏览器滚动
-                                     anim: 2,
-                                     content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
-                                     end: function () {
-                                     }
-                                 });
-                             });
+
 
                              console.log(data)
                          }

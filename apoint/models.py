@@ -95,7 +95,7 @@ class Order(models.Model):
     wanthospital=models.ForeignKey(Hospital,verbose_name="医院名称",null=True,on_delete=models.SET_NULL)
     description =models.CharField(u'病情描述',null=True,blank=True,max_length=1000)
     createtime=models.DateTimeField(u'提交时间',auto_now_add=True)
-    nextcalldate =models.DateField("下次电话时间",null=True)
+    nextcalldate =models.DateField("下次电话时间",null=True,blank=True)
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     is_party=models.BooleanField(u'是否是第三方',default=False)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True,blank=True,on_delete=models.SET_NULL)
