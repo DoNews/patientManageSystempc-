@@ -124,7 +124,7 @@
                 <div class="addBtn2 refenpei" type="3">
 					重新分配
 				</div>
-                {% else %}
+                {% elif request.user %}
                      {% if order.status == 2  %}
                 <div class="addZtgj action" type="12">
 					暂停跟进

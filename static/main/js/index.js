@@ -1,7 +1,8 @@
 var isrenling =false;
 $(function() {
-
-	//	患者认领弹框	
+		layui.use(['layer'],function () {
+            var layer = layui.layer;
+        	//	患者认领弹框
 	$('.hzrl_list_btn').click(function() {
 		isrenling =false;
 		var sid =$(this).attr("id");
@@ -60,6 +61,8 @@ $(function() {
 			}
 		});
 	})
+		});
+
 	function reloadremind() {
 		$.ajax("/todaywork",{
 			dataType:"json",
