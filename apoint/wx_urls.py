@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^upload/',uploader),#图片上传
     url(r'^province/',Province),#所有省 可共用
     url(r'^hospital/',Hospitaltable),#所有医院 可共用
-
+    url(r'^checkphone',checkphone),#员工认证
     #客服
     url(r'^service/',ServiceApoint), #客服的患者预约工单
     url(r'^patidetails/',PatiDetails),#客服点击查看患者详情
