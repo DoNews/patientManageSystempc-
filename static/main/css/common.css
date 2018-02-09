@@ -267,11 +267,13 @@
 .layui-layer-iframe{
 	 border-radius: 6px!important;
     height:580px!important;
+	    min-width:760px;
 	background: #f4f7f8!important
 }
 	.layui-layer-iframe iframe	{
 		border-radius: 6px!important;
 		 height:582px!important;
+		    min-width:760px;
 		}
 #pageNum{
 	text-align: center;
