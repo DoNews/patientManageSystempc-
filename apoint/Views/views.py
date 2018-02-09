@@ -47,9 +47,9 @@ def index(request):
     #all_datas = YourModel.objects.filter(time__year=now_time.year) #查询某年的
     #all_datas = YourModel.objects.filter(time__month=now_time.month)#查询当前月份的
     user=ZJUser.objects.get(user=request.user)
-    print "user:",request.user
+ 
     now =datetime.datetime.now()
-    yestoday = now- timedelta(days=1)
+
     thismonth=OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count()#本月跟进工单
 
     thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(createtime__month=now.month).count() #本月分配
@@ -60,59 +60,78 @@ def index(request):
     v3 = OrderDetail.objects.filter(status=13).filter(creater=user).count()
     v4 = OrderDetail.objects.filter(status=12).filter(creater=user).count()
 
-    todaywork = Order.objects.filter(nextcalldate__lte=now,custome=user) #今日任务
+    todaywork = Order.objects.filter(nextcalldate__lte=now,custome=user)[:5] #今日任务
 
     renling = Order.objects.filter(status=1,custome__isnull=True)
-    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,custome=user) #管理员分配
-    notify2= Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False,custome=user)#有备注
-    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(),custome=user) #逾期了
+    arr =getNotify(request.user)
+    #identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
 
-    arr=[]
+    return  render(request, "index.html", {"user":user, "thismonth":thismonth, "thismonthfp":thismonthfp, "thismonthrl":thismonthrl, "v1":v1, "v2":v2, "v3":v3, "v4":v4, "todaywork":todaywork, "notify":arr, "renling":renling, "pageindex":0, "menu":MENUS_CALLER})
+
+
+def notify(request):
+
+    arr =getNotify()
+
+    return JsonResutResponse({"data":arr})
+def getNotify(user):
+    now = datetime.datetime.now()
+    user = ZJUser.objects.get(user=user)
+    yestoday = now - timedelta(days=1)
+    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,
+                                                                                   custome=user)  # 管理员分配
+    notify2 = Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False, custome=user)  # 有备注
+    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12)  # 逾期了
+
+    arr = []
     for n in notify1:
-        dic ={}
+        dic = {}
         data = {
             'id': n.id,
             'name': n.name,
             'hosp': n.wanthospital,
-            'time':n.wantTime,
-            'type':1
+            'time': n.wantTime,
+            'type': 1
         }
         if checkdicinlist(arr, n.id):
             arr.append(data)
     for n in notify2:
-        dic ={}
+        dic = {}
         data = {
             'id': n.id,
             'name': n.name,
             'hosp': n.wanthospital,
-            'time':n.wantTime,
-            'type':2
-        }
-        if checkdicinlist(arr,n.id):
-            arr.append(data)
-    for n in notify3:
-        dic ={}
-        data = {
-            'id': n.id,
-            'name': n.name,
-            'hosp': n.wanthospital,
-            'time':n.wantTime,
-            'type':3,
-            'yuqu':(datetime.datetime.now().date()- n.nextcalldate).days
+            'time': n.wantTime,
+            'type': 2
         }
         if checkdicinlist(arr, n.id):
             arr.append(data)
-    #identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
-    print arr
-    return  render(request, "index.html", {"user":user, "thismonth":thismonth, "thismonthfp":thismonthfp, "thismonthrl":thismonthrl, "v1":v1, "v2":v2, "v3":v3, "v4":v4, "todaywork":todaywork, "notify":arr, "renling":renling, "pageindex":0, "menu":MENUS_CALLER})
+    for n in notify3:
+        dic = {}
+        data = {
+            'id': n.id,
+            'name': n.name,
+            'hosp': n.wanthospital,
+            'time': n.wantTime,
+            'type': 3,
+            'yuqu': (datetime.datetime.now().date() - n.nextcalldate).days
+        }
+        if checkdicinlist(arr, n.id):
+            arr.append(data)
+    t = template.loader.get_template("control/today.html")
+    c = template.Context({'todaywork': arr})
+    return t.render(c)
 
 def todaywork(request):
     user = ZJUser.objects.get(user=request.user)
 
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
+
     todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user)[0:5]  # 今日任务
-    return JsonResutResponse({"result":1,"list":todaywork})
+    t = template.loader.get_template("control/today.html")
+    c = template.Context({'todaywork': todaywork})
+    return JsonResutResponse({"result":1,"data":t.render(c)})
 def checkdicinlist(arr,sid):
     for a in arr:
         if a['id']==sid:
@@ -168,13 +187,13 @@ def remind(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).order_by('-createtime')
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('-createtime')
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
         Order__is_operation=False).order_by('-createtime')  # 所有备忘
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
         Order__is_operation=False).order_by('-createtime')  # 查看分配
     if orders:
-        lister = RemindSystem(orders[:4])  # 这是逾期的
+        lister = RemindSystem(orders[:5])  # 这是逾期的
     else:
         lister = []
     if remin:
@@ -187,7 +206,7 @@ def remind(request):
         admins = []
     return render(request, "remindManage.html",
                   {'ret': 0, 'msg': 'success', 'lister': lister, 'notes': notes, 'admin': admins,"pageindex":2,"menu":MENUS_CALLER})
-    return render(request, "remindManage.html", {"pageindex":2, "menu":MENUS_CALLER, "orders":orders, "remin":remin, "admin":admin})
+
 
 def account(request):
     return render(request, "accountManage.html", {"pageindex":4, "menu":MENUS_CALLER})
@@ -286,10 +305,10 @@ def OrderUpdte(request):
             item[k]=area
         elif k=='oid':
             pass
+
         else:
             item[k]=user[k]
     order = Order.objects.filter(id=user['oid'])
-    print item
     u = order.update(**item)
 
     IllnessImage.objects.filter(patient=order.first()).delete()
@@ -300,17 +319,27 @@ def OrderUpdte(request):
         folowitem[f]=folows[f]
     folowitem['order_id']=user['oid']
     folowitem['creater_id']=zuser.id
-
+    desc = u'将%s进行了%s的操作' % (order.first().name, getStatusName(folows['status']))
+    print desc
+    folowitem['remark'] =desc
     OrderDetail.objects.create(**folowitem)
     return JsonResutResponse({'ret':0,'msg':'success'})
+
+def getStatusName(statusvalue):
+
+    return CHIOCE[int(statusvalue)-1][1]
 
 def overdue(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).order_by(
-        '-createtime')
-    return render(request,"overdue.html",{"pageindex":2, "menu":MENUS_CALLER, "order":orders})
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(status=12).order_by(
+        '-createtime')[:10]
+    if len(orders)>0:
+        lister = RemindSystem(orders)  # 这是逾期的
+    else:
+        lister=[]
+    return render(request,"overdue.html",{"pageindex":2, "menu":MENUS_CALLER, "lister":lister})
 
 def salercommit(request):
     user = ZJUser.objects.get(user=request.user)
@@ -329,11 +358,19 @@ def staffaddnew(request):
     area = Area.objects.all()
     return render(request, "admin/addnewStaff.html",{"area":area} )
 
+def checkUser(request):
+
+    openid = request.GET.get("openid")
+    o = Order.objects.filter(openid=openid)
+    if len(o)>0:
+        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/AppiontmentSuccess.html")
+    else:
+        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/Appiontment.html?openid="+openid)
+
 def order(request):
     agent = request.META.get('HTTP_USER_AGENT')
     if agent.lower().find("micromessenger")>-1:
-
-        return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FPatient%252FAppiontment.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
+        return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252FcheckUser&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
     else:
         return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/Appiontment.html")
 

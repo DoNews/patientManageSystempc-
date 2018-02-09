@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^renlingAction$',renlingAction),
     url(r'pations$',pations),
     url(r'^pationsview',pationsview),#客服患者数据
-    url(r'^remind',remind),
+    url(r'^remind',remind),#全部提醒页面
     url(r'^account',account),
     url(r'^addpation',addpation),
     url(r'^chart$',chart),
@@ -56,5 +56,5 @@ urlpatterns = [
     url(r'^reg$',reg),
     url(r'^mypation$',mypation),
 
-
+    url(r'^checkUser',checkUser)
 ]

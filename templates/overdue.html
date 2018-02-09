@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
         <script src="/static/main/js/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="/static/main/css/layui.css"/>
 	</head>
 
 	<body>
@@ -18,7 +19,7 @@
 				<div class="remindConBox">
 					<div class="remindConTitle"><span>预约患者数据</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
-						<tbody>
+
 							<tr>
 								<th>预约工单</th>
 								<th>目前状态</th>
@@ -27,6 +28,7 @@
 								<th>负责销售</th>
 								<th>客服操作</th>
 							</tr>
+                    <tbody id="data">
                             {% for order in lister %}
                                 <tr>
 								<td>
@@ -49,11 +51,10 @@
                             {% endfor %}
 						</tbody>
 					</table>
+                <input type="hidden" value="{{ lister|length }}" id="count">
+            <div id="pageNum"></div>
 				</div>
-				<!--下半部分两列布局-->
-				<style>
 
-				</style>
 
 
 			</div>
@@ -61,6 +62,6 @@
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="/static/main/js/remindManage.js"></script>
+	<script src="/static/main/js/overdue.js"></script>
 
 </html>

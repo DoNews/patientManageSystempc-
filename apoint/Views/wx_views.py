@@ -97,6 +97,7 @@ def CilckMake(request):
 
 #患者order提交
 def OrderSubmit(request):
+
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
     print userinfo,photo
@@ -118,7 +119,7 @@ def OrderSubmit(request):
             item[k]=area
         else:
             item[k]=user[k]
-    orderser=Order.objects.filter(name=name,phone=phone)
+    orderser=Order.objects.filter(phone=phone)
     if orderser:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:

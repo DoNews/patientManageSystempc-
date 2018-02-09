@@ -1,0 +1,20 @@
+{% for order in lister %}
+    <tr>
+        <td>
+            <div class="remindTable_img"></div>
+            <div class="remindTable_con">
+                <p>{{ order.name }}</p>
+                <p>{{ order.wantTime }} {{ order.wanthospital }}</p>
+            </div>
+        </td>
+        <td>{{ order.status }}</td>
+        <td>{{ order.nextcalldate }}</td>
+        <td>{{ order.day }}</td>
+        <td>{{ order.sales }}</td>
+        <td><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
+    </tr>
+{% empty %}
+    <tr>
+        <td colspan="6"> 暂无数据</td>
+    </tr>
+{% endfor %}
