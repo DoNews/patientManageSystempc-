@@ -70,7 +70,7 @@ def PatientsDetail(request):
 def checkphone(request):
     phone = request.GET.get("phone",False)
     if phone:
-        u = SalesUser.objects.get(phone=phone)
+        u = SalesUser.objects.filter(phone=phone)
         if u:
           return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约'})
     return JsonResutResponse({'ret':0,'msg':'无预约'})
