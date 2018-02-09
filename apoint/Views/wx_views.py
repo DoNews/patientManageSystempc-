@@ -67,6 +67,14 @@ def PatientsDetail(request):
     data,record=Detail(order)
     return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
 
+def checkphone(request):
+    phone = request.GET.get("phone",False)
+    if phone:
+        u = SalesUser.objects.get(phone=phone)
+        if u:
+          return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约'})
+     return JsonResutResponse({'ret':0,'msg':'无预约'})
+
 #员工提交备忘录
 def TheMemo(request):
     id =request.POST['id'] #orderid
