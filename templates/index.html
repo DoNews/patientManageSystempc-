@@ -185,17 +185,24 @@
 		xAxis: [{
 			data: list1,
 			axisLabel: {
-				rotate:30, //刻度旋转45度角
+				rotate:-30,
+        interval:0,//横轴信息全部显示
 				textStyle: {
 					color: "red",
 					fontSize: 13
 				}
 			}
 		}],
-		yAxis: {},
+		yAxis: {
+		 minInterval:1
+    },
+    grid: {
+		  y2:80
+     },
 		series: [{
+		    {#barGap:'1%',#}
 				type: 'bar',
-				barWidth: 15, //柱图宽度
+				barWidth:30, //柱图宽度
 				data: value1,
 				itemStyle: {
 					//通常情况下：
@@ -225,20 +232,22 @@
 		xAxis: [{
 			data: list2,
 			axisLabel: {
-				rotate:30, //刻度旋转30度角
+				rotate:0,
+        interval:0,//横轴信息全部显示
 				textStyle: {
 					color: "red",
 					fontSize: 16
 				}
 			}
 		}],
-		yAxis: {},
+		yAxis: {
+		 minInterval:1
+    },
 		series: [{
 				type: 'bar',
-				barWidth: 15,
+				barWidth:30,
 				data: value2,
 				itemStyle: {
-
 					normal: {
 						color: function(params) {
 							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];

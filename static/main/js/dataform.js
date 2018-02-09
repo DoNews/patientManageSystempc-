@@ -17,15 +17,15 @@
 										var form = layui.form,
 											upload = layui.upload,
 											laydate = layui.laydate;
-							laydate.render({
-								elem: '#yyDate'
-							});
-							laydate.render({
-								elem: '#birthDay'
-							});
-							laydate.render({
-								elem: "#yyDateNext "
-							});
+									laydate.render({
+										elem: '#yyDate'
+									});
+									laydate.render({
+										elem: '#birthDay'
+									});
+									laydate.render({
+										elem: "#yyDateNext "
+									});
 							var layer = layui.layer;
 							var uploadInst = upload.render({
 								elem: '#addupload'
@@ -55,15 +55,15 @@
 
 						});
 
-			$("#sureAdd").click(function () {
-				submitCreateData();
+						$("#sureAdd").click(function () {
+								submitCreateData();
             });
 			
-			$(".action").click(function () {
-				var type =$(this).attr("type");
-				submitUpdateData(type);
+						$(".action").click(function () {
+									var type =$(this).attr("type");
+									submitUpdateData(type);
             });
-			function submitCreateData() {
+						function submitCreateData() {
 								var surl ="/ordersubmit";
 								initUserData();
 								submit(surl)
@@ -80,7 +80,7 @@
 								postData["userinfo"]=JSON.stringify(userinfo);
 								postData["photo"] =JSON.stringify(imgSrcList);
             }
-			function initFolowData(stype) {
+						function initFolowData(stype) {
 							var remark =$("#textarea").val();
 							var nextcall =$("#yyDateNext").val();
 							var folowdata={}
@@ -112,15 +112,15 @@
 				initUserData()
 				submit("/orderupdate")
             }
-			Array.prototype.indexOf = function(val) {
-				for (var i = 0; i < this.length; i++) {
-					if (this[i] == val) return i;
-					}
-				return -1;
-            };
-			Array.prototype.remove = function(val) {
-				var index = this.indexOf(val);
-				if (index > -1) {
-					this.splice(index, 1);
-				}
-            };
+						Array.prototype.indexOf = function(val) {
+							for (var i = 0; i < this.length; i++) {
+								if (this[i] == val) return i;
+								}
+							return -1;
+									};
+						Array.prototype.remove = function(val) {
+							var index = this.indexOf(val);
+							if (index > -1) {
+								this.splice(index, 1);
+							}
+									};

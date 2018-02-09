@@ -151,30 +151,45 @@
                 });
 				//删除
 				$('.pmTbaleBtn').click(function() {
-				  layer.open({
+			    	layer.open({
             type: 3,
             content: '删除中...'
-          });
+           });
 				  var stId=$(this).prev().attr("data-id");
-				  var othis =this
-          if(window.confirm('你确定要删除当前记录吗？')){
-                  $.ajax({
-                      url: '/api/apoint/staffdelete/',
-                      type: "POST",
-                      data:{"id":stId},
-                      success:function () {
-                        parent.layer.closeAll()
-                        $(othis).parent().parent().remove();
-                        layer.msg("删除成功");
-
+				  var othis =this;
+				  layer.confirm('确认删除本条记录吗?', { btn: ['是','否'],btn1: function(index){
+                      $.ajax({
+                                url: '/api/apoint/staffdelete/',
+                                type: "POST",
+                                data:{"id":stId},
+                                success:function () {
+                                  parent.layer.closeAll()
+                                  $(othis).parent().parent().remove();
+                                  layer.msg("删除成功");
+                                }
+                              })
+                      },
+                      btn2: function(){
+                                 parent.layer.closeAll()
                       }
                   })
-                 return true;
-              }else{
-				          parent.layer.closeAll()
-                  return false;
 
-             }
+          {#if(window.confirm('你确定要删除当前记录吗？')){#}
+          {#        $.ajax({#}
+          {#            url: '/api/apoint/staffdelete/',#}
+          {#            type: "POST",#}
+          {#            data:{"id":stId},#}
+          {#            success:function () {#}
+          {#              parent.layer.closeAll()#}
+          {#              $(othis).parent().parent().remove();#}
+          {#              layer.msg("删除成功");#}
+          {#            }#}
+          {#        })#}
+          {#       return true;#}
+          {#    }else{#}
+			    {#	 parent.layer.closeAll()#}
+          {#        return false;#}
+          {#   }#}
 				});
 				//添加员工
 				$('#addStaff').click(function() {
@@ -187,28 +202,25 @@
 						offset: '40px',
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
-
 						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
-
 						end: function() { //此处用于演示
 
 						}
-
 					});
 				});
 
 				$("#addCustom").click(function () {
                       layer.open({
-						type: 2,
-						title: false,
-						closeBtn: 1, //不显示关闭按钮
-						shade: [0.4],
-						area: ['650px', '550px'],
-						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
-						anim: 2,
-						content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
+                      type: 2,
+                      title: false,
+                      closeBtn: 1, //不显示关闭按钮
+                      shade: [0.4],
+                      area: ['650px', '550px'],
+                      offset: '40px',
+                      scrollbar: false, //禁止浏览器滚动
+                      anim: 2,
+                      content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
+                      end: function() { //此处用于演示
 
 						}
 

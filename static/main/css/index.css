@@ -51,8 +51,9 @@
 
 .chart1,
 .chart2 {
-	height: 73%;
+	height:70%;
 	width: 100%;
+
 }
 
 .chart2_title,
@@ -244,6 +245,7 @@
 
 #rlhz {
 	background: #f4f7f9;
+	margin-bottom: 77px;
 }
 
 .rlhz_pop {
@@ -331,11 +333,15 @@
 }
 
 .allInfo_wrap {
-	margin: 0 auto;
+
 	width: 95%;
-	border-top: 1px solid #C2C2C2;
-	position: relative;
+
+	position: fixed;
+	bottom:2px;
+	left: 2.5%;
 	height: 70px;
+	    opacity: 1;
+    background: #f4f7f8;
 }
 
 .require_allInfo {
@@ -347,7 +353,7 @@
 	background: #5bbfd3;
 	color: #fff;
 	text-align: center;
-	position: absolute;
+	position:fixed;
 	right: 20px;
 	bottom: 20px;
 	border-bottom: 1px solid #CCCCCC;

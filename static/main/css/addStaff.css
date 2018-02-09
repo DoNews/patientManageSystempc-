@@ -104,7 +104,7 @@
 						border-bottom: 1px solid #CCCCCC;
 					}
 					.sureChange{
-						position: absolute;
+
 						left: 24px;
 						top: 15px;
 						background: #FFF;
@@ -112,7 +112,7 @@
 						border: none;
 					}
 					.sureAdd{
-						position: absolute;
+
 						right:24px;
 						top: 15px;
 					}
