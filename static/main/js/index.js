@@ -1,5 +1,6 @@
 var isrenling =false;
 $(function() {
+
 	layui.use(['layer'],function () {
 		var layer=layui.layer;
   	$('.hzrl_list_btn').click(function() {
@@ -60,13 +61,15 @@ $(function() {
 			content: ['/orderdetail?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 			end: function() { //此处用于演示
 
-			}
+      }
 
   })
 
 		})
+
 	})
 	//	患者认领弹框
+
 	function reloadremind() {
 		$.ajax("/todaywork",{
 			dataType:"json",
