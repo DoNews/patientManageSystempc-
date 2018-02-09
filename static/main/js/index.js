@@ -86,10 +86,7 @@ $(function () {
             })
 
         }
-
-    )
         //	患者认领弹框
-
         function reloadremind() {
             $.ajax("/todaywork", {
                 dataType: "json",
