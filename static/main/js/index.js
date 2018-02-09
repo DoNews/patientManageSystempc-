@@ -1,11 +1,11 @@
 var isrenling =false;
 $(function() {
 
-	//	患者认领弹框	
 	$('.hzrl_list_btn').click(function() {
 		isrenling =false;
 		var sid =$(this).attr("id");
-
+	layui.use(['layer'],function () {
+					var layer=layui.layer;
 		layer.open({
 			type: 2,
 			title: false,
@@ -22,12 +22,13 @@ $(function() {
 					$("#"+sid).parent().remove();
 				}
 			}
-		});
+				});
+		})
 	})
-
 	$('.jrrw_list_btn').click(function() {
 		var sid =$(this).attr("id");
-		layer.open({
+		layui.use(["layer"],function () {
+					layer.open({
 			type: 2,
 			title: false,
 			closeBtn: 1, //不显示关闭按钮
@@ -41,11 +42,14 @@ $(function() {
 
 			}
 		});
+    })
+
 
 	})
 	$('.xttx_list_btn').click(function() {
 	var sid =$(this).attr("id");
-		layer.open({
+	layui.use(['layer'],function () {
+			layer.open({
 			type: 2,
 			title: false,
 			closeBtn: 1, //不显示关闭按钮
@@ -59,13 +63,15 @@ $(function() {
 
 			}
 		});
-	})
+  })
+
+		})
+	//	患者认领弹框
 	function reloadremind() {
 		$.ajax("/todaywork",{
 			dataType:"json",
 			success:function (data) {
-				
-            }
+				}
 			
 		})
     }

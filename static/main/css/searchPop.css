@@ -12,7 +12,7 @@
     font-weight: 600;
     position: relative;
     color: #333840;
-    font-family: "SourceHanSansCN Regular";
+        font-family: "微软雅黑";
     height: 45px;
 }
 
@@ -45,17 +45,17 @@
 	border-top: 1px solid #ccc;
 	font-size: 13px;
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 }
 
 .searchpopTable th {
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+
 	height: 60px;
 	line-height: 60px;
 	text-align: left;
 	font-size: 16px;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 }
 
 .searchpopTable th:nth-child(1) {
@@ -77,18 +77,34 @@
 	margin-left: 5%;
 	margin-top: 3px;
 	font-size: 13px;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	line-height: 1.4!important;
 }
 
 .searchpopTable_con p:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	white-space: nowrap;
 }
-
-
+.detailClick{
+	width:50px;
+	text-align: center!important;
+}
+.patientDetail{
+	    display: inline-block;
+    border: 1px solid #ccc;
+    height: 26px;
+    line-height: 26px;
+    width:60px;
+    line-height: 26px;
+    margin: 2px auto 0;
+    text-align: center;
+    border-radius: 4px;
+    color: #5bbfd3;
+    font-size: 14px;
+    margin-left: 15px;
+}
 /*页码*/
 
 .pageNumbox {

@@ -54,6 +54,7 @@ urlpatterns = [
 
     url(r'^todaywork',todaywork),
     url(r'^reg$',reg),
-    url(r'^mypation$',mypation)
+    url(r'^mypation$',mypation),
+
 
 ]

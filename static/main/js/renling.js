@@ -12,7 +12,6 @@ $(".require_allInfo").click(function () {
     data:{"sid":getParam("id")},
     success:function (data) {
         //关闭iframe
-
         if(data.result==1)
         {
              parent.layer.msg('认领成功');

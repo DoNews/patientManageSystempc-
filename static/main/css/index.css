@@ -59,7 +59,7 @@
 .chart1_title {
 	font-size: 13px;
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	margin: 15px auto;
 }
 
@@ -157,7 +157,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 	margin-left: -10px;
 }
 
@@ -365,7 +365,7 @@
 	border-radius: 8px!important;
 }
 .layui-layer-setwin .layui-layer-close2 {
-	right: 11px!important;
+	right:2px!important;
 	top: -10px!important;
 }
 
