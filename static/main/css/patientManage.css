@@ -12,7 +12,7 @@
 	height: 40px;
 	line-height: 50px;
 	font-size: 18px;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 	margin: 10px 20px;
 	box-sizing: border-box;
 	position: relative;
@@ -51,17 +51,17 @@
 	border-top: 1px solid #ccc;
 	font-size: 13px;
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 }
 
 .pmTable th {
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	height: 50px;
 	line-height: 50px;
 	text-align: left;
 	font-size: 16px;
-	font-family: "SourceHanSansCN Regular";
+
 }
 
 .pmTable th:nth-child(1) {
@@ -82,13 +82,13 @@
 	margin-left: 5%;
 	margin-top: 3px;
 	font-size: 13px;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 	line-height: 1.4!important;
 }
 .pmTable_con p:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	white-space: nowrap;
 }
 /*页码*/

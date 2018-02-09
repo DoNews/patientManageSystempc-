@@ -3,7 +3,6 @@ window.onload = function() {
 
 	layui.use([ 'layer'], function() {
 		var layer = layui.layer;
-
 		//去管理
 		$('.remindTableBtn,.remindTableBtn2').click(function() {
 			var sid =$(this).attr("id");
@@ -16,7 +15,7 @@ window.onload = function() {
 				offset: '40px',
 				scrollbar: false, //禁止浏览器滚动
 				anim: 2,
-			content: ['/orderdetail?id='+sid, 'yes'],
+				content: ['/orderdetail?id='+sid, 'yes'],
 				end: function() { //此处用于演示
 
 				}

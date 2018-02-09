@@ -15,8 +15,7 @@ $(function() {
 								content: ['/api/apoint/search/?keyword='+$("#serch").val(), 'yes'],
 								end: function() {}
 							});
-    })
-
-
+    		})
 		});
+
 })

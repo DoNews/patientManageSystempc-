@@ -16,7 +16,7 @@
 	line-height: 50px;
 	padding-left: 15px;
 	font-size: 16px;
-	font-family: "SourceHanSansCN Regular";
+	    font-family: "微软雅黑";
 	margin: 10px 0px;
 	box-sizing: border-box;
 }
@@ -53,19 +53,19 @@
 	height: 50px;
 	border-top: 1px solid #ccc;
 	font-size: 13px;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 }
 
 .dataTable th,
 .dataLeftTable th,
 .dataRightTable th {
 	color: #333840;
-	font-family: "SourceHanSansCN Regular";
+
 	height: 50px;
 	line-height: 50px;
 	text-align: left;
 	font-size: 16px;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 }
 
 .dataTable_img {
@@ -82,14 +82,14 @@
 	width: 80%;
 	margin-left: 5%;
 	font-size: 13px;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	line-height: 1.4!important;
 }
 
 .dataTable_con p:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	font-family: "SourceHanSansCN Regular";
+    font-family: "微软雅黑";
 	white-space: nowrap;
 }
 

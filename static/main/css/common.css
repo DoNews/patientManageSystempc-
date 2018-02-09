@@ -59,7 +59,7 @@
 			margin: 0;
 			padding: 0;
 			background: #f4f7f9;
-			font-family: "微软雅黑";
+			font-family: "微软雅黑"!important;
 		}
 		
 		p,
@@ -78,6 +78,7 @@
 			flex: 0 0 200px;
 			background-color: #fff;
 			margin: 7px;
+			min-height:630px;
     	border-radius: 5px;
 		}
 		
@@ -270,6 +271,7 @@
 }
 	.layui-layer-iframe iframe	{
 		border-radius: 6px!important;
+		 height:582px!important;
 		}
 #pageNum{
 	text-align: center;
