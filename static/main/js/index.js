@@ -11,12 +11,12 @@ $(function() {
 			title: false,
 			closeBtn: 1, //不显示关闭按钮
 			shade: [0.4],
-			area: ['800px', '550px'],
+			area: ['850px', '550px'],
 			offset: '40px',
 			scrollbar: false, //禁止浏览器滚动
 			anim: 2,
 			content: ['/renling?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
-			end: function() { //此处用于演示
+			end: function() {
 				if(isrenling)
 				{
 					$("#"+sid).parent().remove();

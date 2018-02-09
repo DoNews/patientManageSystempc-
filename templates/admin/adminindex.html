@@ -42,7 +42,7 @@
 									</div>
 								</td>
 								<td>{{ item.phone }}</td>
-								<td>{{ item.is_cert }}</td>
+								<td>{{item.is_cert }}</td>
 								<td>{{ item.city }}
 								</td>
 
@@ -115,8 +115,7 @@
 				//编辑按钮
 
 				$('.saleredit').click(function() {
-                    var sid =$(this).attr("data-id");
-
+				  var sid =$(this).attr("data-id");
 					layer.open({
 						type: 2,
 						title: false,
@@ -127,13 +126,13 @@
 						scrollbar: false, //禁止浏览器滚动
 						anim: 2,
 						content: ['/api/apoint/staffeditor/?id='+sid, 'yes'],
-						end: function() { //此处用于演示
+						end: function() {
 
 						}
 					});
 
 				});
-                $(".customeredit").click(function () {
+        $(".customeredit").click(function () {
                     layer.open({
 						type: 2,
 						title: false,

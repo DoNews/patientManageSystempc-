@@ -164,20 +164,17 @@
 		<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/static/main/js/layer.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/main/js/echarts.simple.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/static/main/js/echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
 
          <script>
              var list1= ["本月累计跟进人次","本月分配患者数","本月认领患者"]
              var value1= [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
              var list2 = ["安排治疗","预约延后治疗","转院","暂停"]
              var value2 =[{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
-	//echart图标
+
 	var myChart1 = echarts.init(document.getElementById('chart1'));
-	// 指定图表的配置项和数据
+
 	var option1 = {
-		title: {
-			text: '本月数据'
-		},
 		tooltip: {
 			enterable: true,
 			trigger: 'axis',
@@ -188,18 +185,13 @@
 		xAxis: [{
 			data: list1,
 			axisLabel: {
-				rotate: 45, //刻度旋转45度角
+				rotate:30, //刻度旋转45度角
 				textStyle: {
 					color: "red",
 					fontSize: 13
 				}
 			}
 		}],
-//		grid: { // 控制图的大小，调整下面这些值就可以，
-//			x: 40,
-//			x2: 100,
-//			y2: 50, // y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
-//		},
 		yAxis: {},
 		series: [{
 				name: '销量',
@@ -224,47 +216,36 @@
 	var myChart2 = echarts.init(document.getElementById('chart2'));
 	// 指定图表的配置项和数据
 	var option2 = {
-		title: {
-			text: '数据组展示'
-		},
-		tooltip: {},
-		legend: {
-			data: ['销量']
-		},
+		tooltip: {
+      enterable: true,
+			trigger: 'axis',
+			axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			},
+    },
 		xAxis: [{
 			data: list2,
 			axisLabel: {
-				rotate: 90, //刻度旋转45度角
+				rotate:30, //刻度旋转30度角
 				textStyle: {
 					color: "red",
 					fontSize: 16
 				}
 			}
 		}],
-//		grid: { // 控制图的大小，调整下面这些值就可以，
-//			x: 40,
-//			x2: 100,
-//			y2: 50, // y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
-//		},
 		yAxis: {},
 		series: [{
 				name: '销量',
 				type: 'bar',
-				barWidth: 15, //柱图宽度
+				barWidth: 15,
 				data: value2,
 				itemStyle: {
-					//通常情况下：
+
 					normal: {
 						color: function(params) {
 							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
 							return colorList[params.dataIndex];
 						}
-					},
-					//鼠标悬停时：
-					emphasis: {
-						shadowBlur: 10,
-						shadowOffsetX: 0,
-						shadowColor: 'rgba(0, 0, 0, 0.5)'
 					}
 				},
 			}

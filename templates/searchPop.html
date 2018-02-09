@@ -51,9 +51,8 @@
 		</div>
 		<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 		<script src="/static/main/js/layui/layui.js"></script>
-
 		<script>
-			layui.use(['form', 'laydate'], function() {
+			layui.use(['form', 'laydate','layer'], function() {
 				var form = layui.form,
 					layer = layui.layer,
 					laydate = layui.laydate;
@@ -69,13 +68,13 @@
 					parent.layer.open({
 						type: 2,
 						title: false,
-						closeBtn: 1, //不显示关闭按钮
+						closeBtn: 1,
 						shade: [0.4],
 						area: ['800px', '600px'],
 						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
+						scrollbar: false,
 						anim: 2,
-						content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
+						content: ['/addpation', 'yes'],
 						end: function() {}
 					});
 				});

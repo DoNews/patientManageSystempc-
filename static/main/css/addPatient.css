@@ -42,9 +42,9 @@
 					background: #e9edf0;
 					border-radius: 5px;
 					height: 30px;
-					width: 95%;
+					width: 96%;
 					color: #020202;
-					margin-left: 3%;
+					margin-left: 2%;
 				}
 				
 				.des_info {
@@ -101,7 +101,9 @@
 					display: flex;
 					margin: 0 auto;
 					width: 95%;
+					padding: 7px 0px;
 					border-top:1px solid #ccc;
+
 				}
 				
 				.boxLeft p {

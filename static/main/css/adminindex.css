@@ -7,6 +7,10 @@
 	box-sizing: border-box;
 	position: relative;
 }
+.patientConTitle span:nth-child(1){
+	font-size:16px;
+	font-family: "微软雅黑";
+}
 /*分页*/
 #staffPage{
 	height: 87px;

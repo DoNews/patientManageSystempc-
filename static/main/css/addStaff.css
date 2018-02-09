@@ -8,6 +8,7 @@
 					font-weight: 800;
 					color: #333840;
 					position: relative;
+					font-family:"微软雅黑";
 					border-bottom: 1px solid #e9edf0;
 				}
 				
@@ -78,6 +79,7 @@
 						line-height: 30px;
 						width: 90%;
 						color: #020202;
+						padding-left:10px!important;
 					}
 					
 					.hospitalItem {

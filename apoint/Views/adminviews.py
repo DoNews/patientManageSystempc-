@@ -143,8 +143,5 @@ def addCustomerAction(request):
         # user.profile.name=name
         user.save()
         ZJUser(user=user, name=name, usertype=1, phone=phone).save()
-
-
-
-    return  HttpResponse('{"result":1,"msg":"成功"}')
+        return  HttpResponse('{"result":1,"msg":"成功"}')
 
