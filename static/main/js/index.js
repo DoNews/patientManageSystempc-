@@ -1,12 +1,11 @@
 var isrenling =false;
 $(function() {
-
-	$('.hzrl_list_btn').click(function() {
+	layui.use(['layer'],function () {
+		var layer=layui.layer;
+  	$('.hzrl_list_btn').click(function() {
 		isrenling =false;
 		var sid =$(this).attr("id");
-	layui.use(['layer'],function () {
-					var layer=layui.layer;
-		layer.open({
+	layer.open({
 			type: 2,
 			title: false,
 			closeBtn: 1, //不显示关闭按钮
@@ -23,11 +22,11 @@ $(function() {
 				}
 			}
 				});
-		})
+
 	})
-	$('.jrrw_list_btn').click(function() {
+		$('.jrrw_list_btn').click(function() {
 		var sid =$(this).attr("id");
-		layui.use(["layer"],function () {
+
 					layer.open({
 			type: 2,
 			title: false,
@@ -42,13 +41,13 @@ $(function() {
 
 			}
 		});
-    })
+
 
 
 	})
-	$('.xttx_list_btn').click(function() {
+		$('.xttx_list_btn').click(function() {
 	var sid =$(this).attr("id");
-	layui.use(['layer'],function () {
+
 			layer.open({
 			type: 2,
 			title: false,
@@ -62,10 +61,11 @@ $(function() {
 			end: function() { //此处用于演示
 
 			}
-		});
+
   })
 
 		})
+	})
 	//	患者认领弹框
 	function reloadremind() {
 		$.ajax("/todaywork",{
