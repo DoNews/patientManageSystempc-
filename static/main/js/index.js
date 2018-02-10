@@ -56,6 +56,7 @@ $(function () {
 
         $('.xttx_list_btn').click(function () {
             var sid = $(this).attr("id");
+
             layer.open({
                 type: 2,
                 title: false,
