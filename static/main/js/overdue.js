@@ -54,7 +54,7 @@ window.onload = function () {
                         dataType: "json",
                         success: function (data) {
                             $("#count").val(data.all);
-                            $("#data").html(data.lister);
+                            $("#data").html(data.data);
 
                         }
                     })
