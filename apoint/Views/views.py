@@ -331,11 +331,11 @@ def OrderUpdte(request):
                           {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % order.phone, "msg": order.wanthospital.confirm,
                            "needstatus": "false"})
         print 'message:%s,,,%s'% (r.content,order.phone)
-    tempid = 'LMNnexF_9nAelTBoWdJUIs-GRPbEHHR3pA72xjP0U50'
-    if order.openid:
-        IntegralChange(order.openid,tempid,order.wanthospital.link,'您的预约已经确认，请按时就诊','就诊提醒','确认就诊',order.createtime.strftime('%Y-%m-%d'))
-    if order.wanthospital.sales.openid:
-        IntegralChange(order.wanthospital.sales.openid, tempid, order.wanthospital.link, '有患者预约了%s治疗,请及时跟进'%order.wanthospital.name, '就诊提醒', '确认就诊',order.createtime.strftime('%Y-%m-%d'))
+        tempid = 'LMNnexF_9nAelTBoWdJUIs-GRPbEHHR3pA72xjP0U50'
+        if order.openid:
+            IntegralChange(order.openid,tempid,order.wanthospital.link,'您的预约已经确认，请按时就诊','就诊提醒','确认就诊',order.createtime.strftime('%Y-%m-%d'))
+        if order.wanthospital.sales.openid:
+            IntegralChange(order.wanthospital.sales.openid, tempid, order.wanthospital.link, '有患者预约了%s治疗,请及时跟进'%order.wanthospital.name, '就诊提醒', '确认就诊',order.createtime.strftime('%Y-%m-%d'))
     return JsonResutResponse({'ret':0,'msg':'success'})
 
 def IntegralChange(touser, template_id, url, first, value1, value2, value3):
