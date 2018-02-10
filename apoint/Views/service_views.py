@@ -106,7 +106,7 @@ def Remind(request):
 def Remindall(request):
     page =request.GET.get("page")
     user = ZJUser.objects.get(user=request.user)
-    now = datetime.datetime.now()
+    now = datetime.now()
     yestoday = now - timedelta(days=1)
     orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('-createtime')
 
