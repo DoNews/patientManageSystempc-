@@ -4,7 +4,7 @@ window.onload = function () {
     layui.use(['layer', 'laypage'], function () {
         var layer = layui.layer;
         //去管理
-        $('.remindTableBtn,.remindTableBtn2').click(function () {
+        $("#data").on('click','.remindTableBtn,.remindTableBtn2',function () {
             var sid = $(this).attr("id");
             layer.open({
                 type: 2,
