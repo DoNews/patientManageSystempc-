@@ -9,6 +9,7 @@ import os
 from django.core.paginator import Paginator
 from task import *
 import datetime
+from django import template
 def JsonResutResponse(result):
   return HttpResponse(simplejson.dumps(result))
 
@@ -106,7 +107,7 @@ def RemindSystem(orders):
                     'status': order.get_status_display(),  # 患者状态
                     'nextcalldate': order.nextcalldate,  # 计划时间
                     'day': time_diff,  # 逾期天数
-                    'sales': order.wanthospital.sales.name,  # 负责销售
+                    'sales': order.wanthospital.sales.name if order.wanthospital.sales else '无',  # 负责销售
                 }
                 lister.append(data)
             else:
@@ -187,3 +188,9 @@ def CreateCelery(order,equipment): #传过来的是订单 equipment 1是手机�
         a = 0
     for b in range(a):  # 0是一小时，1是一天，2是3天
         CreateMiss(order.id, order.name, b, order.wantTime,equipment)
+
+
+def trenderc(templates,lister):
+    t = template.loader.get_template(templates)
+    c = template.Context({'lister': lister})
+    return t.render(c)

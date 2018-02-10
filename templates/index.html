@@ -110,121 +110,121 @@
                 </ul>
                 {% if notify != '' %}
                     <a href="/remind">
-                        <div class="require_all">
+                    <div class="require_all">
 
-							查看全部
-						</div>
-                        {% endif %}
+                        查看全部
+                    </div>
+                {% endif %}
 
-					</div>
+            </div>
 
-				</div>
+        </div>
 
 
-			</div>
-		</div>
+    </div>
+</div>
 
-		<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
 
-		<script src="/static/main/js/echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/main/js/echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
 
-         <script>
-             var list1= ["本月累计跟进人次","本月分配患者数","本月认领患者"]
-             var value1= [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
-             var list2 = ["安排治疗","预约延后治疗","转院","暂停"]
-             var value2 =[{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
+<script>
+    var list1 = ["本月累计跟进人次", "本月分配患者数", "本月认领患者"]
+    var value1 = [{{thismonth}}, {{thismonthfp}}, {{thismonthrl}}]
+    var list2 = ["安排治疗", "预约延后治疗", "转院", "暂停"]
+    var value2 = [{{ v1 }}, {{ v2 }}, {{ v3 }}, {{ v4 }}]
 
-	var myChart1 = echarts.init(document.getElementById('chart1'));
+    var myChart1 = echarts.init(document.getElementById('chart1'));
 
-	var option1 = {
-		tooltip: {
-			enterable: true,
-			trigger: 'axis',
-			axisPointer: { // 坐标轴指示器，坐标轴触发有效
-				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-			},
-		},
-		xAxis: [{
-			data: list1,
-			axisLabel: {
-				rotate:-30,
-        interval:0,//横轴信息全部显示
-				textStyle: {
-					color: "red",
-					fontSize: 13
-				}
-			}
-		}],
-		yAxis: {
-		 minInterval:1
-    },
-    grid: {
-		  y2:80
-     },
-		series: [{
-		    {#barGap:'1%',#}
-				type: 'bar',
-				barWidth:30, //柱图宽度
-				data: value1,
-				itemStyle: {
-					//通常情况下：
-					normal: {
-						color: function(params) {
-							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
-							return colorList[params.dataIndex];
-						}
-					}
-				},
-			}
+    var option1 = {
+        tooltip: {
+            enterable: true,
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            },
+        },
+        xAxis: [{
+            data: list1,
+            axisLabel: {
 
-		]
-	};
-	myChart1.setOption(option1);
+                interval: 0,//横轴信息全部显示
+                textStyle: {
+                    color: "red",
+                    fontSize: 13
+                }
+            }
+        }],
+        yAxis: {
+            minInterval: 1
+        },
+        grid: {
+            y2: 80
+        },
+        series: [{
+            {#barGap:'1%',#}
+            type: 'bar',
+            barWidth: 30, //柱图宽度
+            data: value1,
+            itemStyle: {
+                //通常情况下：
+                normal: {
+                    color: function (params) {
+                        var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+                        return colorList[params.dataIndex];
+                    }
+                }
+            },
+        }
 
-	var myChart2 = echarts.init(document.getElementById('chart2'));
-	// 指定图表的配置项和数据
-	var option2 = {
-		tooltip: {
-      enterable: true,
-			trigger: 'axis',
-			axisPointer: { // 坐标轴指示器，坐标轴触发有效
-				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-			},
-    },
-		xAxis: [{
-			data: list2,
-			axisLabel: {
-				rotate:0,
-        interval:0,//横轴信息全部显示
-				textStyle: {
-					color: "red",
-					fontSize: 16
-				}
-			}
-		}],
-		yAxis: {
-		 minInterval:1
-    },
-		series: [{
-				type: 'bar',
-				barWidth:30,
-				data: value2,
-				itemStyle: {
-					normal: {
-						color: function(params) {
-							var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
-							return colorList[params.dataIndex];
-						}
-					}
-				},
-			}
+        ]
+    };
+    myChart1.setOption(option1);
 
-		]
-	};
-	myChart2.setOption(option2);
-        </script>
-	</body>
+    var myChart2 = echarts.init(document.getElementById('chart2'));
+    // 指定图表的配置项和数据
+    var option2 = {
+        tooltip: {
+            enterable: true,
+            trigger: 'axis',
+            axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            },
+        },
+        xAxis: [{
+            data: list2,
+            axisLabel: {
+                rotate: 0,
+                interval: 0,//横轴信息全部显示
+                textStyle: {
+                    color: "red",
+                    fontSize: 16
+                }
+            }
+        }],
+        yAxis: {
+            minInterval: 1
+        },
+        series: [{
+            type: 'bar',
+            barWidth: 30,
+            data: value2,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
+                        return colorList[params.dataIndex];
+                    }
+                }
+            },
+        }
+
+        ]
+    };
+    myChart2.setOption(option2);
+</script>
+</body>
 
 
 </html>

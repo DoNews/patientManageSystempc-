@@ -37,7 +37,7 @@ $(function () {
                 anim: 2,
                 content: ['/orderdetail?id=' + sid, 'yes'], //iframe的url，no代表不显示滚动条
                 end: function () { //此处用于演示
-
+                    reloadToday()
                 }
             });
 
@@ -67,7 +67,7 @@ $(function () {
                 anim: 2,
                 content: ['/orderdetail?id=' + sid, 'yes'], //iframe的url，no代表不显示滚动条
                 end: function () { //此处用于演示
-
+                reloadToday()
                 }
 
 

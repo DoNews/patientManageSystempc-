@@ -19,42 +19,17 @@ from django.conf.urls import url,include
 from django.contrib import admin
 
 
-from apoint.Views.userView import *
-from apoint.Views.views import *
-
 urlpatterns = [
-    url(r'^order$',order),
+
+
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
-    url(r'^index$',index),
-    url(r'^login',userlogin),
-    url(r'^',include('apoint.adminurls')),#PC端接口
-    url(r'^api/apoint/',include('apoint.wx_urls')),#微信调用接口
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'template_name': 'login.html'}),
-    url(r'^staffaddnew', staffaddnew),
-    url(r'^renling$',renling),
-    url(r'^createUser$',createUser),
-    url(r'^renlingAction$',renlingAction),
-    url(r'pations$',pations),
-    url(r'^pationsview',pationsview),#客服患者数据
-    url(r'^remind',remind),#全部提醒页面
-    url(r'^account',account),
-    url(r'^addpation',addpation),
-    url(r'^chart$',chart),
-    url(r'^upload',uploader),
-    url(r'^orderdetail$',orderdetail),
-    url(r'^ordersubmit',OrderSubmit),
-    url(r'^orderupdate',OrderUpdte),
 
-    url(r'^overdue', overdue),
-    url(r'^salercommit',salercommit),
-    url(r'^adminfenpei', adminfenpei),
 
-    url(r'^staffaddnew', staffaddnew),
+    url(r'^', include('apoint.urls.adminurls')),#PC端接口
+    url(r'^api/apoint/', include('apoint.urls.wx_urls')),#微信调用接口
+    url(r'^', include('apoint.urls.url_account')),  # PC端接口
+    url(r'^', include('apoint.urls.url_login')),  # PC端接口
+    url(r'^', include('apoint.urls.url_wechat')),  # PC端接口
 
-    url(r'^todaywork',todaywork),
-    url(r'^reg$',reg),
-    url(r'^mypation$',mypation),
-
-    url(r'^checkUser',checkUser)
 ]

@@ -1,0 +1,42 @@
+ {% for item in notify %}
+                                {% ifequal  item.type 1 %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.time }} {{ item.hosp }} 管理员向你分配了该患者</p>
+								</div>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								查看详细
+								 </span>
+							</li>
+                                {% endifequal %}
+                                         {% ifequal  item.type 2 %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.hosp }} 销售提交了备注</p>
+								</div>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								查看备注
+								 </span>
+							</li>
+                                {% endifequal %}
+                                      {% ifequal  item.type 3 %}
+                            <li>
+								<div class="xttx_list_img"></div>
+								<div class="xttx_list_con">
+									<p>{{ item.name }}</p>
+
+									<p>{{ item.hosp }} 您已逾期<span class="day">{{ item.yuqu }}</span>天未跟进</p>
+								</div>
+								<span class="xttx_list_btn" id="{{ item.id }}">
+								电话确认
+								 </span>
+							</li>
+                                {% endifequal %}
+                            {% endfor %}
+                            
