@@ -419,5 +419,5 @@ def yuqi(request):
     else:
         lister=[]
     t = template.loader.get_template("control/yuqiitem.html")
-    c = template.Context({'orders': lister})
+    c = template.Context({'lister': lister})
     return JsonResutResponse({"data":t.render(c)})
