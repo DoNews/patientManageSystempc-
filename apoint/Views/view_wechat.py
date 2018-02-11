@@ -1,4 +1,5 @@
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
+from apoint.Views.view_wx import *
 def checkUser(request):
 
     openid = request.GET.get("openid")
