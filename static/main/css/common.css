@@ -275,6 +275,10 @@
 		 height:580px!important;
 		    min-width:760px;
 		}
+	.layui-form-item input{
+		width:92%;
+		margin-left: 8px;
+	}
 #pageNum{
 	text-align: center;
     margin: 0 auto;
