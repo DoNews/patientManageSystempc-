@@ -17,11 +17,22 @@ window.onload = function() {
 				anim: 2,
 				content: ['/orderdetail?id='+sid, 'yes'],
 				end: function() { //此处用于演示
-
+					reloadData();
 				}
 			});
 
 		});
 		
 	});
+	
+	function reloadData() {
+		 $.ajax("/yuqi", {
+                dataType: "json",
+                success: function (data) {
+                    $("#data").html(data.data)
+                }
+
+
+            })
+    }
 }

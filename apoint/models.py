@@ -81,7 +81,8 @@ CHIOCE=((1,'未认领'),
         (11,'延后治疗'),
         (12,'暂停跟进'),
         (13,'转院'),
-        (14,'确认未到诊'))
+        (14,'确认未到诊'),
+        (15,'被重新激活'))
 class Order(models.Model):
     serial=models.CharField('编号',max_length=20,blank=True,null=True)
     openid = models.CharField('openid', max_length=100, blank=True, null=True)

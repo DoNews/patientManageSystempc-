@@ -1,130 +1,135 @@
-				.newPatientTitle {
-					width: 95%;
-					margin: 0 auto;
-					height: 50px;
-					line-height: 50px;
-					text-align: center;
-					font-size: 16px;
-					font-weight: 800;
-					color: #333840;
-					position: relative;
-					border-bottom: 1px solid #e9edf0;
-				}
-				
-				.newPatientBtn {
-					display: inline-block;
-					height: 30px;
-					position: absolute;
-					padding: 0 15px;
-					left: 6px;
-					top: 10px;
-					line-height: 30px;
-					background: #e9edf0;
-					border-radius: 5px;
-					font-weight: 200;
-					color: #5bbed3;
-					cursor: pointer;
-				}
-				
-				.info_text {
-					resize: none;
-					width: 96%;
-					box-sizing: border-box;
-					margin: 0 2%;
-					border: none;
-					background: #e9edf0;
-					border-radius: 5px;
-				}
-				
-				#yyDateNext {
-					outline: none;
-					border: none;
-					background: #e9edf0;
-					border-radius: 5px;
-					height: 30px;
-					width: 96%;
-					color: #020202;
-					margin-left: 2%;
-				}
-				
-				.des_info {
-					margin-top: 14px;
-				}
-				
-				.boxLeft {
-					flex: 0 0 76px;
-					height: 86px;
-					text-align: center;
-				}
-				.addZtgj {
-					display: inline-block;
-					border: 1px solid #eee;
-					height: 26px;
-					line-height: 26px;
-					width: 80px;
-					font-size: 1rem;
-					line-height: 26px;
-					margin-top: 17px;
-					text-align: center;
-					border-radius: 4px;
-					color: #ff5656;
-					background: #fff;
-					margin-left: 17px;
-					float: left;
-				}
-				
-				.addBtn,
-				.addBtn2 {
-					width: 80px;
-					height: 30px;
-					line-height: 30px;
-					border-radius: 4px;
-					background: #fff;
-					color: #5bbfd3;
-					text-align: center;
-					float: right;
-					margin: 17px auto;
-					margin-right: 17px;
-					border-bottom: 1px solid #eee;
-					border: none;
-					cursor: pointer;
-				}
-				
-				.addBtn2 {
-					background: #5bbfd3;
-					color: #fff;
-					cursor: pointer;
-				}
-				
-				.patientHisBox ul li {
-					display: flex;
-					margin: 0 auto;
-					width: 95%;
-					padding: 7px 0px;
-					border-top:1px solid #ccc;
+.newPatientTitle {
+    width: 95%;
+    margin: 0 auto;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: #333840;
+    position: relative;
+    border-bottom: 1px solid #e9edf0;
+}
 
-				}
-				
-				.boxLeft p {
-					margin-top: 10px;
-					color: #6b7380;
-					
-				}
-				.boxRight{
-					width: 100%;
-					position: relative;
-				}
-				.boxRight .patientHisText {
-					color: #6b7380;
-					width: 100%;
-				}
-				
-				.boxRight .patientHisDate {
-					margin-top: 5px;
-					text-align: right;
-					color: #6b7380;
-					width: 100%;
-					position: absolute;
-					right: 0 ;
-					bottom: 3px;
-				}
+.newPatientBtn {
+    display: inline-block;
+    height: 30px;
+    position: absolute;
+    padding: 0 15px;
+    left: 6px;
+    top: 10px;
+    line-height: 30px;
+    background: #e9edf0;
+    border-radius: 5px;
+    font-weight: 200;
+    color: #5bbed3;
+    cursor: pointer;
+}
+
+.info_text {
+    resize: none;
+    width: 96%;
+    box-sizing: border-box;
+    margin: 0 2%;
+    border: none;
+    background: #e9edf0;
+    border-radius: 5px;
+}
+
+#yyDateNext {
+    outline: none;
+    border: none;
+    background: #e9edf0;
+    border-radius: 5px;
+    height: 30px;
+    width: 96%;
+    color: #020202;
+    margin-left: 2%;
+}
+
+.des_info {
+    margin-top: 14px;
+}
+
+.boxLeft {
+    flex: 0 0 76px;
+    height: 86px;
+    text-align: center;
+}
+
+.addZtgj {
+    display: inline-block;
+    border: 1px solid #eee;
+    height: 26px;
+    line-height: 26px;
+    width: 80px;
+    font-size: 1rem;
+    line-height: 26px;
+    margin-top: 17px;
+    text-align: center;
+    border-radius: 4px;
+    color: #ff5656;
+    background: #fff;
+    margin-left: 17px;
+    float: left;
+}
+
+.addBtn,
+.addBtn2 {
+    width: auto;
+    min-width: 80px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 4px;
+    background: #fff;
+    color: #5bbfd3;
+    text-align: center;
+    float: right;
+    margin: 17px auto;
+    margin-right: 17px;
+    border-bottom: 1px solid #eee;
+    border: none;
+    cursor: pointer;
+}
+
+.addBtn2 {
+    background: #5bbfd3;
+    color: #fff;
+    cursor: pointer;
+}
+
+.patientHisBox ul li {
+    display: flex;
+    margin: 0 auto;
+    width: 95%;
+    padding: 7px 0px;
+    border-top: 1px solid #ccc;
+
+}
+
+.boxLeft p {
+    margin-top: 10px;
+    color: #6b7380;
+
+}
+
+.boxRight {
+    width: 100%;
+    position: relative;
+}
+
+.boxRight .patientHisText {
+    color: #6b7380;
+    width: 100%;
+}
+
+.boxRight .patientHisDate {
+    margin-top: 5px;
+    text-align: right;
+    color: #6b7380;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+}

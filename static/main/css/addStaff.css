@@ -101,8 +101,10 @@
 						background: #5bbfd3;
 						color: #fff;
 						text-align: center;
+
 						border-bottom: 1px solid #CCCCCC;
 					}
+
 					.sureChange{
 
 						left: 24px;
@@ -110,9 +112,11 @@
 						background: #FFF;
 						color: red;
 						border: none;
+						margin-left: 20px;
 					}
 					.sureAdd{
-
+float: right;
 						right:24px;
 						top: 15px;
+						margin-right: 20px;
 					}

@@ -1,7 +1,8 @@
 #coding:utf-8
 from django.conf.urls import url
 
-from apoint.Views.wx_views import *
+from apoint.Views.view_wx import *
+
 from apoint.Views.service_views import *
 
 urlpatterns = [
@@ -30,6 +31,7 @@ urlpatterns = [
     #管理员
     url(r'^stafman/',StafManag),##管理员的销售和客服管理
     url(r'^staffall/',StaffAll),#查看所有销售
+    url(r'^AccountAll',AccountAll),
     url(r'^staffeditor/',StaffEditor),#查看销售详情
     url(r'^addstaff/',AddStaff),#添加销售和修改销售
     url(r'^queryhosp/',QueryHosp),##查询医院(一省对应一个医院列表)

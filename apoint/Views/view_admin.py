@@ -33,7 +33,7 @@ def adminindex(request):
         lister.append(data)
     ser=ZJUser.objects.filter(usertype=1) #找的是客服
 
-    return render(request, "admin/adminindex.html", {"pageindex":0,'staffs':lister,'service':ser})
+    return render(request, "admin/adminindex.html", {"pageindex":0,'data':trenderc('control/saleritem.html',lister),'all':len(users), 'staffs':lister,'lister':trenderc('control/accountitem.html',ser)})
 
 def adminpationsview(request):
     orders = Order.objects.all()
@@ -41,27 +41,35 @@ def adminpationsview(request):
     print orders
     return render(request,"admin/admindataManage.html",{"pageindex":1,"all":orders.count(),"order":order})
 
+#医院列表视图
 def hospital(request):
 
-    hosp = Hospital.objects.all()
+    hosp = Hospital.objects.all().order_by('-id')
     hosps=[]
     for h in hosp:
         count = Order.objects.filter(wanthospital=h).count()
         hosps.append({"hosp":h,"count":count})
     return render(request,"admin/adminHospitalManage.html",{"pageindex":2,"hosp":hosps})
 
+#第三方数据视图
 def thirdpart(request):
     noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime').count()  # 第三方进来的 没有客服的
     return render(request, "admin/adminAnontherSystem.html",{"pageindex":3,"all":noservit})
+
+#图表视图
 def adminchart(request):
     return render(request, "admin/adminreportFormManage.html",{"pageindex":4})
+
+#管理员账户设置视图
 def adminaccount(request):
 
     return render(request, "admin/accountManage.html",{"pageindex":5})
 
-
+#编辑销售视图
 def staffedit(request):
     return render(request,"admin/addStaff.html",)
+
+#编辑医院视图
 def editHospital(request):
     uid =request.GET.get("id")
     area = Area.objects.all()
@@ -75,6 +83,8 @@ def editHospital(request):
             ishave=1
         data.append({"hosp":hos,"name":a.name,"id":a.id,"ishave":ishave})
     return render(request,"admin/editHospital.html",{"area":data,"uid":int(uid)})
+
+
 def newStaffHosp(request):
     area = Area.objects.all()
     data = []

@@ -17,7 +17,7 @@
 				<div class="remindConBox" style="height: 550px;">
 					<div class="remindConTitle" style="position: relative;"><span>医院管理</span><span class="newgd" id="addCustom">新增</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
-						<tbody>
+
 							<tr>
 							
 								<th>省份</th>
@@ -26,6 +26,7 @@
 								<th>患者预约数量</th>
 								<th>管理员操作</th>
 							</tr>
+                    <tbody id="data">
                             {% for foo in hosp %}
 	<tr>
 
@@ -72,11 +73,11 @@
 					anim: 2,
 					content: ['/hospview', 'yes'], //iframe的url，no代表不显示滚动条
 					end: function() { //此处用于演示
-
+reloadData(1)
 					}
 				})
             });
-			$('.patientMan').click(function() {
+			$("#data").on("click",'.patientMan',function() {
 			    var sid =$(this).attr("id")
 				layer.open({
 					type: 2,
@@ -91,7 +92,7 @@
 					content: ['/hospview?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 
 					end: function() { //此处用于演示
-
+                    reloadData(1)
 					}
 				})
 			})
@@ -99,6 +100,22 @@
 
 
 		});
+		function reloadData(page) {
+            $.ajax({
+						url:"/api/apoint/allhospit/",
+						data:{"page":page},
+						type:"GET",
+						dataType:"json",
+						success:function (data) {
+
+						$("#data").html(data.data);
+
+
+
+						console.log(data)
+                        }
+					})
+        }
 	</script>
 
 </html>

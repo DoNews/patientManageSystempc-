@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django import template
 from datetime import datetime, timedelta
 from apoint.common import *
+import requests
 # Create your views here.
 import json
 from apoint.models import *
@@ -54,7 +55,7 @@ def index(request):
 
     thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(createtime__month=now.month).count() #本月分配
     thismonthrl =OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count()
-    print thismonth,thismonthfp,thismonthrl
+
     v1 = OrderDetail.objects.filter(status=6).filter(creater=user).count() #已安排治疗
     v2 = OrderDetail.objects.filter(status=11).filter(creater=user).count()
     v3 = OrderDetail.objects.filter(status=13).filter(creater=user).count()
@@ -118,8 +119,8 @@ def getNotify(user):
         }
         if checkdicinlist(arr, n.id):
             arr.append(data)
-    t = template.loader.get_template("control/today.html")
-    c = template.Context({'todaywork': arr})
+    t = template.loader.get_template("control/notify.html")
+    c = template.Context({'notify': arr[:4]})
     return t.render(c)
 
 def todaywork(request):
@@ -320,10 +321,56 @@ def OrderUpdte(request):
     folowitem['order_id']=user['oid']
     folowitem['creater_id']=zuser.id
     desc = u'将%s进行了%s的操作' % (order.first().name, getStatusName(folows['status']))
-    print desc
+
     folowitem['remark'] =desc
     OrderDetail.objects.create(**folowitem)
+    order=order.first()
+    if order.status==3:#确认去就诊
+        http = "http://222.73.117.158:80/msg/HttpBatchSendSM"
+        r = requests.post(http,
+                          {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % order.phone, "msg": order.wanthospital.confirm,
+                           "needstatus": "false"})
+        print 'message:%s,,,%s'% (r.content,order.phone)
+        tempid = 'LMNnexF_9nAelTBoWdJUIs-GRPbEHHR3pA72xjP0U50'
+        if order.openid:
+            IntegralChange(order.openid,tempid,order.wanthospital.link,'您的预约已经确认，请按时就诊','就诊提醒','确认就诊',order.createtime.strftime('%Y-%m-%d'))
+        if order.wanthospital.sales.openid:
+            IntegralChange(order.wanthospital.sales.openid, tempid, order.wanthospital.link, '有患者预约了%s治疗,请及时跟进'%order.wanthospital.name, '就诊提醒', '确认就诊',order.createtime.strftime('%Y-%m-%d'))
     return JsonResutResponse({'ret':0,'msg':'success'})
+
+def IntegralChange(touser, template_id, url, first, value1, value2, value3):
+  sJson = {'touser': touser,
+           'template_id': template_id,
+           "url": url,
+           'data': {
+             'first': {
+               "value": first  # first_value % realname
+             },
+             'keyword1': {
+               "value": value1
+             },
+             'keyword2': {
+               "value": value2
+             },
+             'keyword3': {
+               "value": value3
+             },
+             'remark': {"value": "请点击“详情”了解具体信息"}
+           },
+           }
+  try:
+    url = 'http://wx.yuemia.com/wechat/sendtemp.ashx'
+    parm = {"wx":'xinghui', "data": json.dumps(sJson)}
+    r = requests.post(url, parm)
+    print 'temp re:',r.content
+    if (eval(r.content)['errcode'] != 0):
+      print eval(r.content)
+      return False
+  except Exception, e:
+
+    print 'errorL',e.message
+    return e.message
+  return True
 
 def getStatusName(statusvalue):
 
@@ -358,25 +405,19 @@ def staffaddnew(request):
     area = Area.objects.all()
     return render(request, "admin/addnewStaff.html",{"area":area} )
 
-def checkUser(request):
 
-    openid = request.GET.get("openid")
-    o = Order.objects.filter(openid=openid)
-    if len(o)>0:
-        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/AppiontmentSuccess.html")
+
+@login_required(login_url="/login/")
+def yuqi(request):
+    user = ZJUser.objects.get(user=request.user)
+    now = datetime.datetime.now()
+    yestoday = now - timedelta(days=1)
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(status=12).order_by(
+        '-createtime')[:5]
+    if len(orders)>0:
+        lister = RemindSystem(orders)  # 这是逾期的
     else:
-        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/Appiontment.html?openid="+openid)
-
-def order(request):
-    agent = request.META.get('HTTP_USER_AGENT')
-    if agent.lower().find("micromessenger")>-1:
-        return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252FcheckUser&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
-    else:
-        return HttpResponseRedirect("http://order.yuemia.com/static/MobileClient/Patient/Appiontment.html")
-
-def reg(req):
-
-    return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FSaler%252FstaffAuth.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
-
-def mypation(req):
-    return HttpResponseRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1e09c7ff5e9b8adf&redirect_uri=http%3A%2F%2Fwx.yuemia.com%2Fwechat%2Fopenid.ashx%3Fwx%3Dxinghui%26type%3D1%26Url%3Dhttp%253A%252F%252Forder.yuemia.com%252Fstatic%252FMobileClient%252FSaler%252FMyPatient.html&response_type=code&scope=snsapi_base&state=O#wechat_redirect")
+        lister=[]
+    t = template.loader.get_template("control/yuqiitem.html")
+    c = template.Context({'lister': lister})
+    return JsonResutResponse({"data":t.render(c)})

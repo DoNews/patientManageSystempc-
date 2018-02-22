@@ -1,7 +1,7 @@
 from django.conf.urls import url,include
 from django.contrib import admin
 
-from apoint.Views.adminviews import *
+from apoint.Views.view_admin import *
 urlpatterns = [
     url(r'adminindex', adminindex),
     url(r'^adminpationsview', adminpationsview),
@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^addCustomer$',addCustomer),
     url(r'^addCustomerAction',addCustomerAction),
 
-    url(r'^addHospital', newStaffHosp)
+    url(r'^addHospital', newStaffHosp),
+
 
 ]
