@@ -149,8 +149,8 @@
 }
 /*弹框样式初始化*/
 .layui-layer{
-	/*border-radius: -moz-calc(8px!important);*/
-	/*border-radius: -webkit-calc(8px!important);*/
+	border-radius: -moz-calc(8px!important);
+	border-radius: -webkit-calc(8px!important);
 	border-radius: 8px!important;
 }
 .layui-layer-setwin .layui-layer-close2 {
