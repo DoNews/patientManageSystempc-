@@ -158,7 +158,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: #333840;
-	    font-family: "微软雅黑";
+	font-family: "微软雅黑";
 	margin-left: -10px;
 }
 
@@ -382,6 +382,9 @@ layui-layer layui-layer-iframe
 	border-radius: -moz-calc(10px)!important;
 	border-radius: 10px!important;
 }
-
+.layui-form-item input{
+	width: 92%;
+	margin-left: 2%;
+}
 
 /*患者认领弹框*/
