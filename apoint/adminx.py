@@ -3,7 +3,7 @@ import xadmin
 from models import *
 #class ZJUseradmin(object):
 class OrderDetailDisplay(object):
-    list_filter=['creater',]
+    list_filter=['creater','status']
 
 xadmin.site.register(ZJUser)
 xadmin.site.register(SalesUser)
