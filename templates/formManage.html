@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
     	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
@@ -68,10 +68,19 @@
 			},
       },
 			xAxis: [{
-				data: ["本月累计跟进人次", "本月分配患者数", "本月认领患者数"],
-				axisLabel: {
-					rotate:0,
-				}
+				data: ["累计跟进人次", "分配患者数", "认领患者数"],
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {
 			  minInterval:1
@@ -113,13 +122,18 @@
       },
 			xAxis: [{
 				data: ["累计跟进人次", "累计分配患者数", "累计认领患者数"],
-				axisLabel: {
-					rotate: 0,
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {
 			 minInterval:1
@@ -165,13 +179,18 @@
         },
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
-				axisLabel: {
-					rotate: 0,
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {
 
@@ -216,13 +235,18 @@
       },
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
-				axisLabel: {
-					rotate:0,
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis:[
 			  {

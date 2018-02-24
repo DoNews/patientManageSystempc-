@@ -47,6 +47,7 @@
 .sjy_right {
 	height: 100%;
 	flex: 0 0 48%;
+	text-align: center;
 }
 
 .chart1,
@@ -168,9 +169,9 @@
 	color: #818a99;
 }
 
-.xttx_list_con p:nth-child(2) {
-	color: #818a99;
-}
+/*.xttx_list_con p:nth-child(2) {*/
+	/*color: #818a99;*/
+/*}*/
 
 .xttx_list_con p:nth-child(2) .deldate {
 	color: #ff5656;

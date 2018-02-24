@@ -53,7 +53,9 @@
 	width:100%;
 	text-align: center;
 }
-
+.yy_loginForm p input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #e9edef inset !important;
+}
 .changePass {
 	display: flex;
 }
