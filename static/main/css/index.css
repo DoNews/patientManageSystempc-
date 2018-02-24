@@ -168,11 +168,6 @@
 .xttx_list_con p:nth-child(1) {
 	color: #818a99;
 }
-
-/*.xttx_list_con p:nth-child(2) {*/
-	/*color: #818a99;*/
-/*}*/
-
 .xttx_list_con p:nth-child(2) .deldate {
 	color: #ff5656;
 }
