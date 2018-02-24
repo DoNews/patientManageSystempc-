@@ -25,7 +25,7 @@ def chart(request):
     now = datetime.datetime.now()
     thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month).exclude(status=12).count() #查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count() #本月累计跟进人次
-    thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count() #本月认领
+    thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2,creater=user).count() #本月认领
     v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(creater=user).count()#本月已安排治疗
     v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(creater=user).count() #延后治疗
     v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(creater=user).count() #转院的
@@ -33,7 +33,7 @@ def chart(request):
     #查看全部
     thismonthall = OrderDetail.objects.filter(creater=user).count()  # 全部累计跟进人次
     thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,).exclude(status=12).count()#查看全部分配的数据
-    thismonthrlall = OrderDetail.objects.filter(status=2).count()  # 全部认领
+    thismonthrlall = OrderDetail.objects.filter(status=2,creater=user).count()  # 全部认领
     v1all = OrderDetail.objects.filter(status=6,creater=user).count()  # 全部已安排治疗
     v2all = OrderDetail.objects.filter(status=11,creater=user).count()  # 全部延后治疗
     v3all = OrderDetail.objects.filter(status=13,creater=user).count()  # 全部转院的
@@ -54,7 +54,7 @@ def index(request):
     thismonth=OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count()#本月跟进工单
 
     thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(createtime__month=now.month).count() #本月分配
-    thismonthrl =OrderDetail.objects.filter(createtime__month=now.month).filter(status=2).count()
+    thismonthrl =OrderDetail.objects.filter(createtime__month=now.month).filter(status=2,creater=user).count()
 
     v1 = OrderDetail.objects.filter(status=6).filter(creater=user).count() #已安排治疗
     v2 = OrderDetail.objects.filter(status=11).filter(creater=user).count()
