@@ -25,7 +25,7 @@ def chart(request):
     now = datetime.datetime.now()
     thismonthfp=OrderDetail.objects.filter(creater__user__is_superuser=True,order__custome=user,createtime__month=now.month).exclude(status=12).count() #查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count() #本月累计跟进人次
-    thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2,creater=user).count() #本月认领
+    thismonthrl = len(set(OrderDetail.objects.filter(createtime__month=now.month).filter(status=2,creater=user)))#本月认领
     v1 = OrderDetail.objects.filter(status=6,createtime__month=now.month).filter(creater=user).count()#本月已安排治疗
     v2 = OrderDetail.objects.filter(status=11,createtime__month=now.month).filter(creater=user).count() #延后治疗
     v3 = OrderDetail.objects.filter(status=13,createtime__month=now.month).filter(creater=user).count() #转院的
