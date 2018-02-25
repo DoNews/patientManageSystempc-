@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
 	</head>
@@ -129,21 +129,25 @@
 					alignWithLabel: true
 				},
 				axisLabel: {
-				rotate:45,
-				textStyle: {
-					color: "red",
-					fontSize: 13
-				}
-			}
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: [{
 				type: 'value',
-        minInterval:1
+                minInterval:1
 			}],
-
 			series: [{
 				type: 'bar',
-				barWidth: '60%',
+				barWidth: '40%',
 				data: [{{ treanumber }}, {{ transfer }}, {{ appoins }}, {{ confirm }}],
 				itemStyle: {
 					//通常情况下：

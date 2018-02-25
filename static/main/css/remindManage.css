@@ -148,8 +148,12 @@
 .remindTable_con p:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
-	    font-family: "微软雅黑";
+	font-family: "微软雅黑";
 	white-space: nowrap;
+	color: #333840;
+}
+.remindTable_con p:nth-child(1) {
+	color:#818a99;
 }
 
 

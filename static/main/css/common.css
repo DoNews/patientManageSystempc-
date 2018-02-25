@@ -160,6 +160,7 @@
 			padding-left: 35px;
 			background: #eaeef0;
 			color: #98a2b2;
+			border-right: none;
 		}
 		
 		.searchBox input::-webkit-input-placeholder {
@@ -285,7 +286,9 @@
     width: 97%;
     border-top: 1px solid #ccc;
 }
-
+.pmTable_con p:nth-child(1){
+	color: #818a99;
+}
 /*文本框谷歌样式修改*/
 		input:-webkit-autofill,
 textarea:-webkit-autofill,

@@ -6,13 +6,18 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
-				axisLabel: {
-					rotate:45, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize:10
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {},
 			series: [{
@@ -47,13 +52,18 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
-				axisLabel: {
-					rotate: 45, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {},
 			series: [{
@@ -93,13 +103,18 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
-				axisLabel: {
-					rotate: 45, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {},
 			series: [{
@@ -137,13 +152,18 @@ var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 			
 			xAxis: [{
 				data: ["本月累计测评人数", "本月分配患者数", "本月总患者数"],
-				axisLabel: {
-					rotate: 45, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: {},
 			series: [{

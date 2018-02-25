@@ -1,9 +1,9 @@
 window.onload = function() {
+
 	//分页
 	layui.use(['laypage', 'layer'], function() {
 		var laypage = layui.laypage,
 			layer = layui.layer;
-
 		//自定义样式
 		//完整功能
 		laypage.render({
@@ -24,16 +24,15 @@ window.onload = function() {
                          success: function (data) {
                              $("#count").val(data.all);
                              $("#data").html(data.lister);
-
-
-
-
-                             console.log(data)
+                             // console.log(data)
                          }
+
                      })
                  }
+
 			}
 		});
 	});
+
 
 }

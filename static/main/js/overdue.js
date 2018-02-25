@@ -55,7 +55,6 @@ window.onload = function () {
                         success: function (data) {
                             $("#count").val(data.all);
                             $("#data").html(data.data);
-
                         }
                     })
         }

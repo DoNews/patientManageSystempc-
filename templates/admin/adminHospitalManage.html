@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>医院管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
 	</head>
@@ -24,7 +24,7 @@
 								<th>负责销售</th>
 								<th>医院名称</th>
 								<th>患者预约数量</th>
-								<th>管理员操作</th>
+								<th style="text-align: center;">管理员操作</th>
 							</tr>
                     <tbody id="data">
                             {% for foo in hosp %}
@@ -34,7 +34,7 @@
 								<td>{{ foo.hosp.sales }}</td>
 								<td>{{ foo.hosp.name }}</td>
 								<td>{{ foo.count }}</td>
-								<td><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
+								<td style="text-align: center"><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
 							</tr>
                             {% endfor %}
 
@@ -107,12 +107,9 @@ reloadData(1)
 						type:"GET",
 						dataType:"json",
 						success:function (data) {
-
-						$("#data").html(data.data);
-
-
-
-						console.log(data)
+                            $("#data").html(data.data);
+                            $("#data tr td:nth-child(5)").css('text-align','center');
+                             {#						console.log(data)#}
                         }
 					})
         }

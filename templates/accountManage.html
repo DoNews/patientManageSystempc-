@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>账户管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/accountManage.css" />
         	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
@@ -20,11 +20,21 @@
 					<div class="changePass yy_loginForm">
 						<div class="changeLeft">
 							<p class="p_text">旧密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="op" /></p>
+                            <p>
+                                <input type="password" style="display: none"/>
+                            </p>
+							<p>
+                                <input type="password" id="op"  />
+                            </p>
 							<p class="p_text">新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="np1" /></p>
+							<p>
+
+                                <input type="password" id="np1"/>
+                            </p>
 							<p class="p_text">重复新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="np2" /></p>
+							<p>
+                                <input type="password" id="np2" />
+                            </p>
 							<div class="changePassBtn">
 								保存提交
 							</div>

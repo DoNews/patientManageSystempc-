@@ -16,12 +16,15 @@ $(".p").click(function () {
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
-        laydate = layui.laydate;
+        laydate = layui.laydate,
+        date=new Date();
     laydate.render({
-        elem: '#yyDate'
+        elem: '#yyDate',
+        min:'date'
     });
     laydate.render({
-        elem: '#birthDay'
+        elem: '#birthDay',
+        max:'date'
     });
     laydate.render({
         elem: "#yyDateNext "
