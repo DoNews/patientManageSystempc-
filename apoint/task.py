@@ -18,7 +18,7 @@ def TimingModel(SentWhoId, MsgType):
         conten = u"尊敬的%s: 您的如下就诊预约就要到了，我们特别提醒您按时到院就诊" % order.name
     else:
         conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"
-    detail_url = settings.SiteHost + "/static/dist/#/live/%s" % SentWhoId
+    detail_url = order.wanthospital.link
     first = conten
     template_id = settings.PATIENTS_MODE  # 模板id
     touser = order.openid  # 发送给谁
