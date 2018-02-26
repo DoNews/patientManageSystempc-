@@ -358,13 +358,13 @@ def OrderUpdte(request):
         try:
             CeleTexting(user['oid'], 2)  # 发短信
             CreateSMS(order)  # 定时发消息
+            CreateCelery(order)  # 定时发模板消息
         except:
             pass
         if order.openid:
             ModelMsg(user['oid'], 1, 2)  # 发模板消息
         if order.wanthospital.sales.openid:
-            ModelMsg(user['oid'], 2, 2)  # 给患者发模板消息
-            CreateCelery(order)  # 定时发模板消息
+            ModelMsg(user['oid'], 2, 2)  # 给销售发模板消息
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
 
