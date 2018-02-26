@@ -141,6 +141,7 @@ STATICFILES_DIRS = [
 ]
 
 APPEND_SLASH=False
+
 SiteHost="http://order.yuemia.com"
 WEIXIN='xinghui'
 PATIENTS_MODE='yOpWNXKAFBzXnLKcSuZh-dF-4PP3wy8X6P7YW2BpG58'# 患者的模板ID

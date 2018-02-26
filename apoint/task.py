@@ -99,7 +99,7 @@ def ModelNews(touser, template_id, url, first, value1, value2, value3):
 
 
 # 销售的模板消息
-def IntegralChange(touser, template_id, url, first, value1, value2, value3, value4, ):
+def IntegralChange(touser, template_id, url, first, value1, value2, value3, value4,):
     sJson = {'touser': touser,
              'template_id': template_id,
              "url": url,
