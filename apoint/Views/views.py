@@ -355,7 +355,10 @@ def OrderUpdte(request):
     OrderDetail.objects.create(**folowitem)
     order = order.first()
     if order.status == 3:  # 确认去就诊
-        CeleTexting(order, 2)  # 发短信
+        try:
+            CeleTexting(order, 2)  # 发短信
+        except:
+            pass
         if order.openid:
             ModelMsg(order, 1, 2)  # 发模板消息
             CreateSMS(order)  # 定时发消息
