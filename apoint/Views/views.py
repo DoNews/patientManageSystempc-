@@ -28,8 +28,7 @@ MENUS_CALLER = (
 def chart(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
-    thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True, order__custome=user,
-                                             createtime__month=now.month).exclude(status=12).count()  # 查看本月分配的数据
+    thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True, order__custome=user,createtime__month=now.month).exclude(status=12).count()  # 查看本月分配的数据
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count()  # 本月累计跟进人次
     thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2, creater=user).count()  # 本月认领
     v1 = OrderDetail.objects.filter(status=6, createtime__month=now.month).filter(creater=user).count()  # 本月已安排治疗
@@ -38,50 +37,30 @@ def chart(request):
     v4 = OrderDetail.objects.filter(status=12, createtime__month=now.month).filter(creater=user).count()  # 暂停的
     # 查看全部
     thismonthall = OrderDetail.objects.filter(creater=user).count()  # 全部累计跟进人次
-    thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True, order__custome=user, ).exclude(
-        status=12).count()  # 查看全部分配的数据
+    thismonthfpall = OrderDetail.objects.filter(creater__user__is_superuser=True, order__custome=user, ).exclude(status=12).count()  # 查看全部分配的数据
     thismonthrlall = OrderDetail.objects.filter(status=2, creater=user).count()  # 全部认领
     v1all = OrderDetail.objects.filter(status=6, creater=user).count()  # 全部已安排治疗
     v2all = OrderDetail.objects.filter(status=11, creater=user).count()  # 全部延后治疗
     v3all = OrderDetail.objects.filter(status=13, creater=user).count()  # 全部转院的
     v4all = OrderDetail.objects.filter(status=12, creater=user).count()  # 全部暂停的
-    return render(request, 'formManage.html',
-                  {"pageindex": 3, "menu": MENUS_CALLER, 'thismonth': thismonth, 'thismonthfp': thismonthfp,
-                   'thismonthrl': thismonthrl, 'v1': v1, 'v2': v2, 'v3': v3, 'v4': v4, 'thismonthall': thismonthall,
-                   'thismonthfpall': thismonthfpall, 'thismonthrlall': thismonthrlall, 'v1all': v1all, 'v2all': v2all,
-                   'v3all': v3all, 'v4all': v4all})
+    return render(request, 'formManage.html',{"pageindex": 3, "menu": MENUS_CALLER, 'thismonth': thismonth, 'thismonthfp': thismonthfp,'thismonthrl': thismonthrl, 'v1': v1, 'v2': v2, 'v3': v3, 'v4': v4, 'thismonthall': thismonthall,'thismonthfpall': thismonthfpall, 'thismonthrlall': thismonthrlall, 'v1all': v1all, 'v2all': v2all,'v3all': v3all, 'v4all': v4all})
 
 
 @login_required(login_url="/login/")
 def index(request):
-    # print "拿到的是什么",request.user.is_active
-    # all_datas = YourModel.objects.filter(time__year=now_time.year) #查询某年的
-    # all_datas = YourModel.objects.filter(time__month=now_time.month)#查询当前月份的
     user = ZJUser.objects.get(user=request.user)
-
     now = datetime.datetime.now()
-
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count()  # 本月跟进工单
-
-    thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(
-        createtime__month=now.month).count()  # 本月分配
+    thismonthfp = OrderDetail.objects.filter(creater__user__is_superuser=True).filter(status=6).filter(createtime__month=now.month).count()  # 本月分配
     thismonthrl = OrderDetail.objects.filter(createtime__month=now.month).filter(status=2, creater=user).count()
-
     v1 = OrderDetail.objects.filter(status=6).filter(creater=user).count()  # 已安排治疗
     v2 = OrderDetail.objects.filter(status=11).filter(creater=user).count()
     v3 = OrderDetail.objects.filter(status=13).filter(creater=user).count()
     v4 = OrderDetail.objects.filter(status=12).filter(creater=user).count()
-
     todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user)[:5]  # 今日任务
-
-    renling = Order.objects.filter(status=1, custome__isnull=True)
+    renling = Order.objects.filter(status=1, custome__isnull=True).order_by('-createtime')
     arr = getNotify(request.user)
-    # identity=manag.usertype #身份(1,'客服')(2,'销售'),(3,'管理员')
-
-    return render(request, "index.html",
-                  {"user": user, "thismonth": thismonth, "thismonthfp": thismonthfp, "thismonthrl": thismonthrl,
-                   "v1": v1, "v2": v2, "v3": v3, "v4": v4, "todaywork": todaywork, "notify": arr, "renling": renling,
-                   "pageindex": 0, "menu": MENUS_CALLER})
+    return render(request, "index.html",{"user": user, "thismonth": thismonth, "thismonthfp": thismonthfp, "thismonthrl": thismonthrl,"v1": v1, "v2": v2, "v3": v3, "v4": v4, "todaywork": todaywork, "notify": arr, "renling": renling,"pageindex": 0, "menu": MENUS_CALLER})
 
 
 def notify(request):
@@ -94,11 +73,9 @@ def getNotify(user):
     now = datetime.datetime.now()
     user = ZJUser.objects.get(user=user)
     yestoday = now - timedelta(days=1)
-    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,
-                                                                                   custome=user)  # 管理员分配
-    notify2 = Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False, custome=user)  # 有备注
-    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12)  # 逾期了
-
+    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,custome=user).order_by('-createtime')  # 管理员分配
+    notify2 = Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False, custome=user).order_by('-createtime')  # 有备注
+    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12).order_by('-createtime')  # 逾期了
     arr = []
     for n in notify1:
         dic = {}
@@ -251,13 +228,11 @@ def orderdetail(request):
     id = request.GET.get('id')  # 患者订单的id
     order = Order.objects.filter(id=id).first()  # 患者订单
     imgs = IllnessImage.objects.filter(patient=order).values("image")  # 患者上传的图片
-
     follows = OrderDetail.objects.filter(order=order).order_by('-createtime')  # 对订单的所有操作
     if order.custome == user:
         follows.filter(is_operation=False).update(is_operation=True)
     hosp = Hospital.objects.all()
     area = Area.objects.all()
-
     return render(request, "OrderDetail.html",
                   {"order": order, "imgs": imgs, "follows": follows, "iscreater": order.custome == user, "hosp": hosp,
                    "area": area})
@@ -371,39 +346,6 @@ def OrderUpdte(request):
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
 
-# def IntegralChange(touser, template_id, url, first, value1, value2, value3):
-#   sJson = {'touser': touser,
-#            'template_id': template_id,
-#            "url": url,
-#            'data': {
-#              'first': {
-#                "value": first  # first_value % realname
-#              },
-#              'keyword1': {
-#                "value": value1
-#              },
-#              'keyword2': {
-#                "value": value2
-#              },
-#              'keyword3': {
-#                "value": value3
-#              },
-#              'remark': {"value": "请点击“详情”了解具体信息"}
-#            },
-#            }
-#   try:
-#     url = 'http://wx.yuemia.com/wechat/sendtemp.ashx'
-#     parm = {"wx":'xinghui', "data": json.dumps(sJson)}
-#     r = requests.post(url, parm)
-#     print 'temp re:',r.content
-#     if (eval(r.content)['errcode'] != 0):
-#       print eval(r.content)
-#       return False
-#   except Exception, e:
-#
-#     print 'errorL',e.message
-#     return e.message
-#   return True
 
 def getStatusName(statusvalue):
     return CHIOCE[int(statusvalue) - 1][1]
@@ -434,7 +376,6 @@ def adminfenpei(request):
     user = ZJUser.objects.get(user=request.user)
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
         Order__is_operation=False).order_by('-createtime')  # 查看分配
-
     return render(request, "fenpeilist.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": admin})
 
 
