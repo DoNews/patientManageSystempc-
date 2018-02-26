@@ -158,7 +158,7 @@ BROKER_PORT = 5672
 BROKER_USER = "guest"
 BROKER_PASSWORD = "guest"
 BROKER_VHOST = "/"
-CELERY_IMPORTS = ('quality.tasks', )
+CELERY_IMPORTS = ('apoint.task', )
 #使用和Django一样时区
 CELERY_TIMEZONE=TIME_ZONE
 CELERY_ENABLE_UTC = True
