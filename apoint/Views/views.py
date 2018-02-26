@@ -356,18 +356,15 @@ def OrderUpdte(request):
     order = order.first()
     if order.status == 3:  # 确认去就诊
         try:
-            CeleTexting(order, 2)  # 发短信
+            CeleTexting(user['oid'], 2)  # 发短信
+            CreateSMS(user['oid'])  # 定时发消息
         except:
             pass
         if order.openid:
-            ModelMsg(order, 1, 2)  # 发模板消息
-            CreateSMS(order)  # 定时发消息
-            # tempid = 'LMNnexF_9nAelTBoWdJUIs-GRPbEHHR3pA72xjP0U50'
-            # IntegralChange(order.openid,tempid,order.wanthospital.link,'您的预约已经确认，请按时就诊','就诊提醒','确认就诊',order.createtime.strftime('%Y-%m-%d'))
+            ModelMsg(user['oid'], 1, 2)  # 发模板消息
         if order.wanthospital.sales.openid:
-            ModelMsg(order, 2, 2)  # 给患者发模板消息
-            CreateCelery(order)  # 定时发模板消息
-            # IntegralChange(order.wanthospital.sales.openid, tempid, order.wanthospital.link, '有患者预约了%s治疗,请及时跟进'%order.wanthospital.name, '就诊提醒', '确认就诊',order.createtime.strftime('%Y-%m-%d'))
+            ModelMsg(user['oid'], 2, 2)  # 给患者发模板消息
+            CreateCelery(user['oid'])  # 定时发模板消息
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
 
