@@ -365,6 +365,8 @@ def OrderUpdte(request):
             ModelMsg(user['oid'], 1, 2)  # 发模板消息
         if order.wanthospital.sales.openid:
             ModelMsg(user['oid'], 2, 2)  # 给销售发模板消息
+    if order.status == 11: #延时预约
+        ModelMsg(user['oid'], 1, 3)
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
 
