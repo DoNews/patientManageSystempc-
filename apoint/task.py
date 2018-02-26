@@ -2,7 +2,7 @@
 from djcelery import models as celery_models
 from django.utils import timezone
 from celery import task
-from Apointment import settings
+import Apointment
 from models import *
 import logging
 import json
@@ -51,7 +51,7 @@ def ModelMsg(SentWhoId, msgtype, Sendtype):
         ModelNews(touser, template_id, detail_url, first, value1, value2, value3)
     else:
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
-        detail_url = settings.SiteHost + "/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
+        detail_url = "http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
         first = "尊敬的%s:您所负责的医院有新患者确认了预约" % order.wanthospital.sales.name
         template_id = settings.SALES_MODE  # 模板ID
         touser = order.wanthospital.sales.openid  # 发送给谁
