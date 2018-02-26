@@ -311,6 +311,7 @@ def OrderSubmit(request):
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
 
+
 @login_required(login_url="/login/")
 def OrderUpdte(request):
     userinfo = request.POST['userinfo']

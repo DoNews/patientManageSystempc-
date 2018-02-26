@@ -30,6 +30,7 @@ def TimingModel(SentWhoId, MsgType):
     sleep(3)
 
 
+
 # 发送给患者和销售模板消息
 # msgtype 为1的时候是给患者发 为2 是给销售发，semtwhoId 是订单详情,Sendtype为（1,提交成功),(2,确认),（3,延时预约）
 def ModelMsg(SentWhoId, msgtype, Sendtype):
