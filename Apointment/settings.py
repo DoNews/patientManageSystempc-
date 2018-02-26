@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'reversion',
-    # 'djcelery',
+    'djcelery',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -140,21 +140,19 @@ STATICFILES_DIRS = [
      BASE_DIR + '/static/'
 ]
 
-
-
 APPEND_SLASH=False
-SiteHost="http://mbd.yuemia.com"
-WEIXIN='mbd'
-PATIENTS_MODE='qAECcQ2FDnuN7IBF5nowR525UhzVBIrB6BLuBN7Y2Tw'# 患者的模板ID
-SALES_MODE=''#销售模板ID
+SiteHost="http://lightpower.yuemia.com"
+WEIXIN='xinghui'
+PATIENTS_MODE='yOpWNXKAFBzXnLKcSuZh-dF-4PP3wy8X6P7YW2BpG58'# 患者的模板ID
+SALES_MODE='H1uKuCyGmz90ro3zVs6uyo49lUAelMCx-TkwIxPssVs'#销售模板ID
 
 import datetime
 OUTDATE_PERIOD=datetime.timedelta(days=3)  #提前3天
 OUTDATE_ONEDAY=datetime.timedelta(days=1) #这是一天
 OUTDATE_HOURS=datetime.timedelta(hours=8) #这是8小时
 
-# import djcelery
-# djcelery.setup_loader()
+import djcelery
+djcelery.setup_loader()
 BROKER_HOST = "localhost"
 BROKER_PORT = 5672
 BROKER_USER = "guest"

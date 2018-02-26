@@ -97,10 +97,8 @@ def CilckMake(request):
 
 #患者order提交
 def OrderSubmit(request):
-
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
-    print userinfo,photo
     user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
     item={}
@@ -131,9 +129,7 @@ def OrderSubmit(request):
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     try:
-        pass
-
-        #ModelMsg(order.id, 1, 1)
+        ModelMsg(order.id, 1, 1)
     except:
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})
