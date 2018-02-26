@@ -164,7 +164,7 @@ def CreateMiss(id,name,msgtype,started_time,equipment): #equipment 1是手机短
         name = "%s%s%s" % (name, id,u'微信模板前三天')
         end_time = started_time - settings.OUTDATE_PERIOD
       elif msgtype==1:
-          name = "%s%s%s" % (name, id, u'微信模板前三天')
+          name = "%s%s%s" % (name, id, u'微信模板前一天')
           end_time = started_time - settings.OUTDATE_ONEDAY
       else:  #预约当天8点
         name = "%s%s%s" % (name, id, u'微信模板当天八点')
@@ -184,21 +184,23 @@ def CreateMiss(id,name,msgtype,started_time,equipment): #equipment 1是手机短
 def CreateCelery(order): #
     new = timezone.now()
     if order.wantTime - settings.OUTDATE_PERIOD > new:
+        a = 3
+    elif order.wantTime - settings.OUTDATE_ONEDAY > new:
         a = 2
-    elif order.wantTime - settings.OUTDATE_HOURS > new:
-        a = 1
+    elif order.wantTime -settings.OUTDATE_HOURS>new:
+        a=1
     else:
         a = 0
-    for b in range(a):  # 0是一小时，1是一天，2是3天
+    for b in range(a):  # 0是8小时，1是一天，2是3天
         CreateMiss(order.id, order.name, b, order.wantTime,2)
 #这是定时发短信
 def CreateSMS(order):
     new = timezone.now()
     if order.wantTime - settings.OUTDATE_PERIOD > new:
-        a = 1
+        a = 2
     else:
-        a=0
-    for b in range(a):  # 0是一小时，1是一天，2是3天
+        a=1
+    for b in range(a):  # 1是当天8点，2是3天
         CreateMiss(order.id, order.name, b, order.wantTime,1)
 
 
