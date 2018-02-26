@@ -223,7 +223,7 @@ def orderdetail(request):
     id = request.GET.get('id')  # 患者订单的id
     order = Order.objects.filter(id=id).first()  # 患者订单
     imgs = IllnessImage.objects.filter(patient=order).values("image")  # 患者上传的图片
-    follows = OrderDetail.objects.filter(order=order).order_by('-wantTime')  # 对订单的所有操作
+    follows = OrderDetail.objects.filter(order=order).order_by('-createtime')  # 对订单的所有操作
     if order.custome == user:
         follows.filter(is_operation=False).update(is_operation=True)
     hosp = Hospital.objects.all()
