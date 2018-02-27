@@ -21,13 +21,10 @@ urlpatterns = [
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
     url(r'^orderupdate',OrderUpdte),
-
     url(r'^overdue', overdue),
     url(r'^salercommit',salercommit),
     url(r'^adminfenpei', adminfenpei),
-
     url(r'^staffaddnew', staffaddnew),
-
     url(r'^todaywork',todaywork),
     url(r'^yuqi$',yuqi)
         ]

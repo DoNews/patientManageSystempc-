@@ -20,12 +20,8 @@ from django.contrib import admin
 
 
 urlpatterns = [
-
-
     url(r'^admin/', admin.site.urls),
     url(r'^xadmin/', xadmin.site.urls),
-
-
     url(r'^', include('apoint.urls.adminurls')),#PC端接口
     url(r'^api/apoint/', include('apoint.urls.wx_urls')),#微信调用接口
     url(r'^', include('apoint.urls.url_account')),  # PC端接口

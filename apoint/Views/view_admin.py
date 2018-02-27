@@ -132,7 +132,6 @@ def addCustomerAction(request):
     username = request.POST.get("username")
     phone=request.POST.get("phone")
     password = request.POST.get("pwd")
-
     id =request.POST.get("id")
     if id:
         kf = ZJUser.objects.get(pk = id)
@@ -150,7 +149,6 @@ def addCustomerAction(request):
         user.is_active = True
         user.first_name = name
         user.is_staff = True
-        # user.profile.name=name
         user.save()
         ZJUser(user=user, name=name, usertype=1, phone=phone).save()
     return  HttpResponse('{"result":1,"msg":"成功"}')
