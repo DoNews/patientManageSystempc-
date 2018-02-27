@@ -23,7 +23,7 @@ def TimingModel(SentWhoId, MsgType):
     template_id = settings.PATIENTS_MODE  # 模板id
     touser = order.openid  # 发送给谁
     value1 = order.wanthospital.name  # 医院名称
-    value2 = order.wantTime.strftime('%Y-%m-%d %H:%M')  # 活动日期
+    value2 = order.wantTime.strftime('%Y-%m-%d')  # 活动日期
     value3 = order.get_status_display()
     t1 = threading.Thread(target=ModelNews, args=(touser, template_id, detail_url, first, value1, value2, value3))
     t1.start()
@@ -38,26 +38,26 @@ def ModelMsg(SentWhoId, msgtype, Sendtype):
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
         detail_url = order.wanthospital.link
         if Sendtype == 1:
-            first = "尊敬的%s:您的如下就诊预约已经提交，我们会尽快和您电话确认相关信息" % order.name
+            first = u"尊敬的%s:您的如下就诊预约已经提交，我们会尽快和您电话确认相关信息" % order.name
         elif Sendtype == 2:
-            first = "尊敬的%s:您的如下就诊预约已经确认，我们特别提醒您按时到院就诊" % order.name
+            first = u"尊敬的%s:您的如下就诊预约已经确认，我们特别提醒您按时到院就诊" % order.name
         else:
-            first = "尊敬的%s:您的如下就诊预约申请已经延期，感谢您的支持与配合" % order.name
+            first = u"尊敬的%s:您的如下就诊预约申请已经延期，感谢您的支持与配合" % order.name
         template_id = settings.PATIENTS_MODE  # 模板ID
         touser = order.openid  # 发送给谁
         value1 = order.wanthospital.name  # 医院名称
-        value2 = order.wantTime.strftime('%Y-%m-%d %H:%M')  # 就诊日期
+        value2 = order.wantTime.strftime('%Y-%m-%d')  # 就诊日期
         value3 = order.get_status_display()
         ModelNews(touser, template_id, detail_url, first, value1, value2, value3)
     else:
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
-        detail_url = "http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
-        first = "尊敬的%s:您所负责的医院有新患者确认了预约" % order.wanthospital.sales.name
+        detail_url = u"http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
+        first = u"尊敬的%s:您所负责的医院有新患者确认了预约" % order.wanthospital.sales.name
         template_id = settings.SALES_MODE  # 模板ID
         touser = order.wanthospital.sales.openid  # 发送给谁
         value1 = order.name,  # 预约患者
         value2 = order.wanthospital.name  # 医院名称
-        value3 = order.wantTime.strftime('%Y-%m-%d %H:%M')  # 就诊日期
+        value3 = order.wantTime.strftime('%Y-%m-%d ')  # 就诊日期
         value4 = order.get_status_display()
         IntegralChange(touser, template_id, detail_url, first, value1, value2, value3, value4, )
 
@@ -120,7 +120,7 @@ def IntegralChange(touser, template_id, url, first, value1, value2, value3, valu
                  'keyword4': {
                      "value": value4
                  },
-                 'remark': {"value": "请点击“详情”了解具体患者信息并进行线下的跟进吧"}
+                 'remark': {"value": u"请点击“详情”了解具体患者信息并进行线下的跟进吧"}
              },
              }
     try:
