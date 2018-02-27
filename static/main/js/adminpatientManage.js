@@ -18,6 +18,7 @@ window.onload = function () {
                 if (!first) {
                     reloadData(obj.curr)
                 }
+
             }
         });
 
@@ -32,8 +33,8 @@ function reloadData(page) {
         type: "GET",
         dataType: "json",
         success: function (data) {
-            $("#data").html(data.data);
             // console.log(data)
+            $("#data").html(data.data);
         }
     })
 }

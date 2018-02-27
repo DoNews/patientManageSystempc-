@@ -97,9 +97,9 @@
 				});
 				$('.sureAdd').click(function() {
 				   ids =[]
-          for(var i=0;i<hosps.length;i++) {
-            ids.push(hosps[i].id)
-          }
+                  for(var i=0;i<hosps.length;i++) {
+                    ids.push(hosps[i].id)
+                  }
           var data ={"name":$("#name").val(),"phone":$("#phone").val(), "city":$("#area").val(),
                 "hosps":JSON.stringify(ids)
               };
@@ -112,6 +112,7 @@
               type:'POST',
               data:data,
               success:function (arg) {
+                  parent.isneedreload=true;
                 	parent.layer.closeAll();
 					      parent.layer.msg('提交成功');
               }

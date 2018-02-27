@@ -66,7 +66,9 @@
 <script>
     $(
         function () {
+            var isneedreload=false;
             $("#data").on("click", ".pmTbaleBtn", function () {
+                isneedreload=false;
                 var sid = $(this).attr("id");
                 layer.open({
                     type: 2,
@@ -79,7 +81,10 @@
                     anim: 2,
                     content: ['/orderdetail?id=' + sid, 'yes'],
                     end: function () { //此处用于演示
-                        reloadData();
+                        if(isneedreload)
+                        {
+                            reloadData();
+                        }
                     }
                 });
             })
@@ -98,7 +103,6 @@
                     }
                 });
             });
-
             function reloadData() {
                 $.ajax({
                     url: "/api/apoint/service/",
@@ -107,6 +111,7 @@
                     dataType: "json",
                     success: function (data) {
                         $("#data").html(data.lister);
+                        isneedreload=true;
                     }
                 })
             }

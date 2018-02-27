@@ -102,16 +102,17 @@ function initFolowData(stype) {
 }
 
 function submit(surl) {
-
     $.ajax({
         url: surl,
         type: "POST",
         dataType: "json",
         data: postData,
         success: function (data) {
-            console.log(data)
+            // console.log(data)
+            window.parent.location.reload();
             parent.layer.closeAll();
             parent.layer.msg('操作成功');
+            parent.isneedreload=true
         }
     })
 }

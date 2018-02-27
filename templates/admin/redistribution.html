@@ -87,6 +87,7 @@
 		<script src="/static/main/js/layui/layui.js "></script>
 
 		<script>
+
 			layui.use(['form', 'layer'], function() {
 				var form = layui.form,
 					layer = layui.layer
@@ -102,6 +103,7 @@
                             data:{ "id":getParam("id"),"service_id":$("input[name='kefu']:checked").val()},
                             dataType:"json",
                             success:function (data) {
+                                parent.isreload=true;
                                 parent.layer.closeAll();
                                 parent.layer.msg('分配成功');
                             }

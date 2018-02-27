@@ -73,6 +73,7 @@
                         dataType:"json",
                         data:data,
                         success:function () {
+                            parent.isneedreload=true;
                             parent.layer.closeAll();
 					        parent.layer.msg('操作成功');
                         },

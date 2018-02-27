@@ -122,20 +122,20 @@
 				var form = layui.form,
 					upload = layui.upload,
 					laydate = layui.laydate;
-          laydate.render({
-            elem: '#yyDate'
-          });
+                      laydate.render({
+                        elem: '#yyDate'
+                      });
 				$('.sureAdd').click(function() {
-				  var selected =[]
-          $.each($("[name=hospitalName]"),function () {
-            if($(this).prop('checked')==true)
-            {
-              selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
-            }
-          })
-            parent.hosps = selected;
-	          parent.layer.closeAll();
-            parent.layer.msg('添加成功');
+                      var selected =[]
+                      $.each($("[name=hospitalName]"),function () {
+                        if($(this).prop('checked')==true)
+                        {
+                          selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
+                        }
+                      })
+                      parent.hosps = selected;
+                      parent.layer.closeAll();
+                      parent.layer.msg('添加成功');
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();

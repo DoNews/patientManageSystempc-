@@ -61,15 +61,14 @@
     </div>
 </div>
 </div>
-
 </div>
-
 <script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-
 <script type="text/javascript">
     //分页
+    var isneedreload=false;
     layui.use(['laypage', 'layer'], function () {
+{#        isneedreload=false;#}
         var laypage = layui.laypage,
             layer = layui.layer;
         //自定义样式
@@ -81,15 +80,13 @@
             jump: function (obj,first) {
                 if (!first)
                 {
-
                     reloadData(obj.curr)
                 }
             }
         });
-
         //编辑按钮
-
         $('#data').on('click', '.saleredit', function () {
+            isneedreload=false;
             var sid = $(this).attr("data-id");
             layer.open({
                 type: 2,
@@ -102,13 +99,17 @@
                 anim: 2,
                 content: ['/api/apoint/staffeditor/?id=' + sid, 'yes'],
                 end: function () {
-                    reloadData(1)
+                    if(isneedreload){
+                         reloadData(1)
+                    }
+
                 }
             });
 
         });
+        //客服编辑
         $('#data2').on('click', '.customeredit', function () {
-
+            isneedreload=false;
             layer.open({
                 type: 2,
                 title: false,
@@ -120,14 +121,15 @@
                 anim: 2,
                 content: ['/addCustomer?id=' + $(this).attr("data-id"), 'yes'], //iframe的url，no代表不显示滚动条
                 end: function () { //此处用于演示
-
+                    if(isneedreload){
+                          reloadCustomerData(1)
+                    }
                 }
-
             });
         });
-        //删除
-
+        //销售和员工的删除事件
         $('#data,#data2').on('click','.pmTbaleBtn',function () {
+            isneedreload=false;
             layer.open({
                 type: 3,
                 content: '删除中...'
@@ -141,10 +143,15 @@
                         type: "POST",
                         data: {"id": stId},
                         success: function () {
-                            parent.layer.closeAll()
-                            location.href=location.href
+                            parent.layer.closeAll();
+                            if(isneedreload){
+                                reloadCustomerData(1);
+                                reloadData(1)
+                            }
+
+{#                            location.href=location.href#}
                             {#$(othis).parent().parent().remove();#}
-                            {#layer.msg("删除成功");#}
+                            layer.msg("删除成功");
                         }
                     })
                 },
@@ -155,6 +162,7 @@
         });
         //添加员工
         $('#addStaff').click(function () {
+            isneedreload=false;
             layer.open({
                 type: 2,
                 title: false,
@@ -166,11 +174,14 @@
                 anim: 2,
                 content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
                 end: function () { //此处用于演示
-                    location.href=location.href
+                     if(isneedreload){
+                         reloadData(1)
+                    }
+{#                    location.href=location.href#}
                 }
             });
         });
-
+        //添加客服
         $("#addCustom").click(function () {
             layer.open({
                 type: 2,
@@ -183,7 +194,11 @@
                 anim: 2,
                 content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
                 end: function () { //此处用于演示
-                    reloadCustomerData(1)
+{#                     location.href=location.href#}
+                    if(isneedreload){
+                         reloadCustomerData()
+                    }
+
                 }
 
             });
@@ -191,31 +206,26 @@
     });
 
     function reloadData(page) {
-
         $.ajax({
             url: "/api/apoint/staffall/",
             data: {"page": page},
             type: "GET",
             dataType: "json",
             success: function (data) {
-
                 $("#data").html(data.lister);
                 $("#all").val(data.all);
-
+                parent.isneedreload=true;
             }
         })
     }
      function reloadCustomerData(page) {
-
         $.ajax({
             url: "/api/apoint/AccountAll",
             type: "GET",
             dataType: "json",
             success: function (data) {
-
                 $("#data2").html(data.lister);
-
-
+                parent.isneedreload=true;
             }
         })
     }

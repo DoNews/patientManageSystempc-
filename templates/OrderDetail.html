@@ -255,12 +255,10 @@
         <script src="/static/main/js/dataform.js"></script>
 		<script>
             var text = document.getElementById("textarea");
-             var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
+            var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
 
             autoTextarea(text);// 调用
-
             $(".refenpei").click(function () {
-
 				    var oid =getParam("id")
 					parent.layer.open({
 						type: 2,
@@ -273,10 +271,9 @@
 						anim: 2,
 						content: ['/refenpei?id='+oid, 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
-                            parent.reloadData(1);
+{#                            parent.isreload=true;#}
 						}
 					})
-
             });
 		</script>
 	</body>

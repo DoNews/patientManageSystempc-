@@ -41,7 +41,7 @@
 								<td>{{ order.nextcalldate  }}</td>
 								<td>{{ order.day }}</td>
 								<td>{{ order.sales }}</td>
-								<td style="text-align: center"><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
+								<td class="btnTD" style="text-align: center"><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
 							</tr>
                             {% empty %}
                               <tr>
@@ -90,7 +90,7 @@
 						<a href="/salercommit"><div class="remind_allRightBtn">查看全部</div></a>
 					</div>
 					<div class="remindConBoxRight">
-						<div class="remindConTitle"><span>分配工单提醒(<span style="font-size: 12px;"></span>)</span>
+						<div class="remindConTitle"><span>分配工单提醒</span>
 						</div>
 						<table cellpadding="0" cellspacing="0" border="0" class="remindRightTable">
 							<tbody>

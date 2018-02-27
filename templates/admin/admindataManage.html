@@ -24,7 +24,7 @@
 								<th>负责销售</th>
 								<th>目前状态</th>
 								<th>是否第三方系统用户</th>
-								<th>管理员操作</th>
+								<th style="text-align:center;">管理员操作</th>
 							</tr>
                             <tbody id="data">
                             {% for foo in order %}
@@ -45,7 +45,7 @@
                                     {% else %}
                                     否
 								{% endif %}</td>
-								<td><span class="remindTableBtn patientMan" id="{{ foo.id }}">去管理</span></td>
+								<td style="text-align: center"><span class="remindTableBtn patientMan" id="{{ foo.id }}">去管理</span></td>
 							</tr>
 
     {% endfor %}
@@ -61,13 +61,11 @@
 	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/main/js/adminpatientManage.js"></script>
 	<script type="text/javascript">
-
+        var isreload=false;
 		layui.use([ 'layer'], function() {
-
-				var layer = layui.layer,
-				laydate = layui.laydate;
-
+            var layer = layui.layer, laydate = layui.laydate;
 			$("#data").on("click",".patientMan",function() {
+                  isreload=false;
 			      var sid = $(this).attr("id");
 				    layer.open({
 					type: 2,
@@ -79,8 +77,10 @@
 					scrollbar: false, //禁止浏览器滚动
 					anim: 2,
 					content: ['/orderdetail?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
-					end: function() { //此处用于演示
-                        reloadData(1);
+					end: function() {
+                        if(isreload){
+                             reloadData(1);
+                        }
 					}
 				})
 			})
@@ -98,7 +98,8 @@
 												content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
 												end: function() {}
 											});
-							});
+            });
+
 		});
 	</script>
 

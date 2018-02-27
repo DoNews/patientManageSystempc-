@@ -94,6 +94,7 @@
                 "hosps":JSON.stringify(ids)
               },
               success:function (arg) {
+                   parent.isneedreload=true;
                 parent.layer.closeAll()
                 parent.layer.msg('添加成功')
               }
