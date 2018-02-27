@@ -206,12 +206,8 @@ def StaffAll(request):
 
 #所有客服
 def AccountAll(request):
-
     staffs = ZJUser.objects.filter(usertype=1).order_by('-createtime')
-
-
-    return JsonResutResponse(
-        {'ret': 0, 'msg': 'success', 'lister': trenderc('control/saleritem.html', staffs)})
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': trenderc('control/saleritem.html', staffs)})
 #查看员工详情
 def StaffEditor(request):
     id=request.GET.get('id') #员工的id
