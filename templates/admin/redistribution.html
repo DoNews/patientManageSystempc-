@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
-        	<script src="/static/main/js/tools.js "></script>
+        <script src="/static/main/js/tools.js "></script>
 		<script src="/static/main/js/layui/layui.js "></script>
 
 		<script>
@@ -103,7 +103,7 @@
                             data:{ "id":getParam("id"),"service_id":$("input[name='kefu']:checked").val()},
                             dataType:"json",
                             success:function (data) {
-                                parent.isreload=true;
+                                parent.parent.isreload=true;
                                 parent.layer.closeAll();
                                 parent.layer.msg('分配成功');
                             }

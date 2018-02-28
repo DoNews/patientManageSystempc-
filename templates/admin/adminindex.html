@@ -68,22 +68,22 @@
     //分页
     var isneedreload=false;
     layui.use(['laypage', 'layer'], function () {
-{#        isneedreload=false;#}
         var laypage = layui.laypage,
             layer = layui.layer;
         //自定义样式
         //完整功能
         laypage.render({
-            elem: 'pageNum',
-            count: $("#all").val(),
-            layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-            jump: function (obj,first) {
-                if (!first)
-                {
-                    reloadData(obj.curr)
-                }
-            }
+                        elem: 'pageNum',
+                        count: $("#all").val(),
+                        layout: ['count', 'prev', 'page', 'next', 'skip'],
+                        jump: function (obj,first) {
+                            if (!first)
+                            {
+                                reloadData(obj.curr);
+                            }
+                        }
         });
+
         //编辑按钮
         $('#data').on('click', '.saleredit', function () {
             isneedreload=false;
@@ -102,7 +102,6 @@
                     if(isneedreload){
                          reloadData(1)
                     }
-
                 }
             });
 
@@ -128,8 +127,7 @@
             });
         });
         //销售和员工的删除事件
-        $('#data,#data2').on('click','.pmTbaleBtn',function () {
-            isneedreload=false;
+        $('#data').on('click','.pmTbaleBtn',function () {
             layer.open({
                 type: 3,
                 content: '删除中...'
@@ -143,15 +141,35 @@
                         type: "POST",
                         data: {"id": stId},
                         success: function () {
-                            parent.layer.closeAll();
-                            if(isneedreload){
-                                reloadCustomerData(1);
+                                parent.layer.closeAll();
                                 reloadData(1)
-                            }
-
-{#                            location.href=location.href#}
-                            {#$(othis).parent().parent().remove();#}
-                            layer.msg("删除成功");
+                                layer.msg("删除成功");
+                        }
+                    })
+                },
+                btn2: function () {
+                    parent.layer.closeAll()
+                }
+            })
+        });
+        //删除客服
+         $('#data2').on('click','.pmTbaleBtn',function () {
+            layer.open({
+                type: 3,
+                content: '删除中...'
+            });
+            var stId = $(this).prev().attr("data-id");
+            var othis = this;
+            layer.confirm('确认删除本条记录吗?', {
+                btn: ['是', '否'], btn1: function (index) {
+                    $.ajax({
+                        url: '/api/apoint/staffdelete/',
+                        type: "POST",
+                        data: {"id": stId},
+                        success: function () {
+                                parent.layer.closeAll();
+                                reloadCustomerData(1);
+                                layer.msg("删除成功");
                         }
                     })
                 },
@@ -177,7 +195,6 @@
                      if(isneedreload){
                          reloadData(1)
                     }
-{#                    location.href=location.href#}
                 }
             });
         });
@@ -192,9 +209,8 @@
                 offset: '40px',
                 scrollbar: false, //禁止浏览器滚动
                 anim: 2,
-                content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
+                content: ['/addCustomer', 'yes'],
                 end: function () { //此处用于演示
-{#                     location.href=location.href#}
                     if(isneedreload){
                          reloadCustomerData()
                     }
@@ -204,7 +220,6 @@
             });
         });
     });
-
     function reloadData(page) {
         $.ajax({
             url: "/api/apoint/staffall/",
@@ -215,6 +230,22 @@
                 $("#data").html(data.lister);
                 $("#all").val(data.all);
                 parent.isneedreload=true;
+                //更新列表的总条数
+                layui.use(['laypage','layer'],function () {
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                            laypage.render({
+                                    elem: 'pageNum',
+                                    count: $("#all").val(),
+                                    layout: ['count', 'prev', 'page', 'next', 'skip'],
+                                    jump: function (obj,first) {
+                                        if (!first)
+                                        {
+                                            reloadData(obj.curr);
+                                        }
+                                    }
+                                 });
+                })
             }
         })
     }

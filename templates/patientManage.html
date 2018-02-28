@@ -64,8 +64,6 @@
 <script src="/static/main/js/layui/layui.js"></script>
 <script src="/static/main/js/patientManage.js"></script>
 <script>
-    $(
-        function () {
             var isneedreload=false;
             $("#data").on("click", ".pmTbaleBtn", function () {
                 isneedreload=false;
@@ -89,6 +87,7 @@
                 });
             })
             $(".newgd").click(function () {
+                isneedreload=false;
                 parent.layer.open({
                     type: 2,
                     title: false,
@@ -100,6 +99,10 @@
                     anim: 2,
                     content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
                     end: function () {
+                        if(isneedreload)
+                        {
+                            reloadData();
+                        }
                     }
                 });
             });
@@ -111,13 +114,36 @@
                     dataType: "json",
                     success: function (data) {
                         $("#data").html(data.lister);
-                        isneedreload=true;
+                        $("#count").val(data.all);
+                                                //分页总数刷新
+                        layui.use(['laypage', 'layer'], function() {
+                            var laypage = layui.laypage,
+                                layer = layui.layer;
+                                laypage.render({
+                                elem: 'pageNum',
+                                count: $("#count").val(),
+                                layout: ['count', 'prev', 'page', 'next',  'skip'],
+                                limit:10,
+                                jump: function(obj,first) {
+                                     if(!first) {
+                                         $.ajax({
+                                             url: "/api/apoint/service/",
+                                             data: {"page": obj.curr},
+                                             type: "GET",
+                                             dataType: "json",
+                                             success: function (data) {
+                                                 $("#count").val(data.all);
+                                             }
+
+                                         })
+                                     }
+
+                                }
+                            });
+                        });
                     }
                 })
             }
-        }
-    )
-
 </script>
 </body>
 </html>

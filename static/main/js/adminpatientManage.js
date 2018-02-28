@@ -37,4 +37,5 @@ function reloadData(page) {
             $("#data").html(data.data);
         }
     })
+
 }

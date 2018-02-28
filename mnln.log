@@ -1,0 +1,7 @@
+ERROR 2018-02-27 14:59:56,482 task 6708 2560 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-02-27 14:59:56,482 task 6708 2560 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 92, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'

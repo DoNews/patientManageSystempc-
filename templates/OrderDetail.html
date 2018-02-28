@@ -250,27 +250,26 @@
 			</div>
 		</div>
 		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
-		<script src="/static/main/js/layui/layui.js "></script>
+		<script src="/static/main/js/layui/layui.js"></script>
         <script src="/static/main/js/tools.js"></script>
         <script src="/static/main/js/dataform.js"></script>
 		<script>
             var text = document.getElementById("textarea");
             var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
-
             autoTextarea(text);// 调用
             $(".refenpei").click(function () {
 				    var oid =getParam("id")
 					parent.layer.open({
 						type: 2,
 						title: false,
-						closeBtn: 1, //不显示关闭按钮
+						closeBtn: 1,
 						shade: [0.4],
 						area: ['800px', '600px'],
 						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
+						scrollbar: false,
 						anim: 2,
 						content: ['/refenpei?id='+oid, 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
+						end: function() {
 {#                            parent.isreload=true;#}
 						}
 					})

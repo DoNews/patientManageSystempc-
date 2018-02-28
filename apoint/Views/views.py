@@ -48,6 +48,7 @@ def chart(request):
 
 @login_required(login_url="/login/")
 def index(request):
+    print request.user
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     thismonth = OrderDetail.objects.filter(creater=user).filter(createtime__month=now.month).count()  # 本月跟进工单

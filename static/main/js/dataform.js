@@ -63,8 +63,19 @@ $("#sureAdd").click(function () {
 });
 
 $(".action").click(function () {
+    var val=$('#yyDateNext').val();
     var type = $(this).attr("type");
-    submitUpdateData(type);
+    if(val!=""){
+       submitUpdateData(type);
+    }else{
+         layer.msg('下次跟进回访时间未填写', {
+          time: 5000, //2s后自动关闭
+             btn: ['去填写']
+         });
+        // alert("下次预约跟进时间不能为空")
+    }
+
+
 });
 
 function submitCreateData() {
@@ -109,10 +120,10 @@ function submit(surl) {
         data: postData,
         success: function (data) {
             // console.log(data)
-            window.parent.location.reload();
+            // window.parent.location.reload();
             parent.layer.closeAll();
             parent.layer.msg('操作成功');
-            parent.isneedreload=true
+            parent.parent.isneedreload=true
         }
     })
 }
