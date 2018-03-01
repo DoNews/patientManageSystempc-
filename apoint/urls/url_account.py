@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^renling$',renling),
     url(r'^createUser$',createUser),
     url(r'^renlingAction$',renlingAction),
-    url(r'pations$',pations),
+    url(r'^pations$',pations),
     url(r'^pationsview',pationsview),#客服患者数据
     url(r'^remind',remind),#全部提醒页面
     url(r'^account',account),

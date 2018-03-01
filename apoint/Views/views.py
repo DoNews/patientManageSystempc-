@@ -307,7 +307,6 @@ def OrderUpdte(request):
             item[k] = area
         elif k == 'oid':
             pass
-
         else:
             item[k] = user[k]
     order = Order.objects.filter(id=user['oid'])

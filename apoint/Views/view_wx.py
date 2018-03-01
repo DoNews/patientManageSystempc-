@@ -42,7 +42,7 @@ def StaffCation(request):
 #我负责的患者（销售）
 def MyPatients(request):
     openid=request.GET.get('openid')
-    user=SalesUser.objects.filter(openid=openid).first() #扎到员工
+    user=SalesUser.objects.filter(openid=openid).first() #找到员工
     hospts=Hospital.objects.filter(sales=user)
     orders=Order.objects.filter(wanthospital__in=hospts).exclude(status=1).order_by('-createtime') #找到所有的订单
     lister = []

@@ -169,7 +169,7 @@ def CreateMiss(id, name, msgtype, started_time, equipment):  # equipment 1是手
             end_time = started_time + settings.OUTDATE_HOURS  # 当天加上8小时
     else:
         if msgtype == 2:  # 预约前三天
-            name = "%s%s%s" % (name, id, u'微信模板前三天')
+            name = "%s%s%s" % (name, id, u'微信模板前三天') ##消失了
             end_time = started_time - settings.OUTDATE_PERIOD
         elif msgtype == 1:
             name = "%s%s%s" % (name, id, u'微信模板前一天')

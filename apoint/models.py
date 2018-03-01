@@ -100,6 +100,8 @@ class Order(models.Model):
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     is_party=models.BooleanField(u'是否是第三方',default=False)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True,blank=True,on_delete=models.SET_NULL)
+    #按更新时间排序
+
     def __unicode__(self):
         return self.name
     class Meta:
