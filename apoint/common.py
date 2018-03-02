@@ -173,10 +173,10 @@ def CreateMiss(id, name, msgtype, started_time, equipment):  # equipment 1是手
             name = "%s%s%s" % (name, id, u'手机短信当天八点')
             end_time = started_time + settings.OUTDATE_HOURS  # 当天加上8小时
     else:
-        if msgtype == 2:  # 预约前三天
-            name = "%s%s%s" % (name, id, u'微信模板前三天') ##消失了
-            end_time = started_time - settings.OUTDATE_PERIOD
-        elif msgtype == 1:
+        # if msgtype == 2:  # 预约前三天
+        #     name = "%s%s%s" % (name, id, u'微信模板前三天') ##消失了
+        #     end_time = started_time - settings.OUTDATE_PERIOD
+        if msgtype == 1:
             name = "%s%s%s" % (name, id, u'微信模板前一天')
             end_time = started_time - settings.OUTDATE_ONEDAY
         else:  # 预约当天8点
@@ -197,9 +197,7 @@ def CreateMiss(id, name, msgtype, started_time, equipment):  # equipment 1是手
 # 这是为了定时发模板消息用的
 def CreateCelery(order):  #
     new = timezone.now()
-    if order.wantTime - settings.OUTDATE_PERIOD > new:
-        a = 3
-    elif order.wantTime - settings.OUTDATE_ONEDAY > new:
+    if order.wantTime - settings.OUTDATE_ONEDAY > new:
         a = 2
     elif order.wantTime - settings.OUTDATE_HOURS > new:
         a = 1
