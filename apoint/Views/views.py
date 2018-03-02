@@ -311,7 +311,8 @@ def OrderUpdte(request):
             item[k] = user[k]
     order = Order.objects.filter(id=user['oid']).first()
     hosp=order.wanthospital.sales.openid
-    end=Order.objects.filter(id=user['oid']).update(**item)
+    Order.objects.filter(id=user['oid']).update(**item)
+    end=Order.objects.filter(id=user['oid']).first()
     IllnessImage.objects.filter(patient=order).delete()
     for photo in photos:
         IllnessImage.objects.create(image=photo, patient=order)
