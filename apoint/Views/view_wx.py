@@ -64,9 +64,24 @@ def MyPatients(request):
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
     order=Order.objects.get(id=id) #找到订单
-    data,record=Detail(order)
-    return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
+    data,record,is_end=Detail(order)
+    return JsonResutResponse({'id':id,'ret':0,'msg':'success','data':data,'customer':record,'is_end':is_end})
 
+#查看所有详情
+def LookCheat(request):
+    id=request.GET.get('id')
+    order = Order.objects.get(id=id)  # 找到订单
+    follows = OrderDetail.objects.filter(order=order)
+    record = []
+    for follow in follows:
+        date = {
+            'name': follow.creater.name,  # 客服姓名
+            'remark': follow.remark,  # 描述
+            'time': follow.createtime.strftime('%Y-%m-%d %H:%M')
+        }
+        record.append(date)
+    return JsonResutResponse({'ret':0,'msg':'success','customer':record,})
+#判断是否有预约
 def checkphone(request):
     phone = request.GET.get("phone",False)
     if phone:
@@ -215,4 +230,23 @@ def ThirdParty(request):
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
 
-
+#根据省搜索医院
+def SearchHosp(request):
+    id=request.GET.get('id')
+    area=Area.objects.get(id=id)
+    if area:
+        hosps=Hospital.objects.filter(province=area)
+    else:
+        hosps=Hospital.objects.all()
+    lister=[]
+    if hosps:
+        for hosp in hosps:
+            data = {
+                'id': hosp.id,
+                'name': hosp.name,
+                'value': hosp.name,
+            }
+            lister.append(data)
+    else:
+        pass
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})

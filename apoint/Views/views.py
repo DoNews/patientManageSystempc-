@@ -309,20 +309,20 @@ def OrderUpdte(request):
             pass
         else:
             item[k] = user[k]
-    order = Order.objects.filter(id=user['oid'])
-    u = order.update(**item)
-    IllnessImage.objects.filter(patient=order.first()).delete()
+    order = Order.objects.filter(id=user['oid']).first()
+    hosp=order.wanthospital.sales.openid
+    order.update(**item)
+    IllnessImage.objects.filter(patient=order).delete()
     for photo in photos:
-        IllnessImage.objects.create(image=photo, patient=order.first())
+        IllnessImage.objects.create(image=photo, patient=order)
     folowitem = {}
     for f in folows:
         folowitem[f] = folows[f]
     folowitem['order_id'] = user['oid']
     folowitem['creater_id'] = zuser.id
-    desc = u'将%s进行了%s的操作' % (order.first().name, getStatusName(folows['status']))
+    desc = u'将%s进行了%s的操作' % (order.name, getStatusName(folows['status']))
     folowitem['remark'] = desc
     OrderDetail.objects.create(**folowitem)
-    order = order.first()
     if order.status == 3:  # 确认去就诊
         try:
             CeleTexting(user['oid'], 2)  # 发短信
@@ -334,6 +334,13 @@ def OrderUpdte(request):
             ModelMsg(user['oid'], 1, 2)  # 发模板消息
         if order.wanthospital.sales.openid:
             ModelMsg(user['oid'], 2, 0)  # 给销售发模板消息
+    if order.status==6:
+        ModelMsg(user['oid'], 2, 0)
+    if order.status==13:
+        Transfer(user['oid'],hosp) #给转院前的用户发模板消息
+        ModelMsg(user['oid'], 2, 0)
+    if order.status==14:
+        ModelMsg(user['oid'], 2, 0)
     if order.status == 11: #延时预约
         ModelMsg(user['oid'], 1, 3)
     return JsonResutResponse({'ret': 0, 'msg': 'success'})

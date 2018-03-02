@@ -68,8 +68,13 @@ def Detail(order):
             lister.append(img.image)
     else:
         pass
+    if len(follows)>3:
+        is_end=False
+    else:
+        is_end=True
     if follows:
-        for follow in follows:
+        followser=follows[:3]
+        for follow in followser:
             date = {
                 'name': follow.creater.name,  # 客服姓名
                 'remark': follow.remark,  # 描述
@@ -91,7 +96,7 @@ def Detail(order):
         'description': order.description,  # 描述
         'photo': lister,  # 照片
     }
-    return date, record
+    return date, record ,is_end
 
 
 # 客服查看系统提醒(逾期)

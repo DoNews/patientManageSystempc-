@@ -47,17 +47,17 @@
             "area": "上海",
             "photo": [],
             "description": "这病很好治 三天几号",
-            "customer": [{
+            "wantTime": "2018-01-31", #预约时间
+            "sex": "男",
+            "id": "1",
+            },
+     "customer": [{
                 "remark": "这个患者可以被治疗 很快", #客服的描述
                 "name": "", #客服姓名
                 "time": "2018-01-30 11:39" # 客服操作时间
             }],
-            "wantTime": "2018-01-31", #预约时间
-            "sex": "男",
-            "id": "1",
-
-        },
-    返回:return JsonResutResponse({'ret':0,'msg':'success','data':data})
+      is_end:是否结束  True是结束  false 是没有（意思是可以去查看所有）
+    返回:JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,'is_end':is_end})
 
 ****
     作用:患者提交预约单

@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^staff/',StaffCation),#员工认证
     url(r'^mypatien/',MyPatients),#员工对应的患者
     url(r'^patientsdetail/',PatientsDetail),#查看患者详情
+    url(r'^lookcheat/',LookCheat),#查看所有的备忘 ---------新加
     url(r'^thememo/',TheMemo),#员工提交备忘录
     url(r'^cilckmake/',CilckMake),#患者点击去预约
     url(r'^ordersubmit/',OrderSubmit),#患者提交预约 可和pc端的共用
