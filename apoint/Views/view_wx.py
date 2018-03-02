@@ -250,3 +250,26 @@ def SearchHosp(request):
     else:
         pass
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
+
+
+#患者搜索
+def PatSearch(request):
+    name=request.POST['name']
+    openid=request.POST['openid']
+    user=SalesUser.objects.filter(openid=openid).first()
+    hosps=Hospital.objects.filter(sales=user) #找到所有的医院
+    orders=Order.objects.filter(wanthospital__in=hosps,name__icontains=name)
+    lister=[]
+    if orders:
+        for order in orders:
+            data = {
+                'id': order.id,
+                'name': order.name,  # 患者姓名
+                'sex': order.sex,  # 性别
+                'hospital': order.wanthospital.name,  # 预约医院
+                'wantTime': order.wantTime.strftime('%Y-%m-%d')
+            }
+            lister.append(data)
+    else:
+        pass
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
