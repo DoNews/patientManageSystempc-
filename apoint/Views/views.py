@@ -297,7 +297,7 @@ def OrderUpdte(request):
             name = user[k]
             item[k] = user[k]
         elif k =='nextcalldate':
-            if user[k]:
+            if user[k]!='':
                 item['nextcalldate']=user[k]
             else:
                 item['nextcalldate']=None
