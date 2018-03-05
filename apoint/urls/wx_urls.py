@@ -2,14 +2,14 @@
 from django.conf.urls import url
 
 from apoint.Views.view_wx import *
-
+from apoint.Views.views import *
 from apoint.Views.service_views import *
 
 urlpatterns = [
     url(r'^scrfcode/',ScrfCode), #发送验证码
     url(r'^staff/',StaffCation),#员工认证
     url(r'^mypatien/',MyPatients),#员工对应的患者
-    url(r'^patientsdetail/',PatientsDetail),#查看患者详情
+    url(r'^patientsdetail/',PatientsDetail),#查看患者详情 ——做了简单的修改
     url(r'^lookcheat/',LookCheat),#查看所有的备忘 ---------新加
     url(r'^thememo/',TheMemo),#员工提交备忘录
     url(r'^cilckmake/',CilckMake),#患者点击去预约
@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^province/',Province),#所有省
     url(r'^hospital/',Hospitaltable),#所有医院
     url(r'^checkphone',checkphone),#员工认证
+    url(r'^patsearch/',PatSearch),#患者搜索
 
 
     #客服
@@ -48,5 +49,5 @@ urlpatterns = [
     url(r'^addhosp/',AddHosp),#医院的添加和修改
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
     url(r'^updateSalesHosp', updateSalesHosp),
-    url(r'^AccountSet',AccountSet)#客服账号设置
+    url(r'^AccountSet',AccountSet),#客服账号设置
 ]

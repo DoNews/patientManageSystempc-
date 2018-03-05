@@ -175,16 +175,27 @@ def Province(request):
 
 #医院
 def Hospitaltable(request):
-    hospits=Hospital.objects.all()
     lister=[]
-    if hospits:
-        for hosp in hospits:
+    areas=Area.objects.all() #所有的省
+    if areas:
+        for area in areas:
             data={
-                'id':hosp.id,
-                'name':hosp.name,
-                'value':hosp.name,
+                'name':area.name,# 省的名称
+                'value':area.id,#省的id
+                'parent':0,
             }
             lister.append(data)
+            hospits=Hospital.objects.filter(province=area)
+            if hospits:
+                for hosp in hospits:
+                    data={
+                        'parent':area.id,
+                        'name':hosp.name,
+                        'value':hosp.id,
+                    }
+                    lister.append(data)
+            else:
+                pass
     else:
         pass
     return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
@@ -230,32 +241,32 @@ def ThirdParty(request):
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
 
-#根据省搜索医院
-def SearchHosp(request):
-    id=request.GET.get('id')
-    area=Area.objects.get(id=id)
-    if area:
-        hosps=Hospital.objects.filter(province=area)
-    else:
-        hosps=Hospital.objects.all()
-    lister=[]
-    if hosps:
-        for hosp in hosps:
-            data = {
-                'id': hosp.id,
-                'name': hosp.name,
-                'value': hosp.name,
-            }
-            lister.append(data)
-    else:
-        pass
-    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
-
+# #根据省搜索医院
+# def SearchHosp(request):
+#     id=request.GET.get('id')
+#     area=Area.objects.get(id=id)
+#     if area:
+#         hosps=Hospital.objects.filter(province=area)
+#     else:
+#         hosps=Hospital.objects.all()
+#     lister=[]
+#     if hosps:
+#         for hosp in hosps:
+#             data = {
+#                 'id': hosp.id,
+#                 'name': hosp.name,
+#                 'value': hosp.name,
+#             }
+#             lister.append(data)
+#     else:
+#         pass
+#     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
+#
 
 #患者搜索
 def PatSearch(request):
-    name=request.POST['name']
-    openid=request.POST['openid']
+    name=request.GET.get('name')
+    openid=request.GET.get('openid')
     user=SalesUser.objects.filter(openid=openid).first()
     hosps=Hospital.objects.filter(sales=user) #找到所有的医院
     orders=Order.objects.filter(wanthospital__in=hosps,name__icontains=name)

@@ -113,3 +113,18 @@
     字段3：describe，[{"key":"describe","value":"这个患者 可以治","description":"描述"}]
     字段4：types，[{"key":"types","value":"6","description":"状态"}]#已安排治疗6，预约延后治疗11，转院13，患者未到诊14，暂停跟进12
     return JsonResutResponse({'ret':0,'msg':'success'})
+
+****
+    作用:搜索销售对应的患者
+    请求方式:GET
+    url:http://127.0.0.1:8000/api/apoint/patsearch/?name=测试&openid=oL6mOs0-0QBMBxIxWQ2NLdanXWpE
+    字段1:name#要搜索的患者姓名
+    字段2:openid #销售的openid
+    "lister": [{
+        "wantTime": "2018-03-03", #预约时间
+        "hospital": "河南第一人民医院",#预约医院
+        "sex": "男",#性别
+        "id": 127,
+        "name": "测试001"
+    }],
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
