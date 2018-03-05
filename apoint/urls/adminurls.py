@@ -19,5 +19,4 @@ urlpatterns = [
     url(r'^addCustomerAction',addCustomerAction),
     url(r'^addHospital', newStaffHosp),
 
-
 ]

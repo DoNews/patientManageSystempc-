@@ -31,6 +31,20 @@ def TimingModel(SentWhoId, MsgType):
 
 
 
+
+#转院前发的模板消息
+def Transfer(SentWhoId,openid):
+    order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
+    detail_url =""
+    first = u"尊敬的%s:您所负责的患者转院了" % order.wanthospital.sales.name
+    template_id = settings.SALES_MODE  # 模板ID
+    touser = openid # 发送给谁
+    value1 = order.name,  # 预约患者
+    value2 = order.wanthospital.name  # 医院名称
+    value3 = order.wantTime.strftime('%Y-%m-%d ')  # 就诊日期
+    value4 = order.get_status_display()
+    IntegralChange(touser, template_id, detail_url, first, value1, value2, value3, value4,)
+
 # 发送给患者和销售模板消息
 # msgtype 为1的时候是给患者发 为2 是给销售发，semtwhoId 是订单详情,Sendtype为（1,提交成功),(2,确认),（3,延时预约）
 def ModelMsg(SentWhoId, msgtype, Sendtype):

@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^renling$',renling),
     url(r'^createUser$',createUser),
     url(r'^renlingAction$',renlingAction),
-    url(r'pations$',pations),
+    url(r'^pations$',pations),
     url(r'^pationsview',pationsview),#客服患者数据
     url(r'^remind',remind),#全部提醒页面
     url(r'^account',account),
@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^upload',uploader),
     url(r'^orderdetail$',orderdetail),
     url(r'^ordersubmit',OrderSubmit),
-    url(r'^orderupdate',OrderUpdte),
+    url(r'^orderupdate',OrderUpdte), #订单更新
     url(r'^overdue', overdue),
     url(r'^salercommit',salercommit),
     url(r'^adminfenpei', adminfenpei),

@@ -58,8 +58,8 @@ def index(request):
     v2 = OrderDetail.objects.filter(status=11).filter(creater=user).count()
     v3 = OrderDetail.objects.filter(status=13).filter(creater=user).count()
     v4 = OrderDetail.objects.filter(status=12).filter(creater=user).count()
-    todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user).order_by("-wantTime")[:5]  # 今日任务
-    renling = Order.objects.filter(status=1, custome__isnull=True).order_by('-wantTime')
+    todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user).order_by("-change_time","-wantTime")[:5]  # 今日任务
+    renling = Order.objects.filter(status=1, custome__isnull=True).order_by("-change_time",'-wantTime')
     arr = getNotify(request.user)
     return render(request, "index.html",{"user": user, "thismonth": thismonth, "thismonthfp": thismonthfp, "thismonthrl": thismonthrl,"v1": v1, "v2": v2, "v3": v3, "v4": v4, "todaywork": todaywork, "notify": arr, "renling": renling,"pageindex": 0, "menu": MENUS_CALLER})
 
@@ -74,9 +74,9 @@ def getNotify(user):
     now = datetime.datetime.now()
     user = ZJUser.objects.get(user=user)
     yestoday = now - timedelta(days=1)
-    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,custome=user).order_by('-wantTime')  # 管理员分配
-    notify2 = Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False, custome=user).order_by('-wantTime')  # 有备注
-    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12).order_by('-wantTime')  # 逾期了
+    notify1 = Order.objects.filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False,custome=user).order_by("-change_time",'-wantTime')  # 管理员分配
+    notify2 = Order.objects.filter(Order__creater__usertype=2).filter(Order__is_operation=False, custome=user).order_by("-change_time",'-wantTime')  # 有备注
+    notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12).order_by("-change_time",'-wantTime')  # 逾期了
     arr = []
     for n in notify1:
         dic = {}
@@ -165,7 +165,7 @@ def pationsview(request):
     type = request.GET.get("type", False)
     user = request.user
     cus = ZJUser.objects.filter(user=user)
-    orders = Order.objects.filter(custome=cus).order_by("-wantTime")
+    orders = Order.objects.filter(custome=cus).order_by("-change_time","-wantTime")
     if type:
         now = datetime.datetime.now()
         orders.filter(nextcalldate__lte=now)
@@ -187,11 +187,11 @@ def remind(request):
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
     orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(
-        status=12).order_by('-wantTime')
+        status=12).order_by("-change_time",'-wantTime')
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
-        Order__is_operation=False).order_by('-wantTime')  # 所有备忘
+        Order__is_operation=False).order_by("-change_time",'-wantTime')  # 所有备忘
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
-        Order__is_operation=False).order_by('-wantTime')  # 查看分配
+        Order__is_operation=False).order_by("-change_time",'-wantTime')  # 查看分配
     if orders:
         lister = RemindSystem(orders[:5])  # 这是逾期的
     else:
@@ -296,6 +296,11 @@ def OrderUpdte(request):
         if k == 'name':
             name = user[k]
             item[k] = user[k]
+        elif k =='nextcalldate':
+            if user[k]:
+                item['nextcalldate']=user[k]
+            else:
+                item['nextcalldate']=None
         elif k == 'wanthospital':
             hosp = Hospital.objects.filter(id=user[k]).first()
             item[k] = hosp
@@ -307,35 +312,42 @@ def OrderUpdte(request):
             item[k] = area
         elif k == 'oid':
             pass
-
         else:
             item[k] = user[k]
-    order = Order.objects.filter(id=user['oid'])
-    u = order.update(**item)
-    IllnessImage.objects.filter(patient=order.first()).delete()
+    order = Order.objects.filter(id=user['oid']).first()
+    hosp=order.wanthospital.sales.openid
+    Order.objects.filter(id=user['oid']).update(**item)
+    end=Order.objects.filter(id=user['oid']).first()
+    IllnessImage.objects.filter(patient=order).delete()
     for photo in photos:
-        IllnessImage.objects.create(image=photo, patient=order.first())
+        IllnessImage.objects.create(image=photo, patient=order)
     folowitem = {}
     for f in folows:
         folowitem[f] = folows[f]
     folowitem['order_id'] = user['oid']
     folowitem['creater_id'] = zuser.id
-    desc = u'将%s进行了%s的操作' % (order.first().name, getStatusName(folows['status']))
+    desc = u'将%s进行了%s的操作' % (order.name, getStatusName(folows['status']))
     folowitem['remark'] = desc
     OrderDetail.objects.create(**folowitem)
-    order = order.first()
-    if order.status == 3:  # 确认去就诊
+    if end.status == 3:  # 确认去就诊
         try:
             CeleTexting(user['oid'], 2)  # 发短信
             CreateSMS(order)  # 定时发消息
             CreateCelery(order)  # 定时发模板消息
         except:
             pass
-        if order.openid:
+        if end.openid:
             ModelMsg(user['oid'], 1, 2)  # 发模板消息
-        if order.wanthospital.sales.openid:
+        if end.wanthospital.sales.openid:
             ModelMsg(user['oid'], 2, 0)  # 给销售发模板消息
-    if order.status == 11: #延时预约
+    if end.status==6:
+        ModelMsg(user['oid'], 2, 0)
+    if end.status==13:
+        Transfer(user['oid'],hosp) #给转院前的用户发模板消息
+        ModelMsg(user['oid'], 2, 0)
+    if end.status==14:
+        ModelMsg(user['oid'], 2, 0)
+    if end.status == 11: #延时预约
         ModelMsg(user['oid'], 1, 3)
     return JsonResutResponse({'ret': 0, 'msg': 'success'})
 
@@ -349,9 +361,7 @@ def overdue(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(
-        status=12).order_by(
-        '-createtime')[:10]
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(status=12).order_by("-change_time",'-wantTime')[:10]
     if len(orders) > 0:
         lister = RemindSystem(orders)  # 这是逾期的
     else:
@@ -362,14 +372,14 @@ def overdue(request):
 def salercommit(request):
     user = ZJUser.objects.get(user=request.user)
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
-        Order__is_operation=False).order_by('-wantTime')  # 所有备忘
+        Order__is_operation=False).order_by("-change_time",'-wantTime')  # 所有备忘
     return render(request, "salercommitlist.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": remin})
 
 
 def adminfenpei(request):
     user = ZJUser.objects.get(user=request.user)
     admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(
-        Order__is_operation=False).order_by('-wantTime')  # 查看分配
+        Order__is_operation=False).order_by("-change_time",'-wantTime')  # 查看分配
     return render(request, "fenpeilist.html", {"pageindex": 2, "menu": MENUS_CALLER, "order": admin})
 
 
@@ -383,9 +393,7 @@ def yuqi(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(
-        status=12).order_by(
-        '-wantTime')[:5]
+    orders = Order.objects.filter(custome=user, nextcalldate__lte=yestoday.date(), nextcalldate__isnull=False).exclude(status=12).order_by("-change_time",'-wantTime')[:5]
     if len(orders) > 0:
         lister = RemindSystem(orders)  # 这是逾期的
     else:
