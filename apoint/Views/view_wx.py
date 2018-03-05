@@ -187,7 +187,7 @@ def Hospitaltable(request):
             lister.append(data)
             data={
                 'name':'期望预约医院',
-                'value':'%s'%1,
+                'value':'%s'%0,
                 'parent':'%s'%area.id,
 
             }
