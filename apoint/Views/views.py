@@ -328,7 +328,8 @@ def OrderUpdte(request):
                 folowitem['nextcalldate'] = folows[f]
             else:
                 folowitem['nextcalldate'] = None
-        folowitem[f] = folows[f]
+        else:
+            folowitem[f] = folows[f]
     folowitem['order_id'] = user['oid']
     folowitem['creater_id'] = zuser.id
     desc = u'将%s进行了%s的操作' % (order.name, getStatusName(folows['status']))
