@@ -213,6 +213,7 @@
                 end: function () { //此处用于演示
                     if(isneedreload){
                          reloadCustomerData()
+
                     }
 
                 }
@@ -231,7 +232,9 @@
                 $("#all").val(data.all);
                 parent.isneedreload=true;
                 //更新列表的总条数
-                layui.use(['laypage','layer'],function () {
+                if(page==1)
+                {
+                     layui.use(['laypage','layer'],function () {
                     var laypage = layui.laypage,
                             layer = layui.layer;
                             laypage.render({
@@ -246,6 +249,7 @@
                                     }
                                  });
                 })
+                }
             }
         })
     }

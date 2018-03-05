@@ -27,7 +27,8 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
         max:'date'
     });
     laydate.render({
-        elem: "#yyDateNext "
+        elem: "#yyDateNext ",
+        min:'date'
     });
     var layer = layui.layer;
     var uploadInst = upload.render({
@@ -65,9 +66,10 @@ $("#sureAdd").click(function () {
 $(".action").click(function () {
     var val=$('#yyDateNext').val();
     var type = $(this).attr("type");
-    if(val!=""){
+    if(val!=""||type==12){
        submitUpdateData(type);
-    }else{
+    }
+    else{
          layer.msg('下次跟进回访时间未填写', {
           time: 5000, //2s后自动关闭
              btn: ['去填写']
