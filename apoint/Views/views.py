@@ -323,6 +323,11 @@ def OrderUpdte(request):
         IllnessImage.objects.create(image=photo, patient=order)
     folowitem = {}
     for f in folows:
+        if f =='nextcalldate':
+            if folow[f] != '':
+                item['nextcalldate'] = folow[f]
+            else:
+                item['nextcalldate'] = None
         folowitem[f] = folows[f]
     folowitem['order_id'] = user['oid']
     folowitem['creater_id'] = zuser.id
