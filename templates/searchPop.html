@@ -18,7 +18,7 @@
 						<th style="width:250px;">预约患者</th>
 						<th>当前状态</th>
 						<th>提交时间</th>
-						<th>所属区域</th>
+{#						<th>所属区域</th>#}
 						<th>负责客服</th>
             <th class="detailClick">操作</th>
 					</tr>
@@ -33,7 +33,7 @@
 						</td>
 						<td>{{ foo.get_status_display}}</td>
 						<td>{{ foo.createtime|date:'YY-mm-dd' }}</td>
-						<td>{{ foo.area }}</td>
+{#						<td>{{ foo.area }}</td>#}
 						<td>{{ foo.wanthospital.sales }}</td>
 <td><span class="patientDetail" id="{{ foo.id }}">查看详情</span></td>
 
