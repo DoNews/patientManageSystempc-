@@ -296,6 +296,11 @@ def OrderUpdte(request):
         if k == 'name':
             name = user[k]
             item[k] = user[k]
+        elif k =='nextcalldate':
+            if user[k]:
+                item['nextcalldate']=user[k]
+            else:
+                item['nextcalldate']=None
         elif k == 'wanthospital':
             hosp = Hospital.objects.filter(id=user[k]).first()
             item[k] = hosp
