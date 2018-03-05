@@ -185,6 +185,13 @@ def Hospitaltable(request):
                 'parent':0,
             }
             lister.append(data)
+            data={
+                'name':'期望预约医院',
+                'value':1,
+                'parent':area.id,
+
+            }
+            lister.append(data)
             hospits=Hospital.objects.filter(province=area)
             if hospits:
                 for hosp in hospits:
