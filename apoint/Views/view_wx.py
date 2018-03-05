@@ -181,14 +181,14 @@ def Hospitaltable(request):
         for area in areas:
             data={
                 'name':area.name,# 省的名称
-                'value':area.id,#省的id
-                'parent':0,
+                'value':'%s'%area.id,#省的id
+                'parent':'%s'%0,
             }
             lister.append(data)
             data={
                 'name':'期望预约医院',
-                'value':1,
-                'parent':area.id,
+                'value':'%s'%1,
+                'parent':'%s'%area.id,
 
             }
             lister.append(data)
@@ -196,9 +196,9 @@ def Hospitaltable(request):
             if hospits:
                 for hosp in hospits:
                     data={
-                        'parent':area.id,
+                        'parent':'%s'%area.id,
                         'name':hosp.name,
-                        'value':hosp.id,
+                        'value':'%s'%hosp.id,
                     }
                     lister.append(data)
             else:
