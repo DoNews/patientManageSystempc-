@@ -324,8 +324,8 @@ def OrderUpdte(request):
     folowitem = {}
     for f in folows:
         if f =='nextcalldate':
-            if folow[f] != '':
-                item['nextcalldate'] = folow[f]
+            if folows[f] != '':
+                item['nextcalldate'] = folows[f]
             else:
                 item['nextcalldate'] = None
         folowitem[f] = folows[f]
