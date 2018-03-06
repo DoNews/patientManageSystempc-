@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>医院管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
 	</head>
@@ -14,18 +14,19 @@
 			{% include 'control/adminleft.html' %}
 			<div class="yy_indexConRight">
 				{% include 'control/head.html' %}
-				<div class="remindConBox" style="height: 550px;">
+				<div class="remindConBox" style="min-height: 550px;">
 					<div class="remindConTitle" style="position: relative;"><span>医院管理</span><span class="newgd" id="addCustom">新增</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
-						<tbody>
+
 							<tr>
 							
 								<th>省份</th>
 								<th>负责销售</th>
 								<th>医院名称</th>
 								<th>患者预约数量</th>
-								<th>管理员操作</th>
+								<th style="text-align: center;">管理员操作</th>
 							</tr>
+                    <tbody id="data">
                             {% for foo in hosp %}
 	<tr>
 
@@ -33,7 +34,7 @@
 								<td>{{ foo.hosp.sales }}</td>
 								<td>{{ foo.hosp.name }}</td>
 								<td>{{ foo.count }}</td>
-								<td><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
+								<td style="text-align: center"><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
 							</tr>
                             {% endfor %}
 
@@ -52,15 +53,15 @@
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+        var isneedreload=false;
 		layui.use(['form', 'laydate', 'upload', 'layer'], function() {
-			var
-
-				layer = layui.layer;
+			var layer = layui.layer;
 
 			//日期
 
 
 			$("#addCustom").click(function () {
+			    isneedreload=false;
                 layer.open({
 					type: 2,
 					title: false,
@@ -72,11 +73,14 @@
 					anim: 2,
 					content: ['/hospview', 'yes'], //iframe的url，no代表不显示滚动条
 					end: function() { //此处用于演示
-
+                        if(isneedreload){
+                            reloadData(1)
+                        }
 					}
 				})
             });
-			$('.patientMan').click(function() {
+			$("#data").on("click",'.patientMan',function() {
+                isneedreload=false;
 			    var sid =$(this).attr("id")
 				layer.open({
 					type: 2,
@@ -91,7 +95,9 @@
 					content: ['/hospview?id='+sid, 'yes'], //iframe的url，no代表不显示滚动条
 
 					end: function() { //此处用于演示
-
+                     if(isneedreload){
+                         reloadData(1)
+                     }
 					}
 				})
 			})
@@ -99,6 +105,18 @@
 
 
 		});
+		function reloadData(page) {
+            $.ajax({
+						url:"/api/apoint/allhospit/",
+						data:{"page":page},
+						type:"GET",
+						dataType:"json",
+						success:function (data) {
+                            $("#data").html(data.data);
+                            $("#data tr td:nth-child(5)").css('text-align','center');
+                        }
+					})
+        }
 	</script>
 
 </html>

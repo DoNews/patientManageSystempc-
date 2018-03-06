@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>患者管理</title>
-    <link rel="icon" href="/static/main/img/icon.png"/>
+    <link rel="icon" href="/static/main/img/logo.png" />
     <link rel="stylesheet" href="/static/main/css/common.css"/>
     <link rel="stylesheet" href="/static/main/css/patientManage.css"/>
     <link rel="stylesheet" href="/static/main/css/layui.css"/>
@@ -30,7 +30,7 @@
                     <th>提交时间</th>
                     <th>所属区域</th>
                     <th>负责销售</th>
-                    <th>客服操作</th>
+                    <th style="text-align: center">客服操作</th>
                 </tr>
                 <tbody id="data">
                 {% for foo in order %}
@@ -46,7 +46,7 @@
                         <td>{{ foo.createtime |date:"Y-m-d" }}</td>
                         <td>{{ foo.area }}</td>
                         <td>{{ foo.wanthospital.sales }}</td>
-                        <td><span class="pmTbaleBtn" id="{{ foo.id }}">电话确认</span></td>
+                        <td  style="text-align: center"><span class="pmTbaleBtn" id="{{ foo.id }}">电话确认</span></td>
                     </tr>
                 {% endfor %}
                 <script src="/static/main/js/patientManage.js"></script>
@@ -64,9 +64,9 @@
 <script src="/static/main/js/layui/layui.js"></script>
 <script src="/static/main/js/patientManage.js"></script>
 <script>
-    $(
-        function () {
+            var isneedreload=false;
             $("#data").on("click", ".pmTbaleBtn", function () {
+                isneedreload=false;
                 var sid = $(this).attr("id");
                 layer.open({
                     type: 2,
@@ -79,11 +79,15 @@
                     anim: 2,
                     content: ['/orderdetail?id=' + sid, 'yes'],
                     end: function () { //此处用于演示
-                        reloadData();
+                        if(isneedreload)
+                        {
+                            reloadData();
+                        }
                     }
                 });
             })
             $(".newgd").click(function () {
+                isneedreload=false;
                 parent.layer.open({
                     type: 2,
                     title: false,
@@ -95,10 +99,13 @@
                     anim: 2,
                     content: ['/addpation', 'yes'], //iframe的url，no代表不显示滚动条
                     end: function () {
+                        if(isneedreload)
+                        {
+                            reloadData();
+                        }
                     }
                 });
             });
-
             function reloadData() {
                 $.ajax({
                     url: "/api/apoint/service/",
@@ -107,12 +114,36 @@
                     dataType: "json",
                     success: function (data) {
                         $("#data").html(data.lister);
+                        $("#count").val(data.all);
+                                                //分页总数刷新
+                        layui.use(['laypage', 'layer'], function() {
+                            var laypage = layui.laypage,
+                                layer = layui.layer;
+                                laypage.render({
+                                elem: 'pageNum',
+                                count: $("#count").val(),
+                                layout: ['count', 'prev', 'page', 'next',  'skip'],
+                                limit:10,
+                                jump: function(obj,first) {
+                                     if(!first) {
+                                         $.ajax({
+                                             url: "/api/apoint/service/",
+                                             data: {"page": obj.curr},
+                                             type: "GET",
+                                             dataType: "json",
+                                             success: function (data) {
+                                                 $("#count").val(data.all);
+                                             }
+
+                                         })
+                                     }
+
+                                }
+                            });
+                        });
                     }
                 })
             }
-        }
-    )
-
 </script>
 </body>
 </html>

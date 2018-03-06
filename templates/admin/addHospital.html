@@ -4,12 +4,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>编辑销售负责医院</title>
-		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
 		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/addStaff.css" />
 	</head>
 
-	<body>
+	<body style="">
 		<div id="rlhz" style="height: 453px;">
 			<div class="newPatientTitle">编辑销售负责医院</div>
 			<style type="text/css">
@@ -93,11 +92,11 @@
 				</div>
 			</div>
 
-			<div style="position: relative;height: 66px;">
+			<div style="position: absolute;height: 66px;bottom: 0px;width: 100%">
 				<span class="sureChange ">
 				放弃修改
 			</span>
-				<span class="sureAdd">
+				<span class="sureAdd" style="float: right">
 				保存提交
 			</span>
 			</div>
@@ -123,20 +122,20 @@
 				var form = layui.form,
 					upload = layui.upload,
 					laydate = layui.laydate;
-          laydate.render({
-            elem: '#yyDate'
-          });
+                      laydate.render({
+                        elem: '#yyDate'
+                      });
 				$('.sureAdd').click(function() {
-				  var selected =[]
-          $.each($("[name=hospitalName]"),function () {
-            if($(this).prop('checked')==true)
-            {
-              selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
-            }
-          })
-            parent.hosps = selected;
-	          parent.layer.closeAll();
-            parent.layer.msg('添加成功');
+                      var selected =[]
+                      $.each($("[name=hospitalName]"),function () {
+                        if($(this).prop('checked')==true)
+                        {
+                          selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
+                        }
+                      })
+                      parent.hosps = selected;
+                      parent.layer.closeAll();
+                      parent.layer.msg('添加成功');
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();

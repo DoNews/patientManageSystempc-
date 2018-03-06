@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>账户管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/accountManage.css" />
         	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
@@ -20,11 +20,20 @@
 					<div class="changePass yy_loginForm">
 						<div class="changeLeft">
 							<p class="p_text">旧密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="op" /></p>
+							<p>
+                                <input type="password" id="op" onblur="check1()"/>
+                                <p id="opInfo"></p>
+                            </p>
 							<p class="p_text">新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="np1" /></p>
+							<p>
+                                <input type="password" id="np1"  onblur="check2(),check3()" />
+                                 <p id="np1Info"></p>
+                            </p>
 							<p class="p_text">重复新密码<span style="color: red;">*</span> </p>
-							<p><input type="password" id="np2" /></p>
+							<p>
+                                <input type="password" id="np2"  onblur="check3()" />
+                                <p id="np2Info"></p>
+                            </p>
 							<div class="changePassBtn">
 								保存提交
 							</div>
@@ -42,27 +51,53 @@
 	</body>
 
     <script>
+    function  check1() {
+       var val=$('#op').val();
+       if(val==""){
+           $('#opInfo').html('不能为空').css("color","red");
+           return false
+       }else{
+           $('#opInfo').html('')
+           return true
+       }
+    }
+    function  check2() {
+       var val=$('#np1').val();
+       if(val==""){
+           $('#np1Info').html('不能为空').css("color","red");
+           return false
+       }else{
+           $('#np1Info').html('')
+           return true
+       }
+    }
+    function  check3() {
+        var val1=$('#np1').val();
+       var val=$('#np2').val();
+       if(val!=""&&val1==val&&val1!=""){
+            $('#np2Info').html('')
+           return true
+       }else{
+           $('#np2Info').html('两次密码不一致或者未填写').css("color","red");
+           return
+       }
+    }
     $(".changePassBtn").click(function () {
-        $.each($("[type=password]"),function () {
-            if($(this).val()=="")
-            {
-                alert("不能为空");
-                return;
-            }
-        })
-        if($("#np1").val()!=$("#np2").val())
-        {
-            alert("两次密码不一致！");
-            return
+        if(check1()&&check2()&&check3()){
+            $.ajax("/api/apoint/AccountSet",{
+                data:{"oldpass":$("#op").val(),"newpass":$("#np1").val()},
+                type:"POST",
+                dataType:"json",
+                success:function (data) {
+                    window.location='/login';
+                    alert("修改成功")
+                }
+            })
         }
-        $.ajax("/api/apoint/AccountSet",{
-            data:{"oldpass":$("#op").val(),"newpass":$("#np1").val()},
-            type:"POST",
-            dataType:"json",
-            success:function (data) {
-                alert("修改成功")
-            }
-        })
+        else {
+            alert("请正确完善信息")
+        }
+
     })
     </script>
 </html>

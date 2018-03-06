@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>首页页面</title>
-    <link rel="icon" href="/static/main/img/icon.png"/>
+    <link rel="icon" href="/static/main/img/logo.png" />
     <link rel="stylesheet" type="text/css" href="/static/main/css/index.css"/>
     <link rel="stylesheet" type="text/css" href="/static/main/css/common.css"/>
     <link rel="stylesheet" href="/static/main/css/layui.css">
@@ -110,21 +110,22 @@
                 </ul>
                 {% if notify != '' %}
                     <a href="/remind">
-                        <div class="require_all">
-                            查看全部 {{ notify.count }}
-                        </div>
-                    </a>
+                    <div class="require_all">
+
+                        查看全部
+                    </div>
                 {% endif %}
+
             </div>
 
         </div>
+
 
     </div>
 </div>
 
 <script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="/static/main/js/index.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="/static/main/js/echarts.common.min.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
@@ -146,17 +147,26 @@
         xAxis: [{
             data: list1,
             axisLabel: {
-                rotate: 30, //刻度旋转45度角
-                textStyle: {
-                    color: "red",
-                    fontSize: 13
-                }
-            }
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
         }],
-        yAxis: {},
+        yAxis: {
+            minInterval: 1
+        },
+
         series: [{
+            {#barGap:'1%',#}
             type: 'bar',
-            barWidth: 15, //柱图宽度
+            barWidth: 30, //柱图宽度
             data: value1,
             itemStyle: {
                 //通常情况下：
@@ -186,20 +196,26 @@
         xAxis: [{
             data: list2,
             axisLabel: {
-                rotate: 30, //刻度旋转30度角
-                textStyle: {
-                    color: "red",
-                    fontSize: 16
-                }
-            }
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
         }],
-        yAxis: {},
+        yAxis: {
+            minInterval: 1
+        },
         series: [{
             type: 'bar',
-            barWidth: 15,
+            barWidth: 30,
             data: value2,
             itemStyle: {
-
                 normal: {
                     color: function (params) {
                         var colorList = ['rgb(87,126,250)', 'rgb(110,217,181)', 'rgb(248,134,94)', 'rgb(175,216,255)'];
@@ -214,5 +230,6 @@
     myChart2.setOption(option2);
 </script>
 </body>
+
 
 </html>

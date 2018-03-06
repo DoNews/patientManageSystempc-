@@ -120,7 +120,11 @@
                     {% for follow in follows %}
                     <li>
 						<div class="boxLeft">
-							<img src="/static/main/img/icon.png" alt="" />
+              {% if follow.creater.usertype == 1 %}
+              <img src="/static/main/img/kefu.png" style="width:50px;height:50px;" alt="客服" />
+                {% else %}
+                <img src="/static/main/img/sales.png" style="width:50px;height:50px;"  alt="销售" />
+              {% endif %}
 							<p>{{ follow.creater }}</p>
 						</div>
 						<div class="boxRight">
@@ -141,7 +145,7 @@
                 <div class="addBtn2 refenpei" type="3">
 					重新分配
 				</div>
-                {% elif request.user %}
+                {% elif request.user == order.custome.user %}
                      {% if order.status == 2  %}
                 <div class="addZtgj action" type="12">
 					暂停跟进
@@ -217,7 +221,7 @@
 					完成45日随访
 				</div>
 
-                {%  elif order.status == 10 or  order.status == 11 or  order.status == 13 or  order.status == 14  %}
+                {%  elif order.status == 10 or  order.status == 11 or  order.status == 13 or  order.status == 14 or  order.status == 15  %}
                 <div class="addZtgj action" type="12">
 					暂停跟进
 				</div>
@@ -232,21 +236,13 @@
 					延期预约
 				</div>
                 {% elif order.status == 12 %}
- <div class="addZtgj action" type="12">
-					暂停跟进
-				</div>
-				<div class="addBtn2 action" type="3">
-					确认去就诊
-				</div>
-				<div class="addBtn action" type="4">
-					确认不就诊
-				</div>
-
-				<div class="addBtn action" type="5">
-					延期预约
+                <div class="addZtgj action" type="15">
+					激活
 				</div>
 
                 {% endif %}
+                {% else %}
+
             {% endif %}
 
 
@@ -254,33 +250,29 @@
 			</div>
 		</div>
 		<script src="/static/main/js/jquery-3.3.1.min.js "></script>
-		<script src="/static/main/js/layui/layui.js "></script>
+		<script src="/static/main/js/layui/layui.js"></script>
         <script src="/static/main/js/tools.js"></script>
         <script src="/static/main/js/dataform.js"></script>
 		<script>
             var text = document.getElementById("textarea");
-             var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
-
+            var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
             autoTextarea(text);// 调用
-
             $(".refenpei").click(function () {
-
 				    var oid =getParam("id")
 					parent.layer.open({
 						type: 2,
 						title: false,
-						closeBtn: 1, //不显示关闭按钮
+						closeBtn: 1,
 						shade: [0.4],
 						area: ['800px', '600px'],
 						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
+						scrollbar: false,
 						anim: 2,
 						content: ['/refenpei?id='+oid, 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
-
+						end: function() {
+{#                            parent.isreload=true;#}
 						}
 					})
-
             });
 		</script>
 	</body>

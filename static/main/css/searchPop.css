@@ -125,7 +125,7 @@
 /**/
 
 .addPatientBox {
-	border-top: 1px solid #C2C2C2;
+	/*border-top: 1px solid #C2C2C2;*/
 	width: 100%;
 	position: fixed;
 	bottom: 0;
@@ -141,13 +141,16 @@
 	font-size: 14px;
 	background: #5bbfd3;
 	color: #fff;
+	    position: fixed;
+    bottom: 0px;
+    right: 0;
 	text-align: center;
 	margin: 20px 20px 20px 84%;
 }
 /*弹框样式初始化*/
 .layui-layer{
-	border-radius: -moz-calc(8px!important);
-	border-radius: -webkit-calc(8px!important);
+	border-radius: -moz-calc(8px)!important;
+	border-radius: -webkit-calc(8px)!important;
 	border-radius: 8px!important;
 }
 .layui-layer-setwin .layui-layer-close2 {

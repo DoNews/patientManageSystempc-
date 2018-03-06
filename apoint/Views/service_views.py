@@ -106,7 +106,7 @@ def Remind(request):
 def Remindall(request):
     page =request.GET.get("page")
     user = ZJUser.objects.get(user=request.user)
-    now = datetime.datetime.now()
+    now = datetime.now()
     yestoday = now - timedelta(days=1)
     orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('-createtime')
 
@@ -189,7 +189,7 @@ def StafManag(request):
     return render(request,'xxxx.html',{'staffs':lister,'service':ser})
 #点击查看所有员工
 def StaffAll(request):
-    page=request.POST['page']
+    page=request.GET['page']
     staffs=SalesUser.objects.all().order_by('-createtime')
     result, contacts = Paging(staffs, page)
     lister=[]
@@ -202,8 +202,12 @@ def StaffAll(request):
             'city':staff.city,
         }
         lister.append(data)
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+    return JsonResutResponse({'ret':0,'msg':'success','lister':trenderc('control/saleritem.html',lister),'all':staffs.count(),'result':result})
 
+#所有客服
+def AccountAll(request):
+    staffs = ZJUser.objects.filter(usertype=1).order_by('-createtime')
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': trenderc('control/accountitem.html', staffs)})
 #查看员工详情
 def StaffEditor(request):
     id=request.GET.get('id') #员工的id
@@ -280,28 +284,31 @@ def OrderAll(request):
             'name': order.name,  # 患者姓名
             'wanthospital': order.wanthospital.name,  # 医院名称
             'wantTime': order.wantTime.strftime('%Y-%m-%d  %H:%M'),  # 预约时间
-            'custome':order.custome.name,#负责客服
-            'sales': order.wanthospital.sales.name,  # 负责销售
+            'custome': order.custome.name if order.custome else '无',#负责客服
+            'sales': order.wanthospital.sales.name if order.wanthospital.sales else '无',  # 负责销售
             'status':order.get_status_display(),#当前状态
-            'is_party':order.is_party,#是否是第三方
+            'is_party':'是' if order.is_party else '否',#是否是第三方
         }
         lister.append(data)
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+    t = template.loader.get_template("control/adminorderitem.html")
+    c = template.Context({'order': lister})
+    return JsonResutResponse({'ret':0,'msg':'success','data':t.render(c),'result':result})
+
 
 #查看全部医院
 def Allhospit(request):
     page=request.GET.get('page')
-    hospits=Hospital.objects.all().order_by('-createtime')
-    result, contacts = Paging(hospits, page)
-    lister = []
-    for hosp in contacts:
-        data={
-            'id':hosp.id,
-            'area':hosp.province,
-            'name':hosp.name
-        }
-        lister.append(data)
-    return JsonResutResponse({'ret':0,'msg':'success','lister':lister,'result':result})
+
+
+    hosp = Hospital.objects.all().order_by('-id')
+    hosps = []
+    for h in hosp:
+        count = Order.objects.filter(wanthospital=h).count()
+        hosps.append({"hosp": h, "count": count})
+    result, contacts = Paging(hosps, page)
+
+
+    return JsonResutResponse({'ret':0,'msg':'success','data':trenderc('control/hospitem.html',contacts),'result':result})
 
 #查看第三方全部
 def AllNoservit(request):

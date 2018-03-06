@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
 	</head>
@@ -69,7 +69,7 @@
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/echarts.common.min.js"></script>
-  <script src="/static/main/js/layui.js"></script>
+  <script src="/static/main/js/"></script>
 	<!--<script src="js/formManage.js"></script>-->
 	<script type="text/javascript">
 		var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
@@ -78,18 +78,15 @@
 				trigger: 'item',
 				formatter: "{a} <br/>{b} : {c} ({d}%)"
 			},
-			legend: {
-				orient: 'vertical',
-				left: 'left',
-
-				data: [{% for foo in  name%}
-                    '{{ foo }}',
-				{% endfor %}]
-
-			},
-
+			{#legend: {#}
+			{#	orient: 'vertical',#}
+			{#	left: 'left',#}
+			{#	data: [{% for foo in  name%}#}
+             {#       '{{ foo }}',#}
+			{#	{% endfor %}]#}
+			{# },#}
 			series: [{
-				name: '访问来源',
+			  name: '跟进患者数',
 				type: 'pie',
 				radius: '55%',
 				center: ['50%', '60%'],
@@ -132,21 +129,25 @@
 					alignWithLabel: true
 				},
 				axisLabel: {
-				rotate: 45, //刻度旋转45度角
-				textStyle: {
-					color: "red",
-					fontSize: 13
-				}
-			}
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
 			yAxis: [{
-				type: 'value'
+				type: 'value',
+                minInterval:1
 			}],
-
 			series: [{
-				name: '直接访问',
 				type: 'bar',
-				barWidth: '60%',
+				barWidth: '40%',
 				data: [{{ treanumber }}, {{ transfer }}, {{ appoins }}, {{ confirm }}],
 				itemStyle: {
 					//通常情况下：
@@ -179,12 +180,12 @@
 			},
 			xAxis: [{
 				type: 'value'
-				
+
 			}
 			],
 			yAxis: [{
 				type: 'category',
-
+	      minInterval:1,
 				data: [{% for shuju in  ZLCSTJ%}
                     '{{ shuju.ber }}次',
 				{% endfor %}],
@@ -192,7 +193,7 @@
 					alignWithLabel: true
 				},
 				axisLabel: {
-				rotate: 45, //刻度旋转45度角
+				rotate:0,
 				textStyle: {
 					color: "red",
 					fontSize: 13
@@ -230,15 +231,12 @@
 					type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
 				}
 			},
-			legend: {
-				data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎', '失敬失敬']
-			},
 			grid: {
 				left: '3%',
 				right: '4%',
 				bottom: '3%',
 				containLabel: true
-			},
+			 },
 			xAxis: {
 				type: 'category',
 				data: [{% for city in  citys%}
@@ -254,7 +252,7 @@
 					stack: '总量',
 					label: {
 						normal: {
-							show: true,
+							show: false,
 							position: 'insideRight'
 						}
 					},
@@ -268,10 +266,10 @@
 					stack: '总量',
 					label: {
 						normal: {
-							show: true,
+							show:false,
 							position: 'insideRight'
 						}
-					},
+					 },
 					data:[{% for city in  citys%}
                     '{{ city.delay }}',
 				{% endfor %}]
@@ -282,7 +280,7 @@
 					stack: '总量',
 					label: {
 						normal: {
-							show: true,
+							show: false,
 							position: 'insideRight'
 						}
 					},
@@ -296,7 +294,7 @@
 					stack: '总量',
 					label: {
 						normal: {
-							show: true,
+							show: false,
 							position: 'insideRight'
 						}
 					},

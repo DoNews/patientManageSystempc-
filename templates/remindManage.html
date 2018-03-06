@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/remindManage.css" />
     <script src="/static/main/js/jquery-3.3.1.min.js"></script>
@@ -18,15 +18,16 @@
 				<div class="remindConBox">
 					<div class="remindConTitle"><span>预约患者数据</span></div>
 					<table cellpadding="0" cellspacing="0" border="0" class="remindTable" style="">
-						<tbody>
+
 							<tr>
 								<th>预约工单</th>
 								<th>目前状态</th>
 								<th>计划时间</th>
 								<th>逾期天数</th>
 								<th>负责销售</th>
-								<th>客服操作</th>
+								<th style="text-align: center">客服操作</th>
 							</tr>
+                    <tbody id="data">
                             {% for order in lister %}
                                 <tr>
 								<td>
@@ -40,7 +41,7 @@
 								<td>{{ order.nextcalldate  }}</td>
 								<td>{{ order.day }}</td>
 								<td>{{ order.sales }}</td>
-								<td><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
+								<td class="btnTD" style="text-align: center"><span class="remindTableBtn pmTbaleBtn" id="{{ order.id }}">去管理</span></td>
 							</tr>
                             {% empty %}
                               <tr>
@@ -63,7 +64,7 @@
 								<tr>
 									<th>预约患者</th>
 									<th>提交销售</th>
-									<th>管理员操作</th>
+									<th  style="text-align: center">管理员操作</th>
 								</tr>
                                 {% for order in notes %}
                                  <tr>
@@ -76,7 +77,7 @@
 									</td>
 									<td>{{ order.sales }}</td>
 
-									<td><span class="remindTableBtn pmTbaleBtn"  id="{{ order.id }}">去管理</span></td>
+									<td  style="text-align: center"><span class="remindTableBtn pmTbaleBtn"  id="{{ order.id }}">去管理</span></td>
 								</tr>
                                      {% empty %}
                                  <tr><td  colspan="3"> 暂无数据</td></tr>
@@ -89,14 +90,14 @@
 						<a href="/salercommit"><div class="remind_allRightBtn">查看全部</div></a>
 					</div>
 					<div class="remindConBoxRight">
-						<div class="remindConTitle"><span>分配工单提醒(<span style="font-size: 12px;"></span>)</span>
+						<div class="remindConTitle"><span>分配工单提醒</span>
 						</div>
 						<table cellpadding="0" cellspacing="0" border="0" class="remindRightTable">
 							<tbody>
 								<tr>
 									<th>预约事件</th>
 									<th>负责销售</th>
-									<th>客服操作</th>
+									<th  style="text-align: center">客服操作</th>
 								</tr>
                                 {% for order in admin %}
                                 	<tr>
@@ -108,9 +109,9 @@
 										</div>
 									</td>
 									<td>{{ order.sales }}</td>
-									<td><span class="remindTableBtn2 pmTbaleBtn"  id="{{ order.id }}">去跟进</span></td>
+									<td  style="text-align: center"><span class="remindTableBtn2 pmTbaleBtn"  id="{{ order.id }}">去跟进</span></td>
 								</tr>
- {% empty %}
+                                {% empty %}
                                  <tr><td  colspan="3"> 暂无数据</td></tr>
                                 {% endfor %}
 

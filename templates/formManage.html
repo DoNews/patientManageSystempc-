@@ -3,9 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>客服提醒管理</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
+		<link rel="icon" href="/static/main/img/logo.png" />
 		<link rel="stylesheet" href="/static/main/css/common.css" />
 		<link rel="stylesheet" href="/static/main/css/formManage.css" />
+    	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	</head>
 
 	<body>
@@ -17,14 +18,14 @@
 				<div class="formManBotom">
 					<div class="formConBoxLeft">
 						<div class="formConTitle"><span>本月数据纵览</span></div>
-						<div id="nowMouth1" style="height: 70%;">
+						<div id="nowMouth1" style="height: 90%;">
 
 						</div>
 
 					</div>
 					<div class="formConBoxRight">
 						<div class="formConTitle"><span>本月已到诊患者状态总览</span></div>
-						<div id="nowMouth4" style="height: 70%;">
+						<div id="nowMouth4" style="height:90%;">
 
 						</div>
 
@@ -35,14 +36,14 @@
 				<div class="formManBotom">
 					<div class="formConBoxLeft">
 						<div class="formConTitle"><span>我负责的全部患者数据汇总</span></div>
-						<div id="nowMouth2" style="height: 70%;">
+						<div id="nowMouth2" style="height: 90%;">
 
 						</div>
 
 					</div>
 					<div class="formConBoxRight">
 						<div class="formConTitle"><span>我负责的已到诊患者状态总览</span></div>
-						<div id="nowMouth3" style="height: 70%;">
+						<div id="nowMouth3" style="height: 90%;">
 
 						</div>
 
@@ -52,7 +53,7 @@
 			</div>
 		</div>
 	</body>
-	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
+
 	<script src="/static/main/js/echarts.common.min.js"></script>
 {#	<script src="/static/main/js/formManage.js"></script>#}
     <script>
@@ -66,18 +67,24 @@
 				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
 			},
       },
-
 			xAxis: [{
-				data: ["本月累计跟进人次", "本月分配患者数", "本月认领患者数"],
-				axisLabel: {
-					rotate:30, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize:10
-					}
-				}
+				data: ["累计跟进人次", "分配患者数", "认领患者数"],
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
-			yAxis: {},
+			yAxis: {
+			  minInterval:1
+      },
 			series: [{
 					type: 'bar',
 					barWidth: 30, //柱图宽度
@@ -115,15 +122,22 @@
       },
 			xAxis: [{
 				data: ["累计跟进人次", "累计分配患者数", "累计认领患者数"],
-				axisLabel: {
-					rotate: 30, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
-			yAxis: {},
+			yAxis: {
+			 minInterval:1
+      },
 			series: [{
 					type: 'bar',
 					barWidth: 30, //柱图宽度
@@ -158,21 +172,34 @@
 			axisPointer: { // 坐标轴指示器，坐标轴触发有效
 				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
 			},
+
       },
+       yAxis:{
+			  minInterval:1
+        },
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
-				axisLabel: {
-					rotate: 30, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
-			yAxis: {},
+			yAxis: {
+
+			  minInterval:1
+
+      },
 			series: [{
 					type: 'bar',
-					barWidth: 30, //柱图宽度
+					barWidth:30, //柱图宽度
 					data:[{{ v1all }}, {{ v2all }}, {{ v3all }},{{ v4all }}],
 					itemStyle: {
 						//通常情况下：
@@ -208,15 +235,24 @@
       },
 			xAxis: [{
 				data: ["安排治疗", "预约延后治疗", "转院","暂停"],
-				axisLabel: {
-					rotate: 30, //刻度旋转45度角
-					textStyle: {
-						color: "red",
-						fontSize: 16
-					}
-				}
+				  axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 5)) str += '\n';
+                        }
+                        return str
+                       }
+			    }
 			}],
-			yAxis: {},
+			yAxis:[
+			  {
+			  minInterval:1
+      }
+      ],
 			series: [{
 					type: 'bar',
 					barWidth: 30, //柱图宽度

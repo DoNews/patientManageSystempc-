@@ -1,0 +1,22 @@
+ {% for item in lister %}
+    <tr>
+        <td>
+            <div class="pmTable_img"></div>
+            <div class="pmTable_con">
+                <p>{{ item.name }}</p>
+
+            </div>
+        </td>
+        <td>{{ item.phone }}</td>
+        <td>{% if item.is_cert %}
+            已绑定
+        {% else %}未绑定
+        {% endif %} </td>
+        <td>{{ item.city }}
+        </td>
+
+        <td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 saleredit"
+                                                          data-id="{{ item.id }}">编辑</span><span
+                class="pmTbaleBtn">删除</span></td>
+    </tr>
+{% endfor %}

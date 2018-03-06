@@ -1,222 +1,271 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>管理员首页页面</title>
-		<link rel="icon" href="/static/main/img/icon.png" />
-		<link rel="stylesheet" type="text/css" href="/static/main/css/common.css" />
-		<link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css" />
-        <style>
-            th
-            {
-                text-align: center;
+<head>
+    <meta charset="UTF-8">
+    <title>管理员首页页面</title>
+    <link rel="icon" href="/static/main/img/logo.png" />
+    <link rel="stylesheet" type="text/css" href="/static/main/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/main/css/adminindex.css"/>
+    <link rel="stylesheet" href="/static/main/css/layui.css"/>
+    <style>
+        th {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="yy_indexCon">
+    {% include 'control/adminleft.html' %}
+    <div class="yy_indexConRight">
+        {% include 'control/head.html' %}
+        <div class="contentBox">
+            <div class="patientConTitle"><span>销售账号管理</span><span class="pmTbaleBtnLeft" id="addStaff">新增</span></div>
+            <table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+
+                <tr>
+                    <th>员工姓名</th>
+                    <th>手机号码</th>
+                    <th>绑定状态</th>
+                    <th>负责区域</th>
+
+                    <th style="text-align: center">操作</th>
+                    <tbody id="data">
+                    </tr>
+                    {{ data }}
+                    </tbody>
+            </table>
+            <input type="hidden" value="{{ all }}" id="all">
+            <div id="pageNum"></div>
+
+        </div>
+        <div class="contentBox">
+            <div class="patientConTitle"><span>客服账号管理</span><span class="pmTbaleBtnLeft" id="addCustom">新增</span></div>
+            <table cellpadding="0" cellspacing="0" border="0" class="pmTable">
+
+                <tr>
+                    <th>客服姓名</th>
+                    <th>手机号码</th>
+                    <th>账号</th>
+                    <th style="text-align: center">操作</th>
+                </tr>
+                <tbody id="data2">
+                {{ lister }}
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //分页
+    var isneedreload=false;
+    layui.use(['laypage', 'layer'], function () {
+        var laypage = layui.laypage,
+            layer = layui.layer;
+        //自定义样式
+        //完整功能
+        laypage.render({
+                        elem: 'pageNum',
+                        count: $("#all").val(),
+                        layout: ['count', 'prev', 'page', 'next', 'skip'],
+                        jump: function (obj,first) {
+                            if (!first)
+                            {
+                                reloadData(obj.curr);
+                            }
+                        }
+        });
+
+        //编辑按钮
+        $('#data').on('click', '.saleredit', function () {
+            isneedreload=false;
+            var sid = $(this).attr("data-id");
+            layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 1, //不显示关闭按钮
+                shade: [0.4],
+                area: ['650px', '550px'],
+                offset: '40px',
+                scrollbar: false, //禁止浏览器滚动
+                anim: 2,
+                content: ['/api/apoint/staffeditor/?id=' + sid, 'yes'],
+                end: function () {
+                    if(isneedreload){
+                         reloadData(1)
+                    }
+                }
+            });
+
+        });
+        //客服编辑
+        $('#data2').on('click', '.customeredit', function () {
+            isneedreload=false;
+            layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 1, //不显示关闭按钮
+                shade: [0.4],
+                area: ['650px', '550px'],
+                offset: '40px',
+                scrollbar: false, //禁止浏览器滚动
+                anim: 2,
+                content: ['/addCustomer?id=' + $(this).attr("data-id"), 'yes'], //iframe的url，no代表不显示滚动条
+                end: function () { //此处用于演示
+                    if(isneedreload){
+                          reloadCustomerData(1)
+                    }
+                }
+            });
+        });
+        //销售和员工的删除事件
+        $('#data').on('click','.pmTbaleBtn',function () {
+            layer.open({
+                type: 3,
+                content: '删除中...'
+            });
+            var stId = $(this).prev().attr("data-id");
+            var othis = this;
+            layer.confirm('确认删除本条记录吗?', {
+                btn: ['是', '否'], btn1: function (index) {
+                    $.ajax({
+                        url: '/api/apoint/staffdelete/',
+                        type: "POST",
+                        data: {"id": stId},
+                        success: function () {
+                                parent.layer.closeAll();
+                                reloadData(1)
+                                layer.msg("删除成功");
+                        }
+                    })
+                },
+                btn2: function () {
+                    parent.layer.closeAll()
+                }
+            })
+        });
+        //删除客服
+         $('#data2').on('click','.pmTbaleBtn',function () {
+            layer.open({
+                type: 3,
+                content: '删除中...'
+            });
+            var stId = $(this).prev().attr("data-id");
+            var othis = this;
+            layer.confirm('确认删除本条记录吗?', {
+                btn: ['是', '否'], btn1: function (index) {
+                    $.ajax({
+                        url: '/api/apoint/staffdelete/',
+                        type: "POST",
+                        data: {"id": stId},
+                        success: function () {
+                                parent.layer.closeAll();
+                                reloadCustomerData(1);
+                                layer.msg("删除成功");
+                        }
+                    })
+                },
+                btn2: function () {
+                    parent.layer.closeAll()
+                }
+            })
+        });
+        //添加员工
+        $('#addStaff').click(function () {
+            isneedreload=false;
+            layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 1, //不显示关闭按钮
+                shade: [0.4],
+                area: ['650px', '550px'],
+                offset: '40px',
+                scrollbar: false, //禁止浏览器滚动
+                anim: 2,
+                content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
+                end: function () { //此处用于演示
+                     if(isneedreload){
+                         reloadData(1)
+                    }
+                }
+            });
+        });
+        //添加客服
+        $("#addCustom").click(function () {
+            layer.open({
+                type: 2,
+                title: false,
+                closeBtn: 1, //不显示关闭按钮
+                shade: [0.4],
+                area: ['650px', '550px'],
+                offset: '40px',
+                scrollbar: false, //禁止浏览器滚动
+                anim: 2,
+                content: ['/addCustomer', 'yes'],
+                end: function () { //此处用于演示
+                    if(isneedreload){
+                         reloadCustomerData()
+
+                    }
+
+                }
+
+            });
+        });
+    });
+    function reloadData(page) {
+        $.ajax({
+            url: "/api/apoint/staffall/",
+            data: {"page": page},
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $("#data").html(data.lister);
+                $("#all").val(data.all);
+                parent.isneedreload=true;
+                //更新列表的总条数
+                if(page==1)
+                {
+                     layui.use(['laypage','layer'],function () {
+                    var laypage = layui.laypage,
+                            layer = layui.layer;
+                            laypage.render({
+                                    elem: 'pageNum',
+                                    count: $("#all").val(),
+                                    layout: ['count', 'prev', 'page', 'next', 'skip'],
+                                    jump: function (obj,first) {
+                                        if (!first)
+                                        {
+                                            reloadData(obj.curr);
+                                        }
+                                    }
+                                 });
+                })
+                }
             }
-        </style>
-	</head>
+        })
+    }
+     function reloadCustomerData(page) {
+        $.ajax({
+            url: "/api/apoint/AccountAll",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $("#data2").html(data.lister);
+                parent.isneedreload=true;
+            }
+        })
+    }
+</script>
 
-	<body>
-		<div class="yy_indexCon">
-			 {% include 'control/adminleft.html' %}
-			<div class="yy_indexConRight">
-				 {% include 'control/head.html' %}
-				<div class="contentBox">
-					<div class="patientConTitle"><span>销售账号管理</span><span class="pmTbaleBtnLeft" id="addStaff">新增</span></div>
-					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
-						<tbody>
-							<tr>
-								<th>员工姓名</th>
-								<th>手机号码</th>
-								<th>绑定状态</th>
-								<th>负责区域</th>
-
-								<th style="text-align: center">操作</th>
-							</tr>
-              {% for item in staffs %}
-              	<tr>
-								<td>
-									<div class="pmTable_img"></div>
-									<div class="pmTable_con">
-										<p>{{ item.name }}</p>
-
-									</div>
-								</td>
-								<td>{{ item.phone }}</td>
-								<td>{{item.is_cert }}</td>
-								<td>{{ item.city }}
-								</td>
-
-								<td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 saleredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
-							</tr>
-              {% endfor %}
-						</tbody>
-					</table>
-
-
-				</div>
-				<div class="contentBox">
-					<div class="patientConTitle"><span>客服账号管理</span><span class="pmTbaleBtnLeft" id="addCustom">新增</span></div>
-					<table cellpadding="0" cellspacing="0" border="0" class="pmTable">
-						<tbody>
-							<tr>
-								<th>客服姓名</th>
-								<th>手机号码</th>
-								<th>账号</th>
-								<th  style="text-align: center">操作</th>
-							</tr>
-              {% for item in service %}
-	            <tr>
-								<td>
-									<div class="pmTable_img"></div>
-									<div class="pmTable_con">
-										<p>{{ item.name }}</p>
-
-									</div>
-								</td>
-								<td>{{ item.phone }}</td>
-
-
-								<td>{{ item.user.username }}</td>
-								<td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 customeredit" data-id="{{ item.id }}">编辑</span><span class="pmTbaleBtn">删除</span></td>
-
-							</tr>
-              {% endfor %}
-
-
-
-						</tbody>
-					</table>
-
-				</div>
-			</div>
-		</div>
-		</div>
-
-		</div>
-
-		<script src="/static/main/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/main/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-
-		 <script type="text/javascript">
-			//分页
-			layui.use(['laypage', 'layer'], function() {
-				var laypage = layui.laypage,
-					layer = layui.layer;
-				//自定义样式
-				//完整功能
-				laypage.render({
-					elem: 'staffPage',
-					count: 100,
-					layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-					jump: function(obj) {
-					}
-				});
-
-				//编辑按钮
-
-				$('.saleredit').click(function() {
-				  var sid =$(this).attr("data-id");
-					layer.open({
-						type: 2,
-						title: false,
-						closeBtn: 1, //不显示关闭按钮
-						shade: [0.4],
-						area: ['650px', '550px'],
-						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
-						anim: 2,
-						content: ['/api/apoint/staffeditor/?id='+sid, 'yes'],
-						end: function() {
-
-						}
-					});
-
-				});
-        $(".customeredit").click(function () {
-                    layer.open({
-						type: 2,
-						title: false,
-						closeBtn: 1, //不显示关闭按钮
-						shade: [0.4],
-						area: ['650px', '550px'],
-						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
-						anim: 2,
-						content: ['/addCustomer?id='+$(this).attr("data-id"), 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
-
-						}
-
-					});
-                });
-				//删除
-				$('.pmTbaleBtn').click(function() {
-				  layer.open({
-            type: 3,
-            content: '删除中...'
-          });
-				  var stId=$(this).prev().attr("data-id");
-				  var othis =this
-          if(window.confirm('你确定要删除当前记录吗？')){
-                  $.ajax({
-                      url: '/api/apoint/staffdelete/',
-                      type: "POST",
-                      data:{"id":stId},
-                      success:function () {
-                        parent.layer.closeAll()
-                        $(othis).parent().parent().remove();
-                        layer.msg("删除成功");
-
-                      }
-                  })
-                 return true;
-              }else{
-				          parent.layer.closeAll()
-                  return false;
-
-             }
-				});
-				//添加员工
-				$('#addStaff').click(function() {
-				layer.open({
-						type: 2,
-						title: false,
-						closeBtn: 1, //不显示关闭按钮
-						shade: [0.4],
-						area: ['650px', '550px'],
-						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
-						anim: 2,
-
-						content: ['/staffaddnew', 'yes'], //iframe的url，no代表不显示滚动条
-
-						end: function() { //此处用于演示
-
-						}
-
-					});
-				});
-
-				$("#addCustom").click(function () {
-                      layer.open({
-						type: 2,
-						title: false,
-						closeBtn: 1, //不显示关闭按钮
-						shade: [0.4],
-						area: ['650px', '550px'],
-						offset: '40px',
-						scrollbar: false, //禁止浏览器滚动
-						anim: 2,
-						content: ['/addCustomer', 'yes'], //iframe的url，no代表不显示滚动条
-						end: function() { //此处用于演示
-
-						}
-
-					});
-                });
-			});
-		</script>
-
-	</body>
+</body>
 
 </html>

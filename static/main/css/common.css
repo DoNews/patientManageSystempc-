@@ -160,6 +160,7 @@
 			padding-left: 35px;
 			background: #eaeef0;
 			color: #98a2b2;
+			border-right: none;
 		}
 		
 		.searchBox input::-webkit-input-placeholder {
@@ -272,12 +273,29 @@
 }
 	.layui-layer-iframe iframe	{
 		border-radius: 6px!important;
-		 height:582px!important;
+		 height:580px!important;
 		    min-width:760px;
 		}
+	.layui-form-item input{
+		width:92%;
+		margin-left: 8px;
+	}
 #pageNum{
 	text-align: center;
     margin: 0 auto;
     width: 97%;
     border-top: 1px solid #ccc;
+}
+.pmTable_con p:nth-child(1){
+	color: #818a99;
+}
+/*文本框谷歌样式修改*/
+		input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #e9edef inset;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+      -webkit-box-shadow: 0 0 0 1000px #e9edef inset;
 }

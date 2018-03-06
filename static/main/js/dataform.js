@@ -16,15 +16,19 @@ $(".p").click(function () {
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
-        laydate = layui.laydate;
+        laydate = layui.laydate,
+        date=new Date();
     laydate.render({
-        elem: '#yyDate'
+        elem: '#yyDate',
+        min:'date'
     });
     laydate.render({
-        elem: '#birthDay'
+        elem: '#birthDay',
+        max:'date'
     });
     laydate.render({
-        elem: "#yyDateNext "
+        elem: "#yyDateNext ",
+        min:'date'
     });
     var layer = layui.layer;
     var uploadInst = upload.render({
@@ -60,8 +64,20 @@ $("#sureAdd").click(function () {
 });
 
 $(".action").click(function () {
+    var val=$('#yyDateNext').val();
     var type = $(this).attr("type");
-    submitUpdateData(type);
+    if(val!=""||type==12){
+       submitUpdateData(type);
+    }
+    else{
+         layer.msg('下次跟进回访时间未填写', {
+          time: 5000, //2s后自动关闭
+             btn: ['去填写']
+         });
+        // alert("下次预约跟进时间不能为空")
+    }
+
+
 });
 
 function submitCreateData() {
@@ -99,16 +115,17 @@ function initFolowData(stype) {
 }
 
 function submit(surl) {
-
     $.ajax({
         url: surl,
         type: "POST",
         dataType: "json",
         data: postData,
         success: function (data) {
-            console.log(data)
+            // console.log(data)
+            // window.parent.location.reload();
             parent.layer.closeAll();
-            parent.layer.msg('创建成功');
+            parent.layer.msg('操作成功');
+            parent.parent.isneedreload=true
         }
     })
 }

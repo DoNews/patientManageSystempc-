@@ -72,7 +72,7 @@
 				</div>
 
 			</div>
-			<div style="position: relative;height: 66px;">
+			<div style="position:fixed;height: 66px;width:100%;bottom:0;">
 
 				<span class="sureChange ">
 				放弃修改
@@ -97,9 +97,9 @@
 				});
 				$('.sureAdd').click(function() {
 				   ids =[]
-          for(var i=0;i<hosps.length;i++) {
-            ids.push(hosps[i].id)
-          }
+                  for(var i=0;i<hosps.length;i++) {
+                    ids.push(hosps[i].id)
+                  }
           var data ={"name":$("#name").val(),"phone":$("#phone").val(), "city":$("#area").val(),
                 "hosps":JSON.stringify(ids)
               };
@@ -112,6 +112,7 @@
               type:'POST',
               data:data,
               success:function (arg) {
+                  parent.isneedreload=true;
                 	parent.layer.closeAll();
 					      parent.layer.msg('提交成功');
               }
@@ -129,16 +130,16 @@
 						closeBtn: 1,
 						shade: [0.4],
 						area: ['600px', '450px'],
-						offset: '40px',
+
 						scrollbar: false,
 						anim: 2,
 						content: ['/editHospital?id='+uid, 'yes'],
 						end: function() {
 						   $(".hospitalList").html("");
-              for(var i=0;i<hosps.length;i++)
-              {
-                $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
-              }
+                          for(var i=0;i<hosps.length;i++)
+                          {
+                            $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
+                          }
 
 						}
 					});

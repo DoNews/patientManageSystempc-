@@ -1,0 +1,19 @@
+{% for item in lister %}
+    <tr>
+        <td>
+            <div class="pmTable_img"></div>
+            <div class="pmTable_con">
+                <p>{{ item.name }}</p>
+
+            </div>
+        </td>
+        <td>{{ item.phone }}</td>
+
+
+        <td>{{ item.user.username }}</td>
+        <td style="width: 200px;text-align: center"><span class="pmTbaleBtn1 customeredit"
+                                                          data-id="{{ item.id }}">编辑</span><span
+                class="pmTbaleBtn kfletete">删除</span></td>
+
+    </tr>
+{% endfor %}

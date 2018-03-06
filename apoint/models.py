@@ -81,7 +81,8 @@ CHIOCE=((1,'未认领'),
         (11,'延后治疗'),
         (12,'暂停跟进'),
         (13,'转院'),
-        (14,'确认未到诊'))
+        (14,'确认未到诊'),
+        (15,'被重新激活'))
 class Order(models.Model):
     serial=models.CharField('编号',max_length=20,blank=True,null=True)
     openid = models.CharField('openid', max_length=100, blank=True, null=True)
@@ -99,6 +100,9 @@ class Order(models.Model):
     status =models.IntegerField(u'当前状态',choices=CHIOCE,default=1)
     is_party=models.BooleanField(u'是否是第三方',default=False)
     custome=models.ForeignKey(ZJUser,related_name='user_custom',verbose_name='所属客服',null=True,blank=True,on_delete=models.SET_NULL)
+    #按更新时间排序
+    change_time=models.DateTimeField('变更时间',auto_now=True)
+
     def __unicode__(self):
         return self.name
     class Meta:

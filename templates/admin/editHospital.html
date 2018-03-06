@@ -4,13 +4,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>编辑销售负责医院</title>
-		<link rel="stylesheet" type="text/css" href="/static/main/css/index.css" />
+
 		<link rel="stylesheet" type="text/css" href="/static/main/js/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="/static/main/css/addStaff.css" />
 	</head>
 
-	<body>
-		<div id="rlhz" style="height: 453px;">
+	<body style="position: relative;height: 450px">
+		<div id="rlhz">
 			<div class="newPatientTitle">编辑销售负责医院</div>
 			<style type="text/css">
 				.hospitalBox {
@@ -35,6 +35,8 @@
 				.hospitalName p {
 					height: 35px;
 					line-height: 35px;
+          text-align: left;
+          padding-left: 38%;
 				}
 				
 				.hospitalArea p input,
@@ -101,11 +103,11 @@
 				</div>
 			</div>
 
-			<div style="position: relative;height: 66px;">
+			<div style="position: absolute;height: 66px;bottom: 0px;width: 100%">
 				<span class="sureChange ">
 				放弃修改
 			</span>
-				<span class="sureAdd">
+				<span class="sureAdd" style="float: right">
 				保存提交
 			</span>
 			</div>

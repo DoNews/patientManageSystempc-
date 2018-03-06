@@ -42,7 +42,7 @@ def StaffCation(request):
 #我负责的患者（销售）
 def MyPatients(request):
     openid=request.GET.get('openid')
-    user=SalesUser.objects.filter(openid=openid).first() #扎到员工
+    user=SalesUser.objects.filter(openid=openid).first() #找到员工
     hospts=Hospital.objects.filter(sales=user)
     orders=Order.objects.filter(wanthospital__in=hospts).exclude(status=1).order_by('-createtime') #找到所有的订单
     lister = []
@@ -64,9 +64,24 @@ def MyPatients(request):
 def PatientsDetail(request):
     id =request.GET.get('id')#拿到orderid
     order=Order.objects.get(id=id) #找到订单
-    data,record=Detail(order)
-    return JsonResutResponse({'ret':0,'msg':'success','data':data,'customer':record,})
+    data,record,is_end=Detail(order)
+    return JsonResutResponse({'id':id,'ret':0,'msg':'success','data':data,'customer':record,'is_end':is_end})
 
+#查看所有详情
+def LookCheat(request):
+    id=request.GET.get('id')
+    order = Order.objects.get(id=id)  # 找到订单
+    follows = OrderDetail.objects.filter(order=order)
+    record = []
+    for follow in follows:
+        date = {
+            'name': follow.creater.name,  # 客服姓名
+            'remark': follow.remark,  # 描述
+            'time': follow.createtime.strftime('%Y-%m-%d %H:%M')
+        }
+        record.append(date)
+    return JsonResutResponse({'ret':0,'msg':'success','customer':record,})
+#判断是否有预约
 def checkphone(request):
     phone = request.GET.get("phone",False)
     if phone:
@@ -97,10 +112,8 @@ def CilckMake(request):
 
 #患者order提交
 def OrderSubmit(request):
-
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
-    print userinfo,photo
     user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
     item={}
@@ -131,9 +144,7 @@ def OrderSubmit(request):
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     try:
-        pass
-
-        #ModelMsg(order.id, 1, 1)
+        ModelMsg(order.id, 1, 1)
     except:
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})
@@ -164,16 +175,33 @@ def Province(request):
 
 #医院
 def Hospitaltable(request):
-    hospits=Hospital.objects.all()
     lister=[]
-    if hospits:
-        for hosp in hospits:
+    areas=Area.objects.all() #所有的省
+    if areas:
+        for area in areas:
             data={
-                'id':hosp.id,
-                'name':hosp.name,
-                'value':hosp.name,
+                'name':area.name,# 省的名称
+                'value':'%s'%area.id,#省的id
+                'parent':'%s'%0,
             }
             lister.append(data)
+            data={
+                'name':'期望预约医院',
+                'value':'%s'%999,
+                'parent':'%s'%area.id,
+            }
+            lister.append(data)
+            hospits=Hospital.objects.filter(province=area)
+            if hospits:
+                for hosp in hospits:
+                    data={
+                        'parent':'%s'%area.id,
+                        'name':hosp.name,
+                        'value':'%s'%hosp.id,
+                    }
+                    lister.append(data)
+            else:
+                pass
     else:
         pass
     return JsonResutResponse({'ret':0,'msg':'success','lister':[lister]})
@@ -219,4 +247,46 @@ def ThirdParty(request):
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
 
+# #根据省搜索医院
+# def SearchHosp(request):
+#     id=request.GET.get('id')
+#     area=Area.objects.get(id=id)
+#     if area:
+#         hosps=Hospital.objects.filter(province=area)
+#     else:
+#         hosps=Hospital.objects.all()
+#     lister=[]
+#     if hosps:
+#         for hosp in hosps:
+#             data = {
+#                 'id': hosp.id,
+#                 'name': hosp.name,
+#                 'value': hosp.name,
+#             }
+#             lister.append(data)
+#     else:
+#         pass
+#     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
+#
 
+#患者搜索
+def PatSearch(request):
+    name=request.GET.get('name')
+    openid=request.GET.get('openid')
+    user=SalesUser.objects.filter(openid=openid).first()
+    hosps=Hospital.objects.filter(sales=user) #找到所有的医院
+    orders=Order.objects.filter(wanthospital__in=hosps,name__icontains=name)
+    lister=[]
+    if orders:
+        for order in orders:
+            data = {
+                'id': order.id,
+                'name': order.name,  # 患者姓名
+                'sex': order.sex,  # 性别
+                'hospital': order.wanthospital.name,  # 预约医院
+                'wantTime': order.wantTime.strftime('%Y-%m-%d')
+            }
+            lister.append(data)
+    else:
+        pass
+    return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})

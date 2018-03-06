@@ -1,0 +1,10 @@
+                            {% for foo in lister %}
+	<tr>
+
+								<td>{{ foo.hosp.province }}</td>
+								<td>{{ foo.hosp.sales }}</td>
+								<td>{{ foo.hosp.name }}</td>
+								<td>{{ foo.count }}</td>
+								<td><span class="remindTableBtn patientMan" id="{{ foo.hosp.id }}">去管理</span></td>
+							</tr>
+                            {% endfor %}
