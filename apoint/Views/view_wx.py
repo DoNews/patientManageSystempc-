@@ -75,7 +75,7 @@ def LookCheat(request):
     record = []
     for follow in follows:
         date = {
-            'name': follow.creater.name,  # 客服姓名
+            'name': follow.creater.name if follow.creater else '',  # 客服姓名
             'remark': follow.remark,  # 描述
             'time': follow.createtime.strftime('%Y-%m-%d %H:%M')
         }
