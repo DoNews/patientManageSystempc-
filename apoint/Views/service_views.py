@@ -279,6 +279,7 @@ def OrderAll(request):
     result,contacts = Paging(orders, page)
     lister=[]
     for order in contacts:
+        print order
         data={
             'id':order.id,
             'name': order.name,  # 患者姓名
