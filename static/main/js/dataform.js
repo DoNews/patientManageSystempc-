@@ -43,6 +43,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
             $("#addupload").before("<li class=\"img_boxLi\"><img src=\"/static/main/img/x.png\" data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"><img class=\"p\" layer-pid=\"图片id，可以不写\" 					layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
             $(".p").click(function () {
                 layer.photos({
+                    area: ['450px', '280px'],
                     photos: '.img_boxLi'
                     , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
                 });
