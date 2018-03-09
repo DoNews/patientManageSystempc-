@@ -7,14 +7,10 @@ $(".img_boxUl").on('click','.x',function () {
     $(this).parent().remove();
     imgSrcList.remove($(this).attr("data"))
 });
-$(".img_boxUl").on('click',".p",function () {
-    layer.photos({
-        photos: '.img_boxUl',
-        area:[800,580],
-        anim: 5,//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）,
-        closeBtn:1
-    });
-})
+// $(".img_boxUl").on('click',".p",function () {
+
+
+// })
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
@@ -23,6 +19,12 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     laydate.render({
         elem: '#yyDate',
         min:'date'
+    });
+    layer.photos({
+            photos: '.img_boxUl',
+            area: [800, 580],
+            anim: 5,//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）,
+            closeBtn: 1
     });
     laydate.render({
         elem: '#birthDay',
