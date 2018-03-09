@@ -64,19 +64,19 @@ $(".action").click(function () {
     {
         if(type!=15){
                     if(val==""){
-            layer.msg('下次跟进回访时间不能为空', {
-              time: 5000, //2s后自动关闭
-                 btn: ['去填写']
-             });
-             return false
-                }
-         else if(now>date){
-             layer.msg('下次跟进回访时间不能小于当前时间', {
-              time: 5000, //2s后自动关闭
-                 btn: ['去填写']
-             });
-             return false
-                }
+                        layer.msg('下次跟进回访时间不能为空', {
+                          time: 5000, //2s后自动关闭
+                             btn: ['去填写']
+                         });
+                         return false
+                    }
+                     else if(now>date){
+                         layer.msg('下次跟进回访时间不能小于当前时间', {
+                          time: 5000, //2s后自动关闭
+                             btn: ['去填写']
+                         });
+                         return false
+                  }
         }
 
     }
