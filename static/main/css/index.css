@@ -330,14 +330,11 @@
 }
 
 .allInfo_wrap {
-
-	width: 95%;
-
-	position: fixed;
-	bottom:2px;
-	left: 2.5%;
-	height: 70px;
-	    opacity: 1;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    height: 70px;
+    opacity: 1;
     background: #f4f7f8;
 }
 

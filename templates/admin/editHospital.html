@@ -148,19 +148,6 @@
           parent.hosps=selected
             parent.layer.closeAll();
             parent.layer.msg('添加成功');
-          {#$.ajax({#}
-          {#    url:"/api/apoint/updateSalesHosp",#}
-          {#    type:'POST',#}
-          {#    data:{"uid":getParam("id"),"hosps":JSON.stringify(selected)},#}
-          {#    success:function (arg) {#}
-          {##}
-          {#        parent.hosp_id=selected;#}
-          {#        parent.layer.closeAll();#}
-          {##}
-          {#        parent.layer.msg('修改成功');#}
-          {#    }#}
-          {##}
-{#          {);#}
 				})
 				$('.sureChange').click(function() {
 					parent.layer.closeAll();

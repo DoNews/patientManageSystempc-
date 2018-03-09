@@ -3,14 +3,16 @@
  */
 var userinfo = {}
 var postData = {}
-$(".x").click(function () {
+$(".img_boxUl").on('click','.x',function () {
     $(this).parent().remove();
     imgSrcList.remove($(this).attr("data"))
 });
-$(".p").click(function () {
+$(".img_boxUl").on('click',".p",function () {
     layer.photos({
-        photos: '.img_boxLi'
-        , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+        photos: '.img_boxUl',
+        area:[800,580],
+        anim: 5,//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）,
+        closeBtn:1
     });
 })
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
@@ -30,7 +32,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
         elem: "#yyDateNext ",
         min:'date'
     });
-    var layer = layui.layer;
+    layer = layui.layer;
     var uploadInst = upload.render({
         elem: '#addupload'
         ,
@@ -40,19 +42,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
             var url = res.imgurl
             //上传完毕回调
             imgSrcList.push(url)
-            $("#addupload").before("<li class=\"img_boxLi\"><img src=\"/static/main/img/x.png\" data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"><img class=\"p\" layer-pid=\"图片id，可以不写\" 					layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
-            $(".p").click(function () {
-                layer.photos({
-                    closeBtn:2,
-                    area: ['450px', '280px'],
-                    photos: '.img_boxLi'
-                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                });
-            })
-            $(".x").click(function () {
-                $(this).parent().remove();
-                imgSrcList.remove($(this).attr("data"))
-            });
+            $("#addupload").before("<li class=\"img_boxLi\"><div data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"></div><img class=\"p\" layer-pid=\"图片id，可以不写\" 					layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
         },
         error: function () {
             //请求异常回调
@@ -68,16 +58,30 @@ $("#sureAdd").click(function () {
 $(".action").click(function () {
     var val=$('#yyDateNext').val();
     var type = $(this).attr("type");
-    if(val!=""||type==12){
-       submitUpdateData(type);
+    var date=new Date(Date.parse(val));
+    var now =new Date();
+    if(type!=12)
+    {
+        if(type!=15){
+                    if(val==""){
+            layer.msg('下次跟进回访时间不能为空', {
+              time: 5000, //2s后自动关闭
+                 btn: ['去填写']
+             });
+             return false
+                }
+         else if(now>date){
+             layer.msg('下次跟进回访时间不能小于当前时间', {
+              time: 5000, //2s后自动关闭
+                 btn: ['去填写']
+             });
+             return false
+                }
+        }
+
     }
-    else{
-         layer.msg('下次跟进回访时间未填写', {
-          time: 5000, //2s后自动关闭
-             btn: ['去填写']
-         });
-        // alert("下次预约跟进时间不能为空")
-    }
+    submitUpdateData(type);
+
 
 
 });

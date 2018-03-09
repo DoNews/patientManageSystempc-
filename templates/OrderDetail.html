@@ -83,10 +83,10 @@
 				<ul class="img_boxUl">
                     {% for img in imgs %}
 
-					<li class="img_boxLi"><img src="/static/main/img/x.png" data="{{ img.image }}"  style=" width: 20px;height:20px" class="x"><img src="{{ img.image }}" /></li>
+                        <li class="img_boxLi"><div src="/static/main/img/x.png" data="{{ img.image }}"  style=" width: 20px;height:20px" class="x"></div><img src="{{ img.image }}" class="p" /></li>
                     {% endfor %}
 
-					  <li class="img_boxLi" id="addupload"> <img src="/static/main/img/add.png" style="width: 85px"  ></li>
+					  <li class="img_boxLi add" id="addupload"> </li>
 				</ul>
 			</div>
 
@@ -125,7 +125,7 @@
                 {% else %}
                 <img src="/static/main/img/sales.png" style="width:50px;height:50px;"  alt="销售" />
               {% endif %}
-							<p>{{ follow.creater }}</p>
+							<p style="white-space: nowrap">{{ follow.creater }}</p>
 						</div>
 						<div class="boxRight">
 							<p class="patientHisText">{{ follow.remark }}</p>
@@ -254,7 +254,9 @@
         <script src="/static/main/js/tools.js"></script>
         <script src="/static/main/js/dataform.js"></script>
 		<script>
+
             var text = document.getElementById("textarea");
+
             var imgSrcList = [{% for foo in imgs %} '{{ foo.image }}',{% endfor %}]
             autoTextarea(text);// 调用
             $(".refenpei").click(function () {

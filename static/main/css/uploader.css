@@ -3,7 +3,9 @@
     position: absolute;
     right: -10px;
     top: -10px;
-    width: 20px;height:20px
+    width: 20px;height:20px;
+     background-image: url("/static/main/img/x.png");
+     background-size: 20px 20px;
 }
 .img_boxLi
 {
@@ -12,4 +14,9 @@
 .img_boxLi
 {
     margin: 10px 0px 10px 20px;
+}
+.add
+{
+    background-size: 100% auto;
+    background-image: url("/static/main/img/add.png");
 }
