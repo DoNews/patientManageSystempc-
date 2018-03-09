@@ -66,6 +66,8 @@ def ModelMsg(SentWhoId, msgtype, Sendtype):
     else:
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
         detail_url = u"http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
+        if not order.wanthospital.sales:
+            return
         first = u"尊敬的%s:您所负责的医院有新患者确认了预约" % order.wanthospital.sales.name
         template_id = settings.SALES_MODE  # 模板ID
         touser = order.wanthospital.sales.openid  # 发送给谁

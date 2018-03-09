@@ -58,3 +58,38 @@ Traceback (most recent call last):
   File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
     if (eval(r.content)['errcode'] != 0):
 KeyError: 'errcode'
+ERROR 2018-03-09 13:37:24,167 task 20468 13792 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-09 13:37:24,167 task 20468 13792 'errcode'
+Traceback (most recent call last):
+  File "G:\python\Apointment\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-09 15:19:18,447 task 20468 30956 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-09 15:19:18,447 task 20468 30956 'errcode'
+Traceback (most recent call last):
+  File "G:\python\Apointment\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-09 15:21:55,486 task 18548 29300 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-09 15:21:55,486 task 18548 29300 'errcode'
+Traceback (most recent call last):
+  File "G:\python\Apointment\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-09 15:23:12,012 task 2476 25120 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-09 15:23:12,013 task 2476 25120 'errcode'
+Traceback (most recent call last):
+  File "G:\python\Apointment\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-09 15:27:04,493 task 1864 22872 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-09 15:27:04,493 task 1864 22872 'errcode'
+Traceback (most recent call last):
+  File "G:\python\Apointment\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
