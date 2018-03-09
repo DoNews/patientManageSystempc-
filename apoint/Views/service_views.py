@@ -269,7 +269,10 @@ def updateSalesHosp(request):
 #删除
 def StaffDelete(request):
     id=request.POST['id']
-    ZJUser.objects.get(id=id).delete()
+    u = ZJUser.objects.get(id=id)
+    adminuser=u.user
+    u.delete()
+    adminuser.delete()
     return HttpResponse("删除成功")
     # return render(request,'xxxx.html',{'msg':u'删除成功'})
 #查看所有患者
