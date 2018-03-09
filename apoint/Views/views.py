@@ -308,14 +308,17 @@ def OrderUpdte(request):
             phone = user[k]
             item[k] = user[k]
         elif k == 'area':
-            area = Area.objects.filter(id=user[k]).first()
-            item[k] = area
+            if user[k]:
+                area = Area.objects.filter(id=user[k]).first()
+                item[k] = area
         elif k == 'oid':
             pass
         else:
             item[k] = user[k]
     order = Order.objects.filter(id=user['oid']).first()
-    hosp=order.wanthospital.sales.openid
+    saler = order.wanthospital.sales
+    if saler:
+        openid= saler.openid
     Order.objects.filter(id=user['oid']).update(**item)
     end=Order.objects.filter(id=user['oid']).first()
     IllnessImage.objects.filter(patient=order).delete()
@@ -333,7 +336,7 @@ def OrderUpdte(request):
     folowitem['order_id'] = user['oid']
     folowitem['creater_id'] = zuser.id
     desc = u'将%s进行了%s的操作' % (order.name, getStatusName(folows['status']))
-    folowitem['remark'] = desc
+    folowitem['remark'] = desc+"\n"+folows['remark']
     OrderDetail.objects.create(**folowitem)
     if end.status == 3:  # 确认去就诊
         try:
@@ -344,12 +347,13 @@ def OrderUpdte(request):
             pass
         if end.openid:
             ModelMsg(user['oid'], 1, 2)  # 发模板消息
-        if end.wanthospital.sales.openid:
-            ModelMsg(user['oid'], 2, 0)  # 给销售发模板消息
+        if end.wanthospital.sales:
+            if end.wanthospital.sales.openid:
+                ModelMsg(user['oid'], 2, 0)  # 给销售发模板消息
     if end.status==6:
         ModelMsg(user['oid'], 2, 0)
-    if end.status==13:
-        Transfer(user['oid'],hosp) #给转院前的用户发模板消息
+    if end.status==13 and openid:
+        Transfer(user['oid'],openid) #给转院前的用户发模板消息
         ModelMsg(user['oid'], 2, 0)
     if end.status==14:
         ModelMsg(user['oid'], 2, 0)

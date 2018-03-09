@@ -33,7 +33,7 @@ def ServiceApoint(request):
                     'wantTime':order.wantTime.strftime('%Y-%m-%d  %H:%M'),#预约时间
                     'createtime': order.createtime.strftime('%Y-%m-%d  %H:%M'),  # 提交时间
                     'status':order.get_status_display(),#患者状态
-                    'area':order.area.name,#所属省
+                    'area':order.area.name if order.area else '' ,#所属省
                     'sales':order.wanthospital.sales.name if order.wanthospital.sales else '',#负责销售
                 }
                 lister.append(data)
@@ -269,7 +269,10 @@ def updateSalesHosp(request):
 #删除
 def StaffDelete(request):
     id=request.POST['id']
-    ZJUser.objects.get(id=id).delete()
+    u = ZJUser.objects.get(id=id)
+    adminuser=u.user
+    u.delete()
+    adminuser.delete()
     return HttpResponse("删除成功")
     # return render(request,'xxxx.html',{'msg':u'删除成功'})
 #查看所有患者
@@ -288,7 +291,7 @@ def OrderAll(request):
             'custome': order.custome.name if order.custome else '无',#负责客服
             'sales': order.wanthospital.sales.name if order.wanthospital.sales else '无',  # 负责销售
             'status':order.get_status_display(),#当前状态
-            'is_party':'是' if order.is_party else '否',#是否是第三方
+            'is_party':'是' if order.is_party else '否',#是否是第三方service_views
         }
         lister.append(data)
     t = template.loader.get_template("control/adminorderitem.html")
