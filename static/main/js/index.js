@@ -72,8 +72,6 @@ $(function () {
                 success: function (data) {
                     $(".xttx_list").html(data.data)
                 }
-
-
             })
 
         }

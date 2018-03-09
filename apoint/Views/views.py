@@ -160,7 +160,7 @@ def renlingAction(request):
     OrderDetail(order=order, creater=customer, createtime=datetime.datetime.now(), status=2, remark="认领").save()
     return JsonResutResponse({"result": 1, "msg": "认领成功"})
 
-
+@login_required(login_url="/login/")
 def pationsview(request):
     type = request.GET.get("type", False)
     user = request.user

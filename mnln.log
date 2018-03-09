@@ -5,3 +5,56 @@ Traceback (most recent call last):
   File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 92, in ModelNews
     if (eval(r.content)['errcode'] != 0):
 KeyError: 'errcode'
+ERROR 2018-03-05 18:13:52,528 task 5304 4852 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-05 18:13:52,529 task 5304 4852 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-05 18:13:52,789 task 5304 4852 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-05 18:18:42,437 task 5304 6104 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-05 18:18:42,437 task 5304 6104 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-05 18:18:43,032 task 5304 6104 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-06 12:19:51,233 task 9620 10884 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-06 12:20:05,957 task 9620 10360 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-06 12:20:05,957 task 9620 10360 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-06 12:20:06,180 task 9620 10360 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-06 12:20:18,888 task 9620 10988 {"result":1,"msg":"发送成功"}
+None
+ERROR 2018-03-06 12:20:18,890 task 9620 10988 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 106, in ModelNews
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-06 12:20:19,227 task 9620 10988 'errcode'
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
