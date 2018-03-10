@@ -81,9 +81,6 @@ $(".action").click(function () {
 
     }
     submitUpdateData(type);
-
-
-
 });
 
 function submitCreateData() {
