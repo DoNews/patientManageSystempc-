@@ -8,8 +8,6 @@ $(".img_boxUl").on('click','.x',function () {
     imgSrcList.remove($(this).attr("data"))
 });
 // $(".img_boxUl").on('click',".p",function () {
-
-
 // })
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
