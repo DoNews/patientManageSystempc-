@@ -219,6 +219,8 @@ def ThirdParty(request):
             wantTime=user['wantTime'] #治疗时间
             city=user['city']#城市
             hospital=user['hospital'] #医院
+            ordertype=user['ordertype'] #订单状态
+            change_time=user['change_time'] #变更时间
             hosps=Hospital.objects.filter(name=hospital).first() #判断是否有这个医院
             if hosps:
                 hos =hosps
@@ -235,14 +237,18 @@ def ThirdParty(request):
                 use.wantTime=wantTime
                 use.area=area
                 use.wanthospital=hos
+                use.ordertype=ordertype
+                use.three_time=change_time
                 use.number+=1
                 use.status=6
                 use.save()
+                usesr=use
             else:
                 orders = Order.objects.all()
                 n = len(orders) + 1
                 s = "NO.%04d" % n
-                Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s)
+                usesr=Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s,three_time=change_time,ordertype=ordertype)
+            OrderDetail.objects.create(order=usesr,status=6,remark='第三方导入')
         return JsonResutResponse({'ret':0,'msg':'success'})
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
