@@ -1,6 +1,5 @@
 # coding: utf8
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
-
 from django.contrib.auth.decorators import login_required
 from django import template
 from datetime import datetime, timedelta
@@ -79,7 +78,6 @@ def getNotify(user):
     notify3 = Order.objects.filter(nextcalldate__lte=yestoday.date(), custome=user).exclude(status=12).order_by("-change_time",'-wantTime')  # 逾期了
     arr = []
     for n in notify1:
-        dic = {}
         data = {
             'id': n.id,
             'name': n.name,
@@ -90,7 +88,6 @@ def getNotify(user):
         if checkdicinlist(arr, n.id):
             arr.append(data)
     for n in notify2:
-        dic = {}
         data = {
             'id': n.id,
             'name': n.name,
@@ -101,7 +98,6 @@ def getNotify(user):
         if checkdicinlist(arr, n.id):
             arr.append(data)
     for n in notify3:
-        dic = {}
         data = {
             'id': n.id,
             'name': n.name,
@@ -119,10 +115,8 @@ def getNotify(user):
 
 def todaywork(request):
     user = ZJUser.objects.get(user=request.user)
-
     now = datetime.datetime.now()
     yestoday = now - timedelta(days=1)
-
     todaywork = Order.objects.filter(nextcalldate__lte=now, custome=user)[0:5]  # 今日任务
     t = template.loader.get_template("control/today.html")
     c = template.Context({'todaywork': todaywork})
@@ -245,7 +239,6 @@ def OrderSubmit(request):
     photo = request.POST['photo']
     cid = request.user
     zuser = ZJUser.objects.filter(user=cid).first()
-    print userinfo, photo
     user = json.loads(userinfo)  # 用户
     photos = json.loads(photo)  # 图片
     item = {}
