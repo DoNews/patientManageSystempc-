@@ -94,6 +94,8 @@ class Order(models.Model):
     wantTime = models.DateTimeField(u'就诊时间',null=True)
     number=models.IntegerField(u'治疗次数',default=0)
     wanthospital=models.ForeignKey(Hospital,verbose_name="医院名称",null=True,on_delete=models.SET_NULL)
+    ordertype=models.CharField('第三方订单状态',max_length=20,null=True,blank=True)
+    three_time=models.CharField('第三方变更时间',max_length=30,null=True,blank=True)
     description =models.CharField(u'病情描述',null=True,blank=True,max_length=1000)
     createtime=models.DateTimeField(u'提交时间',auto_now_add=True)
     nextcalldate =models.DateField("下次电话时间",null=True,blank=True)
