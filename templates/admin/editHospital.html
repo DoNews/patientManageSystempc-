@@ -139,12 +139,12 @@
 				});
 				$('.sureAdd').click(function() {
 				  var selected =[]
-          $.each($("[name=hospitalName]"),function () {
-            if($(this).prop('checked')==true)
-            {
-              selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
-            }
-          })
+                  $.each($("[name=hospitalName]"),function () {
+                    if($(this).prop('checked')==true)
+                    {
+                      selected.push({"id":$(this).val(),"name":$("#h_"+$(this).val()).attr("data-value")})
+                    }
+                  })
           parent.hosps=selected
             parent.layer.closeAll();
             parent.layer.msg('添加成功');

@@ -115,11 +115,11 @@
 						anim: 2,
 						content: ['/addHospital', 'yes'], //iframe的url，no代表不显示滚动条
 						end: function() { //此处用于演示
-              $(".hospitalList").html("");
-              for(var i=0;i<hosps.length;i++)
-              {
-                $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
-              }
+                          $(".hospitalList").html("");
+                          for(var i=0;i<hosps.length;i++)
+                          {
+                            $(".hospitalList").append('<div class="hospitalItem">'+hosps[i]['name']+'</div>')
+                          }
 
 						}
 					});

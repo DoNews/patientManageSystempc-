@@ -82,10 +82,9 @@
 			<div class="img_box">
 				<ul class="img_boxUl">
                     {% for img in imgs %}
-
-                        <li class="img_boxLi"><div src="/static/main/img/x.png" data="{{ img.image }}"  style=" width: 20px;height:20px" class="x"></div><img src="{{ img.image }}" class="p" /></li>
+                        <li class="img_boxLi"><div src="/static/main/img/x.png" data="{{ img.image }}"  style=" width: 20px;height:20px" class="x"></div>
+                            <a href="{{ img.image }}" target="_blank"><img src="{{ img.image }}" class="p" /></a></li>
                     {% endfor %}
-
 					  <li class="img_boxLi add" id="addupload"> </li>
 				</ul>
 			</div>
