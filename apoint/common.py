@@ -10,8 +10,17 @@ from django.core.paginator import Paginator
 from task import *
 import datetime
 from django import template
+import requests
 
 
+#
+# #短信测试
+# def SMSnote(request):
+#     url='https://sh2.ipyy.com/sms.aspx?'
+#     ands=requests.post(url,{"action":'send',"userid":"","account":"gxl62","password":"a123456","mobile":"13167115697","content":u"【复美达预约】您的验证码是:12432","sendTime":"","extno":""})
+#     ab=ands.content
+#     print ab
+#     return JsonResutResponse({'ret':0,'msg':'发送成功'})
 def JsonResutResponse(result):
     return HttpResponse(simplejson.dumps(result))
 
@@ -26,18 +35,9 @@ def Console():
 # 压缩图片
 def Compression(img):
     im = image.open(img)
-    # width=im.size[0]
-    # height=im.size[1]
-    # ratio=width/height
-    # if width>1080:
-    #     width=1080
-    # width=int(width)
-    # height=int(width*ratio)
-    # im.resize((width,height), image.ANTIALIAS)
     timestamp = str(int(time.time()))
     pos = str(img).split('.')[-1]
     file_url = 'static/upload/%s.%s' % (timestamp, pos)
-    # im.save(file_url,quality=50)
     im.save(file_url)
     return '/' + file_url
 
