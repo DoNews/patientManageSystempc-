@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^thememo/',TheMemo),#员工提交备忘录
     url(r'^cilckmake/',CilckMake),#患者点击去预约
     url(r'^ordersubmit/',PhoneOrder),#患者提交预约
-    url(r'^orderdetail/',OrderDetail),#患者详情
+    url(r'^orderdetailser/',OrderDetail),#患者详情
     url(r'^upload/',uploader),#图片上传
     url(r'^province/',Province),#所有省
     url(r'^hospital/',Hospitaltable),#所有医院
