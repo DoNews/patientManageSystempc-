@@ -189,12 +189,24 @@ LOGGING = {
             'filename': BASE_DIR + '/mnln.log',
             'formatter': 'verbose'
         },
+        'smserror': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename':BASE_DIR + '/sms.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+            'formatter': 'verbose',},
     },
     'loggers': {
         'tasks': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': True,
+        },
+        'smserr': {
+            'handlers': ['smserror'],
+            'level': 'DEBUG',
+            'propagate': True
         },
     },
 }

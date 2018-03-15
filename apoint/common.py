@@ -11,25 +11,29 @@ from task import *
 import datetime
 from django import template
 import requests
+import functools, random
 
 
-#
-# #短信测试
-# def SMSnote(request):
-#     url='https://sh2.ipyy.com/sms.aspx?'
-#     ands=requests.post(url,{"action":'send',"userid":"","account":"gxl62","password":"a123456","mobile":"13167115697","content":u"【复美达预约】您的验证码是:12432","sendTime":"","extno":""})
-#     ab=ands.content
-#     print ab
-#     return JsonResutResponse({'ret':0,'msg':'发送成功'})
+#短信测试
+def SMSnote(request):
+    tele = request.POST['phone']
+    logger = logging.getLogger('smserr') #用来做短信日志的
+    n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 9) for x in range(4)])
+    try:
+        url='https://sh2.ipyy.com/sms.aspx?'
+        ands=requests.post(url,{"action":'send',"userid":"","account":"hxwl1088 ","password":"hxwl108812","mobile":tele,"content":"【寻找天使之吻】您的验证码为：%s，如非本人操作，请忽略此信息。"%n,"sendTime":"","extno":""})
+        ab=ands.content
+        request.session["code"] = n
+        logger.info(ab)
+    except:
+        logger.error("手机号:%s"%tele)
+        return JsonResutResponse({'result':1,"msg":"发送失败"})
+    return JsonResutResponse({'result': 0,'msg':'发送成功' })
+
+
+
 def JsonResutResponse(result):
     return HttpResponse(simplejson.dumps(result))
-
-
-def Console():
-    user = u'用户'
-    # all_datas = YourModel.objects.filter(time__year=now_time.year) #查询某年的
-    # all_datas = YourModel.objects.filter(time__month=now_time.month)#查询当前月份的
-    pass
 
 
 # 压缩图片

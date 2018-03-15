@@ -274,6 +274,9 @@ def OrderSubmit(request):
 
 
 
+
+
+
 @login_required(login_url="/login/")
 def OrderUpdte(request):
     userinfo = request.POST['userinfo']

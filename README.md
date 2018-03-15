@@ -128,3 +128,18 @@
         "name": "测试001"
     }],
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': lister})
+
+****
+    作用:发验证码
+    url:http://127.0.0.1:8000/api/apoint/fasongduanxin/
+    请求方式：POST
+    字段1：phone
+    return JsonResutResponse({'result':1,"msg":"发送失败"})
+    return JsonResutResponse({'result': 0,'msg':'发送成功' })
+
+****
+    作用:根据openid 查看患者详情
+    url::http://127.0.0.1:8000/api/apoint/orderdetail/?openid=xxxxxxxx
+    请求方式:GET
+    返回的数据和查看患者详情一样，
+    return JsonResutResponse({'id': order.id, 'ret': 0, 'msg': 'success', 'data': data, 'customer': record, 'is_end': is_end})

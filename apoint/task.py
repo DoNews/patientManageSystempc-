@@ -163,8 +163,8 @@ def CeleTexting(SentWhoId, MsgType):  # 订单id  和第几天
         conten = order.wanthospital.inday
     else:
         conten = order.wanthospital.confirm
-    http = "http://222.73.117.158:80/msg/HttpBatchSendSM"
-    r = requests.post(http,{"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % order.phone, "msg": "%s" % conten,"needstatus": "false"})
+    url = 'https://sh2.ipyy.com/sms.aspx?'
+    r = requests.post(url, {"action": 'send', "userid": "", "account": "hxwl1088 ", "password": "hxwl108812","mobile": order.phone, "content": conten, "sendTime": "","extno": ""})
     print 'message:%s,,,%s' % (r.content, order.phone)
     logger = logging.getLogger('csrfcode')
     logger.info(r)

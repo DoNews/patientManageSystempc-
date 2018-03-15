@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^lookcheat/',LookCheat),#查看所有的备忘 ---------新加
     url(r'^thememo/',TheMemo),#员工提交备忘录
     url(r'^cilckmake/',CilckMake),#患者点击去预约
-    url(r'^ordersubmit/',OrderSubmit),#患者提交预约 可和pc端的共用
+    url(r'^ordersubmit/',PhoneOrder),#患者提交预约
+    url(r'^orderdetail/',OrderDetail),#患者详情
     url(r'^upload/',uploader),#图片上传
     url(r'^province/',Province),#所有省
     url(r'^hospital/',Hospitaltable),#所有医院
@@ -50,5 +51,5 @@ urlpatterns = [
     url(r'^adminstatic/',adminStatic),#管理员的数据统计
     url(r'^updateSalesHosp', updateSalesHosp),
     url(r'^AccountSet',AccountSet),#客服账号设置
-    # url(r'^fasongduanxin',SMSnote)
+    url(r'^hairsms',SMSnote),#发验证码
 ]
