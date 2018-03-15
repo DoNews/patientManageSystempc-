@@ -154,7 +154,7 @@ def PhoneOrder(request):
     return JsonResutResponse({'ret':0,'msg':'success'})
 
 #患者详情
-def OrderDetail(request):
+def OrderDeta(request):
     openid=request.GET.get('openid')
     order=Order.objects.filter(openid=openid).first()
     data, record, is_end = Detail(order)
