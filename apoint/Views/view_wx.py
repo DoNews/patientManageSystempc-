@@ -44,7 +44,7 @@ def MyPatients(request):
     openid=request.GET.get('openid')
     user=SalesUser.objects.filter(openid=openid).first() #找到员工
     hospts=Hospital.objects.filter(sales=user)
-    orders=Order.objects.filter(wanthospital__in=hospts).exclude(status=1).order_by('-createtime') #找到所有的订单
+    orders=Order.objects.filter(wanthospital__in=hospts).exclude(status=1).order_by('nextcalldate') #找到所有的订单
     lister = []
     if orders:
         for order in orders:
@@ -84,9 +84,14 @@ def LookCheat(request):
 #判断是否有预约
 def checkphone(request):
     phone = request.GET.get("phone",False)
+    openid = request.GET.get("openid",False)
+
     if phone:
         u = Order.objects.filter(phone=phone)
         if u:
+            if openid:
+                if not u.openid:
+
           return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约'})
     return JsonResutResponse({'ret':0,'msg':'无预约'})
 

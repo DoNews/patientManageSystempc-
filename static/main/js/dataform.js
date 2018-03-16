@@ -3,21 +3,24 @@
  */
 var userinfo = {}
 var postData = {}
-$(".x").click(function () {
+$(".img_boxUl").on('click','.x',function () {
     $(this).parent().remove();
     imgSrcList.remove($(this).attr("data"))
 });
-$(".p").click(function () {
-    layer.photos({
-        photos: '.img_boxLi'
+$(".img_boxUl").on('click','.p',function () {
+        layer.photos({
+        photos: '.img_boxUl'
         , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
     });
-})
+
+});
+
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
         laydate = layui.laydate,
         date=new Date();
+
     laydate.render({
         elem: '#yyDate',
         min:'date'
@@ -30,7 +33,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
         elem: "#yyDateNext ",
         min:'date'
     });
-    var layer = layui.layer;
+
     var uploadInst = upload.render({
         elem: '#addupload'
         ,
@@ -40,19 +43,8 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
             var url = res.imgurl
             //上传完毕回调
             imgSrcList.push(url)
-            $("#addupload").before("<li class=\"img_boxLi\"><img src=\"/static/main/img/x.png\" data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"><img class=\"p\" layer-pid=\"图片id，可以不写\" 					layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
-            $(".p").click(function () {
-                layer.photos({
-                    closeBtn:2,
-                    area: ['450px', '280px'],
-                    photos: '.img_boxLi'
-                    , anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
-                });
-            })
-            $(".x").click(function () {
-                $(this).parent().remove();
-                imgSrcList.remove($(this).attr("data"))
-            });
+            $("#addupload").before("<li class=\"img_boxLi\"><div  data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"></div><img class=\"p\" layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
+
         },
         error: function () {
             //请求异常回调
@@ -105,6 +97,8 @@ function initUserData() {
 function initFolowData(stype) {
     var remark = $("#textarea").val();
     var nextcall = $("#yyDateNext").val();
+    var now =Date.now()
+
     var folowdata = {}
     folowdata.remark = remark;
     folowdata.nextcalldate = nextcall;

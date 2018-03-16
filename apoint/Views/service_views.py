@@ -20,7 +20,7 @@ def ServiceApoint(request):
     page=request.GET.get('page')
     user=ZJUser.objects.filter(id=id)
     if user : #判断是否有这个客服
-        orders=Order.objects.filter(custome=user).order_by('-createtime') #该客服对应的所有工单
+        orders=Order.objects.filter(custome=user).order_by('nextcalldate') #该客服对应的所有工单
         result, contacts = Paging(orders, page)
         lister=[]
         if orders:
@@ -71,7 +71,7 @@ def Search(request):
     keyword=request.GET.get('keyword')
     orders=[]
     if keyword:
-        orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('-createtime')
+        orders=Order.objects.filter(Q(name__icontains=keyword) | Q(phone__icontains=keyword) | Q(wanthospital__name__icontains=keyword)).order_by('nextcalldate')
     return render(request, "searchPop.html", {"order":orders})
 
 
@@ -80,10 +80,10 @@ def Search(request):
 @login_required(login_url="/login/")
 def Remind(request):
     user = ZJUser.objects.get(user=request.user)
-    orders =Order.objects.filter(custome=user).exclude(status=12).order_by('-createtime') #查看逾期
+    orders =Order.objects.filter(custome=user).exclude(status=12).order_by('nextcalldate') #查看逾期
     remin = Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
-        Order__is_operation=False).order_by('-createtime') #所有备忘
-    admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False).order_by('-createtime') #查看分配
+        Order__is_operation=False).order_by('nextcalldate') #所有备忘
+    admin = Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False).order_by('nextcalldate') #查看分配
     if orders:
         lister=RemindSystem(orders[:4]) #这是逾期的
     else:
@@ -108,7 +108,7 @@ def Remindall(request):
     user = ZJUser.objects.get(user=request.user)
     now = datetime.now()
     yestoday = now - timedelta(days=1)
-    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('-createtime')
+    orders = Order.objects.filter(custome=user,nextcalldate__lte=yestoday.date(),nextcalldate__isnull=False).exclude(status=12).order_by('nextcalldate')
 
     lister = RemindSystem(orders)
     result, contacts = Paging(lister, page)
@@ -121,7 +121,7 @@ def Remindall(request):
 def Cheatall(request):
     user = ZJUser.objects.get(user=request.user)
     orders=Order.objects.filter(custome=user).filter(Order__creater__usertype=2).filter(
-        Order__is_operation=False).order_by('-createtime')
+        Order__is_operation=False).order_by('nextcalldate')
     notes=ViewCheat(orders)
     return JsonResutResponse({'ret':0,'msg':'success','notes':notes})
 
@@ -129,7 +129,7 @@ def Cheatall(request):
 @login_required(login_url="/login/")
 def Adminsall(request):
     user = ZJUser.objects.get(user=request.user)
-    orders=Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False).order_by('-createtime')
+    orders=Order.objects.filter(custome=user).filter(Order__creater__user__is_superuser=True).filter(Order__is_operation=False).order_by('nextcalldate')
     admins=AdminDis(orders)
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'admins': admins})
 
@@ -173,7 +173,7 @@ def AccountSet(request):
 def StafManag(request):
     page=request.GET.get('page')
     user = ZJUser.objects.get(user=request.user)
-    users=SalesUser.objects.all().order_by('-createtime') #找的是员工
+    users=SalesUser.objects.all().order_by('nextcalldate') #找的是员工
     result, contacts = Paging(users, page)
     lister = []
     for staff in contacts: #销售的要分页
@@ -190,7 +190,7 @@ def StafManag(request):
 #点击查看所有员工
 def StaffAll(request):
     page=request.GET['page']
-    staffs=SalesUser.objects.all().order_by('-createtime')
+    staffs=SalesUser.objects.all().order_by('nextcalldate')
     result, contacts = Paging(staffs, page)
     lister=[]
     for staff in contacts:
@@ -206,7 +206,7 @@ def StaffAll(request):
 
 #所有客服
 def AccountAll(request):
-    staffs = ZJUser.objects.filter(usertype=1).order_by('-createtime')
+    staffs = ZJUser.objects.filter(usertype=1).order_by('nextcalldate')
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': trenderc('control/accountitem.html', staffs)})
 #查看员工详情
 def StaffEditor(request):
@@ -278,7 +278,7 @@ def StaffDelete(request):
 #查看所有患者
 def OrderAll(request):
     page=request.GET.get('page')
-    orders=Order.objects.all().order_by('-createtime')
+    orders=Order.objects.all().order_by('nextcalldate')
     result,contacts = Paging(orders, page)
     lister=[]
     for order in contacts:
@@ -317,11 +317,11 @@ def Allhospit(request):
 #查看第三方全部
 def AllNoservit(request):
     page=request.GET.get('page')
-    noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime')  # 第三方进来的 没有客服的
+    noservit = Order.objects.filter(is_party=True, custome=None).order_by('nextcalldate')  # 第三方进来的 没有客服的
     result, contacts = Paging(noservit, page)
     lister = []
     for noser in contacts:
-        orders=Order.objects.filter(name=noser.name,custome__isnull=False).order_by('-createtime')
+        orders=Order.objects.filter(name=noser.name,custome__isnull=False).order_by('nextcalldate')
         if orders:
             order=orders[0]
         else:

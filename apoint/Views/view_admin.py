@@ -13,7 +13,7 @@ def staff(request):
 def adminindex(request):
     page=request.GET.get('page',1)
     user = ZJUser.objects.get(user=request.user)
-    users=SalesUser.objects.all().order_by('-createtime') #找的是员工
+    users=SalesUser.objects.all().order_by('nextcalldate') #找的是员工
     result, contacts = Paging(users, page)
     lister = []
     for staff in contacts: #销售的要分页
@@ -53,7 +53,7 @@ def hospital(request):
 
 #第三方数据视图
 def thirdpart(request):
-    noservit = Order.objects.filter(is_party=True, custome=None).order_by('-createtime').count()  # 第三方进来的 没有客服的
+    noservit = Order.objects.filter(is_party=True, custome=None).order_by('nextcalldate').count()  # 第三方进来的 没有客服的
     return render(request, "admin/adminAnontherSystem.html",{"pageindex":3,"all":noservit})
 
 #图表视图
