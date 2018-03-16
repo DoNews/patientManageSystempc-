@@ -166,7 +166,7 @@ def CeleTexting(SentWhoId, MsgType):  # 订单id  和第几天
     url = 'https://sh2.ipyy.com/sms.aspx?'
     r = requests.post(url, {"action": 'send', "userid": "", "account": "hxwl1088 ", "password": "hxwl108812","mobile": order.phone, "content": conten, "sendTime": "","extno": ""})
     print 'message:%s,,,%s' % (r.content, order.phone)
-    logger = logging.getLogger('csrfcode')
+    logger = logging.getLogger('smserr')
     logger.info(r)
     logging.error(r.content)
 
