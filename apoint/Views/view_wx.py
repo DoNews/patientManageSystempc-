@@ -10,12 +10,19 @@ import json
 
 #发验证码
 def ScrfCode(request):
-  tele = request.POST['phone']
-  n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 4) for x in range(4)])
-  http = "http://222.73.117.158:80/msg/HttpBatchSendSM"
-  r=requests.post(http, {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % tele, "msg": "您的验证码是%s" % n,"needstatus": "false"})
-  request.session["code"] = n
-  return JsonResutResponse({'ret': 0,'msg':'success'})
+    tele = request.POST['phone']
+    logger = logging.getLogger('smserr') #用来做短信日志的
+    n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 9) for x in range(4)])
+    try:
+        url='https://sh2.ipyy.com/sms.aspx?'
+        ands=requests.post(url,{"action":'send',"userid":"","account":"hxwl1088 ","password":"hxwl108812","mobile":tele,"content":"【寻找天使之吻】您的验证码为：%s，如非本人操作，请忽略此信息。"%n,"sendTime":"","extno":""})
+        ab=ands.content
+        request.session["code"] = n
+        logger.info(ab)
+    except:
+        logger.error("手机号:%s"%tele)
+        return JsonResutResponse({'result':1,"msg":"发送失败"})
+    return JsonResutResponse({'result': 0,'msg':'发送成功' })
 
 #员工认证
 def StaffCation(request):
