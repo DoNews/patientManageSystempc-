@@ -10,34 +10,38 @@ from django.core.paginator import Paginator
 from task import *
 import datetime
 from django import template
+import requests
+import functools, random
+
+
+#短信测试
+def SMSnote(request):
+    tele = request.POST['phone']
+    logger = logging.getLogger('smserr') #用来做短信日志的
+    n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 9) for x in range(4)])
+    try:
+        url='https://sh2.ipyy.com/sms.aspx?'
+        ands=requests.post(url,{"action":'send',"userid":"","account":"hxwl1088 ","password":"hxwl108812","mobile":tele,"content":"【寻找天使之吻】您的验证码为：%s，如非本人操作，请忽略此信息。"%n,"sendTime":"","extno":""})
+        ab=ands.content
+        request.session["code"] = n
+        logger.info(ab)
+    except:
+        logger.error("手机号:%s"%tele)
+        return JsonResutResponse({'result':1,"msg":"发送失败"})
+    return JsonResutResponse({'result': 0,'msg':'发送成功' })
+
 
 
 def JsonResutResponse(result):
     return HttpResponse(simplejson.dumps(result))
 
 
-def Console():
-    user = u'用户'
-    # all_datas = YourModel.objects.filter(time__year=now_time.year) #查询某年的
-    # all_datas = YourModel.objects.filter(time__month=now_time.month)#查询当前月份的
-    pass
-
-
 # 压缩图片
 def Compression(img):
     im = image.open(img)
-    # width=im.size[0]
-    # height=im.size[1]
-    # ratio=width/height
-    # if width>1080:
-    #     width=1080
-    # width=int(width)
-    # height=int(width*ratio)
-    # im.resize((width,height), image.ANTIALIAS)
     timestamp = str(int(time.time()))
     pos = str(img).split('.')[-1]
     file_url = 'static/upload/%s.%s' % (timestamp, pos)
-    # im.save(file_url,quality=50)
     im.save(file_url)
     return '/' + file_url
 

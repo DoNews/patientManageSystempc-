@@ -85,9 +85,9 @@ def LookCheat(request):
 def checkphone(request):
     phone = request.GET.get("phone",False)
     if phone:
-        u = Order.objects.filter(phone=phone)
+        u = Order.objects.filter(phone=phone).first()
         if u:
-          return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约'})
+          return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约','oepnid':u.openid})
     return JsonResutResponse({'ret':0,'msg':'无预约'})
 
 #员工提交备忘录
@@ -106,20 +106,21 @@ def CilckMake(request):
     openid=request.GET.get('openid',None)
     order=Order.objects.filter(openid=openid)
     if order:
-        return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中'})
+        return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中','openid':openid})
     else:
         return JsonResutResponse({'ret':0,'msg':'success'})
 
-#患者order提交
-def OrderSubmit(request):
+#微信患者order提交
+def PhoneOrder(request):
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
+    codes = request.POST['codes']
+    code = request.session.get("code")
     user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
     item={}
     for k in user:
         if k=='name':
-            name=user[k]
             item[k]=user[k]
         elif k=='wanthospital':
             hosp=Hospital.objects.filter(id=user[k]).first()
@@ -136,11 +137,14 @@ def OrderSubmit(request):
     if orderser:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
-        orders=Order.objects.all()
-        n=len(orders)+1
-        s = "NO.%04d" % n
-        item['serial']=s
-        order=Order.objects.create(**item)
+        if code == int(codes):
+            orders = Order.objects.all()
+            n = len(orders) + 1
+            s = "NO.%04d" % n
+            item['serial'] = s
+            order = Order.objects.create(**item)
+        else:
+            return JsonResutResponse({'ret': 2, 'msg': '验证码不正确'})
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     try:
@@ -149,6 +153,12 @@ def OrderSubmit(request):
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})
 
+#患者详情
+def OrderDeta(request):
+    openid=request.GET.get('openid')
+    order=Order.objects.filter(openid=openid).first()
+    data, record, is_end = Detail(order)
+    return JsonResutResponse({'id': order.id, 'ret': 0, 'msg': 'success', 'data': data, 'customer': record, 'is_end': is_end})
 
 
 # 上传图片
@@ -252,28 +262,6 @@ def ThirdParty(request):
         return JsonResutResponse({'ret':0,'msg':'success'})
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
-
-# #根据省搜索医院
-# def SearchHosp(request):
-#     id=request.GET.get('id')
-#     area=Area.objects.get(id=id)
-#     if area:
-#         hosps=Hospital.objects.filter(province=area)
-#     else:
-#         hosps=Hospital.objects.all()
-#     lister=[]
-#     if hosps:
-#         for hosp in hosps:
-#             data = {
-#                 'id': hosp.id,
-#                 'name': hosp.name,
-#                 'value': hosp.name,
-#             }
-#             lister.append(data)
-#     else:
-#         pass
-#     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
-#
 
 #患者搜索
 def PatSearch(request):
