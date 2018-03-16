@@ -156,7 +156,9 @@ def PhoneOrder(request):
 #患者详情
 def OrderDeta(request):
     openid=request.GET.get('openid')
+    print openid
     order=Order.objects.filter(openid=openid).first()
+    print order
     data, record, is_end = Detail(order)
     return JsonResutResponse({'id': order.id, 'ret': 0, 'msg': 'success', 'data': data, 'customer': record, 'is_end': is_end})
 
@@ -196,7 +198,7 @@ def Hospitaltable(request):
             }
             lister.append(data)
             data={
-                'name':'期望预约医院',
+                'name':'接受推荐预约医院',
                 'value':'%s'%999,
                 'parent':'%s'%area.id,
             }
