@@ -14,7 +14,6 @@ $(".img_boxUl").on('click','.p',function () {
     });
 
 });
-
 layui.use(['form', 'laydate', 'upload', 'layer'], function () {
     var form = layui.form,
         upload = layui.upload,
@@ -25,6 +24,14 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
         elem: '#yyDate',
         min:'date'
     });
+    // layer.photos({
+    //         photos: '.img_boxUl',
+    //         area: ['700px','500px'],
+    //         anim: 5,//0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）,
+    //         closeBtn: 1,
+    //     full:true
+    //
+    // });
     laydate.render({
         elem: '#birthDay',
         max:'date'
@@ -34,6 +41,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
         min:'date'
     });
 
+    layer = layui.layer;
     var uploadInst = upload.render({
         elem: '#addupload'
         ,
@@ -43,8 +51,7 @@ layui.use(['form', 'laydate', 'upload', 'layer'], function () {
             var url = res.imgurl
             //上传完毕回调
             imgSrcList.push(url)
-            $("#addupload").before("<li class=\"img_boxLi\"><div  data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"></div><img class=\"p\" layer-src=\"" + url + "\"  src=\"" + url + "\" /></li>");
-
+            $("#addupload").before("<li class=\"img_boxLi\"><div data=\"" + url + "\"  style=\"  width: 20px;height:20px\" class=\"x\"></div><a href=\"" + url + "\" target='_blank'><img class=\"p\" layer-pid=\"图片id，可以不写\" 					layer-src=\"" + url + "\"  src=\"" + url + "\" /></a></li>");
         },
         error: function () {
             //请求异常回调
@@ -60,18 +67,29 @@ $("#sureAdd").click(function () {
 $(".action").click(function () {
     var val=$('#yyDateNext').val();
     var type = $(this).attr("type");
-    if(val!=""||type==12){
-       submitUpdateData(type);
-    }
-    else{
-         layer.msg('下次跟进回访时间未填写', {
-          time: 5000, //2s后自动关闭
-             btn: ['去填写']
-         });
-        // alert("下次预约跟进时间不能为空")
-    }
+    var date=new Date(Date.parse(val));
+    var now =new Date();
+    if(type!=12)
+    {
+        if(type!=15){
+                    if(val==""){
+                        layer.msg('下次跟进回访时间不能为空', {
+                          time: 5000, //2s后自动关闭
+                             btn: ['去填写']
+                         });
+                         return false
+                    }
+                     else if(now>date){
+                         layer.msg('下次跟进回访时间不能小于当前时间', {
+                          time: 5000, //2s后自动关闭
+                             btn: ['去填写']
+                         });
+                         return false
+                  }
+        }
 
-
+    }
+    submitUpdateData(type);
 });
 
 function submitCreateData() {

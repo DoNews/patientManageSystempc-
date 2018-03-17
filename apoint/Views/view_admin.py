@@ -13,7 +13,7 @@ def staff(request):
 def adminindex(request):
     page=request.GET.get('page',1)
     user = ZJUser.objects.get(user=request.user)
-    users=SalesUser.objects.all().order_by('nextcalldate') #找的是员工
+    users=SalesUser.objects.all() #找的是员工
     result, contacts = Paging(users, page)
     lister = []
     for staff in contacts: #销售的要分页

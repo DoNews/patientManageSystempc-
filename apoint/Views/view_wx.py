@@ -10,12 +10,19 @@ import json
 
 #发验证码
 def ScrfCode(request):
-  tele = request.POST['phone']
-  n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 4) for x in range(4)])
-  http = "http://222.73.117.158:80/msg/HttpBatchSendSM"
-  r=requests.post(http, {"account": "muai37", "pswd": "Muai888123", "mobile": "%s" % tele, "msg": "您的验证码是%s" % n,"needstatus": "false"})
-  request.session["code"] = n
-  return JsonResutResponse({'ret': 0,'msg':'success'})
+    tele = request.POST['phone']
+    logger = logging.getLogger('smserr') #用来做短信日志的
+    n = functools.reduce(lambda x, y: 10 * x + y, [random.randint(1, 9) for x in range(4)])
+    try:
+        url='https://sh2.ipyy.com/sms.aspx?'
+        ands=requests.post(url,{"action":'send',"userid":"","account":"hxwl1088 ","password":"hxwl108812","mobile":tele,"content":"【寻找天使之吻】您的验证码为：%s，如非本人操作，请忽略此信息。"%n,"sendTime":"","extno":""})
+        ab=ands.content
+        request.session["code"] = n
+        logger.info(ab)
+    except:
+        logger.error("手机号:%s"%tele)
+        return JsonResutResponse({'result':1,"msg":"发送失败"})
+    return JsonResutResponse({'result': 0,'msg':'发送成功' })
 
 #员工认证
 def StaffCation(request):
@@ -87,12 +94,13 @@ def checkphone(request):
     openid = request.GET.get("openid",False)
 
     if phone:
-        u = Order.objects.filter(phone=phone)
+        u = Order.objects.filter(phone=phone).first()
         if u:
-            if openid:
-                if not u.openid:
-
-          return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约'})
+          if openid:
+            if not u.openid:
+              u.openid = openid
+              u.save()
+          return JsonResutResponse({'ret':1,'msg':'您有预约正在流程中，无需再次预约','oepnid':u.openid})
     return JsonResutResponse({'ret':0,'msg':'无预约'})
 
 #员工提交备忘录
@@ -111,20 +119,21 @@ def CilckMake(request):
     openid=request.GET.get('openid',None)
     order=Order.objects.filter(openid=openid)
     if order:
-        return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中'})
+        return JsonResutResponse({'ret':1,'msg':'已经有预约正在进行中','openid':openid})
     else:
         return JsonResutResponse({'ret':0,'msg':'success'})
 
-#患者order提交
-def OrderSubmit(request):
+#微信患者order提交
+def PhoneOrder(request):
     userinfo=request.POST['userinfo']
     photo=request.POST['photo']
+    codes = request.POST['codes']
+    code = request.session.get("code")
     user=json.loads(userinfo) #用户
     photos = json.loads(photo)  # 图片
     item={}
     for k in user:
         if k=='name':
-            name=user[k]
             item[k]=user[k]
         elif k=='wanthospital':
             hosp=Hospital.objects.filter(id=user[k]).first()
@@ -141,11 +150,14 @@ def OrderSubmit(request):
     if orderser:
         return JsonResutResponse({'ret':1,'msg':'已有预约正在进行中'})
     else:
-        orders=Order.objects.all()
-        n=len(orders)+1
-        s = "NO.%04d" % n
-        item['serial']=s
-        order=Order.objects.create(**item)
+        if code == int(codes):
+            orders = Order.objects.all()
+            n = len(orders) + 1
+            s = "NO.%04d" % n
+            item['serial'] = s
+            order = Order.objects.create(**item)
+        else:
+            return JsonResutResponse({'ret': 2, 'msg': '验证码不正确'})
     for photo in photos:
         IllnessImage.objects.create(image=photo,patient=order)
     try:
@@ -154,6 +166,14 @@ def OrderSubmit(request):
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})
 
+#患者详情
+def OrderDeta(request):
+    openid=request.GET.get('openid')
+    print openid
+    order=Order.objects.filter(openid=openid).first()
+    print order
+    data, record, is_end = Detail(order)
+    return JsonResutResponse({'id': order.id, 'ret': 0, 'msg': 'success', 'data': data, 'customer': record, 'is_end': is_end})
 
 
 # 上传图片
@@ -191,7 +211,7 @@ def Hospitaltable(request):
             }
             lister.append(data)
             data={
-                'name':'期望预约医院',
+                'name':'接受推荐预约医院',
                 'value':'%s'%999,
                 'parent':'%s'%area.id,
             }
@@ -224,6 +244,8 @@ def ThirdParty(request):
             wantTime=user['wantTime'] #治疗时间
             city=user['city']#城市
             hospital=user['hospital'] #医院
+            ordertype=user['ordertype'] #订单状态
+            change_time=user['change_time'] #变更时间
             hosps=Hospital.objects.filter(name=hospital).first() #判断是否有这个医院
             if hosps:
                 hos =hosps
@@ -240,39 +262,21 @@ def ThirdParty(request):
                 use.wantTime=wantTime
                 use.area=area
                 use.wanthospital=hos
+                use.ordertype=ordertype
+                use.three_time=change_time
                 use.number+=1
                 use.status=6
                 use.save()
+                usesr=use
             else:
                 orders = Order.objects.all()
                 n = len(orders) + 1
                 s = "NO.%04d" % n
-                Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s)
+                usesr=Order.objects.create(name=name,sex=sex,wantTime=wantTime,area=area,wanthospital=hos,number=1,status=6,phone=phone,is_party=True,birthday=birthday,serial=s,three_time=change_time,ordertype=ordertype)
+            OrderDetail.objects.create(order=usesr,status=6,remark='第三方导入')
         return JsonResutResponse({'ret':0,'msg':'success'})
     except:
         return JsonResutResponse({'ret':1,'msg':'error'})
-
-# #根据省搜索医院
-# def SearchHosp(request):
-#     id=request.GET.get('id')
-#     area=Area.objects.get(id=id)
-#     if area:
-#         hosps=Hospital.objects.filter(province=area)
-#     else:
-#         hosps=Hospital.objects.all()
-#     lister=[]
-#     if hosps:
-#         for hosp in hosps:
-#             data = {
-#                 'id': hosp.id,
-#                 'name': hosp.name,
-#                 'value': hosp.name,
-#             }
-#             lister.append(data)
-#     else:
-#         pass
-#     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': [lister]})
-#
 
 #患者搜索
 def PatSearch(request):

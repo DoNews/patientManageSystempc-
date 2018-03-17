@@ -1,5 +1,4 @@
 $(function() {
-
 			$('.search_Btn').click(function() {
 				layui.use(['layer'],function () {
 					var layer=layui.layer;
@@ -17,5 +16,4 @@ $(function() {
 							});
     		})
 		});
-
 })
