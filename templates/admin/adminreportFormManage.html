@@ -69,8 +69,6 @@
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/echarts.common.min.js"></script>
-  <script src="/static/main/js/"></script>
-	<!--<script src="js/formManage.js"></script>-->
 	<script type="text/javascript">
 		var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		option1 = {
@@ -78,13 +76,6 @@
 				trigger: 'item',
 				formatter: "{a} <br/>{b} : {c} ({d}%)"
 			},
-			{#legend: {#}
-			{#	orient: 'vertical',#}
-			{#	left: 'left',#}
-			{#	data: [{% for foo in  name%}#}
-             {#       '{{ foo }}',#}
-			{#	{% endfor %}]#}
-			{# },#}
 			series: [{
 			  name: '跟进患者数',
 				type: 'pie',
@@ -135,7 +126,7 @@
                         var str = ''
                         for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
                             str += s;
-                            if (!(i % 5)) str += '\n';
+                            if (!(i % 3)) str += '\n';
                         }
                         return str
                        }
@@ -239,6 +230,17 @@
 			 },
 			xAxis: {
 				type: 'category',
+                axisLabel:{
+				                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i %3)) str += '\n';
+                        }
+                        return str
+                       },
+                },
 				data: [{% for city in  citys%}
                     '{{ city.name }}',
 				{% endfor %}]

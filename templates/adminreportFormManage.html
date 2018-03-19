@@ -69,7 +69,6 @@
 	</body>
 	<script src="/static/main/js/jquery-3.3.1.min.js"></script>
 	<script src="/static/main/js/echarts.common.min.js"></script>
-	<!--<script src="js/formManage.js"></script>-->
 	<script type="text/javascript">
 		var nowMouth1 = echarts.init(document.getElementById('nowMouth1'));
 		option1 = {
@@ -240,9 +239,22 @@
 			},
 			xAxis: {
 				type: 'category',
+                axisLabel: {
+				    interval: 0,//标签设置为全部显示
+                    formatter:function(val){
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 3)) str += '\n';
+                        }
+                        return str
+                       }
+			    },
 				data: [{% for city in  citys%}
                     '{{ city.name }}',
 				{% endfor %}]
+
 			},
 			yAxis: {
 				type: 'value'
