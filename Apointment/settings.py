@@ -143,7 +143,7 @@ STATICFILES_DIRS = [
 APPEND_SLASH=False
 
 # SiteHost="http://order.yuemia.com"
-WEIXIN='xinghui'
+WEIXIN='findangel'
 PATIENTS_MODE='U5sjAZxpuVjZbwLjrwPeRgPyhIqgq5tsrnQiyvoPM7c'# 患者的模板ID
 SALES_MODE='U5sjAZxpuVjZbwLjrwPeRgPyhIqgq5tsrnQiyvoPM7c'#销售模板ID
 
