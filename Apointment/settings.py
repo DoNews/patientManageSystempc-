@@ -144,8 +144,8 @@ APPEND_SLASH=False
 
 # SiteHost="http://order.yuemia.com"
 WEIXIN='xinghui'
-PATIENTS_MODE='yOpWNXKAFBzXnLKcSuZh-dF-4PP3wy8X6P7YW2BpG58'# 患者的模板ID
-SALES_MODE='H1uKuCyGmz90ro3zVs6uyo49lUAelMCx-TkwIxPssVs'#销售模板ID
+PATIENTS_MODE='U5sjAZxpuVjZbwLjrwPeRgPyhIqgq5tsrnQiyvoPM7c'# 患者的模板ID
+SALES_MODE='U5sjAZxpuVjZbwLjrwPeRgPyhIqgq5tsrnQiyvoPM7c'#销售模板ID
 
 import datetime
 OUTDATE_PERIOD=datetime.timedelta(days=3)  #提前3天

@@ -22,10 +22,11 @@ def TimingModel(SentWhoId, MsgType):
     first = conten
     template_id = settings.PATIENTS_MODE  # 模板id
     touser = order.openid  # 发送给谁
-    value1 = order.wanthospital.name  # 医院名称
-    value2 = order.wantTime.strftime('%Y-%m-%d')  # 活动日期
-    value3 = order.get_status_display()
-    t1 = threading.Thread(target=ModelNews, args=(touser, template_id, detail_url, first, value1, value2, value3))
+    value1 = order.name,  # 预约患者
+    value2 = order.wanthospital.name  # 医院名称
+    value3 = order.wantTime.strftime('%Y-%m-%d')  # 活动日期
+    value4 = order.get_status_display()
+    t1 = threading.Thread(target=IntegralChange, args=(touser, template_id, detail_url, first, value1, value2, value3,value4))
     t1.start()
     sleep(3)
 
@@ -59,10 +60,11 @@ def ModelMsg(SentWhoId, msgtype, Sendtype):
             first = u"尊敬的%s:您的如下就诊预约申请已经延期，感谢您的支持与配合" % order.name
         template_id = settings.PATIENTS_MODE  # 模板ID
         touser = order.openid  # 发送给谁
-        value1 = order.wanthospital.name  # 医院名称
-        value2 = order.wantTime.strftime('%Y-%m-%d')  # 就诊日期
-        value3 = order.get_status_display()
-        ModelNews(touser, template_id, detail_url, first, value1, value2, value3)
+        value1 = order.name,  # 预约患者
+        value2 = order.wanthospital.name  # 医院名称
+        value3 = order.wantTime.strftime('%Y-%m-%d')  # 就诊日期
+        value4 = order.get_status_display()
+        IntegralChange(touser, template_id, detail_url, first, value1, value2, value3,value4)
     else:
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
         detail_url = u"http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
@@ -136,7 +138,7 @@ def IntegralChange(touser, template_id, url, first, value1, value2, value3, valu
                  'keyword4': {
                      "value": value4
                  },
-                 'remark': {"value": u"请点击“详情”了解具体患者信息并进行线下的跟进吧"}
+                 'remark': {"value": u"点击详情查看情况"}
              },
              }
     try:
