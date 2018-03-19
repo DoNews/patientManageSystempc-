@@ -20,9 +20,10 @@ def adminindex(request):
         hosps = Hospital.objects.filter(sales=staff)
         citys=''
         for h in hosps:
-            if citys.find(h.province.name)>-1:
-                continue
-            citys=citys+h.province.name + " "
+            if h.province:
+                if citys.find(h.province.name)>-1:
+                    continue
+                citys=citys+h.province.name + " "
         data = {
             'id': staff.id,
             'name': staff.name,
