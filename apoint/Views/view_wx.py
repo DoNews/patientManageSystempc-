@@ -37,6 +37,8 @@ def StaffCation(request):
         return JsonResutResponse({"ret": -1, "msg": u"你已经认证过"})
     else:
         user = SalesUser.objects.filter(name=realname, phone=telephone,).first()
+        tag = "http://wx.yuemia.com/wechat/settag.ashx?openid=%s&wx=%s&tag=员工" % (openid, settings.WEIXIN)
+        requests.get(tag)
         if user and code == int(vercode):
             user.openid=openid
             user.is_cert=True
