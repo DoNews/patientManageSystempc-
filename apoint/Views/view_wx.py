@@ -37,6 +37,8 @@ def StaffCation(request):
         return JsonResutResponse({"ret": -1, "msg": u"你已经认证过"})
     else:
         user = SalesUser.objects.filter(name=realname, phone=telephone,).first()
+        tag = "http://wx.yuemia.com/wechat/settag.ashx?openid=%s&wx=%s&tag=员工" % (openid, settings.WEIXIN)
+        requests.get(tag)
         if user and code == int(vercode):
             user.openid=openid
             user.is_cert=True
@@ -162,6 +164,15 @@ def PhoneOrder(request):
         IllnessImage.objects.create(image=photo,patient=order)
     try:
         ModelMsg(order.id, 1, 1)
+        logger = logging.getLogger('smserr')  # 用来做短信日志的
+        try:
+            url = 'https://sh2.ipyy.com/sms.aspx?'
+            ands = requests.post(url, {"action": 'send', "userid": "", "account": "hxwl1088 ", "password": "hxwl108812","mobile": order.phone, "content": "【寻找天使之吻】您的预约申请已提交成功，请保持电话畅通，工作人员会尽快与您联系。","sendTime": "", "extno": ""})
+            ab = ands.content
+            request.session["code"] = n
+            logger.info(ab)
+        except:
+            logger.error("手机号:%s" % order.phone)
     except:
         return HttpResponse("模板消息发送失败，因为没有模板ID")
     return JsonResutResponse({'ret':0,'msg':'success'})

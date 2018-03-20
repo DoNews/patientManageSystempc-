@@ -312,7 +312,7 @@ def OrderUpdte(request):
         else:
             item[k] = user[k]
     order = Order.objects.filter(id=user['oid']).first()
-    saler = order.wanthospital.sales
+    saler = order.wanthospital.sales if order.wanthospital else None
     if saler:
         openid= saler.openid
     Order.objects.filter(id=user['oid']).update(**item)

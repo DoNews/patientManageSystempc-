@@ -173,7 +173,7 @@ def AccountSet(request):
 def StafManag(request):
     page=request.GET.get('page')
     user = ZJUser.objects.get(user=request.user)
-    users=SalesUser.objects.all().order_by('nextcalldate') #找的是员工
+    users=SalesUser.objects.all()
     result, contacts = Paging(users, page)
     lister = []
     for staff in contacts: #销售的要分页
@@ -190,7 +190,7 @@ def StafManag(request):
 #点击查看所有员工
 def StaffAll(request):
     page=request.GET['page']
-    staffs=SalesUser.objects.all().order_by('nextcalldate')
+    staffs=SalesUser.objects.all()
     result, contacts = Paging(staffs, page)
     lister=[]
     for staff in contacts:
@@ -206,7 +206,7 @@ def StaffAll(request):
 
 #所有客服
 def AccountAll(request):
-    staffs = ZJUser.objects.filter(usertype=1).order_by('nextcalldate')
+    staffs = ZJUser.objects.filter(usertype=1)
     return JsonResutResponse({'ret': 0, 'msg': 'success', 'lister': trenderc('control/accountitem.html', staffs)})
 #查看员工详情
 def StaffEditor(request):
