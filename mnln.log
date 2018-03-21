@@ -58,3 +58,4 @@ Traceback (most recent call last):
   File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
     if (eval(r.content)['errcode'] != 0):
 KeyError: 'errcode'
+INFO 2018-03-21 15:26:36,230 task 9332 2592 {"result":1,"msg":"发送成功"}
