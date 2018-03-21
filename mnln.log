@@ -58,4 +58,28 @@ Traceback (most recent call last):
   File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
     if (eval(r.content)['errcode'] != 0):
 KeyError: 'errcode'
-INFO 2018-03-21 15:26:36,230 task 9332 2592 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-20 16:51:55,375 task 13588 13320 datetime.datetime(2018, 3, 20, 16, 51, 55, 376000) is not JSON serializable
+Traceback (most recent call last):
+  File "D:\WeChat-power\Apoint\apoint\task.py", line 153, in IntegralChange
+    parm = {"wx": settings.WEIXIN, "data": json.dumps(sJson)}
+  File "C:\Python27\lib\json\__init__.py", line 244, in dumps
+    return _default_encoder.encode(obj)
+  File "C:\Python27\lib\json\encoder.py", line 207, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Python27\lib\json\encoder.py", line 270, in iterencode
+    return _iterencode(o, 0)
+  File "C:\Python27\lib\json\encoder.py", line 184, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: datetime.datetime(2018, 3, 20, 16, 51, 55, 376000) is not JSON serializable
+ERROR 2018-03-20 16:54:48,325 task 8444 16200 'errcode'
+Traceback (most recent call last):
+  File "D:\WeChat-power\Apoint\apoint\task.py", line 155, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+ERROR 2018-03-20 16:55:40,415 task 6404 1104 'errcode'
+Traceback (most recent call last):
+  File "D:\WeChat-power\Apoint\apoint\task.py", line 156, in IntegralChange
+    if (eval(r.content)['errcode'] != 0):
+KeyError: 'errcode'
+INFO 2018-03-20 18:07:06,265 task 15920 15540 {"result":1,"msg":"发送成功"}
+INFO 2018-03-20 18:08:49,391 task 9920 8084 {"result":1,"msg":"发送成功"}

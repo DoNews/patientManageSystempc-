@@ -170,19 +170,16 @@ def CreateMiss(id, name, msgtype, started_time, equipment):  # equipment 1是手
     task_args = {'SentWhoId': id, 'MsgType': msgtype}
     out_time = started_time + settings.OUTDATE_ONEDAY  # 删除时间
     if equipment == 1:
-        if msgtype == 1:  # 预约前三天
-            name = "%s%s%s" % (name, id, u'手机短信前三天')
-            end_time = started_time - settings.OUTDATE_PERIOD
+        if msgtype == 1:  # 预约前一天
+            name = "%s%s%s" % (name, id, u'手机短信前一天')
+            end_time = started_time - settings.OUTDATE_ONEDAY + settings.OUTDATE_HOURS
         else:  # 预约当天8点
             name = "%s%s%s" % (name, id, u'手机短信当天八点')
             end_time = started_time + settings.OUTDATE_HOURS  # 当天加上8小时
     else:
-        # if msgtype == 2:  # 预约前三天
-        #     name = "%s%s%s" % (name, id, u'微信模板前三天') ##消失了
-        #     end_time = started_time - settings.OUTDATE_PERIOD
         if msgtype == 1:
             name = "%s%s%s" % (name, id, u'微信模板前一天')
-            end_time = started_time - settings.OUTDATE_ONEDAY
+            end_time = started_time - settings.OUTDATE_ONEDAY+ settings.OUTDATE_HOURS
         else:  # 预约当天8点
             name = "%s%s%s" % (name, id, u'微信模板当天八点')
             end_time = started_time + settings.OUTDATE_HOURS  # 当天加上8小时
@@ -193,20 +190,18 @@ def CreateMiss(id, name, msgtype, started_time, equipment):  # equipment 1是手
         'minute': end_time.minute,  # 分钟
     }
     if equipment == 1:
-        create_task(name, 'apoint.tasks.CeleTexting', task_args, crontab_time, out_time)
+        create_task(name, 'apoint.task.CeleTexting', task_args, crontab_time, out_time)
     else:
-        create_task(name, 'apoint.tasks.TimingModel', task_args, crontab_time, out_time)
+        create_task(name, 'apoint.task.TimingModel', task_args, crontab_time, out_time)
 
 
 # 这是为了定时发模板消息用的
 def CreateCelery(order):  #
     new = timezone.now()
-    if order.wantTime - settings.OUTDATE_ONEDAY > new:
+    if order.wantTime - settings.OUTDATE_HOURS > new:
         a = 2
-    elif order.wantTime - settings.OUTDATE_HOURS > new:
-        a = 1
     else:
-        a = 0
+        a = 1
     for b in range(a):  # 0是8小时，1是一天，2是3天
         CreateMiss(order.id, order.name, b, order.wantTime, 2)
 
@@ -214,11 +209,11 @@ def CreateCelery(order):  #
 # 这是定时发短信
 def CreateSMS(order):
     new = timezone.now()
-    if order.wantTime - settings.OUTDATE_PERIOD > new:
+    if order.wantTime - settings.OUTDATE_ONEDAY > new:
         a = 2
     else:
         a = 1
-    for b in range(a):  # 1是当天8点，2是3天
+    for b in range(a):  # 1是当天8点，2是1天
         CreateMiss(order.id, order.name, b, order.wantTime, 1)
 
 

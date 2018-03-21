@@ -14,22 +14,23 @@ from time import ctime, sleep
 @task
 def TimingModel(SentWhoId, MsgType):
     order = Order.objects.get(id=SentWhoId)  # 根据id 找到订单的id
+    try:
+        detail_url = order.wanthospital.link
+    except:
+        detail_url = ''
     if MsgType == 1:
         conten = u"尊敬的%s: 您的如下就诊预约就要到了，我们特别提醒您按时到院就诊" % order.name
     else:
-        conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"
-    detail_url = order.wanthospital.link
+        conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"%order.name
     first = conten
     template_id = settings.PATIENTS_MODE  # 模板id
     touser = order.openid  # 发送给谁
-    value1 = order.name,  # 预约患者
+    value1 = order.name # 预约患者
     value2 = order.wanthospital.name  # 医院名称
     value3 = order.wantTime.strftime('%Y-%m-%d')  # 活动日期
     value4 = order.get_status_display()
     t1 = threading.Thread(target=IntegralChange, args=(touser, template_id, detail_url, first, value1, value2, value3,value4))
     t1.start()
-    sleep(3)
-
 
 
 
@@ -154,7 +155,7 @@ def IntegralChange(touser, template_id, url, first, value1, value2, value3, valu
         url = 'http://wx.yuemia.com/wechat/sendtemp.ashx'
         parm = {"wx": settings.WEIXIN, "data": json.dumps(sJson)}
         r = requests.post(url, parm)
-        logger.info( r.content)
+        logger.info( '%s%s'%('value1',r.content))
     except Exception, e:
         logger.error(e, exc_info=True)
         return e.message
@@ -175,7 +176,7 @@ def CeleTexting(SentWhoId, MsgType):  # 订单id  和第几天
     r = requests.post(url, {"action": 'send', "userid": "", "account": "hxwl1088 ", "password": "hxwl108812","mobile": order.phone, "content": conten, "sendTime": "","extno": ""})
     print 'message:%s,,,%s' % (r.content, order.phone)
     logger = logging.getLogger('smserr')
-    logger.info(r)
+    logger.info("%s%s"%('给患者发短信',r))
     logging.error(r.content)
 
 
