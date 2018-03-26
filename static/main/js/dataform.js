@@ -89,9 +89,9 @@ $(".action").click(function () {
         }
 
     }
-    if(type=3){
-        $('.addBtn2').attr('disabled','true')
-    }
+    // if(type==3){
+    //     $('.addBtn2').attr('disabled','true')
+    // }
     submitUpdateData(type);
 });
 
