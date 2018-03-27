@@ -14,22 +14,23 @@ from time import ctime, sleep
 @task
 def TimingModel(SentWhoId, MsgType):
     order = Order.objects.get(id=SentWhoId)  # 根据id 找到订单的id
+    try:
+        detail_url = order.wanthospital.link
+    except:
+        detail_url = ''
     if MsgType == 1:
         conten = u"尊敬的%s: 您的如下就诊预约就要到了，我们特别提醒您按时到院就诊" % order.name
     else:
-        conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"
-    detail_url = order.wanthospital.link
+        conten = u"尊敬的%s: 您今天安排了如下就诊预约，我们特别提醒您按时到院就诊"%order.name
     first = conten
     template_id = settings.PATIENTS_MODE  # 模板id
     touser = order.openid  # 发送给谁
-    value1 = order.name,  # 预约患者
+    value1 = order.name # 预约患者
     value2 = order.wanthospital.name  # 医院名称
     value3 = order.wantTime.strftime('%Y-%m-%d')  # 活动日期
     value4 = order.get_status_display()
     t1 = threading.Thread(target=IntegralChange, args=(touser, template_id, detail_url, first, value1, value2, value3,value4))
     t1.start()
-    sleep(3)
-
 
 
 
@@ -51,7 +52,10 @@ def Transfer(SentWhoId,openid):
 def ModelMsg(SentWhoId, msgtype, Sendtype):
     if msgtype == 1:  # 为一的时候是给患者发
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
-        detail_url = order.wanthospital.link
+        try:
+            detail_url = order.wanthospital.link
+        except:
+            detail_url=''
         if Sendtype == 1:
             first = u"尊敬的%s:您的如下就诊预约已经提交，我们会尽快和您电话确认相关信息" % order.name
         elif Sendtype == 2:
@@ -59,21 +63,26 @@ def ModelMsg(SentWhoId, msgtype, Sendtype):
         else:
             first = u"尊敬的%s:您的如下就诊预约申请已经延期，感谢您的支持与配合" % order.name
         template_id = settings.PATIENTS_MODE  # 模板ID
+        try:
+            time=order.wantTime.strftime('%Y-%m-%d')
+        except:
+            time='2018-3-20'
         touser = order.openid  # 发送给谁
-        value1 = order.name,  # 预约患者
+        value1 = order.name  # 预约患者
         value2 = order.wanthospital.name  # 医院名称
-        value3 = order.wantTime.strftime('%Y-%m-%d')  # 就诊日期
+        value3 = time  # 就诊日期
         value4 = order.get_status_display()
+        print order.name
         IntegralChange(touser, template_id, detail_url, first, value1, value2, value3,value4)
     else:
         order = Order.objects.get(id=SentWhoId)  # 找到患者的订单
-        detail_url = u"http://order.yuemia.com/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
+        detail_url = u"http://yuyue.tianshizhiwen.org/static/MobileClient/Saler/PatientInfo.html?id=%s" % SentWhoId
         if not order.wanthospital.sales:
             return
         first = u"尊敬的%s:您所负责的医院有新患者确认了预约" % order.wanthospital.sales.name
         template_id = settings.SALES_MODE  # 模板ID
         touser = order.wanthospital.sales.openid  # 发送给谁
-        value1 = order.name,  # 预约患者
+        value1 = order.name # 预约患者
         value2 = order.wanthospital.name  # 医院名称
         value3 = order.wantTime.strftime('%Y-%m-%d ')  # 就诊日期
         value4 = order.get_status_display()
@@ -141,15 +150,13 @@ def IntegralChange(touser, template_id, url, first, value1, value2, value3, valu
                  'remark': {"value": u"点击详情查看情况"}
              },
              }
+    logger = logging.getLogger("tasks")
     try:
         url = 'http://wx.yuemia.com/wechat/sendtemp.ashx'
         parm = {"wx": settings.WEIXIN, "data": json.dumps(sJson)}
         r = requests.post(url, parm)
-        if (eval(r.content)['errcode'] != 0):
-            print eval(r.content)
-            return False
+        logger.info( '%s%s'%('value1',r.content))
     except Exception, e:
-        logger = logging.getLogger("tasks")
         logger.error(e, exc_info=True)
         return e.message
     return True
@@ -169,8 +176,9 @@ def CeleTexting(SentWhoId, MsgType):  # 订单id  和第几天
     r = requests.post(url, {"action": 'send', "userid": "", "account": "hxwl1088 ", "password": "hxwl108812","mobile": order.phone, "content": conten, "sendTime": "","extno": ""})
     print 'message:%s,,,%s' % (r.content, order.phone)
     logger = logging.getLogger('smserr')
-    logger.info(r)
+    logger.info("%s%s"%('给患者发短信',r))
     logging.error(r.content)
+
 
 
 @task

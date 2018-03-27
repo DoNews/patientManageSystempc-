@@ -58,3 +58,1514 @@ Traceback (most recent call last):
   File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 144, in IntegralChange
     if (eval(r.content)['errcode'] != 0):
 KeyError: 'errcode'
+INFO 2018-03-21 15:26:36,230 task 9332 2592 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:30:21,562 task 11232 2832 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:30:24,673 task 11232 10404 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:30:24,957 task 11232 10356 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:31:11,849 task 11232 7520 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:31:33,496 task 11232 4624 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:32:01,960 task 11232 7576 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:32:02,313 task 11232 7576 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:32:02,963 task 11232 7576 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:32:03,296 task 11232 7576 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:34:41,421 task 11232 10544 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:35:27,095 task 11232 10232 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:36:57,992 task 11232 9364 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:38:11,088 task 11232 10912 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:38:11,604 task 11232 10912 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:38:12,269 task 11232 10912 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:38:12,668 task 11232 10912 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:49:39,023 task 11232 4024 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:49:39,513 task 11232 4024 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:49:39,924 task 11232 4024 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:49:40,642 task 11232 4024 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 17:54:54,793 task 11232 8940 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:55:36,753 task 11232 5004 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:55:37,138 task 11232 5004 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:55:37,516 task 11232 5004 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:55:37,891 task 11232 5004 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:57:22,095 task 11232 11000 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:57:22,522 task 11232 11000 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:57:22,947 task 11232 11000 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:57:23,680 task 11232 11000 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:57:44,130 task 11232 10672 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:57:44,476 task 11232 10672 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:57:44,825 task 11232 10672 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:57:45,158 task 11232 10672 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:58:38,414 task 11232 8472 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:58:38,799 task 11232 8472 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:58:39,187 task 11232 8472 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:58:39,582 task 11232 8472 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:59:07,265 task 11232 3228 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:59:07,674 task 11232 3228 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:59:08,115 task 11232 3228 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:59:08,509 task 11232 3228 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 17:59:30,232 task 11232 9268 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:59:30,617 task 11232 9268 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 17:59:30,996 task 11232 9268 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 17:59:31,332 task 11232 9268 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 18:03:37,190 task 11232 5552 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 18:04:24,999 task 11232 10492 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 18:04:25,447 task 11232 10492 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 18:04:25,901 task 11232 10492 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 18:04:26,319 task 11232 10492 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 18:06:12,888 task 11232 10084 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 18:08:29,859 task 11232 4632 {"result":1,"msg":"发送成功"}
+ERROR 2018-03-21 18:08:45,698 task 11232 7544 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe6\x89\x8b\xe6\x9c\xba\xe7\x9f\xad\xe4\xbf\xa1\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 18:08:46,114 task 11232 7544 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\xbd\x93\xe5\xa4\xa9\xe5\x85\xab\xe7\x82\xb9' for key 'name'")
+ERROR 2018-03-21 18:08:46,519 task 11232 7544 (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Desktop\Apoint\apoint\task.py", line 201, in create_task
+    task, created = celery_models.PeriodicTask.objects.get_or_create(name=name, task=task)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 467, in get_or_create
+    return self._create_object_from_params(lookup, params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 507, in _create_object_from_params
+    six.reraise(*exc_info)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 499, in _create_object_from_params
+    obj = self.create(**params)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 401, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\djcelery\models.py", line 281, in save
+    super(PeriodicTask, self).save(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 708, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 736, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 820, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 859, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 122, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1039, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1060, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 95, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\mysql\base.py", line 112, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Python27\lib\site-packages\MySQLdb\cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "C:\Python27\lib\site-packages\MySQLdb\connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (1062, "Duplicate entry '\xe5\x91\xb5\xe5\x91\xb556\xe5\xbe\xae\xe4\xbf\xa1\xe6\xa8\xa1\xe6\x9d\xbf\xe5\x89\x8d\xe4\xb8\x80\xe5\xa4\xa9' for key 'name'")
+INFO 2018-03-21 18:08:46,836 task 11232 7544 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 18:10:56,477 task 11232 8220 {"result":1,"msg":"发送成功"}
+INFO 2018-03-21 18:16:46,696 task 11232 6212 {"result":1,"msg":"发送成功"}

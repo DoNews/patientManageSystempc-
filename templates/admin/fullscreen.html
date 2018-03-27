@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>大屏幕投票</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #EEF3FA;
+        }
+        .headerTitle {
+            height: 70px;
+            width: 80%;
+            background: #fff;
+            line-height: 70px;
+            box-sizing: border-box;
+            margin: 90px auto 10px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            padding: 0 15px;
+            font-size: 25px;
+        }
+        .questionTitle {
+            color: #57c470;
+        }
+        .questionCon {
+            font-weight: 600;
+        }
+        .joinPeople {
+            float: right;
+            margin-right: 10%;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .peopleNum {
+            font-size: 25px;
+            color: #57c470;
+            font-weight: 100;
+        }
+        .conBox {
+            background-color: #fff;
+            border-radius: 10px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .guanggao {
+            background-color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+            height: 70px;
+            line-height: 70px;
+            box-sizing: border-box;
+            padding: 0 0 0 50px;
+            width: 100%;
+            margin: 0 auto;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        #chart1 {
+            width: 100%;
+            height: 600px;
+        }
+        .qrcode {
+            float:right;
+            /* display: inline-block; */
+            width: 70px;
+            height: 70px;
+            border-bottom-left-radius: 100px;
+        }
+
+        .qrcode:hover {
+            transition: All 0.4s ease-in-out;
+            -webkit-transition: All 0.4s ease-in-out;
+            -moz-transition: All 0.4s ease-in-out;
+            -o-transition: All 0.4s ease-in-out;
+        }
+
+        .qrcode:hover {
+            transform: scale(3);
+            -webkit-transform: scale(3);
+            -moz-transform: scale(3);
+            -o-transform: scale(3);
+            -ms-transform: scale(3);
+        }
+        .qrcode{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        .tran{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            border:35px solid rgba(0,0,0,.4);
+            border-right-color: transparent;
+            border-top-color:transparent;
+        }
+    </style>
+    <header>
+        <div class="headerTitle">
+            <span class="questionTitle">Q:</span>
+            <span class="questionCon">{{con}}射雕英雄传当中谁的武功最高</span>
+            <span class="joinPeople">共
+                <span class="peopleNum">3306{{num}}</span>人参加</span>
+        </div>
+    </header>
+    <div class="conBox">
+        <div class="guanggao">微信关注"英雄排行榜" ,发送"我要参与"即可关注
+            <div style="position:relative;">
+                    <span class="qrcode">
+                        <img src="/static/main/img/code.jpg" alt="" width="100%">
+                    </span>
+                    <span class="tran"></span>
+            </div>
+
+        </div>
+        <div id="chart1"></div>
+    </div>
+    <script type="text/javascript" src="/static/main/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/main/js/echarts.common.min.js"></script>
+    <script type="text/javascript">
+         $.ajax({
+             url: "http://hhuang.yuemia.com/api/hope/screenvote/?id=3",
+             type: "POST",
+             dataType: "json",
+             data: {
+//                 "sid": getParam("id")
+             },
+             success: function (data) {
+
+                 if (data.result == 1) {
+                     alert(1111)
+                 } else {
+
+                 }
+
+             }
+         })
+        var model = echarts.init(document.getElementById("chart1"))
+        option = {
+            color: ['#46d2AE'],
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [{
+                type: 'category',
+                data: ['路西法', '吴承恩', '南帝北丐', '东邪西毒', '欧阳建南', '轻功水上漂', '无敌旋风腿', '人约黄昏后', '张无忌', '天山童姥'],
+                axisTick: {
+                    alignWithLabel: true
+                },
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                axisLabel: {
+                    interVal: 0,
+                    formatter: function (val) {
+                        var strs = val.split(''); //字符串数组
+                        var str = ''
+                        for (var i = 0, s; s = strs[i++];) { //遍历字符串数组
+                            str += s;
+                            if (!(i % 3)) str += '\n';
+                        }
+                        return str
+                    }
+                }
+            }],
+            yAxis: [{
+                type: 'value',
+                axisLabel: {
+                    show: true,
+                    // formatter: function (value, index) {
+                    //     return value.toFixed(2);
+                    // }
+                    // formatter: '{value} %'
+                },
+                axisLine: {
+                    onZero: true
+                },
+            }],
+            series: [{
+                type: 'bar',
+                barWidth: '60%',
+                min: 0,
+                max: 100,
+                data: [1198, 2288, 3377, 1174, 4472, 2268, 3464, 7863, 9945, 3023],
+                formatter: function (value, index) {
+                    return value.toFixed(2);
+                },
+                itemStyle: {
+                    normal: {
+
+                        label: {
+                            show: true,
+                            position: "top",
+                            formatter:'{c} 人'
+                        },
+                         color: function (pramas) {
+                            var colorList = ['#f7b85b','#ff9672','#e5323e','#5a80fb','#ff7f94','#3ad7a5','#83b4fb','#f7b85b','#ff9672','#e5323e'];
+                            return colorList[pramas.dataIndex]
+                         }
+                    }
+                }
+            }]
+        };
+        model.setOption(option)
+    </script>
+</body>
+</html>

@@ -89,6 +89,9 @@ $(".action").click(function () {
         }
 
     }
+    // if(type==3){
+    //     $('.addBtn2').attr('disabled','true')
+    // }
     submitUpdateData(type);
 });
 
@@ -129,23 +132,24 @@ function initFolowData(stype) {
 }
 
 function submit(surl) {
-    $.ajax({
-        url: surl,
-        type: "POST",
-        dataType: "json",
-        data: postData,
-        success: function (data) {
-            // console.log(data)
-            // window.parent.location.reload();
-            parent.layer.closeAll();
-            parent.layer.msg('操作成功');
-            parent.parent.isneedreload=true
-        }
-    })
+var mask = parent.layer.load(1,{shade:[0.3, '#393D49']})
+        $.ajax({
+            url: surl,
+            type: "POST",
+            dataType: "json",
+            data: postData,
+            success: function (data) {
+                // console.log(data)
+                // window.parent.location.reload();
+                parent.layer.close(mask);
+                parent.layer.closeAll();
+                parent.layer.msg('操作成功');
+                parent.parent.isneedreload = true
+            }
+        })
 }
 
 function submitUpdateData(stype) {
-
     initFolowData(stype)
     initUserData()
     submit("/orderupdate")
