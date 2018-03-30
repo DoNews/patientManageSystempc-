@@ -379,23 +379,25 @@ def AddHosp(request):
     hid = request.POST.get("id",False)
     hosps = json.loads(hosp)
     item={}
+    hosper=Hospital.objects.filter(id=hid)
     for hos in hosps:
         if hos=='area_id':
-            area=Area.objects.get(id=hosps[hos])
+            try:
+                area=Area.objects.get(id=hosps[hos])
+            except:
+                area=''
             item['province']=area
         elif hos=='sales_id':
-            sales=SalesUser.objects.get(id=hosps[hos])
+            try:
+                sales=SalesUser.objects.get(id=hosps[hos])
+            except:
+                sales=''
             item['sales']=sales
         elif hos=='name':
-            hosper = Hospital.objects.filter(name=hosps[hos])
-            if hosper:
-                pass
-            else:
                 item[hos]=hosps[hos]
         else:
             item[hos]=hosps[hos]
-    if hid:
-        print item
+    if hosper:
         hosper.update(**item)
     else:
         Hospital.objects.create(**item)
