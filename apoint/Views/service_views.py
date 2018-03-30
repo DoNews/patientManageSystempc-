@@ -338,7 +338,7 @@ def AllNoservit(request):
             'name':noser.name,
             'phone':noser.phone,#手机号
             'custome': noser.custome.name if noser.custome else "",  # 负责客服
-            'sales': noser.wanthospital.sales.name,  # 负责销售
+            'sales': noser.wanthospital.sales.name if noser.wanthospital.sales else '',  # 负责销售
             'order':order,#和他姓名一样的
         }
         lister.append(data)
@@ -394,7 +394,7 @@ def AddHosp(request):
                 item[hos]=hosps[hos]
         else:
             item[hos]=hosps[hos]
-    if hosper:
+    if hid:
         print item
         hosper.update(**item)
     else:

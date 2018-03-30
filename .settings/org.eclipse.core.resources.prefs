@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//Apointment/settings.py=utf-8
+encoding//apoint/Views/service_views.py=utf8
+encoding//apoint/Views/view_admin.py=utf8
+encoding//apoint/Views/view_user.py=utf8
+encoding//apoint/Views/view_wx.py=utf8
+encoding//apoint/common.py=utf-8
+encoding//apoint/urls/url_account.py=utf8
+encoding//apoint/urls/wx_urls.py=utf-8

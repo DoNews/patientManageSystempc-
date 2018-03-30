@@ -3,7 +3,7 @@ from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from django.contrib.auth import authenticate
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin,BaseUserManager,UserManager,User
-from apoint.models import ZJUser
+from apoint.models import ZJUser,Area
 def userlogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -25,6 +25,7 @@ def userlogin(request):
             return HttpResponse('{"result":0}')
     else:
         return render(request,"login.html")
+
     return render(request, "login.html")
 
 def createUser(request):

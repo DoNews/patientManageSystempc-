@@ -10,3 +10,4 @@ requirements.txt
 readme.html
 *.log
 mnln.log
+.vscode
