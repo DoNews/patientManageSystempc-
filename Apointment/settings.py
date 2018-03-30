@@ -196,6 +196,13 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 5,
             'backupCount': 5,
             'formatter': 'verbose',},
+        'chuanshu': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': BASE_DIR + '/shu.log',
+            'maxBytes': 1024 * 1024 * 5,
+            'backupCount': 5,
+            'formatter': 'verbose', },
     },
     'loggers': {
         'tasks': {
@@ -205,6 +212,11 @@ LOGGING = {
         },
         'smserr': {
             'handlers': ['smserror'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+        'shuju': {
+            'handlers': ['chuanshu'],
             'level': 'DEBUG',
             'propagate': True
         },

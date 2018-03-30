@@ -194,12 +194,19 @@ def StaffAll(request):
     result, contacts = Paging(staffs, page)
     lister=[]
     for staff in contacts:
+        hosps = Hospital.objects.filter(sales=staff)
+        citys = ''
+        for h in hosps:
+            if h.province:
+                if citys.find(h.province.name) > -1:
+                    continue
+                citys = citys + h.province.name + " "
         data={
             'id':staff.id,
             'name':staff.name,
             'phone':staff.phone,
             'is_cert':staff.is_cert,#绑定状态
-            'city':staff.city,
+            'city':citys,
         }
         lister.append(data)
     return JsonResutResponse({'ret':0,'msg':'success','lister':trenderc('control/saleritem.html',lister),'all':staffs.count(),'result':result})

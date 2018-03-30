@@ -202,7 +202,7 @@ def CreateCelery(order):  #
         a = 2
     else:
         a = 1
-    for b in range(a):  # 0是8小时，1是一天，2是3天
+    for b in range(a):  # 1是8小时，2是一天
         CreateMiss(order.id, order.name, b, order.wantTime, 2)
 
 
