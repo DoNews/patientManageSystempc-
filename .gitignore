@@ -11,3 +11,4 @@ readme.html
 *.log
 mnln.log
 .vscode
+.settings
