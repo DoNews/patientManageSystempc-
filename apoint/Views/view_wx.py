@@ -37,7 +37,7 @@ def StaffCation(request):
         return JsonResutResponse({"ret": -1, "msg": u"你已经认证过"})
     else:
         user = SalesUser.objects.filter(name=realname, phone=telephone,).first()
-        tag = "http://wx.yuemia.com/wechat/settag.ashx?openid=%s&wx=%s&tag=员工" % (openid, settings.WEIXIN)
+        tag = "http://wx.yuemia.com/wechat/settag.ashx?openid=%s&wx=%s&tag=销售" % (openid, settings.WEIXIN)
         requests.get(tag)
         if user and code == int(vercode):
             user.openid=openid
@@ -245,6 +245,8 @@ def Hospitaltable(request):
 #给第三方使用的接口 #状态 改成已治疗
 def ThirdParty(request):
     data=request.POST['data']
+    logger = logging.getLogger('shuju')  # 用来做短信日志的
+    logger.info(request.POST)
     users=json.loads(data)
     try:
         for user in users:
